@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5feeecc50abc4e4ab62d72fb59f987b, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::Card
+  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  ressource: 1
+  amount: 1

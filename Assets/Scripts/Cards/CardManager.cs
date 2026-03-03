@@ -1,14 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CardManager : MonoBehaviour
 {
+    #region singleton
+    public static CardManager instance;
+
+    public static UnityEvent<Card> OnDraw = new UnityEvent<Card>();
+    public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    #endregion
     [Header("variables")]
     public int HandSize;
     [Header("listen")]
     public List<Card> deck = new List<Card>(10);
     public List<Card> hand;
     public List<Card> discardedCards;
+
+
+    
     public void ShuffleDeck()
     {
         List<Card> newDeck = new List<Card>();
@@ -21,8 +44,6 @@ public class CardManager : MonoBehaviour
         deck = newDeck;
     }
 
- 
-
     public void DrawCards(int count)
     {
         for(int i = 0; i < count; i++)
@@ -31,7 +52,6 @@ public class CardManager : MonoBehaviour
         }
     }
 
-
     public void DrawCard(int index = 0)
     {
 
@@ -39,6 +59,7 @@ public class CardManager : MonoBehaviour
         {
             index = Mathf.Clamp(index, 0, deck.Count - 1);
             hand.Add(deck[index]);
+            OnDraw.Invoke(deck[index]);
             deck.RemoveAt(index);
         }
         else
@@ -63,6 +84,7 @@ public class CardManager : MonoBehaviour
         if(index<hand.Count && index >= 0)
         {
             discardedCards.Add(hand[index]);
+            OnDiscard.Invoke(hand[index]);
             hand.RemoveAt(index);
         }
     }
@@ -71,6 +93,7 @@ public class CardManager : MonoBehaviour
         if (hand.Contains(card))
         {
             discardedCards.Add(card);
+            OnDiscard.Invoke(card);
             hand.Remove(card);
         }
     }
@@ -78,6 +101,10 @@ public class CardManager : MonoBehaviour
     public void DiscardHand()
     {
         discardedCards.AddRange(hand);
+        foreach(Card c in hand)
+        {
+            OnDiscard.Invoke(c);
+        }
         hand.Clear();
     }
 
