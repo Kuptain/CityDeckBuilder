@@ -5,12 +5,14 @@ public class Handslot : MonoBehaviour
 {
     public Card card;
     public Image image;
+    public bool selected;
 
     public void Setup(Card _card)
     {
         if (_card != null) 
         {
             image.sprite = _card.sprite;
+            image.color = Color.gray7;
             card = _card;
         }
         else
@@ -19,9 +21,30 @@ public class Handslot : MonoBehaviour
             image.sprite = null;
         }
     }
+    public void TryToSelect()
+    {
+        if (selected)
+        {
+            Deselect();
+        }
+        else
+        {
+            Select();
+        }
+    }
+
 
     public void Select()
     {
+        RessourceManager.instance.GetRessources(card.ressource, card.amount);
+        selected = true;
+        image.color = Color.white;
+    }
 
+    public void Deselect()
+    {
+        RessourceManager.instance.TryToSpendRessource(card.ressource, card.amount);
+        selected = false;
+        image.color = Color.gray7;
     }
 }

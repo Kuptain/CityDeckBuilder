@@ -4,11 +4,11 @@ using UnityEngine;
 public class Card : ScriptableObject
 {
     public Sprite sprite;
-    public Ressource ressource;
+    public RessourceType ressource;
     public int amount;
 }
 
-public enum Ressource
+public enum RessourceType
 {
     none = 0,
     wood = 1,

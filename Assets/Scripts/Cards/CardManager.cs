@@ -31,7 +31,13 @@ public class CardManager : MonoBehaviour
     public List<Card> discardedCards;
 
 
-    
+    public void EndTurn()
+    {
+        DiscardHand();
+        DrawCards(HandSize);
+    }
+
+
     public void ShuffleDeck()
     {
         List<Card> newDeck = new List<Card>();
