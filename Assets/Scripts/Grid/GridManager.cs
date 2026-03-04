@@ -17,7 +17,6 @@ public class GridManager : MonoBehaviour
     public Tile[] gridArray;
 
     public Tile gridNullTile { get; set; }
-    public Dictionary<int, GameObject> spawnedBuildings = new Dictionary<int, GameObject>();
 
     public static GridManager Instance { get; private set; }
     private void Awake()
@@ -190,6 +189,47 @@ public class GridManager : MonoBehaviour
 
         Vector3 worldPos = new Vector3(gridPosition.x * _tileSize * TILE_SIZE_MULTIPLIER, 0, gridPosition.y * _tileSize + offsetHeight);
         return worldPos;
+    }
+    public Vector2Int WorldToGridPosition(Vector3 worldPosition)
+    {
+        int gridX = Mathf.RoundToInt(
+            worldPosition.x / (_tileSize * TILE_SIZE_MULTIPLIER)
+        );
+
+        // Determine if this column is offset
+        bool isOffset = gridArray[GetIndex(gridX, 0)].isOffset;
+        float offsetHeight = isOffset ? -_tileSize / 2f : 0f;
+
+        int gridY = Mathf.RoundToInt(
+            (worldPosition.z - offsetHeight) / _tileSize
+        );
+
+        return new Vector2Int(gridX, gridY);
+    }
+    public Vector3 SnapToGrid(Vector3 worldPosition, float snapStrength) // Chat GPT
+    {
+        snapStrength = Mathf.Clamp01(snapStrength);
+
+        // 1. Get grid position
+        Vector2Int gridPos = WorldToGridPosition(worldPosition);
+
+        // 2. Get tile center in world space
+        Vector3 tileCenter = GridToWorldPosition(gridPos);
+
+        // 3. Measure distance
+        float distance = Vector2.Distance(new Vector2(worldPosition.x, worldPosition.z), new Vector2(tileCenter.x, tileCenter.z));
+
+        // 4. Define max snap distance (half tile size works well)
+        float maxSnapDistance = _tileSize * 0.5f;
+
+        float allowedDistance = maxSnapDistance * snapStrength;
+
+        if (distance <= allowedDistance)
+        {
+            return tileCenter;
+        }
+
+        return worldPosition;
     }
     private (int colorID, bool isOffset) GetColorAndOffset(int x, int y)
     {
