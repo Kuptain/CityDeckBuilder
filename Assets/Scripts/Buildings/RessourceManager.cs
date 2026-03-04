@@ -20,6 +20,8 @@ public class RessourceManager : MonoBehaviour
     #endregion
     public List<Ressource> ressources = new List<Ressource>();
     public static UnityEvent<RessourceType> OnNotEnoughRessources = new UnityEvent<RessourceType>();
+    public static UnityEvent<Ressource> OneNewRessource = new UnityEvent<Ressource>();
+    public static UnityEvent OnRessourceschanged = new UnityEvent();
     public void GetRessources(RessourceType type, int amount)
     {
         foreach(Ressource r in ressources)
@@ -58,10 +60,12 @@ public class RessourceManager : MonoBehaviour
 
     Ressource AddNewRessource(RessourceType type)
     {
-        Ressource returnValue = new Ressource(type);
-        ressources.Add(returnValue);
-        return returnValue;
+        Ressource newRessource = new Ressource(type);
+        ressources.Add(newRessource);
+        return newRessource;
     }
+
+    
 }
 
 [System.Serializable]
@@ -70,8 +74,10 @@ public class Ressource
     public Ressource(RessourceType _type)
     {
         type = _type;
+        RessourceManager.OneNewRessource.Invoke(this);
     }
 
     public RessourceType type;
-    public int amount;
+    int _amount;
+    public int amount { get { return _amount; } set { _amount = value; RessourceManager.OnRessourceschanged.Invoke(); } }
 }

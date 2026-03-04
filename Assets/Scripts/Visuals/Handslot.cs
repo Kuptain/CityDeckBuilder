@@ -6,6 +6,22 @@ public class Handslot : MonoBehaviour
     public Card card;
     public Image image;
     public bool selected;
+    RectTransform rect;
+
+    private void Start()
+    {
+        rect = GetComponent<RectTransform>();
+    }
+
+    private void Update()
+    {
+        if (selected)
+        {
+
+            Move();
+        }
+    }
+
 
     public void Setup(Card _card)
     {
@@ -21,6 +37,13 @@ public class Handslot : MonoBehaviour
             image.sprite = null;
         }
     }
+    void Move()
+    {
+        Vector2 targetPosition = Input.mousePosition;
+        rect.position += Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed* Time.deltaTime);
+    }
+
+    #region selection
     public void TryToSelect()
     {
         if (selected)
@@ -47,4 +70,5 @@ public class Handslot : MonoBehaviour
         selected = false;
         image.color = Color.gray7;
     }
+    #endregion
 }

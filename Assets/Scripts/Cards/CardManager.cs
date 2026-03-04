@@ -7,12 +7,11 @@ public class CardManager : MonoBehaviour
     #region singleton
     public static CardManager instance;
 
-    public static UnityEvent<Card> OnDraw = new UnityEvent<Card>();
-    public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
 
+   
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -21,10 +20,22 @@ public class CardManager : MonoBehaviour
             Destroy(this);
         }
     }
-
     #endregion
+
+    #region events
+    public static UnityEvent<Card> OnDraw = new UnityEvent<Card>();
+    public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
+    #endregion
+
+
+    private void Start()
+    {
+
+        TurnManager.OnEndTurn.AddListener(EndTurn);
+    }
     [Header("variables")]
     public int HandSize;
+    public float cardSpeed = 5;
     [Header("listen")]
     public List<Card> deck = new List<Card>(10);
     public List<Card> hand;
