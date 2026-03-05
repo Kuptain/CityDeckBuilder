@@ -9,7 +9,9 @@ public class BuildingManager : MonoBehaviour
 {
     private GameObject previewBuilding;
 
-    [HideInInspector] public BuildingData selectedBuilding;
+    [SerializeField] Transform buildingsPanel;
+    [SerializeField] List<BuildingData> unlockedBuildings;
+    public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, GameObject> spawnedBuildings = new Dictionary<int, GameObject>(); // To save progress later
     public static BuildingManager Instance { get; private set; }
 
@@ -24,6 +26,13 @@ public class BuildingManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+    }
+    private void Start()
+    {
+        foreach(var building in unlockedBuildings)
+        {
+            Instantiate(building.uiButton, buildingsPanel);
         }
     }
     private void Update()

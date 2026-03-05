@@ -8,6 +8,7 @@ public class BuildingData : ScriptableObject
     public string buildingName;
     public string buildingDescription;
     public GameObject prefab;
+    public GameObject uiButton;
     public byte ID;
     public List<RessourceType> resourceCosts;
 }

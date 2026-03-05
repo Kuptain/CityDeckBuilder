@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5783925734884902087}
   m_Layer: 0
-  m_Name: Building_Test
+  m_Name: Building_purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 51a14283ca011c64a93b1cdfd068db9d, type: 2}
+      objectReference: {fileID: 2100000, guid: f88d47bbda62b5442ae2943dffe8fa11, type: 2}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Name
       value: msh_hexTle
@@ -238,7 +238,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 21758012fa1d70b43965b2a510779453, type: 2}
+      objectReference: {fileID: 2100000, guid: dc5c7cfa718fa3d4d82d872b751ac911, type: 2}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Name
       value: msh_hexTle

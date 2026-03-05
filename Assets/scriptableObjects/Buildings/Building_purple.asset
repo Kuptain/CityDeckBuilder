@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: Building_Test
+  m_Name: Building_purple
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Test
+  buildingName: Purple
   buildingDescription: Test
-  prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
-  preview: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
+  prefab: {fileID: 5122269274258173990, guid: ed032f3180b842646996c07faeb939f5, type: 3}
+  uiButton: {fileID: 495298549434245956, guid: d98fc1c3eb648ef46a3f0b68a6e7f3d7, type: 3}
   ID: 1
+  resourceCosts: 
