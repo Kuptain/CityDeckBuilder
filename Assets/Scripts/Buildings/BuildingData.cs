@@ -10,4 +10,5 @@ public class BuildingData : ScriptableObject
     public GameObject prefab;
     public byte ID;
     public List<RessourceType> resourceCosts;
+    public List<Card> cardsToAdd;
 }

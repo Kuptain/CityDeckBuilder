@@ -15,5 +15,5 @@ MonoBehaviour:
   buildingName: Test
   buildingDescription: Test
   prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
-  preview: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
   ID: 1
+  resourceCosts: 010000000100000002000000

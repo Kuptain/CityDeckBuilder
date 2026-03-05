@@ -24,7 +24,7 @@ public class UI_HandManager : MonoBehaviour
     {
         foreach (Handslot slot in slots)
         {
-            if(slot.card == card)
+            if (slot.card == card)
             {
                 Destroy(slot.gameObject);
                 slots.Remove(slot);

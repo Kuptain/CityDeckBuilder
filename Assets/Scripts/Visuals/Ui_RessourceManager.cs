@@ -16,10 +16,10 @@ public class Ui_RessourceManager : MonoBehaviour
         
     }
 
-    void CreateRessourceUI(Ressource ressource)
+    void CreateRessourceUI(RessourceType type)
     {
         GameObject gO = Instantiate(Ui_RessourcePrefab, UI_RessourceParent);
-        gO.GetComponent<Ui_Resssources>().ressource = ressource;
-        gO.transform.SetSiblingIndex((int)ressource.type-1);
+        gO.GetComponent<Ui_Resssource>().type = type;
+        gO.transform.SetSiblingIndex((int)type-1);
     }
 }

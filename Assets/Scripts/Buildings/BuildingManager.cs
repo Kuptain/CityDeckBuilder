@@ -56,7 +56,7 @@ public class BuildingManager : MonoBehaviour
 
                 if (raycastHit.isGround)
                 {
-                    if ((selectedBuilding.resourceCosts.Count > 0 && RessourceManager.instance.TryToSpendRessource(selectedBuilding.resourceCosts[0], 1))
+                    if ((selectedBuilding.resourceCosts.Count > 0 && RessourceManager.instance.TryToSpendRessource(selectedBuilding.resourceCosts))
                         || selectedBuilding.resourceCosts.Count == 0)
                     {
                         SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
@@ -110,13 +110,18 @@ public class BuildingManager : MonoBehaviour
     }
     private void SpawnBuildingPreview(BuildingData building)
     {
-        selectedBuilding = building;
+        if (RessourceManager.instance.IHaveEnoughRessources(building.resourceCosts))
+        {
+            selectedBuilding = building;
 
-        var raycastHit = GroundRaycast();
-        previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
-        previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
-        previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
+            var raycastHit = GroundRaycast();
+            previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
+            previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
+            previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
+
+   
 
     public void SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn)
     {
@@ -134,6 +139,7 @@ public class BuildingManager : MonoBehaviour
                 currentTile.currentBuilding = buildingToSpawn;
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), spawnedBuilding);
+               
 
                 foreach (Tile _tile in GridManager.Instance.GetTilesInRange(gridPosition, 0))
                 {
@@ -147,9 +153,15 @@ public class BuildingManager : MonoBehaviour
                         Debug.LogWarning($"No visual found for tile at {gridPosition}");
                     }
                 }
+
+                //Adding Cards
+                CardManager.instance.AddCardsToDeck(buildingToSpawn.cardsToAdd);
             }
         }
 
      
     }
+
+
+    
 }

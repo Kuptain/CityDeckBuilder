@@ -18,66 +18,106 @@ public class RessourceManager : MonoBehaviour
         }
     }
     #endregion
-    public List<Ressource> ressources = new List<Ressource>();
+    #region events
+    public static UnityEvent<RessourceType, int> OnRessourceSpend = new UnityEvent<RessourceType, int>();
+    public static UnityEvent<RessourceType, int> OnRessourceReceived = new UnityEvent<RessourceType, int>();
+    public static UnityEvent<RessourceType> OnRessourceNotDiscovered = new UnityEvent<RessourceType>();
     public static UnityEvent<RessourceType> OnNotEnoughRessources = new UnityEvent<RessourceType>();
-    public static UnityEvent<Ressource> OneNewRessource = new UnityEvent<Ressource>();
+    public static UnityEvent<RessourceType> OneNewRessource = new UnityEvent<RessourceType>();
     public static UnityEvent OnRessourceschanged = new UnityEvent();
+    #endregion
+    Dictionary<RessourceType, int> ressources = new Dictionary<RessourceType, int>();
+
     public void GetRessources(RessourceType type, int amount)
     {
-        foreach(Ressource r in ressources)
+        if (!ressources.ContainsKey(type))
         {
-            if ( r.type == type)
+            AddNewRessource(type);
+        }
+        ressources[type] += amount;
+
+    }
+    public void GetRessources(List<RessourceType> _ressources)
+    {
+        for (int i = _ressources.Count - 1; i >= 0; i--)
+        {
+            GetRessources(_ressources[i], 1);
+        }
+
+    }
+
+    public void RemoveRessources(List<RessourceType> _ressources)
+    {
+        for (int i = _ressources.Count - 1; i >= 0; i--)
+        {
+            if (ressources.ContainsKey(_ressources[i]))
             {
-                r.amount += amount;
-                return;
+                ressources[_ressources[i]] -= 1;
             }
         }
-        AddNewRessource(type).amount+=amount;
-
     }
 
-    public bool TryToSpendRessource(RessourceType type, int amount)
+    public void SpendRessources(List<RessourceType> _ressources)
     {
-        foreach (Ressource r in ressources)
+        for (int i = _ressources.Count - 1; i >= 0; i--)
         {
-            if (r.type == type)
+            if (ressources.ContainsKey(_ressources[i]))
             {
-                if (r.amount >= amount)
-                {
-                    r.amount -= amount;
-                    return true;
-                }
-                else
-                {
-                    OnNotEnoughRessources.Invoke(type);
-                    return false;
-                }
+                ressources[_ressources[i]] -= 1;
+                OnRessourceSpend.Invoke(_ressources[i],1);
             }
         }
-        return false;
     }
 
-
-    Ressource AddNewRessource(RessourceType type)
+    public bool IHaveEnoughRessources(List<RessourceType> cost)
     {
-        Ressource newRessource = new Ressource(type);
-        ressources.Add(newRessource);
-        return newRessource;
+        Dictionary<RessourceType, int> sumOfCost = new Dictionary<RessourceType, int>();
+        for (int i = 0; i < cost.Count; i++)
+        {
+            sumOfCost.TryAdd(cost[i], 0);
+            sumOfCost[cost[i]] += 1;
+        }
+        foreach (RessourceType key in sumOfCost.Keys)
+        {
+            if (!ressources.ContainsKey(key) || sumOfCost[key] > ressources[key])
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
-    
+    public bool TryToSpendRessource(List<RessourceType> cost)
+    {
+
+        if (IHaveEnoughRessources(cost))
+        {
+            SpendRessources(cost);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int getRessourceCount(RessourceType type)
+    {
+        if (!ressources.ContainsKey(type))
+        {
+            return 0;
+        }
+        else
+        {
+            return ressources[type];
+        }
+    }
+    void AddNewRessource(RessourceType type)
+    {
+        ressources.Add(type, 0);
+        OneNewRessource.Invoke(type);
+    }
+
+
 }
 
-[System.Serializable]
-public class Ressource
-{
-    public Ressource(RessourceType _type)
-    {
-        type = _type;
-        RessourceManager.OneNewRessource.Invoke(this);
-    }
-
-    public RessourceType type;
-    int _amount;
-    public int amount { get { return _amount; } set { _amount = value; RessourceManager.OnRessourceschanged.Invoke(); } }
-}

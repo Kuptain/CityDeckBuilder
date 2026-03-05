@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
 public class Card : ScriptableObject
 {
+    [HideInInspector] public bool selected;
     public Sprite sprite;
-    public RessourceType ressource;
-    public int amount;
+    public List<RessourceType> ressources;
 }
 
 public enum RessourceType
