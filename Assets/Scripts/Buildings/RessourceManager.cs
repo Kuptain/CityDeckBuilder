@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,6 +28,12 @@ public class RessourceManager : MonoBehaviour
     public static UnityEvent OnRessourceschanged = new UnityEvent();
     #endregion
     Dictionary<RessourceType, int> ressources = new Dictionary<RessourceType, int>();
+
+    private void Start()
+    {
+        TurnManager.OnEndTurn.AddListener(LooseAllRessources);
+    }
+
 
     public void GetRessources(RessourceType type, int amount)
     {
@@ -68,6 +75,15 @@ public class RessourceManager : MonoBehaviour
             }
         }
     }
+
+    void LooseAllRessources()
+    {
+        foreach(var key in ressources.Keys.ToList())
+        {
+            ressources[key] = 0;
+        }
+    }
+
 
     public bool IHaveEnoughRessources(List<RessourceType> cost)
     {
