@@ -447,6 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   buildingsPanel: {fileID: 0}
   unlockedBuildings: []
+  previewBuildingSnapStrength: 0.5
 --- !u!1 &910976993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,8 +1145,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: 'deck.Array.data[7]'
-      value: 
+      propertyPath: deck.Array.size
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9088492645230061255, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_Name

@@ -14,5 +14,6 @@ public enum RessourceType
     none = 0,
     wood = 1,
     stone = 2,
-    gold = 3
+    gold = 3,
+    sheep = 4
 }

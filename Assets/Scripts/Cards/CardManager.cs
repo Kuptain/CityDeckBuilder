@@ -100,6 +100,7 @@ public class CardManager : MonoBehaviour
             {
                 index = Mathf.Clamp(index, 0, deck.Count - 1);
                 hand.Add(deck[index]);
+                OnDraw.Invoke(deck[index]);
                 deck.RemoveAt(index);
             }
             else

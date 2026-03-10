@@ -52,5 +52,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
   hand: []
   discardedCards: []

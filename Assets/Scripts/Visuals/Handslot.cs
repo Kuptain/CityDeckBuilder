@@ -11,7 +11,7 @@ public class Handslot : MonoBehaviour
 
     private void Start()
     {
-        rect = GetComponent<RectTransform>();
+        rect = image.GetComponent<RectTransform>();
     }
 
     private void Update()
@@ -21,7 +21,7 @@ public class Handslot : MonoBehaviour
 
            Move();
         }
-        else if(startPosition!= Vector2.zero)
+        else 
         {
             Moveback();
         }
@@ -49,11 +49,11 @@ public class Handslot : MonoBehaviour
     }
     void Moveback()
     {
-        Vector2 targetPosition = startPosition;
-        rect.position = Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
-        if(Vector2.Distance(rect.position, startPosition) < 5)
+        Vector2 targetPosition = Vector2.zero;
+        rect.localPosition = Vector3.Lerp(rect.localPosition, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
+        if(Vector2.Distance(rect.localPosition,targetPosition) < 5)
         {
-            rect.position = startPosition;
+            rect.localPosition = targetPosition;
             startPosition = Vector2.zero;
         }
     }
