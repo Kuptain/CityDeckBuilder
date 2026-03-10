@@ -2,7 +2,7 @@ using Mono.Cecil;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ResourceDatabase", menuName = "Game/Resource Database")]
+[CreateAssetMenu(fileName = "ResourceDatabase", menuName = "Scriptable Objects/Resource Database")]
 public class ResourceDatabase : ScriptableObject
 {
     public List<ResourceEntry> resources = new List<ResourceEntry>();

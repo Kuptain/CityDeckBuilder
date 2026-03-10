@@ -67,7 +67,7 @@ public class BuildingManager : MonoBehaviour
 
                 if (raycastHit.isGround)
                 {
-                    if ((selectedBuilding.resourceCosts.Count > 0 && RessourceManager.instance.TryToSpendRessource(selectedBuilding.resourceCosts))
+                    if ((selectedBuilding.resourceCosts.Count > 0 && ResourceManager.instance.TryToSpendRessource(selectedBuilding.resourceCosts))
                         || selectedBuilding.resourceCosts.Count == 0)
                     {
                         SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
@@ -123,7 +123,7 @@ public class BuildingManager : MonoBehaviour
     }
     private void SpawnBuildingPreview(BuildingData building)
     {
-        if (RessourceManager.instance.IHaveEnoughRessources(building.resourceCosts))
+        if (ResourceManager.instance.IHaveEnoughRessources(building.resourceCosts))
         {
             selectedBuilding = building;
 

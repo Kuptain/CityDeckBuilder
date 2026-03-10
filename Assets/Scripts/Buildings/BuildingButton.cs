@@ -20,7 +20,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (RessourceManager.instance == null) return;
+        if (ResourceManager.instance == null) return;
 
         List<string> info = new List<string>
         {

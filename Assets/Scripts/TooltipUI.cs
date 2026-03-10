@@ -37,7 +37,7 @@ public class TooltipUI : MonoBehaviour
     }
     IEnumerator SubscribeToUpdateTooltip()
     {
-        while (RessourceManager.instance == null)
+        while (ResourceManager.instance == null)
         {
             yield return null;
         }
@@ -45,7 +45,7 @@ public class TooltipUI : MonoBehaviour
     }
     private void OnDestroy()
     {
-        if (RessourceManager.instance != null)
+        if (ResourceManager.instance != null)
         {
             //RessourceManager.instance.OnResourcesUpdated -= UpdateTooltip;
         }

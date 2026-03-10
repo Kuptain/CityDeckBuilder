@@ -7,7 +7,7 @@ public class Ui_RessourceManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        RessourceManager.OneNewRessource.AddListener(CreateRessourceUI);
+        ResourceManager.OneNewRessource.AddListener(CreateRessourceUI);
     }
 
     // Update is called once per frame

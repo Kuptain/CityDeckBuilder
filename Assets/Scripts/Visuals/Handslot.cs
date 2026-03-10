@@ -92,7 +92,7 @@ public class Handslot : MonoBehaviour
 
     void PlayCard()
     {
-        RessourceManager.instance.GetRessources(card.ressources);
+        ResourceManager.instance.GetRessources(card.ressources);
         CardManager.instance.DiscardCard(card);
     }
     #endregion
