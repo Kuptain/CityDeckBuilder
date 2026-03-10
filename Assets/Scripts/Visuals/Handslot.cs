@@ -5,8 +5,9 @@ public class Handslot : MonoBehaviour
 {
     public Card card;
     public Image image;
-    public bool selected;
     RectTransform rect;
+    bool selected;
+    Vector2 startPosition;
 
     private void Start()
     {
@@ -18,14 +19,18 @@ public class Handslot : MonoBehaviour
         if (selected)
         {
 
-            Move();
+           Move();
+        }
+        else if(startPosition!= Vector2.zero)
+        {
+            Moveback();
         }
     }
 
 
     public void Setup(Card _card)
     {
-        if (_card != null) 
+        if (_card != null)
         {
             image.sprite = _card.sprite;
             image.color = Color.gray7;
@@ -39,14 +44,24 @@ public class Handslot : MonoBehaviour
     }
     void Move()
     {
-        Vector2 targetPosition = Input.mousePosition;
-        rect.position += Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed* Time.deltaTime);
+        Vector2 targetPosition = Inputmanager.mousePosition;
+        rect.position = Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
+    }
+    void Moveback()
+    {
+        Vector2 targetPosition = startPosition;
+        rect.position = Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
+        if(Vector2.Distance(rect.position, startPosition) < 5)
+        {
+            rect.position = startPosition;
+            startPosition = Vector2.zero;
+        }
     }
 
     #region selection
     public void TryToSelect()
     {
-        if (selected)
+        if (card.selected)
         {
             Deselect();
         }
@@ -59,16 +74,26 @@ public class Handslot : MonoBehaviour
 
     public void Select()
     {
-        RessourceManager.instance.GetRessources(card.ressource, card.amount);
+        
         selected = true;
         image.color = Color.white;
+        startPosition = rect.position;
     }
 
     public void Deselect()
     {
-        RessourceManager.instance.TryToSpendRessource(card.ressource, card.amount);
         selected = false;
         image.color = Color.gray7;
+        if(rect.localPosition.y > 50)
+        {
+            PlayCard();
+        }
+    }
+
+    void PlayCard()
+    {
+        RessourceManager.instance.GetRessources(card.ressources);
+        CardManager.instance.DiscardCard(card);
     }
     #endregion
 }

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5feeecc50abc4e4ab62d72fb59f987b, type: 3}
-  m_Name: Stone
+  m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::Card
-  sprite: {fileID: 21300000, guid: f1004e2a1e68feb4ba69fbcf999f8617, type: 3}
-  ressource: 2
-  amount: 1
+  selected: 0
+  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  ressources: 01000000

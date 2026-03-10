@@ -8,7 +8,7 @@ public class CardManager : MonoBehaviour
     public static CardManager instance;
 
 
-   
+
     private void Awake()
     {
         if (instance == null)
@@ -30,7 +30,6 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-
         TurnManager.OnEndTurn.AddListener(EndTurn);
     }
     [Header("variables")]
@@ -48,11 +47,26 @@ public class CardManager : MonoBehaviour
         DrawCards(HandSize);
     }
 
+    public void AddCardsToDeck(List<Card> cards)
+    {
+        deck.AddRange(cards);
+    }
+
+    public void AddCardsToHand(List<Card> cards)
+    {
+        hand.AddRange(cards);
+    }
+
+    public void AddCardsToDiscard(List<Card> cards)
+    {
+        discardedCards.AddRange(cards);
+    }
+
 
     public void ShuffleDeck()
     {
         List<Card> newDeck = new List<Card>();
-        while ( deck.Count > 0)
+        while (deck.Count > 0)
         {
             int RandomIndex = Random.Range(0, deck.Count);
             newDeck.Add(deck[RandomIndex]);
@@ -63,7 +77,7 @@ public class CardManager : MonoBehaviour
 
     public void DrawCards(int count)
     {
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             DrawCard();
         }
@@ -98,7 +112,7 @@ public class CardManager : MonoBehaviour
 
     public void DiscardCard(int index = 0)
     {
-        if(index<hand.Count && index >= 0)
+        if (index < hand.Count && index >= 0)
         {
             discardedCards.Add(hand[index]);
             OnDiscard.Invoke(hand[index]);
@@ -118,7 +132,7 @@ public class CardManager : MonoBehaviour
     public void DiscardHand()
     {
         discardedCards.AddRange(hand);
-        foreach(Card c in hand)
+        foreach (Card c in hand)
         {
             OnDiscard.Invoke(c);
         }
@@ -167,4 +181,10 @@ public class CardManager : MonoBehaviour
         DiscardHand();
     }
     #endregion
+}
+public enum DeckType
+{
+    discardPile = 0,
+    DeckType = 1,
+    deck = 2
 }

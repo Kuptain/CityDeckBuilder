@@ -91,7 +91,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Handslot
   card: {fileID: 0}
   image: {fileID: 38633848304494212}
-  selected: 0
 --- !u!114 &1138923512293723333
 MonoBehaviour:
   m_ObjectHideFlags: 0

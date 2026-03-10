@@ -11,4 +11,5 @@ public class BuildingData : ScriptableObject
     public GameObject uiButton;
     public byte ID;
     public List<RessourceType> resourceCosts;
+    public List<Card> cardsToAdd;
 }
