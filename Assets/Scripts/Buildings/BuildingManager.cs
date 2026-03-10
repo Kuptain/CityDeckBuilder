@@ -11,6 +11,7 @@ public class BuildingManager : MonoBehaviour
 
     [SerializeField] Transform buildingsPanel;
     [SerializeField] List<BuildingData> unlockedBuildings;
+    [SerializeField] float previewBuildingSnapStrength = 0.5f;
     public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, GameObject> spawnedBuildings = new Dictionary<int, GameObject>(); // To save progress later
     public static BuildingManager Instance { get; private set; }
@@ -50,7 +51,8 @@ public class BuildingManager : MonoBehaviour
             {
                 if (raycastHit.isGround)
                 {
-                    previewBuilding.transform.position = Vector3.Lerp(previewBuilding.transform.position, GridManager.Instance.SnapToGrid(raycastHit.hitPosition, 0.55f), 0.6f);
+                    //previewBuilding.transform.position = Vector3.Lerp(previewBuilding.transform.position, GridManager.Instance.SnapToGrid(raycastHit.hitPosition, previewBuildingSnapStrength), 0.6f);
+                    previewBuilding.transform.position = Vector3.Lerp(previewBuilding.transform.position, raycastHit.hitTransform.position, 0.6f);
                 }
                 else
                 {
@@ -75,10 +77,11 @@ public class BuildingManager : MonoBehaviour
 
         }
     }
-    private (Vector3 hitPosition, bool isGround) GroundRaycast()
+    private (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
     {
         Vector3 hitPosition = new Vector3();
         bool isGround = false;
+        Transform hitTransform = null;
 
         int layer_maskGround = LayerMask.GetMask("Ground");
 
@@ -93,6 +96,7 @@ public class BuildingManager : MonoBehaviour
             {
                 hitPosition = hit.point;
                 isGround = true;
+                hitTransform = hit.collider.transform;
             }
         }
         else
@@ -106,7 +110,7 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        return (hitPosition, isGround);
+        return (hitPosition, isGround, hitTransform);
     }
     private void OnEnable()
     {

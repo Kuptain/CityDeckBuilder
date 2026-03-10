@@ -15,7 +15,6 @@ public class GridManager : MonoBehaviour
     private const float TILE_SIZE_MULTIPLIER = 0.87f;
     public enum TileDirection { top, rightTop, rightBottom, bottom, leftBottom, leftTop }
     public Tile[] gridArray;
-
     public Tile gridNullTile { get; set; }
 
     public static GridManager Instance { get; private set; }
