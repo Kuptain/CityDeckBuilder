@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RessourceSlotUI : MonoBehaviour
+public class ResourceSlotUI : MonoBehaviour
 {
     public Card type;
     public TMP_Text text;

@@ -19,16 +19,16 @@ public class RessourceManager : MonoBehaviour
     }
     #endregion
     #region events
-    public static UnityEvent<RessourceType, int> OnRessourceSpend = new UnityEvent<RessourceType, int>();
-    public static UnityEvent<RessourceType, int> OnRessourceReceived = new UnityEvent<RessourceType, int>();
-    public static UnityEvent<RessourceType> OnRessourceNotDiscovered = new UnityEvent<RessourceType>();
-    public static UnityEvent<RessourceType> OnNotEnoughRessources = new UnityEvent<RessourceType>();
-    public static UnityEvent<RessourceType> OneNewRessource = new UnityEvent<RessourceType>();
+    public static UnityEvent<ResourceType, int> OnRessourceSpend = new UnityEvent<ResourceType, int>();
+    public static UnityEvent<ResourceType, int> OnRessourceReceived = new UnityEvent<ResourceType, int>();
+    public static UnityEvent<ResourceType> OnRessourceNotDiscovered = new UnityEvent<ResourceType>();
+    public static UnityEvent<ResourceType> OnNotEnoughRessources = new UnityEvent<ResourceType>();
+    public static UnityEvent<ResourceType> OneNewRessource = new UnityEvent<ResourceType>();
     public static UnityEvent OnRessourceschanged = new UnityEvent();
     #endregion
-    Dictionary<RessourceType, int> ressources = new Dictionary<RessourceType, int>();
+    Dictionary<ResourceType, int> ressources = new Dictionary<ResourceType, int>();
 
-    public void GetRessources(RessourceType type, int amount)
+    public void GetRessources(ResourceType type, int amount)
     {
         if (!ressources.ContainsKey(type))
         {
@@ -37,7 +37,7 @@ public class RessourceManager : MonoBehaviour
         ressources[type] += amount;
 
     }
-    public void GetRessources(List<RessourceType> _ressources)
+    public void GetRessources(List<ResourceType> _ressources)
     {
         for (int i = _ressources.Count - 1; i >= 0; i--)
         {
@@ -46,7 +46,7 @@ public class RessourceManager : MonoBehaviour
 
     }
 
-    public void RemoveRessources(List<RessourceType> _ressources)
+    public void RemoveRessources(List<ResourceType> _ressources)
     {
         for (int i = _ressources.Count - 1; i >= 0; i--)
         {
@@ -57,7 +57,7 @@ public class RessourceManager : MonoBehaviour
         }
     }
 
-    public void SpendRessources(List<RessourceType> _ressources)
+    public void SpendRessources(List<ResourceType> _ressources)
     {
         for (int i = _ressources.Count - 1; i >= 0; i--)
         {
@@ -69,15 +69,15 @@ public class RessourceManager : MonoBehaviour
         }
     }
 
-    public bool IHaveEnoughRessources(List<RessourceType> cost)
+    public bool IHaveEnoughRessources(List<ResourceType> cost)
     {
-        Dictionary<RessourceType, int> sumOfCost = new Dictionary<RessourceType, int>();
+        Dictionary<ResourceType, int> sumOfCost = new Dictionary<ResourceType, int>();
         for (int i = 0; i < cost.Count; i++)
         {
             sumOfCost.TryAdd(cost[i], 0);
             sumOfCost[cost[i]] += 1;
         }
-        foreach (RessourceType key in sumOfCost.Keys)
+        foreach (ResourceType key in sumOfCost.Keys)
         {
             if (!ressources.ContainsKey(key) || sumOfCost[key] > ressources[key])
             {
@@ -87,7 +87,7 @@ public class RessourceManager : MonoBehaviour
         return true;
     }
 
-    public bool TryToSpendRessource(List<RessourceType> cost)
+    public bool TryToSpendRessource(List<ResourceType> cost)
     {
 
         if (IHaveEnoughRessources(cost))
@@ -101,7 +101,7 @@ public class RessourceManager : MonoBehaviour
         }
     }
 
-    public int getRessourceCount(RessourceType type)
+    public int getRessourceCount(ResourceType type)
     {
         if (!ressources.ContainsKey(type))
         {
@@ -112,7 +112,7 @@ public class RessourceManager : MonoBehaviour
             return ressources[type];
         }
     }
-    void AddNewRessource(RessourceType type)
+    void AddNewRessource(ResourceType type)
     {
         ressources.Add(type, 0);
         OneNewRessource.Invoke(type);

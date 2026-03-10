@@ -31,21 +31,22 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         };
 
         // // ####### Hover tooltip information, wip #######
-        /*
-        List<RessourceType> resourceTypes = new List<RessourceType>();
+        
+        List<ResourceType> resourceTypes = new List<ResourceType>();
         for (int i = 0; i < buildingData.resourceCosts.Count; i++)
         {
             resourceTypes.Add(buildingData.resourceCosts[i]);
         }
 
-        HoverTooltipUI.Instance.ShowTooltip(info, resourceTypes);
-        */
+        
+        TooltipUI.Instance.ShowTooltip(info, resourceTypes);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         // ####### Hover tooltip information, wip #######
         // #######
-        //HoverTooltipUI.Instance.HideTooltip(); 
+        TooltipUI.Instance.HideTooltip(); 
     }
 }

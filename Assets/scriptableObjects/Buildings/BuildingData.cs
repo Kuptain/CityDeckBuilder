@@ -10,6 +10,6 @@ public class BuildingData : ScriptableObject
     public GameObject prefab;
     public GameObject uiButton;
     public byte ID;
-    public List<RessourceType> resourceCosts;
+    public List<ResourceType> resourceCosts;
     public List<Card> cardsToAdd;
 }

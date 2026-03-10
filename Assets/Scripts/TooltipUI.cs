@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.InputSystem;
 using Mono.Cecil;
 using System.Resources;
 using UnityEditor.EditorTools;
@@ -11,22 +12,22 @@ public class TooltipUI : MonoBehaviour
 {
     public static TooltipUI Instance;
 
-    public RectTransform backgroundRectTransform;
-    public TextMeshProUGUI tooltipText;
-    public GameObject resourceIconSlotContainer;
-    public Vector2 padding = new Vector2(8, 8);
+    [SerializeField] private RectTransform backgroundRectTransform;
+    [SerializeField] private TextMeshProUGUI tooltipText;
+    [SerializeField] private GameObject resourceIconSlotContainer;
+    [SerializeField] private Vector2 padding = new Vector2(8, 8);
 
     private RectTransform _canvasRectTransform;
-    private RessourceSlotUI[] _iconSlots;
+    private ResourceSlotUI[] _iconSlots;
     int _tooltipActiveState = 0;
 
     private void Awake()
     {
         Instance = this;
-        _canvasRectTransform = transform.root.GetComponent<RectTransform>();
+        _canvasRectTransform = transform.parent.GetComponent<RectTransform>();
         HideTooltip();
         
-        _iconSlots = resourceIconSlotContainer.GetComponentsInChildren<RessourceSlotUI>(true);
+        _iconSlots = resourceIconSlotContainer.GetComponentsInChildren<ResourceSlotUI>(true);
         foreach (var slot in _iconSlots)
         {
             slot.gameObject.SetActive(false);
@@ -55,7 +56,7 @@ public class TooltipUI : MonoBehaviour
         Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _canvasRectTransform,
-            Input.mousePosition,
+            Mouse.current.position.ReadValue(),
             null,
             out anchoredPos);
         transform.localPosition = anchoredPos;
@@ -74,9 +75,9 @@ public class TooltipUI : MonoBehaviour
         }
     }
     List<string> _currentLines;
-    List<RessourceType> _currentResourceTypes;
+    List<ResourceType> _currentResourceTypes;
 
-    public void ShowTooltip(List<string> lines, List<RessourceType> resourceTypes)
+    public void ShowTooltip(List<string> lines, List<ResourceType> resourceTypes)
     {
         backgroundRectTransform.gameObject.SetActive(true);
         foreach (var slot in _iconSlots)
@@ -88,7 +89,7 @@ public class TooltipUI : MonoBehaviour
         _tooltipActiveState = 1;
         UpdateTooltip();
     }
-    public void UpdateTooltip()
+    public void UpdateTooltipOld()
     {
         if (_tooltipActiveState != 1) return; // 1 = Tooltip is active
         // Join lines with newline
@@ -106,9 +107,9 @@ public class TooltipUI : MonoBehaviour
         // Berechne neuen Spacing-Wert
         float spacingPerLine = 5f;
         float baseSpacing = 10f;
-        //float newSpacing = baseSpacing + (lineCount - 1) * spacingPerLine;
+        float newSpacing = baseSpacing + (lineCount - 1) * spacingPerLine;
         float textHeight = tooltipText.preferredHeight;
-        float newSpacing = textHeight * 0.5f;
+        //float newSpacing = textHeight * 0.5f;
 
         backgroundRectTransform.GetComponent<VerticalLayoutGroup>().spacing = newSpacing;
 
@@ -125,7 +126,39 @@ public class TooltipUI : MonoBehaviour
         */
         LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundRectTransform);
     }
+    public void UpdateTooltip()
+    {
+        if (_tooltipActiveState != 1) return;
 
+        tooltipText.text = string.Join("\n", _currentLines);
+
+        // Ensure TMP layout is updated
+        tooltipText.ForceMeshUpdate();
+
+        // Get preferred height only
+        float textHeight = tooltipText.preferredHeight;
+
+        Vector2 size = backgroundRectTransform.sizeDelta;
+
+        // Only modify height
+        size.y = textHeight + padding.y;
+
+        backgroundRectTransform.sizeDelta = size;
+
+        int lineCount = tooltipText.textInfo.lineCount;
+
+        float baseSpacing = 10f;
+        float spacingPerLine = 5f;
+        float newSpacing = baseSpacing + Mathf.Max(0, lineCount - 1) * spacingPerLine;
+
+        VerticalLayoutGroup layout = backgroundRectTransform.GetComponent<VerticalLayoutGroup>();
+        if (layout != null)
+        {
+            layout.spacing = newSpacing;
+        }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundRectTransform);
+    }
 
     public void HideTooltip()
     {

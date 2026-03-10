@@ -4,7 +4,7 @@ using TMPro;
 
 public class Ui_Resssource : MonoBehaviour
 {
-    public RessourceType type;
+    public ResourceType type;
     public TMP_Text textfield;
 
     private void Update()

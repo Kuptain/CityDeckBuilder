@@ -16,7 +16,7 @@ public class Ui_RessourceManager : MonoBehaviour
         
     }
 
-    void CreateRessourceUI(RessourceType type)
+    void CreateRessourceUI(ResourceType type)
     {
         GameObject gO = Instantiate(Ui_RessourcePrefab, UI_RessourceParent);
         gO.GetComponent<Ui_Resssource>().type = type;
