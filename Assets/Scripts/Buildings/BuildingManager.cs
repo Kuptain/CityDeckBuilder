@@ -164,7 +164,7 @@ public class BuildingManager : MonoBehaviour
                 }
 
                 //Adding Cards
-                CardManager.instance.AddCardsToDeck(buildingToSpawn.cardsToAdd);
+                CardManager.instance.AddCardsToDiscard(buildingToSpawn.cardsToAdd);
             }
         }
 

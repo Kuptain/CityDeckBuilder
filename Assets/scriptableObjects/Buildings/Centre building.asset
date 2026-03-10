@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: Building_green
+  m_Name: Centre building
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Market
-  buildingDescription: Test
-  prefab: {fileID: 5122269274258173990, guid: 2123b78c426a4a74baeca3b9aa3fd5fb, type: 3}
-  uiButton: {fileID: 495298549434245956, guid: e75921c821469054a8e1292552f4542c, type: 3}
-  ID: 1
-  resourceCosts: 010000000100000002000000
-  cardsToAdd:
-  - {fileID: 11400000, guid: 50933c0599b47bc4f940624b84f74b3c, type: 2}
+  buildingName: Castle
+  buildingDescription: 
+  prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
+  uiButton: {fileID: 0}
+  ID: 0
+  resourceCosts: 
+  cardsToAdd: []

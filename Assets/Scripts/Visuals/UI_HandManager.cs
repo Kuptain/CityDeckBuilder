@@ -6,6 +6,7 @@ public class UI_HandManager : MonoBehaviour
     public Transform HandParent;
     public GameObject HandSlotPrefab;
     public List<Handslot> slots = new List<Handslot>();
+    public bool mouseOverHand;
 
     private void Start()
     {
@@ -36,5 +37,10 @@ public class UI_HandManager : MonoBehaviour
     Handslot AddHandSlot()
     {
         return Instantiate(HandSlotPrefab, HandParent).GetComponent<Handslot>();
+    }
+
+    public void MouseOverHand(bool active)
+    {
+        mouseOverHand = active;
     }
 }

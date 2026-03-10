@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: Building_blue
+  m_Name: building blue
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Test
-  buildingDescription: Test
+  buildingName: Stonesmidth
+  buildingDescription: gets stone
   prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
-<<<<<<<< HEAD:Assets/scriptableObjects/Buildings/Building_Test.asset
-  ID: 1
-  resourceCosts: 010000000100000002000000
-========
   uiButton: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
-  ID: 1
-  resourceCosts: 
->>>>>>>> origin/main:Assets/scriptableObjects/Buildings/Building_blue.asset
+  ID: 0
+  resourceCosts: 0100000001000000
+  cardsToAdd:
+  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
+  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}

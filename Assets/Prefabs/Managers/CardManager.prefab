@@ -48,12 +48,6 @@ MonoBehaviour:
   cardSpeed: 25
   deck:
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
-  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
   - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
