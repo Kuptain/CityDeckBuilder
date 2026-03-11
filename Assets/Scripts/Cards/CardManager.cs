@@ -28,10 +28,7 @@ public class CardManager : MonoBehaviour
     #endregion
 
 
-    private void Start()
-    {
-        TurnManager.OnEndTurn.AddListener(EndTurn);
-    }
+
     [Header("variables")]
     public int HandSize;
     public float cardSpeed = 5;
@@ -39,12 +36,23 @@ public class CardManager : MonoBehaviour
     public List<Card> deck = new List<Card>(10);
     public List<Card> hand;
     public List<Card> discardedCards;
-
-
+    private void Start()
+    {
+        TurnManager.OnEndTurn.AddListener(EndTurn);
+        TurnManager.OnStartTurn.AddListener(StartTurn);
+    }
+    private void OnDestroy()
+    {
+        TurnManager.OnEndTurn.RemoveListener(EndTurn);
+        TurnManager.OnStartTurn.RemoveListener(StartTurn);
+    }
+    public void StartTurn()
+    {
+        DrawCards(HandSize);
+    }
     public void EndTurn()
     {
         DiscardHand();
-        DrawCards(HandSize);
     }
 
     public void AddCardsToDeck(List<Card> cards)

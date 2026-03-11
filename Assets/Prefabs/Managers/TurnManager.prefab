@@ -44,3 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0644a49c59daf48aafdcc68df8e3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
+  startingTurnCount: 8
+  startingPopulation: 1
+  populationPerTurn: 1
+  startingHousingCount: 10
