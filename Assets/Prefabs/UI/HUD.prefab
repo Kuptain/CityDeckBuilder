@@ -673,6 +673,7 @@ MonoBehaviour:
   tooltipText: {fileID: 7134900943662493574}
   resourceIconSlotContainer: {fileID: 3332386186308962415}
   padding: {x: 8, y: 8}
+  resourceDatabase: {fileID: 11400000, guid: 3bc5d2cd3c19f53489830cf2f5de7e91, type: 2}
 --- !u!1 &5770019086554441923
 GameObject:
   m_ObjectHideFlags: 0

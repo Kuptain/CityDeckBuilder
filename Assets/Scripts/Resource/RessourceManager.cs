@@ -44,34 +44,37 @@ public class ResourceManager : MonoBehaviour
         ressources[type] += amount;
 
     }
-    public void GetRessources(List<ResourceType> _ressources)
+    public void GetRessources(List<ResourceCost> _ressourceCosts)
     {
-        for (int i = _ressources.Count - 1; i >= 0; i--)
+        for (int i = _ressourceCosts.Count - 1; i >= 0; i--)
         {
-            GetRessources(_ressources[i], 1);
+            ResourceType type = _ressourceCosts[i].resource;
+            int amount = _ressourceCosts[i].amount;
+
+            GetRessources(type, amount);
         }
 
     }
 
-    public void RemoveRessources(List<ResourceType> _ressources)
+    public void RemoveRessources(List<ResourceCost> _ressources)
     {
         for (int i = _ressources.Count - 1; i >= 0; i--)
         {
-            if (ressources.ContainsKey(_ressources[i]))
+            if (ressources.ContainsKey(_ressources[i].resource))
             {
-                ressources[_ressources[i]] -= 1;
+                ressources[_ressources[i].resource] -= 1;
             }
         }
     }
 
-    public void SpendRessources(List<ResourceType> _ressources)
+    public void SpendRessources(List<ResourceCost> _ressources)
     {
         for (int i = _ressources.Count - 1; i >= 0; i--)
         {
-            if (ressources.ContainsKey(_ressources[i]))
+            if (ressources.ContainsKey(_ressources[i].resource))
             {
-                ressources[_ressources[i]] -= 1;
-                OnRessourceSpend.Invoke(_ressources[i],1);
+                ressources[_ressources[i].resource] -= _ressources[i].amount;
+                OnRessourceSpend.Invoke(_ressources[i].resource, _ressources[i].amount);
             }
         }
     }
@@ -85,13 +88,13 @@ public class ResourceManager : MonoBehaviour
     }
 
 
-    public bool IHaveEnoughRessources(List<ResourceType> cost)
+    public bool IHaveEnoughRessources(List<ResourceCost> cost)
     {
         Dictionary<ResourceType, int> sumOfCost = new Dictionary<ResourceType, int>();
         for (int i = 0; i < cost.Count; i++)
         {
-            sumOfCost.TryAdd(cost[i], 0);
-            sumOfCost[cost[i]] += 1;
+            sumOfCost.TryAdd(cost[i].resource, 0);
+            sumOfCost[cost[i].resource] += cost[i].amount;
         }
         foreach (ResourceType key in sumOfCost.Keys)
         {
@@ -103,7 +106,7 @@ public class ResourceManager : MonoBehaviour
         return true;
     }
 
-    public bool TryToSpendRessource(List<ResourceType> cost)
+    public bool TryToSpendRessource(List<ResourceCost> cost)
     {
 
         if (IHaveEnoughRessources(cost))
@@ -117,7 +120,7 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public int getRessourceCount(ResourceType type)
+    public int GetRessourceCount(ResourceType type)
     {
         if (!ressources.ContainsKey(type))
         {

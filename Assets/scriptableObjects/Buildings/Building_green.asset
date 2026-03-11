@@ -17,6 +17,10 @@ MonoBehaviour:
   prefab: {fileID: 5122269274258173990, guid: 2123b78c426a4a74baeca3b9aa3fd5fb, type: 3}
   uiButton: {fileID: 495298549434245956, guid: e75921c821469054a8e1292552f4542c, type: 3}
   ID: 1
-  resourceCosts: 010000000100000002000000
+  resourceCosts:
+  - resource: 1
+    amount: 1
+  - resource: 2
+    amount: 2
   cardsToAdd:
   - {fileID: 11400000, guid: 50933c0599b47bc4f940624b84f74b3c, type: 2}

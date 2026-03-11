@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::Card
   selected: 0
-  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  ressources: 01000000
+  sprite: {fileID: 21300000, guid: 838e2ab3e229cd647866f334340642dc, type: 3}
+  ressources:
+  - resource: 1
+    amount: 1

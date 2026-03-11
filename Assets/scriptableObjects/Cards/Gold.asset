@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Gold
   m_EditorClassIdentifier: Assembly-CSharp::Card
   selected: 0
-  sprite: {fileID: 0}
-  ressources: 03000000
+  sprite: {fileID: 21300000, guid: 383756eeffa5fb44795110fd4ff46882, type: 3}
+  ressources:
+  - resource: 3
+    amount: 1

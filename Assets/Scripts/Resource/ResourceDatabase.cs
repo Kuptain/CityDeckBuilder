@@ -33,17 +33,23 @@ public class ResourceDatabase : ScriptableObject
         return _iconLookup.TryGetValue(type, out var icon) ? icon : null;
     }
 }
-
-[System.Serializable]
-public class ResourceEntry
-{
-    public ResourceType type;
-    public Sprite icon;
-}
 public enum ResourceType
 {
     none = 0,
     wood = 1,
     stone = 2,
     gold = 3
+}
+[System.Serializable]
+public class ResourceEntry
+{
+    public ResourceType type;
+    public Sprite icon;
+}
+
+[System.Serializable]
+public class ResourceCost
+{
+    public ResourceType resource;
+    public int amount;
 }

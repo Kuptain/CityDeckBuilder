@@ -16,10 +16,13 @@ public class TooltipUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tooltipText;
     [SerializeField] private GameObject resourceIconSlotContainer;
     [SerializeField] private Vector2 padding = new Vector2(8, 8);
+    [SerializeField] private ResourceDatabase resourceDatabase;
 
+    private List<string> _currentLines;
+    private List<ResourceCost> _currentResourceCosts;
     private RectTransform _canvasRectTransform;
     private ResourceSlotUI[] _iconSlots;
-    int _tooltipActiveState = 0;
+    private int _tooltipActiveState = 0;
 
     private void Awake()
     {
@@ -74,10 +77,9 @@ public class TooltipUI : MonoBehaviour
                 break;
         }
     }
-    List<string> _currentLines;
-    List<ResourceType> _currentResourceTypes;
 
-    public void ShowTooltip(List<string> lines, List<ResourceType> resourceTypes)
+
+    public void ShowTooltip(List<string> lines, List<ResourceCost> resourceTypes)
     {
         backgroundRectTransform.gameObject.SetActive(true);
         foreach (var slot in _iconSlots)
@@ -85,47 +87,11 @@ public class TooltipUI : MonoBehaviour
             slot.gameObject.SetActive(false);
         }
         _currentLines = lines;
-        _currentResourceTypes = resourceTypes;
+        _currentResourceCosts = resourceTypes;
         _tooltipActiveState = 1;
         UpdateTooltip();
     }
-    public void UpdateTooltipOld()
-    {
-        if (_tooltipActiveState != 1) return; // 1 = Tooltip is active
-        // Join lines with newline
-        tooltipText.text = string.Join("\n", _currentLines);
-        Vector2 textSize = tooltipText.GetPreferredValues(tooltipText.text);
-        backgroundRectTransform.sizeDelta = textSize + padding;
 
-        int lineCount = tooltipText.textInfo.lineCount;
-        // Falls Zeilenanzahl nicht verfügbar, TextInfo updaten
-        if (lineCount == 0)
-        {
-            tooltipText.ForceMeshUpdate();
-            lineCount = tooltipText.textInfo.lineCount;
-        }
-        // Berechne neuen Spacing-Wert
-        float spacingPerLine = 5f;
-        float baseSpacing = 10f;
-        float newSpacing = baseSpacing + (lineCount - 1) * spacingPerLine;
-        float textHeight = tooltipText.preferredHeight;
-        //float newSpacing = textHeight * 0.5f;
-
-        backgroundRectTransform.GetComponent<VerticalLayoutGroup>().spacing = newSpacing;
-
-        /*
-        // Set resource icons
-        List<bool> hasResourcesList = RessourceManager.instance.HasResourcesAsList(RoomManager.Instance.localPlayer.playerID, _currentResourceTypes);
-        for (int i = 0; i < _currentResourceTypes.Count; i++)
-        {
-            RessourceSlotUI slot = _iconSlots[i];
-            slot.gameObject.SetActive(true);
-            slot.SetIcon(_currentResourceTypes[i]);
-            slot.SetGreyActive(!hasResourcesList[i]);
-        }
-        */
-        LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundRectTransform);
-    }
     public void UpdateTooltip()
     {
         if (_tooltipActiveState != 1) return;
@@ -155,6 +121,18 @@ public class TooltipUI : MonoBehaviour
         if (layout != null)
         {
             layout.spacing = newSpacing;
+        }
+
+        
+        // Set resource icons
+        //List<bool> hasResourcesList = ResourceManager.instance.HasResourcesAsList(RoomManager.Instance.localPlayer.playerID, _currentResourceTypes);
+        for (int i = 0; i < _currentResourceCosts.Count; i++)
+        {
+            ResourceSlotUI slot = _iconSlots[i];
+            slot.gameObject.SetActive(true);
+            slot.SetIcon(resourceDatabase.GetIcon(_currentResourceCosts[i].resource));
+            slot.text.text = _currentResourceCosts[i].amount.ToString();
+            //slot.SetGreyActive(!hasResourcesList[i]);
         }
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundRectTransform);

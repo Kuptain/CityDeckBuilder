@@ -6,5 +6,5 @@ public class Card : ScriptableObject
 {
     [HideInInspector] public bool selected;
     public Sprite sprite;
-    public List<ResourceType> ressources;
+    public List<ResourceCost> ressources;
 }

@@ -32,7 +32,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
 
         // // ####### Hover tooltip information, wip #######
         
-        List<ResourceType> resourceTypes = new List<ResourceType>();
+        List<ResourceCost> resourceTypes = new List<ResourceCost>();
         for (int i = 0; i < buildingData.resourceCosts.Count; i++)
         {
             resourceTypes.Add(buildingData.resourceCosts[i]);
