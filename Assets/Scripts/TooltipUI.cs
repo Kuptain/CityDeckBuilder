@@ -56,6 +56,7 @@ public class TooltipUI : MonoBehaviour
 
     void Update()
     {
+        /*
         Vector2 anchoredPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _canvasRectTransform,
@@ -63,6 +64,7 @@ public class TooltipUI : MonoBehaviour
             null,
             out anchoredPos);
         transform.localPosition = anchoredPos;
+        */
 
         switch (_tooltipActiveState)
         {
@@ -79,8 +81,9 @@ public class TooltipUI : MonoBehaviour
     }
 
 
-    public void ShowTooltip(List<string> lines, List<ResourceCost> resourceTypes)
+    public void ShowTooltip(List<string> lines, List<ResourceCost> resourceTypes, Vector3 position)
     {
+        transform.position = position;
         backgroundRectTransform.gameObject.SetActive(true);
         foreach (var slot in _iconSlots)
         {

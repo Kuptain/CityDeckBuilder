@@ -3,13 +3,25 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
 public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public static event System.Action<BuildingData> OnPressedBuildingUI;
-    public BuildingData buildingData;
 
+    [SerializeField] private Image icon;
+    private BuildingData buildingData;
+
+    public void ChangeIcon(Sprite sprite)
+    {
+        icon.sprite = sprite;
+    }
+    public void ChangeBuildingData(BuildingData data)
+    {
+        buildingData = data;
+        ChangeIcon(buildingData.uiIcon);
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         ChangeBuildingID(buildingData);
@@ -39,7 +51,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         }
 
         
-        TooltipUI.Instance.ShowTooltip(info, resourceTypes);
+        TooltipUI.Instance.ShowTooltip(info, resourceTypes, transform.position);
 
     }
 

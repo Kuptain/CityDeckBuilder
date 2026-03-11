@@ -5,12 +5,13 @@ using Mono.Cecil;
 [CreateAssetMenu(fileName = "NewBuildingData", menuName = "Scriptable Objects/Building Data")]
 public class BuildingData : ScriptableObject
 {
+    public byte ID;
     public string buildingName;
     public string buildingDescription;
-    public GameObject prefab;
-    public GameObject uiButton;
-    public byte ID;
-    public List<ResourceCost> resourceCosts;
     public List<Card> cardsToAdd;
+    public List<ResourceCost> resourceCosts;
+
+    public GameObject prefab;
+    public Sprite uiIcon;
 }
 
