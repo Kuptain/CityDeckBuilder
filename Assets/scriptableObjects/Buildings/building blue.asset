@@ -23,3 +23,18 @@ MonoBehaviour:
   cardsToAdd:
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
+  EffectCost:
+    resource: 0
+    amount: 0
+  OnBuild:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDrag:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndOfRound:
+    m_PersistentCalls:
+      m_Calls: []
