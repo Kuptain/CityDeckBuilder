@@ -7,16 +7,17 @@ using UnityEngine.InputSystem;
 
 public class BuildingManager : MonoBehaviour
 {
-    private GameObject previewBuilding;
 
-    [SerializeField] Transform buildingsPanel;
     [SerializeField] GameObject buildingButtonPrefab;
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] float previewBuildingSnapStrength = 0.5f;
     public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, GameObject> spawnedBuildings = new Dictionary<int, GameObject>(); // To save progress later
-    public static BuildingManager Instance { get; private set; }
 
+    private GameObject previewBuilding;
+    private Transform buildingsPanel;
+
+    public static BuildingManager Instance { get; private set; }
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,6 +33,7 @@ public class BuildingManager : MonoBehaviour
     }
     private void Start()
     {
+        buildingsPanel = HUD.Instance.panelBuildingButtons;
         foreach(var building in unlockedBuildings)
         {
             GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);

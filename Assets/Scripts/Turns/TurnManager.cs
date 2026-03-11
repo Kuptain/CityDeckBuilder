@@ -6,6 +6,13 @@ public class TurnManager : MonoBehaviour
     public static UnityEvent OnStartTurn = new UnityEvent();
     public static UnityEvent OnEndTurn = new UnityEvent();
 
+    [SerializeField] 
+    int currentTurn;
+
+    public void GetCurrentTurn()
+    {
+
+    }
 
     public void EndTurn()
     {
@@ -15,6 +22,7 @@ public class TurnManager : MonoBehaviour
     public void StarTurn() 
     {
         OnStartTurn.Invoke();
+        currentTurn += 1;
     }
 
 }
