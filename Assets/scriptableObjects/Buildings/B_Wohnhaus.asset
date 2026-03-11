@@ -10,17 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: Centre building
+  m_Name: B_Wohnhaus
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
-  buildingName: Castle
-  buildingDescription: 
+  buildingName: Wohnhaus
+  buildingDescription: increases Housing use stone to upgrade
   cardsToAdd: []
-  prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
+  housingIncrease: 0
+  prefab: {fileID: 0}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
-  resourceCosts: []
-  EffectCost: []
+  resourceCosts:
+  - resource: 1
+    amount: 2
+  EffectCost:
+  - resource: 2
+    amount: 1
   OnBuild:
     m_PersistentCalls:
       m_Calls: []
@@ -29,12 +34,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddRessources
-        m_Mode: 0
+        m_MethodName: IncreaseHousingValue
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

@@ -26,14 +26,21 @@ public class ResourceManager : MonoBehaviour
     public static UnityEvent<ResourceType> OnNotEnoughRessources = new UnityEvent<ResourceType>();
     public static UnityEvent<ResourceType> OneNewRessource = new UnityEvent<ResourceType>();
     public static UnityEvent OnRessourceschanged = new UnityEvent();
+    public static UnityEvent OnHousingChange = new UnityEvent();
     #endregion
     Dictionary<ResourceType, int> ressources = new Dictionary<ResourceType, int>();
 
+    public int housing;
+    public int housingBaseValue;
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(LooseAllRessources);
+        OnHousingChange.AddListener(SetUpHousing);
     }
-
+    void SetUpHousing()
+    {
+        housing = housingBaseValue;
+    }
 
     public void GetRessources(ResourceType type, int amount)
     {
