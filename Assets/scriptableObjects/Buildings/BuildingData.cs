@@ -10,14 +10,11 @@ public class BuildingData : ScriptableObject
     public string buildingName;
     public string buildingDescription;
     public List<Card> cardsToAdd;
-    public List<ResourceCost> resourceCosts;
 
     public GameObject prefab;
     public Sprite uiIcon;
     public GameObject uiButton;
-    public byte ID;
     public List<ResourceCost> resourceCosts;
-    public List<Card> cardsToAdd;
 
     public ResourceCost EffectCost;
     public UnityEvent<BuildingData> OnBuild = new UnityEvent<BuildingData>();
