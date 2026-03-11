@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
+  m_Name: B_Steinmetz
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  ID: 0
+  buildingName: 
+  buildingDescription: 
+  cardsToAdd: []
+  housingIncrease: 0
+  prefab: {fileID: 0}
+  uiIcon: {fileID: 0}
+  uiButton: {fileID: 0}
+  resourceCosts: []
+  EffectCost: []
+  OnBuild:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDrag:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEndOfRound:
+    m_PersistentCalls:
+      m_Calls: []

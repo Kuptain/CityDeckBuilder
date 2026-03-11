@@ -155,6 +155,11 @@ public class CardManager : MonoBehaviour
         discardedCards.Clear();
     }
 
+    public void RemoveCardFromHand(Card card)
+    {
+        hand.Remove(card);
+    }
+
     #region test functions
     [ContextMenu("shuffle Deck")]
     public void Test_Shuffle()

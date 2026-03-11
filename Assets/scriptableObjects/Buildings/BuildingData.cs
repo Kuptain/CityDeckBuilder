@@ -10,6 +10,7 @@ public class BuildingData : ScriptableObject
     public string buildingName;
     public string buildingDescription;
     public List<Card> cardsToAdd;
+    public int housingIncrease;
 
     public GameObject prefab;
     public Sprite uiIcon;
@@ -41,6 +42,37 @@ public class BuildingData : ScriptableObject
         CardManager.instance.DiscardCard(card);
     }
 
+    public void RemoveCard(Card card)
+    {
+       
+        ResourceCost _cost = new ResourceCost();
+        _cost.amount = 1;
+        _cost.resource = ResourceType.gold;
+        List<ResourceCost> cost = new List<ResourceCost>() {_cost };
+        if (card.Contains(EffectCost) && ResourceManager.instance.IHaveEnoughRessources(cost));
+        {
+            CardManager.instance.RemoveCardFromHand(card);
+        }
+    }
 
+    public void AddCards()
+    {
+        CardManager.instance.AddCardsToDiscard(cardsToAdd);
+    }
+
+    public void changeHousing()
+    {
+        ResourceManager.OnHousingChange.AddListener(increaseHousing);
+        ResourceManager.OnHousingChange.Invoke();
+    }
+    void increaseHousing()
+    {
+        ResourceManager.instance.housing += housingIncrease;
+    }
+    public void IncreaseHousingValue(int i )
+    {
+        housingIncrease += i;
+        ResourceManager.OnHousingChange.Invoke();
+    }
 }
 
