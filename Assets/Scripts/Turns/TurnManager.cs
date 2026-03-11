@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class TurnManager : MonoBehaviour
 {
@@ -24,7 +25,8 @@ public class TurnManager : MonoBehaviour
         AddPopulation(startingPopulation);
         UpdateTurnCount(startingTurnCount);
 
-        OnStartTurn.Invoke();
+        StartCoroutine(DelayStartTurn());
+
     }
     private void OnDestroy()
     {
@@ -43,14 +45,18 @@ public class TurnManager : MonoBehaviour
             UpdateTurnCount(turnCount - 1);
             AddPopulation(populationPerTurn);
             CheckLosingCondition(false);
-
-
-            OnStartTurn.Invoke();
+            StartCoroutine(DelayStartTurn());
         }
         else
         {
             EndOfSeason();
         }
+    }
+    
+    IEnumerator DelayStartTurn()
+    {
+        yield return null;
+        OnStartTurn.Invoke();
     }
 
     void StartTurn() 
@@ -100,7 +106,7 @@ public class TurnManager : MonoBehaviour
             if (isEndOfSeason)
             {
                 UpdateTurnCount(startingTurnCount);
-                OnStartTurn.Invoke();
+                StartCoroutine(DelayStartTurn());
             }
 
         }
