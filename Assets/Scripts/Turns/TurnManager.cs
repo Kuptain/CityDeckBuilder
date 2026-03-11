@@ -6,23 +6,103 @@ public class TurnManager : MonoBehaviour
     public static UnityEvent OnStartTurn = new UnityEvent();
     public static UnityEvent OnEndTurn = new UnityEvent();
 
-    [SerializeField] 
-    int currentTurn;
+    [SerializeField] int startingTurnCount;
+    [SerializeField] int startingPopulation;
+    [SerializeField] int populationPerTurn;
+    [SerializeField] int startingHousingCount;
 
-    public void GetCurrentTurn()
+    private int turnCount;
+    private int populationCount;
+    private int housingCount;
+
+    private void Start()
     {
+        OnEndTurn.AddListener(EndTurn);
+        OnStartTurn.AddListener(StartTurn);
 
-    }
+        UpdateHousingCount(startingHousingCount);
+        AddPopulation(startingPopulation);
+        UpdateTurnCount(startingTurnCount);
 
-    public void EndTurn()
-    {
-        OnEndTurn.Invoke();
-    }
-
-    public void StarTurn() 
-    {
         OnStartTurn.Invoke();
-        currentTurn += 1;
+    }
+    private void OnDestroy()
+    {
+        OnEndTurn.RemoveListener(EndTurn);
+        OnStartTurn.RemoveListener(StartTurn);
+    }
+    public int GetCurrentTurn()
+    {
+        return turnCount;
     }
 
+    void EndTurn()
+    {
+        if (turnCount > 1)
+        {
+            UpdateTurnCount(turnCount - 1);
+            AddPopulation(populationPerTurn);
+            CheckLosingCondition(false);
+
+
+            OnStartTurn.Invoke();
+        }
+        else
+        {
+            EndOfSeason();
+        }
+    }
+
+    void StartTurn() 
+    {
+
+    }
+    void AddPopulation(int count)
+    {
+        // Add new villager
+        populationCount += count;
+        HUD.Instance.text_PopulationCount.text = populationCount.ToString();
+        HUD.Instance.text_PopulationPerTurn.text = "+" + populationPerTurn.ToString();
+    }
+    void UpdateTurnCount(int count)
+    {
+        turnCount = count;
+        HUD.Instance.text_TurnCount.text = turnCount.ToString();
+    }
+    void UpdateHousingCount(int count)
+    {
+        housingCount = count;
+        HUD.Instance.text_HousingCount.text = housingCount.ToString();
+    }
+    void EndOfSeason()
+    {
+        Debug.Log("TurnManager: EndOfSeason()");
+        UpdateTurnCount(startingTurnCount);
+        CheckLosingCondition(true);
+        populationPerTurn += 1;
+    }
+    void CheckLosingCondition(bool isEndOfSeason)
+    {
+        // Check if housing is equal to or higher than population
+        if(populationCount > housingCount)
+        {
+            HUD.Instance.text_HousingCount.color = Color.red;
+            if (isEndOfSeason)
+            {
+                Debug.Log("TurnManager: GAME LOST");
+                HUD.Instance.panelGameLost.gameObject.SetActive(true);
+                // LOSE GAME
+            }
+        }
+        else
+        {
+            HUD.Instance.text_HousingCount.color = Color.white;
+            if (isEndOfSeason)
+            {
+                UpdateTurnCount(startingTurnCount);
+                OnStartTurn.Invoke();
+            }
+
+        }
+    }
 }
