@@ -72,10 +72,11 @@ public class BuildingManager : MonoBehaviour
 
                 if (raycastHit.isGround)
                 {
-                    if ((selectedBuilding.resourceCosts.Count > 0 && ResourceManager.instance.TryToSpendRessource(selectedBuilding.resourceCosts))
+                    if ((selectedBuilding.resourceCosts.Count > 0 && ResourceManager.instance.IHaveEnoughRessources(selectedBuilding.resourceCosts))
                         || selectedBuilding.resourceCosts.Count == 0)
                     {
                         SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
+                        ResourceManager.instance.SpendRessources(selectedBuilding.resourceCosts);
                     }
                 }
             }
@@ -154,7 +155,8 @@ public class BuildingManager : MonoBehaviour
                 spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
                 spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
 
-                currentTile.currentBuilding = buildingToSpawn;
+                currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
+                currentTile.currentBuilding.data = buildingToSpawn;
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), spawnedBuilding);
                

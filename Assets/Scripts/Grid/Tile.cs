@@ -10,7 +10,7 @@ public struct Tile
     public bool isValid;
     public byte rotationIndex;
     public byte offsetColorID;
-    public BuildingData currentBuilding;
+    public BuildingObject currentBuilding;
 
     public void Init(Vector2Int _gridPosition, byte _offsetColorID, bool _isOffset = false,
         TileType _tileType = TileType.Default, byte _randomValue = 0, bool _isValid = true, byte _rotationIndex = 0)

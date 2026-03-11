@@ -16,15 +16,31 @@ public class BuildingData : ScriptableObject
     public GameObject uiButton;
     public List<ResourceCost> resourceCosts;
 
-    public ResourceCost EffectCost;
-    public UnityEvent<BuildingData> OnBuild = new UnityEvent<BuildingData>();
-    public UnityEvent OnDrag = new UnityEvent();
+    [Header("Effects")]
+    public List<ResourceCost> EffectCost = new List<ResourceCost>();
+    public UnityEvent OnBuild = new UnityEvent();
+    public UnityEvent<Card> OnDrag = new UnityEvent<Card>();
     public UnityEvent OnClick = new UnityEvent();
     public UnityEvent OnEndOfRound = new UnityEvent();
 
-    public void createWater(BuildingData data)
-    {
 
+    public void DuplicateCard(Card card)
+    {
+        if (card.Contains(EffectCost))
+        {
+            Card duplication = card;
+            List<Card> cardsToAdd = new List<Card>() { duplication };
+            CardManager.instance.AddCardsToDiscard(cardsToAdd);
+            CardManager.instance.DiscardCard(card);
+        }
     }
+
+    public void AddRessources(Card card)
+    {
+        ResourceManager.instance.GetRessources(card.ressources);
+        CardManager.instance.DiscardCard(card);
+    }
+
+
 }
 

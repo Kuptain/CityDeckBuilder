@@ -78,6 +78,7 @@ public class Handslot : MonoBehaviour
         selected = true;
         image.color = Color.white;
         startPosition = rect.position;
+        InteractionManager.OnPickUpCard.Invoke(card);
     }
 
     public void Deselect()
@@ -92,8 +93,8 @@ public class Handslot : MonoBehaviour
 
     void PlayCard()
     {
-        ResourceManager.instance.GetRessources(card.ressources);
-        CardManager.instance.DiscardCard(card);
+        Debug.Log("play card");
+        InteractionManager.OnReleaseCard.Invoke(card);
     }
     #endregion
 }
