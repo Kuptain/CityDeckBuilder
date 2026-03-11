@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   buildingsPanel: {fileID: 0}
+  buildingButtonPrefab: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
   unlockedBuildings:
   - {fileID: 11400000, guid: f5eb14e3324df6d499db19383051556e, type: 2}
   - {fileID: 11400000, guid: 01aef61561ce7cb4dbbbc3bc16612cf9, type: 2}

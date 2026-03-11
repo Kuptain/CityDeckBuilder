@@ -10,6 +10,7 @@ public class BuildingManager : MonoBehaviour
     private GameObject previewBuilding;
 
     [SerializeField] Transform buildingsPanel;
+    [SerializeField] GameObject buildingButtonPrefab;
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] float previewBuildingSnapStrength = 0.5f;
     public BuildingData selectedBuilding { get; set; }
@@ -33,7 +34,9 @@ public class BuildingManager : MonoBehaviour
     {
         foreach(var building in unlockedBuildings)
         {
-            Instantiate(building.uiButton, buildingsPanel);
+            GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
+            BuildingButton button = buttonGO.GetComponent<BuildingButton>();
+            button.ChangeBuildingData(building);
         }
     }
     private void Update()
