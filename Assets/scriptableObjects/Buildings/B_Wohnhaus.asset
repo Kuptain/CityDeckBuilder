@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 2
   buildingName: Wohnhaus
-  buildingDescription: "erh\xF6ht den housing wert"
+  buildingDescription: +1 Wohnraum
   cardsToAdd: []
   housingIncrease: 1
   prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}

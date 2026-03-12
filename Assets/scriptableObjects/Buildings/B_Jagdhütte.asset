@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: "Jagdh\xFCtte"
-  buildingDescription: erzeugt Nahrung am ende des Jahres pro leeresn Nachbarn
+  buildingDescription: erzeugt Nahrung am ende des Jahres pro leeres Nachbarfeld
   cardsToAdd: []
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: cc25c033c5a2bde4993ebd30768b71c3, type: 3}
