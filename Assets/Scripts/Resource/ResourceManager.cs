@@ -54,8 +54,11 @@ public class ResourceManager : MonoBehaviour
         food += amount;
         HUD.Instance.text_FoodCount.text = food.ToString();
     }
-
-
+    public void SetFood(int amount)
+    {
+        food = amount;
+        HUD.Instance.text_FoodCount.text = food.ToString();
+    }
     public void GetRessources(ResourceType type, int amount)
     {
         if (!ressources.ContainsKey(type))

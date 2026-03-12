@@ -115,6 +115,7 @@ public class TurnManager : MonoBehaviour
             }
             else
             {
+                ResourceManager.instance.SetFood(0);
                 UpdateTurnCount(startingTurnCount);
                 StartCoroutine(DelayStartTurn());
             }
