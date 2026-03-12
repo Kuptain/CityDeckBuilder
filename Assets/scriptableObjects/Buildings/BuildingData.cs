@@ -95,5 +95,10 @@ public class BuildingData : ScriptableObject
             ResourceManager.instance.GetRessources(ResourceType.stone, 1);
         }
     }
+    public void AddListenerSpawnNPC(Tile tile)
+    {
+        Vector3 spawnPosition = GridManager.Instance.GridToWorldPosition(tile.gridPosition);
+        TurnManager.OnPopulationIncreased.AddListener(() => TurnManager.Instance.SpawnNPC(spawnPosition));
+    }
 }
 

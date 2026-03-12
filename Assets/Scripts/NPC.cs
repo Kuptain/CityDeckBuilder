@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        currentWanderInterval = Random.Range(wanderInterval.x, wanderInterval.y);
+        currentWanderInterval = 0;
     }
     void Update()
     {

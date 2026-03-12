@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5608807794551160911}
   - component: {fileID: 1996448420462799033}
   m_Layer: 0
-  m_Name: Ressource Icon
+  m_Name: Resource Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

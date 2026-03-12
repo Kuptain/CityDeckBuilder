@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7651233705026242242}
   - component: {fileID: 292251377297081886}
   m_Layer: 0
-  m_Name: Ressourcemanager
+  m_Name: Resourcemanager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
