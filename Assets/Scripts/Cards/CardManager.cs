@@ -46,6 +46,15 @@ public class CardManager : MonoBehaviour
         TurnManager.OnEndTurn.RemoveListener(EndTurn);
         TurnManager.OnStartTurn.RemoveListener(StartTurn);
     }
+    private void Update()
+    {
+        UpdateHUD(); // Probably move somewhere else, only when the values are actually changed
+    }
+    private void UpdateHUD()
+    {
+        HUD.Instance.text_Deck.text = deck.Count.ToString();
+        HUD.Instance.text_Discard.text = discardedCards.Count.ToString();
+    }
     public void StartTurn()
     {
         DrawCards(HandSize);
