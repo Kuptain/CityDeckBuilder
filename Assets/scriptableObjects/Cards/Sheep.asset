@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sheep
   m_EditorClassIdentifier: Assembly-CSharp::Card
   selected: 0
-  sprite: {fileID: 21300000, guid: 5d2c1e2efc02bd245bf83782c84e0077, type: 3}
+  sprite: {fileID: 21300000, guid: 5413797af0339fa40815b1660fd5cb1f, type: 3}
   ressources:
   - resource: 4
     amount: 1

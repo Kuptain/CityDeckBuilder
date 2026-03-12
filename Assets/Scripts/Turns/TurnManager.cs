@@ -11,18 +11,15 @@ public class TurnManager : MonoBehaviour
     [SerializeField] int startingTurnCount;
     [SerializeField] int startingPopulation;
     [SerializeField] int populationPerTurn;
-    [SerializeField] int startingHousingCount;
 
     private int turnCount;
     private int populationCount;
-    private int housingCount;
 
     private void Start()
     {
         OnEndTurn.AddListener(EndTurn);
         OnStartTurn.AddListener(StartTurn);
 
-        UpdateHousingCount(startingHousingCount);
         AddPopulation(startingPopulation);
         UpdateTurnCount(startingTurnCount);
 
@@ -76,11 +73,6 @@ public class TurnManager : MonoBehaviour
         turnCount = count;
         HUD.Instance.text_TurnCount.text = turnCount.ToString();
     }
-    void UpdateHousingCount(int count)
-    {
-        housingCount = count;
-        HUD.Instance.text_HousingCount.text = housingCount.ToString();
-    }
     void EndOfSeason()
     {
         Debug.Log("TurnManager: EndOfSeason()");
@@ -91,27 +83,42 @@ public class TurnManager : MonoBehaviour
     void CheckLosingCondition(bool isEndOfSeason)
     {
         OnStartCheckingLosingCondition.Invoke();
+        bool lostGame = false;
 
         // Check if housing is equal to or higher than population
-        if (populationCount > housingCount)
+        if (populationCount > ResourceManager.instance.housing)
         {
             HUD.Instance.text_HousingCount.color = Color.red;
-            if (isEndOfSeason)
-            {
-                Debug.Log("TurnManager: GAME LOST");
-                HUD.Instance.panelGameLost.gameObject.SetActive(true);
-                // LOSE GAME
-            }
+            lostGame = true;
+
         }
         else
         {
             HUD.Instance.text_HousingCount.color = Color.white;
-            if (isEndOfSeason)
+        }
+        if (populationCount > ResourceManager.instance.food)
+        {
+            HUD.Instance.text_FoodCount.color = Color.red;
+            lostGame = true;
+        }
+        else
+        {
+            HUD.Instance.text_FoodCount.color = Color.white;
+        }
+
+        if (isEndOfSeason)
+        {
+            if (lostGame)
+            {
+                Debug.Log("TurnManager: GAME LOST");
+                HUD.Instance.panelGameLost.gameObject.SetActive(true);
+            }
+            else
             {
                 UpdateTurnCount(startingTurnCount);
                 StartCoroutine(DelayStartTurn());
             }
-
         }
+
     }
 }
