@@ -75,6 +75,7 @@ public class TurnManager : MonoBehaviour
     {
         yield return null;
         OnStartTurn.Invoke();
+        CheckLosingCondition(false);
     }
     IEnumerator DelayInitialPopulation()
     {
@@ -114,7 +115,7 @@ public class TurnManager : MonoBehaviour
         CheckLosingCondition(true);
         AddPopulation(populactionIncreaseModifier);
     }
-    void CheckLosingCondition(bool isEndOfSeason)
+    public void CheckLosingCondition(bool isEndOfSeason)
     {
         
         bool lostGame = false;
