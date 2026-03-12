@@ -6,6 +6,7 @@ public class TurnManager : MonoBehaviour
 {
     public static UnityEvent OnStartTurn = new UnityEvent();
     public static UnityEvent OnEndTurn = new UnityEvent();
+    public static UnityEvent OnStartCheckingLosingCondition = new UnityEvent();
 
     [SerializeField] int startingTurnCount;
     [SerializeField] int startingPopulation;
@@ -89,8 +90,10 @@ public class TurnManager : MonoBehaviour
     }
     void CheckLosingCondition(bool isEndOfSeason)
     {
+        OnStartCheckingLosingCondition.Invoke();
+
         // Check if housing is equal to or higher than population
-        if(populationCount > housingCount)
+        if (populationCount > housingCount)
         {
             HUD.Instance.text_HousingCount.color = Color.red;
             if (isEndOfSeason)
