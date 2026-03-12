@@ -9,6 +9,7 @@ public class HUD : MonoBehaviour
     public TMPro.TMP_Text text_PopulationCount;
     public TMPro.TMP_Text text_PopulationPerTurn;
     public TMPro.TMP_Text text_HousingCount;
+    public TMPro.TMP_Text text_FoodCount;
     public TMPro.TMP_Text text_Deck;
     public TMPro.TMP_Text text_Discard;
     public Transform panelBuildingButtons;

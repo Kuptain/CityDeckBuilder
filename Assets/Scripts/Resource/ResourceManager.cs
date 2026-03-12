@@ -30,25 +30,35 @@ public class ResourceManager : MonoBehaviour
     #endregion
     Dictionary<ResourceType, int> ressources = new Dictionary<ResourceType, int>();
 
-    public int housing;
     public int housingBaseValue;
+    public int housing;
     public int food;
+    public int population;
+
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(LooseAllRessources);
         OnHousingChange.AddListener(SetUpHousing);
+        SetUpHousing();
+        HUD.Instance.text_FoodCount.text = food.ToString();
     }
     void SetUpHousing()
     {
+        Debug.Log("ResourceManager: SetUpHousing()");
         housing = housingBaseValue;
+        HUD.Instance.text_HousingCount.text = housing.ToString();
     }
 
     public void ChangeFood(int amount )
     {
         food += amount;
+        HUD.Instance.text_FoodCount.text = food.ToString();
     }
-
-
+    public void SetFood(int amount)
+    {
+        food = amount;
+        HUD.Instance.text_FoodCount.text = food.ToString();
+    }
     public void GetRessources(ResourceType type, int amount)
     {
         if (!ressources.ContainsKey(type))
