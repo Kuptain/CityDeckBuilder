@@ -74,5 +74,17 @@ public class BuildingData : ScriptableObject
         housingIncrease += i;
         ResourceManager.OnHousingChange.Invoke();
     }
+
+    public void SellFood()
+    {
+        ResourceManager.instance.ChangeFood(-1);
+        ResourceManager.instance.GetRessources(ResourceType.gold, 1);
+    }
+
+    public void CreateFood(Card card)
+    {
+        CardManager.instance.RemoveCardFromHand(card);
+        ResourceManager.instance.ChangeFood(3);
+    }
 }
 

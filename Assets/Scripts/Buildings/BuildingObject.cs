@@ -16,7 +16,8 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     public void Drag(Card card)
     {
-        data.OnDrag.Invoke(card);
+        Debug.Log(card.GetType());
+        data.OnDrag.Invoke((Card)card);
     }
 
     public void ShowHighlight()

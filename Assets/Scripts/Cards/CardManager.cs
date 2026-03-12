@@ -57,10 +57,13 @@ public class CardManager : MonoBehaviour
     }
     public void StartTurn()
     {
+        Debug.Log("Start Of Turn");
+
         DrawCards(HandSize);
     }
     public void EndTurn()
     {
+        Debug.Log("End Of Turn");
         DiscardHand();
     }
 

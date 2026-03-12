@@ -95,6 +95,10 @@ public class Handslot : MonoBehaviour
     {
         Debug.Log("play card");
         InteractionManager.OnReleaseCard.Invoke(card);
+        if (!CardManager.instance.hand.Contains(card))
+        {
+            Destroy(gameObject);
+        }
     }
     #endregion
 }

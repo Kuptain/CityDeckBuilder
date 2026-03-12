@@ -15,7 +15,17 @@ MonoBehaviour:
   ID: 0
   buildingName: Castle
   buildingDescription: 
-  cardsToAdd: []
+  cardsToAdd:
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
   uiIcon: {fileID: 0}
@@ -24,13 +34,25 @@ MonoBehaviour:
   EffectCost: []
   OnBuild:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
+        m_MethodName: AddCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDrag:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: DuplicateCard
+        m_MethodName: AddRessources
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
