@@ -1168,38 +1168,6 @@ PrefabInstance:
       propertyPath: buildingsPanel
       value: 
       objectReference: {fileID: 1451419494}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: unlockedBuildings.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 4e97117695a90044ba0ccfa0513853fb, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: a8507f5f188685346900dcf2ffd5b53e, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[5]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[6]'
-      value: 
-      objectReference: {fileID: 11400000, guid: d7b958e9a41ee3e47a7f807655222d2c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

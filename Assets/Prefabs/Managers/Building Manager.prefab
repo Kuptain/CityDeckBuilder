@@ -48,9 +48,9 @@ MonoBehaviour:
   unlockedBuildings:
   - {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}
   - {fileID: 11400000, guid: 4e97117695a90044ba0ccfa0513853fb, type: 2}
-  - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
-  - {fileID: 11400000, guid: a8507f5f188685346900dcf2ffd5b53e, type: 2}
   - {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
   - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
+  - {fileID: 11400000, guid: a8507f5f188685346900dcf2ffd5b53e, type: 2}
+  - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
   - {fileID: 11400000, guid: d7b958e9a41ee3e47a7f807655222d2c, type: 2}
   previewBuildingSnapStrength: 1
