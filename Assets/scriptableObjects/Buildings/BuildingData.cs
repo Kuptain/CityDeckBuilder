@@ -77,6 +77,7 @@ public class BuildingData : ScriptableObject
 
     public void SellFood()
     {
+        Debug.Log("Sellfood");
         ResourceManager.instance.ChangeFood(-1);
         ResourceManager.instance.GetRessources(ResourceType.gold, 1);
     }

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Steinmetz
-  buildingDescription: 
+  buildingDescription: "erzeugt Steine. verkauft mehr stein f\xFCr Gold"
   cardsToAdd:
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   housingIncrease: 0
-  prefab: {fileID: 0}
-  uiIcon: {fileID: 0}
+  prefab: {fileID: 5122269274258173990, guid: ed032f3180b842646996c07faeb939f5, type: 3}
+  uiIcon: {fileID: 21300000, guid: 1755bdc949463ca40ace794cf1433770, type: 3}
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 1

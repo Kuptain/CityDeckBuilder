@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BuildingObject : MonoBehaviour, Iinteractable
 {
-    [HideInInspector] public BuildingData data;
-    
+    public BuildingData data;
+
     public void Hover()
     {
         ShowHighlight();
@@ -11,7 +11,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     public void Click()
     {
-
+        Debug.Log("click");
         data.OnClick.Invoke();
     }
     public void Drag(Card card)
