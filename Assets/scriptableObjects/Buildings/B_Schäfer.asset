@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: "Sch\xE4fer"
-  buildingDescription: erzeugt schafe. ein Schaf in zwei verwandeln
+  buildingDescription: 'erzeugt schafe: ein Schaf in zwei verwandeln'
   cardsToAdd:
   - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
   - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}

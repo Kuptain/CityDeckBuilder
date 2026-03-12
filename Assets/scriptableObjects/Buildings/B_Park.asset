@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Park
-  buildingDescription: +1 Housing pro benachbartem Wohnhaus
+  buildingDescription: +1 Wohnraum pro benachbartem Wohnhaus
   cardsToAdd: []
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 8a269fe372853cf4ea37bad3d9e3c4f7, type: 3}
