@@ -727,6 +727,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 910976994}
     m_Modifications:
+    - target: {fileID: 439907040330327439, guid: 870a06aa52eadb347be4a7f4f73ac438, type: 3}
+      propertyPath: npcPrefab
+      value: 
+      objectReference: {fileID: 5122269274258173990, guid: 9e9305bc3a57893479ae91e8aceb0c2b, type: 3}
     - target: {fileID: 5046291088794673259, guid: 870a06aa52eadb347be4a7f4f73ac438, type: 3}
       propertyPath: m_Name
       value: TurnManager

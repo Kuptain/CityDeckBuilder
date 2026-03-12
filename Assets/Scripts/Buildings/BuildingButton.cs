@@ -36,9 +36,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
 
         List<string> info = new List<string>
         {
-            $"<b>{buildingData.buildingName}</b>",
+            $"<b>{buildingData.buildingName}</b>", $"",
             buildingData.buildingDescription
-            //$"",
             //$"Cost:"
         };
 

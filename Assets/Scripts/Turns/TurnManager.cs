@@ -7,20 +7,35 @@ public class TurnManager : MonoBehaviour
     public static UnityEvent OnStartTurn = new UnityEvent();
     public static UnityEvent OnEndTurn = new UnityEvent();
     public static UnityEvent OnStartCheckingLosingCondition = new UnityEvent();
+    public static UnityEvent OnPopulationIncreased = new UnityEvent();
 
     [SerializeField] int startingTurnCount;
     [SerializeField] int startingPopulation;
     [SerializeField] int populationPerTurn;
+    [SerializeField] GameObject npcPrefab;
 
     private int turnCount;
     private int populationCount;
-
+    public static TurnManager Instance { get; private set; }
+    public void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("Duplicate TurnManager detected.");
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         OnEndTurn.AddListener(EndTurn);
         OnStartTurn.AddListener(StartTurn);
 
-        AddPopulation(startingPopulation);
+        StartCoroutine(DelayInitialPopulation());
         UpdateTurnCount(startingTurnCount);
 
         StartCoroutine(DelayStartTurn());
@@ -41,7 +56,12 @@ public class TurnManager : MonoBehaviour
         if (turnCount > 1)
         {
             UpdateTurnCount(turnCount - 1);
-            AddPopulation(populationPerTurn);
+
+            for (int i = 0; i < populationPerTurn; i++)
+            {
+                AddPopulation();
+            }
+
             CheckLosingCondition(false);
             StartCoroutine(DelayStartTurn());
         }
@@ -56,17 +76,30 @@ public class TurnManager : MonoBehaviour
         yield return null;
         OnStartTurn.Invoke();
     }
-
+    IEnumerator DelayInitialPopulation()
+    {
+        yield return null;
+        for (int i = 0; i < startingPopulation; i++)
+        {
+            AddPopulation();
+        }
+    }
     void StartTurn() 
     {
 
     }
-    void AddPopulation(int count)
+    void AddPopulation()
     {
         // Add new villager
-        populationCount += count;
+        populationCount += 1;
+        OnPopulationIncreased.Invoke();
         HUD.Instance.text_PopulationCount.text = populationCount.ToString();
         HUD.Instance.text_PopulationPerTurn.text = "+" + populationPerTurn.ToString();
+    }
+    public void SpawnNPC(Vector3 spawnPosition)
+    {
+        GameObject npc = Instantiate(npcPrefab, spawnPosition, Quaternion.identity);
+        npc.GetComponent<NPC>().originPosition = spawnPosition;
     }
     void UpdateTurnCount(int count)
     {
