@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 2123b78c426a4a74baeca3b9aa3fd5fb, type: 3}
-  uiIcon: {fileID: 21300000, guid: 1755bdc949463ca40ace794cf1433770, type: 3}
+  uiIcon: {fileID: 21300000, guid: 5dce4732d839d16448dc74ea03f6bc87, type: 3}
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 1

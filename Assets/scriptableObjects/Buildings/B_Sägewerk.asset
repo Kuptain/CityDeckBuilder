@@ -18,7 +18,7 @@ MonoBehaviour:
   cardsToAdd: []
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: a3ff55db8970eca499d05beecf948be7, type: 3}
-  uiIcon: {fileID: 21300000, guid: 6ef2e05eddcf7564980514bef532a93b, type: 3}
+  uiIcon: {fileID: 21300000, guid: 38173f214c1345447ba14c5fd6bc6f31, type: 3}
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 2
