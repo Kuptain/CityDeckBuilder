@@ -19,10 +19,10 @@ public class BuildingData : ScriptableObject
 
     [Header("Effects")]
     public List<ResourceCost> EffectCost = new List<ResourceCost>();
-    public UnityEvent OnBuild = new UnityEvent();
+    public UnityEvent<Tile> OnBuild = new UnityEvent<Tile>();
     public UnityEvent<Card> OnDrag = new UnityEvent<Card>();
     public UnityEvent OnClick = new UnityEvent();
-    public UnityEvent OnEndOfRound = new UnityEvent();
+    public UnityEvent OnEndOfTurn = new UnityEvent();
 
 
     public void DuplicateCard(Card card)
@@ -69,6 +69,8 @@ public class BuildingData : ScriptableObject
     {
         ResourceManager.instance.housing += housingIncrease;
     }
+
+
     public void IncreaseHousingValue(int i )
     {
         housingIncrease += i;
