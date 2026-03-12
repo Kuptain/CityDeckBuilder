@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.InputSystem;
-using Mono.Cecil;
 using System.Resources;
-using UnityEditor.EditorTools;
 
 public class TooltipUI : MonoBehaviour
 {
