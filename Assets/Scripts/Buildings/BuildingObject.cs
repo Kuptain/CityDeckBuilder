@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BuildingObject : MonoBehaviour, Iinteractable
 {
-    public BuildingData data;
+    [HideInInspector] public BuildingData data;
     
     public void Hover()
     {

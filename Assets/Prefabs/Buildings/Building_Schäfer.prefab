@@ -41,9 +41,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5783925734884902087}
-  - component: {fileID: 7745435892334933279}
+  - component: {fileID: 7322017653232384782}
   m_Layer: 7
-  m_Name: Building_green
+  m_Name: "Building_Sch\xE4fer"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ Transform:
   - {fileID: 644815160372641583}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7745435892334933279
+--- !u!114 &7322017653232384782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +174,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 11aa47f06fbadc744a4d0948c5e7db15, type: 2}
+      objectReference: {fileID: 2100000, guid: f88d47bbda62b5442ae2943dffe8fa11, type: 2}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Name
       value: msh_hexTle
@@ -256,7 +256,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0ec3030c90c3e9843a0244d29247a27d, type: 2}
+      objectReference: {fileID: 2100000, guid: dc5c7cfa718fa3d4d82d872b751ac911, type: 2}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Name
       value: msh_hexTle

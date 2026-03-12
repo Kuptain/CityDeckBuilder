@@ -135,6 +135,7 @@ public class BuildingManager : MonoBehaviour
 
             var raycastHit = GroundRaycast();
             previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
+            previewBuilding.GetComponent<BuildingObject>().data = building;
             previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
             previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
         }

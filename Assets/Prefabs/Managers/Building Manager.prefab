@@ -44,10 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df924291858101140a8734cc4a421f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
-  buildingsPanel: {fileID: 0}
   buildingButtonPrefab: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
   unlockedBuildings:
-  - {fileID: 11400000, guid: f5eb14e3324df6d499db19383051556e, type: 2}
-  - {fileID: 11400000, guid: 01aef61561ce7cb4dbbbc3bc16612cf9, type: 2}
-  - {fileID: 11400000, guid: 924d87f128a0e75448f1dbf88a8a0d7f, type: 2}
+  - {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}
+  - {fileID: 11400000, guid: 4e97117695a90044ba0ccfa0513853fb, type: 2}
+  - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
+  - {fileID: 11400000, guid: a8507f5f188685346900dcf2ffd5b53e, type: 2}
+  - {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
+  - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
+  - {fileID: 11400000, guid: d7b958e9a41ee3e47a7f807655222d2c, type: 2}
   previewBuildingSnapStrength: 1
