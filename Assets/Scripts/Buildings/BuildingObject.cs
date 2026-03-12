@@ -63,17 +63,17 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     public void increaseHousing()
     {
-        data.IncreaseHousingPerNeighbour(tile);
-        ResourceManager.instance.housing += housingIncrease;
+        IncreaseHousingPerNeighbour();
+        ResourceManager.instance.AddHousing( housingIncrease);
     }
 
     public void increaseFood()
     {
-        data.IncreaseFoodPerFreeNeighbour(tile);
-        ResourceManager.instance.food += foodIncrease;
+        IncreaseFoodPerFreeNeighbour();
+        ResourceManager.instance.ChangeFood( foodIncrease);
     }
 
-    public void IncreaseFoodPerFreeNeighbour(Tile tile)
+    public void IncreaseFoodPerFreeNeighbour()
     {
         List<Tile> neighbours = GridManager.Instance.GetTilesInRange(tile.gridPosition, 1);
         int sum = 0;
@@ -84,10 +84,10 @@ public class BuildingObject : MonoBehaviour, Iinteractable
                 sum += 1;
             }
         }
-        tile.currentBuilding.foodIncrease = sum;
+        foodIncrease = sum;
     }
 
-    public void IncreaseHousingPerNeighbour(Tile tile)
+    public void IncreaseHousingPerNeighbour()
     {
         List<Tile> neighbours = GridManager.Instance.GetTilesInRange(tile.gridPosition, 1);
         int sum = 0;
@@ -98,6 +98,6 @@ public class BuildingObject : MonoBehaviour, Iinteractable
                 sum += 1;
             }
         }
-        tile.currentBuilding.housingIncrease = sum;
+        housingIncrease = sum;
     }
 }

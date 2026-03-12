@@ -20,7 +20,11 @@ MonoBehaviour:
   prefab: {fileID: 0}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
-  resourceCosts: []
+  resourceCosts:
+  - resource: 2
+    amount: 2
+  - resource: 3
+    amount: 1
   endlessUses: 0
   EffectCost: []
   OnBuild:
@@ -28,7 +32,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddHousingPerNeighbour
+        m_MethodName: changeHousingPerNeighbour
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

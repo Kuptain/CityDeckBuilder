@@ -23,9 +23,9 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 2
-    amount: 1
-  - resource: 1
     amount: 2
+  - resource: 1
+    amount: 1
   endlessUses: 0
   EffectCost: []
   OnBuild:

@@ -15,8 +15,7 @@ MonoBehaviour:
   ID: 0
   buildingName: "S\xE4gewerk"
   buildingDescription: Holz karten gegen Gold verkaufen
-  cardsToAdd:
-  - {fileID: 11400000, guid: cecee1b0e104b684d864bb2e4c1cce2e, type: 2}
+  cardsToAdd: []
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: a3ff55db8970eca499d05beecf948be7, type: 3}
   uiIcon: {fileID: 21300000, guid: 6ef2e05eddcf7564980514bef532a93b, type: 3}
@@ -32,19 +31,7 @@ MonoBehaviour:
     amount: 1
   OnBuild:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddCards
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnDrag:
     m_PersistentCalls:
       m_Calls:

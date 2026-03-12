@@ -56,9 +56,9 @@ public class BuildingData : ScriptableObject
     {
         CardManager.instance.AddCardsToDiscard(cardsToAdd);
     }
-    public void changeFoodPerNeighbour(Tile tile)
+    public void changeFoodPerNeighbourAtEndOfYear(Tile tile)
     {
-        tile.currentBuilding.increaseFood();
+        TurnManager.OnStartCheckingLosingCondition.AddListener(tile.currentBuilding.increaseFood);
     }
   
     public void changeHousingPerNeighbour(Tile tile)
@@ -73,7 +73,7 @@ public class BuildingData : ScriptableObject
     }
     void increaseHousing()
     {
-        ResourceManager.instance.housing += housingIncrease;
+        ResourceManager.instance.AddHousing(housingIncrease);
     }
 
     public void SellFood()
