@@ -52,17 +52,20 @@ public class ResourceManager : MonoBehaviour
     {
         housing += value;
         HUD.Instance.text_HousingCount.text = housing.ToString();
+        TurnManager.Instance.CheckLosingCondition(false);
     }
 
     public void ChangeFood(int amount )
     {
         food += amount;
         HUD.Instance.text_FoodCount.text = food.ToString();
+        TurnManager.Instance.CheckLosingCondition(false);
     }
     public void SetFood(int amount)
     {
         food = amount;
         HUD.Instance.text_FoodCount.text = food.ToString();
+        TurnManager.Instance.CheckLosingCondition(false);
     }
     public void GetRessources(ResourceType type, int amount)
     {
