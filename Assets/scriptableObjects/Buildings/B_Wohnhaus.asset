@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: B_Wohnhaus
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
+  ID: 2
   buildingName: Wohnhaus
   buildingDescription: "erh\xF6ht den housing wert"
   cardsToAdd: []

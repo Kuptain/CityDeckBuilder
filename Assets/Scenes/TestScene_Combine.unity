@@ -328,10 +328,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 910976994}
     m_Modifications:
-    - target: {fileID: 292251377297081886, guid: c96bfeff5811c9d4ea3328acda6e6dbb, type: 3}
-      propertyPath: housingBaseValue
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5932349790502968367, guid: c96bfeff5811c9d4ea3328acda6e6dbb, type: 3}
       propertyPath: m_Name
       value: Ressourcemanager
