@@ -176,7 +176,8 @@ public class BuildingManager : MonoBehaviour
                 }
 
                 //Adding Cards
-                CardManager.instance.AddCardsToDiscard(buildingToSpawn.cardsToAdd);
+                currentTile.currentBuilding.Build(currentTile);
+                currentTile.currentBuilding.tile = currentTile;
             }
         }
 

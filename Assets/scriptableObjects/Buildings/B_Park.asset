@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: B_Wohnhaus
+  m_Name: B_Park
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
-  buildingName: Wohnhaus
-  buildingDescription: "erh\xF6ht den housing wert"
+  buildingName: Park
+  buildingDescription: +1 Housing pro benachbartem Wohnhaus
   cardsToAdd: []
-  housingIncrease: 1
-  prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
-  uiIcon: {fileID: 21300000, guid: b305de058e04dcf438ea3c934907b6ed, type: 3}
+  housingIncrease: 0
+  prefab: {fileID: 0}
+  uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
   resourceCosts:
-  - resource: 1
+  - resource: 2
     amount: 2
+  - resource: 3
+    amount: 1
   endlessUses: 0
   EffectCost: []
   OnBuild:
@@ -30,8 +32,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: changeHousing
-        m_Mode: 1
+        m_MethodName: changeHousingPerNeighbour
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

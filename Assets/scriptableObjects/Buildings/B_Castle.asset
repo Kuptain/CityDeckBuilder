@@ -31,6 +31,7 @@ MonoBehaviour:
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
   resourceCosts: []
+  endlessUses: 1
   EffectCost: []
   OnBuild:
     m_PersistentCalls:
@@ -65,6 +66,6 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls: []
-  OnEndOfRound:
+  OnEndOfTurn:
     m_PersistentCalls:
       m_Calls: []
