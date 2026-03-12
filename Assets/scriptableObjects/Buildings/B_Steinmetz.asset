@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Steinmetz
-  buildingDescription: "erzeugt Steine. verkauft mehr stein f\xFCr Gold"
+  buildingDescription: "F\xFCgt dem Deck 2 Steinkarten hinzu. \\n<b>Click:</b> Gibt
+    1 Gold aus um 1 Stein zu erzeugen."
   cardsToAdd:
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}

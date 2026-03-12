@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: "S\xE4gewerk"
-  buildingDescription: Holz karten gegen Gold verkaufen
+  buildingDescription: "<b>Drag & Drop:</b> L\xF6scht eine Holzkarte aus dem Deck
+    um 1 Gold zu erzeugen."
   cardsToAdd: []
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: a3ff55db8970eca499d05beecf948be7, type: 3}

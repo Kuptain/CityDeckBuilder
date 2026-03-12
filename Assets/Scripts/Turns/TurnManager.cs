@@ -10,8 +10,8 @@ public class TurnManager : MonoBehaviour
     public static UnityEvent OnPopulationIncreased = new UnityEvent();
 
     [SerializeField] int startingTurnCount;
-    [SerializeField] int startingPopulation;
-    [SerializeField] int populationPerTurn;
+    [SerializeField] int populactionIncreaseModifier;
+    [SerializeField] int populationPerYear;
     [SerializeField] GameObject npcPrefab;
 
     private int turnCount;
@@ -57,10 +57,6 @@ public class TurnManager : MonoBehaviour
         {
             UpdateTurnCount(turnCount - 1);
 
-            for (int i = 0; i < populationPerTurn; i++)
-            {
-                AddPopulation();
-            }
             if (turnCount == 1)
             {
                 OnStartCheckingLosingCondition.Invoke();
@@ -83,22 +79,23 @@ public class TurnManager : MonoBehaviour
     IEnumerator DelayInitialPopulation()
     {
         yield return null;
-        for (int i = 0; i < startingPopulation; i++)
-        {
-            AddPopulation();
-        }
+        AddPopulation(populationPerYear);
     }
     void StartTurn() 
     {
 
     }
-    void AddPopulation()
+    void AddPopulation(int amount)
     {
         // Add new villager
-        populationCount += 1;
-        OnPopulationIncreased.Invoke();
+        for (int i = 0; i < amount; i++)
+        {
+            populationCount += 1;
+            OnPopulationIncreased.Invoke();
+        }
+
         HUD.Instance.text_PopulationCount.text = populationCount.ToString();
-        HUD.Instance.text_PopulationPerTurn.text = "+" + populationPerTurn.ToString();
+        HUD.Instance.text_PopulationPerTurn.text = "+" + populationPerYear.ToString();
     }
     public void SpawnNPC(Vector3 spawnPosition)
     {
@@ -115,7 +112,7 @@ public class TurnManager : MonoBehaviour
         Debug.Log("TurnManager: EndOfSeason()");
         UpdateTurnCount(startingTurnCount);
         CheckLosingCondition(true);
-        populationPerTurn += 1;
+        AddPopulation(populactionIncreaseModifier);
     }
     void CheckLosingCondition(bool isEndOfSeason)
     {

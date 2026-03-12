@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: "Holzf\xE4ller"
-  buildingDescription: erzeugt 1 mal 2Holz
+  buildingDescription: "F\xFCgt dem Deck 1 Holz (x2) Karte hinzu."
   cardsToAdd:
   - {fileID: 11400000, guid: cecee1b0e104b684d864bb2e4c1cce2e, type: 2}
   housingIncrease: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   resourceCosts:
   - resource: 2
     amount: 2
-  - resource: 1
+  - resource: 3
     amount: 1
   endlessUses: 0
   EffectCost: []

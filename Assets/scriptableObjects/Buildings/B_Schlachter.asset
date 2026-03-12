@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Schlachter
-  buildingDescription: wandelt per drag and drop 1 Schaf in 3 Nahrung um
+  buildingDescription: "<b>Drag & Drop:</b> L\xF6scht 1 Schafkarte aus dem Deck um
+    3 Nahrung zu erzeugen."
   cardsToAdd: []
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: f677a5b00feedbe488d41fa7c17dc714, type: 3}

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Marktplatz
-  buildingDescription: erzeugt 1Goldkarte; kann per click Nahrung verkaufen
+  buildingDescription: "F\xFCgt dem Deck 1 Goldkarte hinzu. \\n<b>Click</b>: Gibt
+    1 Nahrung aus um 1 Gold zu erzeugen."
   cardsToAdd:
   - {fileID: 11400000, guid: 50933c0599b47bc4f940624b84f74b3c, type: 2}
   housingIncrease: 0
