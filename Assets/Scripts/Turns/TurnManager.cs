@@ -61,9 +61,13 @@ public class TurnManager : MonoBehaviour
             {
                 AddPopulation();
             }
-
+            if (turnCount == 1)
+            {
+                OnStartCheckingLosingCondition.Invoke();
+            }
             CheckLosingCondition(false);
             StartCoroutine(DelayStartTurn());
+         
         }
         else
         {
@@ -115,7 +119,7 @@ public class TurnManager : MonoBehaviour
     }
     void CheckLosingCondition(bool isEndOfSeason)
     {
-        OnStartCheckingLosingCondition.Invoke();
+        
         bool lostGame = false;
 
         // Check if housing is equal to or higher than population
