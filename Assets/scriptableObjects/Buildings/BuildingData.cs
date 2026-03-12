@@ -59,6 +59,10 @@ public class BuildingData : ScriptableObject
     public void changeFoodPerNeighbourAtEndOfYear(Tile tile)
     {
         TurnManager.OnStartCheckingLosingCondition.AddListener(tile.currentBuilding.increaseFood);
+        if (TurnManager.Instance.GetCurrentTurn() == 1)
+        {
+            tile.currentBuilding.increaseFood();
+        }
     }
   
     public void changeHousingPerNeighbour(Tile tile)
