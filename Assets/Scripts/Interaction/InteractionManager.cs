@@ -27,13 +27,11 @@ public class InteractionManager : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("overUI");
             return;
         }
         BuildingObject building;
         if (SearchForBuilding(out building))
         {
-            Debug.Log("building found");
             building.Click();
         }
     }
@@ -52,15 +50,12 @@ public class InteractionManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Inputmanager.mousePosition);
         RaycastHit hit;
-        Debug.Log("try to cast");
         int mask = LayerMask.GetMask("Ground");
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
         if (Physics.Raycast(ray, out hit, 1000, mask))
         {
-            Debug.Log("hit something");
             if (TryToGetBuilding(hit.point, out building))
             {
-                Debug.Log("found building");
                 return true;
             }
         }

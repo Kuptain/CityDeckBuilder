@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: "S\xE4gewerk"
-  buildingDescription: remove Wood cards from hand to gain Gold this turn
-  cardsToAdd: []
+  buildingDescription: Holz karten gegen Gold verkaufen
+  cardsToAdd:
+  - {fileID: 11400000, guid: cecee1b0e104b684d864bb2e4c1cce2e, type: 2}
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: a3ff55db8970eca499d05beecf948be7, type: 3}
   uiIcon: {fileID: 21300000, guid: 6ef2e05eddcf7564980514bef532a93b, type: 3}
@@ -25,22 +26,35 @@ MonoBehaviour:
     amount: 2
   - resource: 3
     amount: 2
+  endlessUses: 0
   EffectCost:
   - resource: 1
     amount: 1
   OnBuild:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
+        m_MethodName: AddCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDrag:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: RemoveCard
-        m_Mode: 2
+        m_MethodName: SellCard
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -49,6 +63,6 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls: []
-  OnEndOfRound:
+  OnEndOfTurn:
     m_PersistentCalls:
       m_Calls: []

@@ -177,6 +177,7 @@ public class BuildingManager : MonoBehaviour
 
                 //Adding Cards
                 currentTile.currentBuilding.Build(currentTile);
+                currentTile.currentBuilding.tile = currentTile;
             }
         }
 

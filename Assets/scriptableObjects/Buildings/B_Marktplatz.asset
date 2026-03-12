@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Marktplatz
-  buildingDescription: erzeugt Gold; kann Nahrung in Gold umtauschen
+  buildingDescription: erzeugt 1Goldkarte; kann per click Nahrung verkaufen
   cardsToAdd:
   - {fileID: 11400000, guid: 50933c0599b47bc4f940624b84f74b3c, type: 2}
   housingIncrease: 0
@@ -24,10 +24,23 @@ MonoBehaviour:
   resourceCosts:
   - resource: 2
     amount: 2
+  endlessUses: 0
   EffectCost: []
   OnBuild:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
+        m_MethodName: AddCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDrag:
     m_PersistentCalls:
       m_Calls: []
@@ -46,6 +59,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnEndOfRound:
+  OnEndOfTurn:
     m_PersistentCalls:
       m_Calls: []

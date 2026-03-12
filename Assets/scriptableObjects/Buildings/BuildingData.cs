@@ -18,6 +18,7 @@ public class BuildingData : ScriptableObject
     public List<ResourceCost> resourceCosts;
 
     [Header("Effects")]
+    public bool endlessUses;
     public List<ResourceCost> EffectCost = new List<ResourceCost>();
     public UnityEvent<Tile> OnBuild = new UnityEvent<Tile>();
     public UnityEvent<Card> OnDrag = new UnityEvent<Card>();
@@ -42,16 +43,12 @@ public class BuildingData : ScriptableObject
         CardManager.instance.DiscardCard(card);
     }
 
-    public void RemoveCard(Card card)
+    public void SellCard(Card card)
     {
-       
-        ResourceCost _cost = new ResourceCost();
-        _cost.amount = 1;
-        _cost.resource = ResourceType.gold;
-        List<ResourceCost> cost = new List<ResourceCost>() {_cost };
-        if (card.Contains(EffectCost) && ResourceManager.instance.IHaveEnoughRessources(cost));
+        if (card.Contains(EffectCost))
         {
             CardManager.instance.RemoveCardFromHand(card);
+            ResourceManager.instance.GetRessources(ResourceType.gold, 1);
         }
     }
 
@@ -59,7 +56,16 @@ public class BuildingData : ScriptableObject
     {
         CardManager.instance.AddCardsToDiscard(cardsToAdd);
     }
-
+    public void changeFoodPerNeighbour(Tile tile)
+    {
+        tile.currentBuilding.increaseFood();
+    }
+  
+    public void changeHousingPerNeighbour(Tile tile)
+    {
+        ResourceManager.OnHousingChange.AddListener(tile.currentBuilding.increaseHousing);
+        ResourceManager.OnHousingChange.Invoke();
+    }
     public void changeHousing()
     {
         ResourceManager.OnHousingChange.AddListener(increaseHousing);
@@ -70,16 +76,8 @@ public class BuildingData : ScriptableObject
         ResourceManager.instance.housing += housingIncrease;
     }
 
-
-    public void IncreaseHousingValue(int i )
-    {
-        housingIncrease += i;
-        ResourceManager.OnHousingChange.Invoke();
-    }
-
     public void SellFood()
     {
-        Debug.Log("Sellfood");
         ResourceManager.instance.ChangeFood(-1);
         ResourceManager.instance.GetRessources(ResourceType.gold, 1);
     }
@@ -88,6 +86,14 @@ public class BuildingData : ScriptableObject
     {
         CardManager.instance.RemoveCardFromHand(card);
         ResourceManager.instance.ChangeFood(3);
+    }
+
+    public void BuyStone()
+    {
+        if (ResourceManager.instance.TryToSpendRessource(EffectCost))
+        {
+            ResourceManager.instance.GetRessources(ResourceType.stone, 1);
+        }
     }
 }
 

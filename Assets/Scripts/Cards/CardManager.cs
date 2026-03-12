@@ -170,6 +170,7 @@ public class CardManager : MonoBehaviour
     public void RemoveCardFromHand(Card card)
     {
         hand.Remove(card);
+        OnDiscard.Invoke(card);
     }
 
     #region test functions

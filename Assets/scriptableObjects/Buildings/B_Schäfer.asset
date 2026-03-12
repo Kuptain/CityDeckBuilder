@@ -26,6 +26,7 @@ MonoBehaviour:
     amount: 2
   - resource: 2
     amount: 1
+  endlessUses: 0
   EffectCost:
   - resource: 4
     amount: 1
@@ -50,10 +51,10 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
         m_MethodName: DuplicateCard
-        m_Mode: 2
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: Card, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -62,6 +63,6 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls: []
-  OnEndOfRound:
+  OnEndOfTurn:
     m_PersistentCalls:
       m_Calls: []

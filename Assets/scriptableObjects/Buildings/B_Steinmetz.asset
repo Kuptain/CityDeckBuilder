@@ -25,16 +25,43 @@ MonoBehaviour:
   resourceCosts:
   - resource: 1
     amount: 2
-  EffectCost: []
+  endlessUses: 0
+  EffectCost:
+  - resource: 3
+    amount: 1
   OnBuild:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
+        m_MethodName: AddCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDrag:
     m_PersistentCalls:
       m_Calls: []
   OnClick:
     m_PersistentCalls:
-      m_Calls: []
-  OnEndOfRound:
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
+        m_MethodName: BuyStone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEndOfTurn:
     m_PersistentCalls:
       m_Calls: []
