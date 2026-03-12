@@ -7,10 +7,12 @@ public class TurnManager : MonoBehaviour
     public static UnityEvent OnStartTurn = new UnityEvent();
     public static UnityEvent OnEndTurn = new UnityEvent();
     public static UnityEvent OnStartCheckingLosingCondition = new UnityEvent();
+    public static UnityEvent<int> OnPopulationIncreased = new UnityEvent<int>();
 
     [SerializeField] int startingTurnCount;
     [SerializeField] int startingPopulation;
     [SerializeField] int populationPerTurn;
+    [SerializeField] GameObject npcPrefab;
 
     private int turnCount;
     private int populationCount;
@@ -65,8 +67,13 @@ public class TurnManager : MonoBehaviour
     {
         // Add new villager
         populationCount += count;
+        OnPopulationIncreased.Invoke(count);
         HUD.Instance.text_PopulationCount.text = populationCount.ToString();
         HUD.Instance.text_PopulationPerTurn.text = "+" + populationPerTurn.ToString();
+    }
+    void SpawnNPC(Vector3 spawnPosition)
+    {
+        Instantiate(npcPrefab, spawnPosition, Quaternion.identity);
     }
     void UpdateTurnCount(int count)
     {
