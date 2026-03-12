@@ -22,7 +22,7 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 1
-    amount: 3
+    amount: 2
   - resource: 2
     amount: 1
   endlessUses: 0
