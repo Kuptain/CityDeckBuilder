@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: B_Steinmetz
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
-  buildingName: 
+  buildingName: Steinmetz
   buildingDescription: 
-  cardsToAdd: []
+  cardsToAdd:
+  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
+  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   housingIncrease: 0
   prefab: {fileID: 0}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
-  resourceCosts: []
+  resourceCosts:
+  - resource: 1
+    amount: 2
   EffectCost: []
   OnBuild:
     m_PersistentCalls:

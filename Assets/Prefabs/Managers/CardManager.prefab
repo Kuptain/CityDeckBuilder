@@ -46,16 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
   HandSize: 5
   cardSpeed: 25
-  deck:
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+  deck: []
   hand: []
   discardedCards: []

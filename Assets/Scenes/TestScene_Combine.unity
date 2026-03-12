@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21218d92ede88364783c8c76fb82f9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
+  activeCard: {fileID: 0}
 --- !u!1001 &652075843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1274,10 +1275,6 @@ PrefabInstance:
     - target: {fileID: 1531632260760342668, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: deck.Array.size
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9088492645230061255, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_Name

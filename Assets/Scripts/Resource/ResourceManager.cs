@@ -32,6 +32,7 @@ public class ResourceManager : MonoBehaviour
 
     public int housing;
     public int housingBaseValue;
+    public int food;
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(LooseAllRessources);
@@ -41,6 +42,12 @@ public class ResourceManager : MonoBehaviour
     {
         housing = housingBaseValue;
     }
+
+    public void ChangeFood(int amount )
+    {
+        food += amount;
+    }
+
 
     public void GetRessources(ResourceType type, int amount)
     {

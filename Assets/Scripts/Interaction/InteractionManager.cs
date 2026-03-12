@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class InteractionManager : MonoBehaviour
 {
-    Card activeCard;
+    public Card activeCard;
     public static UnityEvent<Card> OnPickUpCard = new UnityEvent<Card>();
     public static UnityEvent<Card> OnHoldCard = new UnityEvent<Card>();
     public static UnityEvent<Card> OnReleaseCard = new UnityEvent<Card>();
