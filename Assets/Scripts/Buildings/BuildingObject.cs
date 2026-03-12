@@ -93,7 +93,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         int sum = 0;
         for (int i = 0; i < neighbours.Count; i++)
         {
-            if (neighbours[i].currentBuilding.data.ID == 2)
+            if (neighbours[i].currentBuilding!=null && neighbours[i].currentBuilding.data.ID == 2)
             {
                 sum += 1;
             }

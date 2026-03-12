@@ -17,8 +17,8 @@ MonoBehaviour:
   buildingDescription: +1 Housing pro benachbartem Wohnhaus
   cardsToAdd: []
   housingIncrease: 0
-  prefab: {fileID: 0}
-  uiIcon: {fileID: 0}
+  prefab: {fileID: 5122269274258173990, guid: 8a269fe372853cf4ea37bad3d9e3c4f7, type: 3}
+  uiIcon: {fileID: 21300000, guid: 5d2c1e2efc02bd245bf83782c84e0077, type: 3}
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 2

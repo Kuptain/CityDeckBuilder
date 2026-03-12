@@ -46,7 +46,7 @@ public class ResourceManager : MonoBehaviour
     {
         Debug.Log("ResourceManager: SetUpHousing()");
         housing = housingBaseValue;
-        
+        HUD.Instance.text_HousingCount.text = housing.ToString();
     }
     public void AddHousing(int value)
     {
