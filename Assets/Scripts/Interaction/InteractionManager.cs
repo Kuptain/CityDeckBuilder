@@ -59,10 +59,6 @@ public class InteractionManager : MonoBehaviour
                 currentHoverBuilding.StopHover();
             }
             currentHoverBuilding = building;
-            if (building)
-            {
-                building.
-            }
             currentHoverBuilding.StartHover(state);
         }
         else if (currentHoverBuilding != null)
