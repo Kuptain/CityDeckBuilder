@@ -12,7 +12,8 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] float previewBuildingSnapStrength = 0.5f;
     public BuildingData selectedBuilding { get; set; }
-    public Dictionary<int, GameObject> spawnedBuildings = new Dictionary<int, GameObject>(); // To save progress later
+    public Dictionary<int, BuildingObject> spawnedBuildings = new Dictionary<int, BuildingObject>(); // To save progress later
+    public Material outlineBuilding;
 
     private GameObject previewBuilding;
     private Transform buildingsPanel;
@@ -72,15 +73,9 @@ public class BuildingManager : MonoBehaviour
 
                 if (raycastHit.isGround)
                 {
-                    if ((selectedBuilding.resourceCosts.Count > 0 && ResourceManager.instance.IHaveEnoughRessources(selectedBuilding.resourceCosts))
-                        || selectedBuilding.resourceCosts.Count == 0)
-                    {
-                        SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
-                        ResourceManager.instance.SpendRessources(selectedBuilding.resourceCosts);
-                    }
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
                 }
             }
-
         }
     }
     private (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
@@ -143,23 +138,39 @@ public class BuildingManager : MonoBehaviour
 
    
 
-    public void SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn)
+    public void SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool payBuildCost = true)
     {
         GridManager gridManager = GridManager.Instance;
-        if(GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
+        if (payBuildCost)
+        {
+            if ((buildingToSpawn.resourceCosts.Count > 0 && ResourceManager.instance.IHaveEnoughRessources(buildingToSpawn.resourceCosts))
+            || buildingToSpawn.resourceCosts.Count == 0)
+            {
+                ResourceManager.instance.SpendRessources(buildingToSpawn.resourceCosts);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
             if (tile.currentBuilding == null)
             {
+
                 Tile currentTile = gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)];
 
                 GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, gridManager.GridToWorldPosition(gridPosition), Quaternion.identity);
                 spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
                 spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
+                var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
+                //buildingObject.EnableOutline(); // Test outline
 
                 currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
                 currentTile.currentBuilding.data = buildingToSpawn;
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
-                spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), spawnedBuilding);
+                spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
                
 
                 foreach (Tile _tile in GridManager.Instance.GetTilesInRange(gridPosition, 0))

@@ -8,17 +8,55 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [HideInInspector] public int foodIncrease;
     bool usedAbility;
     [HideInInspector] public Tile tile;
+    MeshRenderer[] outlineRenderers;
+    private Material[][] originalMaterials;
 
-    private void Start()
+    private void Awake()
     {
         TurnManager.OnEndTurn.AddListener(EndOfTurn);
-    }
 
-    public void Hover()
+        outlineRenderers = GetComponentsInChildren<MeshRenderer>();
+        originalMaterials = new Material[outlineRenderers.Length][];
+
+        for (int i = 0; i < outlineRenderers.Length; i++)
+        {
+            originalMaterials[i] = outlineRenderers[i].materials;
+        }
+    }
+    public void EnableOutline()
     {
-        ShowHighlight();
+        for (int i = 0; i < outlineRenderers.Length; i++)
+        {
+            Material[] mats = outlineRenderers[i].materials;
+
+            Material[] newMats = new Material[mats.Length + 1];
+
+            for (int j = 0; j < mats.Length; j++)
+            {
+                newMats[j] = mats[j];
+            }
+
+            newMats[mats.Length] = BuildingManager.Instance.outlineBuilding;
+
+            outlineRenderers[i].materials = newMats;
+        }
     }
 
+    public void DisableOutline()
+    {
+        for (int i = 0; i < outlineRenderers.Length; i++)
+        {
+            outlineRenderers[i].materials = originalMaterials[i];
+        }
+    }
+    public void StartHover()
+    {
+        EnableOutline();
+    }
+    public void StopHover()
+    {
+        DisableOutline();
+    }
     public void Click()
     {
         if (!data.endlessUses && usedAbility)

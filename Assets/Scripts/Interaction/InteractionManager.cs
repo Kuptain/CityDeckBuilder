@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class InteractionManager : MonoBehaviour
     public static UnityEvent<Card> OnPickUpCard = new UnityEvent<Card>();
     public static UnityEvent<Card> OnHoldCard = new UnityEvent<Card>();
     public static UnityEvent<Card> OnReleaseCard = new UnityEvent<Card>();
+    BuildingObject currentHoverBuilding;
 
     private void Start()
     {
@@ -16,7 +18,10 @@ public class InteractionManager : MonoBehaviour
         OnReleaseCard.AddListener(ReleaseCard);
         Inputmanager.OnInteract.AddListener(TryToInteract);
     }
-
+    private void Update()
+    {
+        HoverInteract();
+    }
 
     public void PickUpCard(Card card)
     {
@@ -33,6 +38,27 @@ public class InteractionManager : MonoBehaviour
         if (SearchForBuilding(out building))
         {
             building.Click();
+        }
+    }
+    void HoverInteract()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        BuildingObject building;
+        if (SearchForBuilding(out building))
+        {
+            if (currentHoverBuilding != null && currentHoverBuilding != building)
+            {
+                currentHoverBuilding.StopHover();
+            }
+            currentHoverBuilding = building;
+            currentHoverBuilding.StartHover();
+        }
+        else if (currentHoverBuilding != null)
+        {
+            currentHoverBuilding.StopHover();
         }
     }
 

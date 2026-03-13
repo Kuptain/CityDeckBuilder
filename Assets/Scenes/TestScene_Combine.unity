@@ -1169,6 +1169,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1451419494}
     - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: outlineBuilding
+      value: 
+      objectReference: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
       propertyPath: unlockedBuildings.Array.size
       value: 8
       objectReference: {fileID: 0}
