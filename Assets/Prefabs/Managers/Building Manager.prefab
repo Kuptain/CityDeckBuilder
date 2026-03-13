@@ -53,6 +53,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
   - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
   - {fileID: 11400000, guid: 66b194e4715925840840555e082eb9df, type: 2}
-  - {fileID: 11400000, guid: d7b958e9a41ee3e47a7f807655222d2c, type: 2}
   - {fileID: 11400000, guid: e425c6c61c1a9d94a9bc115242c05af5, type: 2}
   previewBuildingSnapStrength: 1
+  outlineHover: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
+  outlineDragCard: {fileID: 2100000, guid: 2b96707992a985044928597f3ce69ac7, type: 2}
+  outlineClickable: {fileID: 2100000, guid: 616053169b2346d4e89ce4dd92e7ec04, type: 2}

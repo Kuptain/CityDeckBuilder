@@ -11,7 +11,9 @@ public class InteractionManager : MonoBehaviour
     public static UnityEvent<Card> OnHoldCard = new UnityEvent<Card>();
     public static UnityEvent<Card> OnReleaseCard = new UnityEvent<Card>();
     BuildingObject currentHoverBuilding;
+    bool isHoldingCard;
 
+    public enum BuildingOutlineStates { Idle, Hover, Draggable, Clickable}
     private void Start()
     {
         OnPickUpCard.AddListener(PickUpCard);
@@ -25,6 +27,7 @@ public class InteractionManager : MonoBehaviour
 
     public void PickUpCard(Card card)
     {
+        isHoldingCard = true;
         activeCard = card;
     }
 
@@ -42,9 +45,11 @@ public class InteractionManager : MonoBehaviour
     }
     void HoverInteract()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        BuildingOutlineStates state = BuildingOutlineStates.Hover;
+        if (isHoldingCard)
         {
-            return;
+            state = BuildingOutlineStates.Draggable; // also needs to find all current draggable buildings
+            //return;
         }
         BuildingObject building;
         if (SearchForBuilding(out building))
@@ -54,7 +59,11 @@ public class InteractionManager : MonoBehaviour
                 currentHoverBuilding.StopHover();
             }
             currentHoverBuilding = building;
-            currentHoverBuilding.StartHover();
+            if (building)
+            {
+                building.
+            }
+            currentHoverBuilding.StartHover(state);
         }
         else if (currentHoverBuilding != null)
         {
@@ -65,6 +74,7 @@ public class InteractionManager : MonoBehaviour
 
     public void ReleaseCard(Card card)
     {
+        isHoldingCard = false;
         BuildingObject building;
         if (SearchForBuilding(out building))
         {

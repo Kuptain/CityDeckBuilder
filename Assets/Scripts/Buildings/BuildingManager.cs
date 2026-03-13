@@ -13,7 +13,9 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] float previewBuildingSnapStrength = 0.5f;
     public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, BuildingObject> spawnedBuildings = new Dictionary<int, BuildingObject>(); // To save progress later
-    public Material outlineBuilding;
+    public Material outlineHover;
+    public Material outlineDragCard;
+    public Material outlineClickable;
 
     private GameObject previewBuilding;
     private Transform buildingsPanel;

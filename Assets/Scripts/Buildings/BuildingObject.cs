@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static InteractionManager;
 
 public class BuildingObject : MonoBehaviour, Iinteractable
 {
@@ -10,6 +11,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [HideInInspector] public Tile tile;
     MeshRenderer[] outlineRenderers;
     private Material[][] originalMaterials;
+    BuildingOutlineStates currentOutlineState;
 
     private void Awake()
     {
@@ -23,8 +25,15 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             originalMaterials[i] = outlineRenderers[i].materials;
         }
     }
-    public void EnableOutline()
+    public void EnableOutline(BuildingOutlineStates state)
     {
+        if (currentOutlineState  == state) return;
+        if (currentOutlineState != BuildingOutlineStates.Idle)
+        {
+            DisableOutline();
+        }
+        currentOutlineState = state;
+
         for (int i = 0; i < outlineRenderers.Length; i++)
         {
             Material[] mats = outlineRenderers[i].materials;
@@ -35,8 +44,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             {
                 newMats[j] = mats[j];
             }
+            if (state == BuildingOutlineStates.Hover)
+            {
+                newMats[mats.Length] = BuildingManager.Instance.outlineHover;
 
-            newMats[mats.Length] = BuildingManager.Instance.outlineBuilding;
+            }
+            else if (state == BuildingOutlineStates.Draggable)
+            {
+                newMats[mats.Length] = BuildingManager.Instance.outlineDragCard;
+
+            }
 
             outlineRenderers[i].materials = newMats;
         }
@@ -48,10 +65,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             outlineRenderers[i].materials = originalMaterials[i];
         }
+        currentOutlineState = BuildingOutlineStates.Idle;
     }
-    public void StartHover()
+    public void StartHover(BuildingOutlineStates state)
     {
-        EnableOutline();
+        EnableOutline(state);
     }
     public void StopHover()
     {
