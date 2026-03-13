@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
   width: 13
   height: 13
-  _tileSize: 4.4
+  _tileSize: 4.2
   _cam: {fileID: 0}
 --- !u!114 &843698045150862914
 MonoBehaviour:

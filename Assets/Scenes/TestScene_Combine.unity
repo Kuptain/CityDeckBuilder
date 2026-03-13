@@ -1165,10 +1165,6 @@ PrefabInstance:
       value: Building Manager (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: outlineHover
-      value: 
-      objectReference: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
       propertyPath: buildingsPanel
       value: 
       objectReference: {fileID: 1451419494}
@@ -1176,22 +1172,6 @@ PrefabInstance:
       propertyPath: outlineBuilding
       value: 
       objectReference: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: outlineDragCard
-      value: 
-      objectReference: {fileID: 2100000, guid: 2b96707992a985044928597f3ce69ac7, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: outlineClickable
-      value: 
-      objectReference: {fileID: 2100000, guid: 616053169b2346d4e89ce4dd92e7ec04, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: unlockedBuildings.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: 'unlockedBuildings.Array.data[7]'
-      value: 
-      objectReference: {fileID: 11400000, guid: e425c6c61c1a9d94a9bc115242c05af5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -48,11 +48,11 @@ MonoBehaviour:
   visualsWood: []
   visualsStone: []
   gridPosition: {x: 0, y: 0}
-  _baseColor1: {r: 0.9150943, g: 0.8471732, b: 0.45323068, a: 0}
-  _baseColor2: {r: 0.8301887, g: 0.596149, b: 0.48949805, a: 0}
-  _baseColor3: {r: 0.7160726, g: 0.8301887, b: 0.34069067, a: 0}
-  _centreColor: {r: 0.5754717, g: 0.13300997, b: 0.13300997, a: 0}
-  _edgeColor: {r: 0.24528301, g: 0.22561409, b: 0.22561409, a: 0}
+  _baseColor1: {r: 1, g: 0.8938317, b: 0.6367924, a: 0}
+  _baseColor2: {r: 0.6883408, g: 0.8862745, b: 0.5294118, a: 0}
+  _baseColor3: {r: 0.804304, g: 0.8867924, b: 0.53123885, a: 0}
+  _centreColor: {r: 0.3764706, g: 0.827451, b: 0.5803922, a: 0}
+  _edgeColor: {r: 0.3490566, g: 0.32618862, b: 0.3243592, a: 0}
   _renderer: {fileID: 6012493751923246300}
 --- !u!1001 &4949806287660947544
 PrefabInstance:
