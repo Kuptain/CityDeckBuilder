@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor;
 using static UnityEngine.UI.Image;
 using UnityEngine.InputSystem;
+using System;
 
 public class Handslot : MonoBehaviour
 {
@@ -21,8 +22,12 @@ public class Handslot : MonoBehaviour
     private RectTransform canvasRectTransform;
     private Vector2 arrowOrigin;
 
+    public CardHover stateHover;
+    public CardHover stateSelect;
+    private CardHover stateBase;
+
     bool selected;
-    Vector2 startPosition;
+    bool hovered;
 
     private void Start()
     {
@@ -30,14 +35,21 @@ public class Handslot : MonoBehaviour
         canvas = HUD.Instance.canvas;
         canvasRectTransform = canvas.GetComponent<RectTransform>();
         arrowOrigin = dragArrowTrail.anchoredPosition;
+
+        stateBase = new CardHover();
+        stateBase.position = rect.position;
+        stateBase.scale = rect.localScale;
     }
 
     private void Update()
     {
         if (selected)
         {
-
            Move();
+        }
+        else if (hovered)
+        {
+            MoveHover();
         }
         else 
         {
@@ -62,20 +74,30 @@ public class Handslot : MonoBehaviour
             image.sprite = null;
         }
     }
+    void MoveHover()
+    {
+        rect.localPosition = Vector3.Lerp(rect.localPosition, stateHover.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        rect.localScale = Vector3.Lerp(rect.localScale, stateHover.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+    }
     void Move()
     {
-        Vector2 targetPosition = Inputmanager.mousePosition;
+        //Vector2 targetPosition = Inputmanager.mousePosition;
         //rect.position = Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
+
+        rect.localPosition = Vector3.Lerp(rect.localPosition, stateSelect.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        rect.localScale = Vector3.Lerp(rect.localScale, stateSelect.scale, CardManager.instance.cardSpeed * Time.deltaTime);
         MoveArrow();
     }
     void Moveback()
     {
-        Vector2 targetPosition = Vector2.zero;
-        rect.localPosition = Vector3.Lerp(rect.localPosition, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
-        if(Vector2.Distance(rect.localPosition,targetPosition) < 5)
+        //Vector2 targetPosition = Vector2.zero;
+        rect.localPosition = Vector3.Lerp(rect.localPosition, stateBase.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        rect.localScale = Vector3.Lerp(rect.localScale, stateBase.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+        if (Vector2.Distance(rect.localPosition, stateBase.position) < 5)
         {
-            rect.localPosition = targetPosition;
-            startPosition = Vector2.zero;
+            rect.localPosition = stateBase.position;
+            rect.localScale = stateBase.scale;
+            //stateBase.position = Vector2.zero;
         }
     }
     void MoveArrow()
@@ -89,9 +111,10 @@ public class Handslot : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         dragArrowTrail.rotation = Quaternion.Euler(0, 0, angle);
 
-        dragArrowTrail.sizeDelta = new Vector2(distance, dragArrowTrail.sizeDelta.y);
+        // Convert pixel distance to canvas units
+        float canvasDistance = distance / canvas.scaleFactor;
 
-        //dragArrowTrail.position = arrowOrigin;
+        dragArrowTrail.sizeDelta = new Vector2(canvasDistance, dragArrowTrail.sizeDelta.y);
     }
     #region selection
     public void TryToSelect()
@@ -106,6 +129,10 @@ public class Handslot : MonoBehaviour
         }
     }
 
+    public void SetHover(bool state)
+    {
+        hovered = state;
+    }
 
     public void Select()
     {
@@ -114,7 +141,6 @@ public class Handslot : MonoBehaviour
         //image.color = Color.white;
         highlight.SetActive(true);
         arrowContainer.SetActive(true);
-        startPosition = rect.position;
         InteractionManager.OnPickUpCard.Invoke(card);
     }
 
@@ -140,4 +166,10 @@ public class Handslot : MonoBehaviour
         }
     }
     #endregion
+}
+[Serializable]
+public class CardHover
+{
+    public Vector2 scale;
+    public Vector2 position;
 }

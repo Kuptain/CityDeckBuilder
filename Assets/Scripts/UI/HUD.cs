@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class HUD : MonoBehaviour
 {
     public Canvas canvas;
+    [Header("General UI")]
     public TMPro.TMP_Text text_TurnCount;
     public TMPro.TMP_Text text_PopulationCount;
     public TMPro.TMP_Text text_PopulationPerTurn;
@@ -15,6 +16,9 @@ public class HUD : MonoBehaviour
     public TMPro.TMP_Text text_Production;
     public Transform panelBuildingButtons;
     public Transform panelGameLost;
+    [Header("Pause Menu")]
+    public Transform panelPause;
+  
     public static HUD Instance { get; private set; }
 
     public void Awake()
@@ -33,5 +37,17 @@ public class HUD : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    public void TogglePause(bool state)
+    {
+        panelPause.gameObject.SetActive(state);
+    }
+    public void TogglePause()
+    {
+        panelPause.gameObject.SetActive(!panelPause.gameObject.activeSelf);
     }
 }
