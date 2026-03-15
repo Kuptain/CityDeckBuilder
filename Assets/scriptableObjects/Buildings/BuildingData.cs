@@ -53,7 +53,7 @@ public class BuildingData : ScriptableObject
 
     public void AddCards()
     {
-        CardManager.instance.AddCardsToDiscard(cardsToAdd);
+        CardManager.instance.AddCardsToProduction(cardsToAdd);
     }
     public void changeFoodPerNeighbourAtEndOfYear(Tile tile)
     {

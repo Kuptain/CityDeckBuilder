@@ -8,6 +8,8 @@ public class Card : ScriptableObject
 
     [HideInInspector] public bool selected;
     public Sprite sprite;
+    public string cardName;
+    public string cardDescription;
     public List<ResourceCost> ressources;
 
     public Card(Card card)

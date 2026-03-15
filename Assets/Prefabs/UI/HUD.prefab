@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1536240329124712707}
   - component: {fileID: 3254838436375507246}
   m_Layer: 5
-  m_Name: Discard
+  m_Name: Production Deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,12 +106,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3787117199060903673}
-  m_Father: {fileID: 1099597715661413057}
+  m_Father: {fileID: 7302692842898742998}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -66.19934, y: 77}
-  m_SizeDelta: {x: 66.161865, y: 93.583}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -23.799988, y: -2}
+  m_SizeDelta: {x: 66.161865, y: 93.58301}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1536240329124712707
 CanvasRenderer:
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.94509804, g: 0.23529427, b: 0.2352941, a: 1}
+  m_Color: {r: 0.11764707, g: 0.5019608, b: 0.7843138, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -569,7 +569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 318.9, y: 0}
+  m_AnchoredPosition: {x: 350.9, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1998679268711828690
@@ -744,7 +744,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 505.49, y: 100}
+  m_SizeDelta: {x: 1920, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &8036808127659642928
 MonoBehaviour:
@@ -785,7 +785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_HandManager
   HandParent: {fileID: 5151696662154734752}
-  HandSlotPrefab: {fileID: 7138247381437929123, guid: 869396e032d6b3b45af8c670621a6561, type: 3}
+  HandSlotPrefab: {fileID: 5442216391453061085, guid: c482360720cc49c4aa0e79d797825023, type: 3}
   slots: []
   mouseOverHand: 0
 --- !u!1 &2315462820261768593
@@ -898,16 +898,17 @@ RectTransform:
   m_Children:
   - {fileID: 2267647325449217242}
   - {fileID: 6484204757619667465}
-  - {fileID: 8807423571805860351}
+  - {fileID: 1815779171117640249}
   - {fileID: 6012929192268807671}
   - {fileID: 61408336530702478}
   - {fileID: 460802981698528313}
+  - {fileID: 8807423571805860351}
   m_Father: {fileID: 1099597715661413057}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -270.97852, y: -71.05408}
-  m_SizeDelta: {x: 541.9564, y: 142.108}
+  m_AnchoredPosition: {x: -288.761, y: -71.05408}
+  m_SizeDelta: {x: 577.5214, y: 142.108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &72413956229816313
 CanvasRenderer:
@@ -1274,7 +1275,6 @@ RectTransform:
   - {fileID: 5151696662154734752}
   - {fileID: 1635845368060184195}
   - {fileID: 733951864544785024}
-  - {fileID: 1815779171117640249}
   - {fileID: 1405771867303104748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1358,13 +1358,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1df0366e2a72b344a781418184bab58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUD
+  canvas: {fileID: 5287803641517649038}
   text_TurnCount: {fileID: 3750551683361806133}
   text_PopulationCount: {fileID: 2487691242269598791}
   text_PopulationPerTurn: {fileID: 7717948098774448108}
   text_HousingCount: {fileID: 1165517359089371770}
   text_FoodCount: {fileID: 3275162169107391821}
   text_Deck: {fileID: 8237832592897206655}
-  text_Discard: {fileID: 6000953460501095455}
+  text_Production: {fileID: 6000953460501095455}
   panelBuildingButtons: {fileID: 2724677085812494827}
   panelGameLost: {fileID: 1405771867303104748}
 --- !u!1 &3332386186308962415
@@ -1445,7 +1446,7 @@ GameObject:
   - component: {fileID: 7142869499376684222}
   - component: {fileID: 6000953460501095455}
   m_Layer: 5
-  m_Name: Text Discard
+  m_Name: Text Production
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2636,7 +2637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 0}
+  m_AnchoredPosition: {x: 107, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8212922213702910323
@@ -2756,7 +2757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1635845368060184195
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2851,7 +2852,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 198.60004, y: 0}
+  m_AnchoredPosition: {x: 230.60004, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8430910404909821307
@@ -3401,7 +3402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.10980392, g: 0.50980395, b: 0.94509804, a: 1}
+  m_Color: {r: 0.7443517, g: 0.34242615, b: 0.764151, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

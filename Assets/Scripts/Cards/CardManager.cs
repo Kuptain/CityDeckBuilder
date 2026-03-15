@@ -36,10 +36,12 @@ public class CardManager : MonoBehaviour
     public List<Card> deck = new List<Card>(10);
     public List<Card> hand;
     public List<Card> discardedCards;
+    public List<Card> productionDeck;
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(EndTurn);
         TurnManager.OnStartTurn.AddListener(StartTurn);
+        OnDiscard.AddListener(EndTurnOnDiscard);
     }
     private void OnDestroy()
     {
@@ -50,21 +52,25 @@ public class CardManager : MonoBehaviour
     {
         UpdateHUD(); // Probably move somewhere else, only when the values are actually changed
     }
+    private void EndTurnOnDiscard(Card card)
+    {
+        TurnManager.OnEndTurn.Invoke();
+    }
     private void UpdateHUD()
     {
         HUD.Instance.text_Deck.text = deck.Count.ToString();
-        HUD.Instance.text_Discard.text = discardedCards.Count.ToString();
+        HUD.Instance.text_Production.text = productionDeck.Count.ToString();
     }
     public void StartTurn()
     {
         Debug.Log("Start Of Turn");
 
-        DrawCards(HandSize);
+        DrawCards(HandSize - hand.Count); // Refill back to hand size
     }
     public void EndTurn()
     {
         Debug.Log("End Of Turn");
-        DiscardHand();
+        //DiscardHand();
     }
 
     public void AddCardsToDeck(List<Card> cards)
@@ -81,7 +87,10 @@ public class CardManager : MonoBehaviour
     {
         discardedCards.AddRange(cards);
     }
-
+    public void AddCardsToProduction(List<Card> cards)
+    {
+        productionDeck.AddRange(cards);
+    }
 
     public void ShuffleDeck()
     {
@@ -115,7 +124,7 @@ public class CardManager : MonoBehaviour
         }
         else
         {
-            ReshuffleDiscard();
+            ProductionToDeck();
             if (deck.Count > 0)
             {
                 index = Mathf.Clamp(index, 0, deck.Count - 1);
@@ -160,11 +169,11 @@ public class CardManager : MonoBehaviour
         hand.Clear();
     }
 
-    public void ReshuffleDiscard()
+    public void ProductionToDeck()
     {
-        deck.AddRange(discardedCards);
+        deck.AddRange(productionDeck);
         ShuffleDeck();
-        discardedCards.Clear();
+        //discardedCards.Clear();
     }
 
     public void RemoveCardFromHand(Card card)
@@ -183,7 +192,7 @@ public class CardManager : MonoBehaviour
     [ContextMenu("resshuffle Discard")]
     public void Test_Reshuffle()
     {
-        ReshuffleDiscard();
+        ProductionToDeck();
     }
 
     [ContextMenu("draw Hand")]

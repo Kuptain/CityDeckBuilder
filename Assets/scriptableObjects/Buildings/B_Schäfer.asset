@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: "Sch\xE4fer"
-  buildingDescription: "F\xFCgt dem Deck 2 Schafkarten hinzu. \\n<b>Drag & Drop:</b>
+  buildingDescription: "F\xFCgt dem Deck 1 Schafkarten hinzu. \\n<b>Drag & Drop:</b>
     Dupliziere 1 Schafkarte."
   cardsToAdd:
-  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
   - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 4d7a3378adf15944a887d26dcd7d6823, type: 3}
@@ -25,7 +24,7 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 1
-    amount: 2
+    amount: 1
   - resource: 2
     amount: 1
   endlessUses: 0

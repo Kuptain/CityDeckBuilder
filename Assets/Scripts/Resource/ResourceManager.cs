@@ -37,7 +37,7 @@ public class ResourceManager : MonoBehaviour
 
     private void Start()
     {
-        TurnManager.OnEndTurn.AddListener(LooseAllRessources);
+        //TurnManager.OnEndTurn.AddListener(LooseAllRessources);
         OnHousingChange.AddListener(SetUpHousing);
         SetUpHousing();
         HUD.Instance.text_FoodCount.text = food.ToString();

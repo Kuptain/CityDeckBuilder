@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   ID: 0
   buildingName: Steinmetz
-  buildingDescription: "F\xFCgt dem Deck 2 Steinkarten hinzu. \\n<b>Click:</b> Gibt
+  buildingDescription: "F\xFCgt dem Deck 1 Steinkarte hinzu. \\n<b>Click:</b> Gibt
     1 Gold aus um 1 Stein zu erzeugen."
   cardsToAdd:
-  - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   - {fileID: 11400000, guid: b0fd12ff1d8e5244f992e5b02a1b5f5d, type: 2}
   housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 2123b78c426a4a74baeca3b9aa3fd5fb, type: 3}
@@ -25,7 +24,7 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   resourceCosts:
   - resource: 1
-    amount: 2
+    amount: 3
   endlessUses: 0
   EffectCost:
   - resource: 3

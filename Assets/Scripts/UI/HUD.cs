@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour
 {
+    public Canvas canvas;
     public TMPro.TMP_Text text_TurnCount;
     public TMPro.TMP_Text text_PopulationCount;
     public TMPro.TMP_Text text_PopulationPerTurn;
     public TMPro.TMP_Text text_HousingCount;
     public TMPro.TMP_Text text_FoodCount;
     public TMPro.TMP_Text text_Deck;
-    public TMPro.TMP_Text text_Discard;
+    public TMPro.TMP_Text text_Production;
     public Transform panelBuildingButtons;
     public Transform panelGameLost;
     public static HUD Instance { get; private set; }
