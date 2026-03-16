@@ -1377,10 +1377,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705740f4531aa42499bba2f244e6c4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_HandManager
-  HandParent: {fileID: 5151696662154734752}
-  HandSlotPrefab: {fileID: 5442216391453061085, guid: c482360720cc49c4aa0e79d797825023, type: 3}
+  container: {fileID: 5151696662154734752}
+  cardPrefab: {fileID: 5442216391453061085, guid: c482360720cc49c4aa0e79d797825023, type: 3}
   slots: []
   mouseOverHand: 0
+  cardState: 0
 --- !u!1 &2315462820261768593
 GameObject:
   m_ObjectHideFlags: 0
@@ -4259,7 +4260,7 @@ GameObject:
   - component: {fileID: 6546149833127352044}
   - component: {fileID: 6909298798228303690}
   - component: {fileID: 9037703625002342503}
-  - component: {fileID: 7233810722183657846}
+  - component: {fileID: 8787842936897505203}
   m_Layer: 5
   m_Name: Panel Production Overview
   m_TagString: Untagged
@@ -4329,7 +4330,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7233810722183657846
+--- !u!114 &8787842936897505203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4338,13 +4339,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6693239316715415046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac45f4e4e4d08ab4faa2ea71b5ee7882, type: 3}
+  m_Script: {fileID: 11500000, guid: 705740f4531aa42499bba2f244e6c4b6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_CardOverview
-  parent: {fileID: 4596981508568153965}
+  m_EditorClassIdentifier: Assembly-CSharp::CardContainer
+  container: {fileID: 4596981508568153965}
   cardPrefab: {fileID: 5442216391453061085, guid: c482360720cc49c4aa0e79d797825023, type: 3}
   slots: []
   mouseOverHand: 0
+  cardState: 1
 --- !u!1 &6933388398128037745
 GameObject:
   m_ObjectHideFlags: 0
