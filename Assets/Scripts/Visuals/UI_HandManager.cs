@@ -17,7 +17,7 @@ public class UI_HandManager : MonoBehaviour
     void Draw(Card card)
     {
         Handslot slot = AddHandSlot();
-        slot.Setup(card);
+        slot.Setup(card, Handslot.CardStates.Hand);
         slots.Add(slot);
     }
 

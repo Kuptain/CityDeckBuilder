@@ -24,10 +24,13 @@ public class Handslot : MonoBehaviour
 
     public CardHover stateHover;
     public CardHover stateSelect;
+    public CardHover stateHoverOverview;
     private CardHover stateBase;
 
     bool selected;
     bool hovered;
+    public enum CardStates { Hand, Overview }
+    CardStates state;
 
     private void Start()
     {
@@ -37,28 +40,43 @@ public class Handslot : MonoBehaviour
         arrowOrigin = dragArrowTrail.anchoredPosition;
 
         stateBase = new CardHover();
-        stateBase.position = rect.position;
+        stateBase.position = Vector2.zero;
         stateBase.scale = rect.localScale;
     }
 
     private void Update()
     {
-        if (selected)
+        if (state == CardStates.Hand)
         {
-           Move();
+            if (selected)
+            {
+                Move();
+            }
+            else if (hovered)
+            {
+                MoveHover();
+            }
+            else
+            {
+                Moveback();
+            }
         }
-        else if (hovered)
+        else if (state == CardStates.Overview)
         {
-            MoveHover();
-        }
-        else 
-        {
-            Moveback();
+            if (hovered)
+            {
+                MoveHoverOverview();
+            }
+            else
+            {
+                Moveback();
+            }
+
         }
     }
 
 
-    public void Setup(Card _card)
+    public void Setup(Card _card, CardStates _newState)
     {
         if (_card != null)
         {
@@ -67,17 +85,24 @@ public class Handslot : MonoBehaviour
             card = _card;
             text_name.text = _card.cardName;
             text_description.text = _card.cardDescription;
+            state = _newState;
         }
         else
         {
             card = null;
             image.sprite = null;
+            state = _newState;
         }
     }
     void MoveHover()
     {
         rect.localPosition = Vector3.Lerp(rect.localPosition, stateHover.position, CardManager.instance.cardSpeed * Time.deltaTime);
         rect.localScale = Vector3.Lerp(rect.localScale, stateHover.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+    }
+    void MoveHoverOverview()
+    {
+        rect.localPosition = Vector3.Lerp(rect.localPosition, stateHoverOverview.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        rect.localScale = Vector3.Lerp(rect.localScale, stateHoverOverview.scale, CardManager.instance.cardSpeed * Time.deltaTime);
     }
     void Move()
     {

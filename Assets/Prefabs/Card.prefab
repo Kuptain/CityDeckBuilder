@@ -717,6 +717,9 @@ MonoBehaviour:
   stateSelect:
     scale: {x: 0.82, y: 0.82}
     position: {x: 0, y: 150}
+  stateHoverOverview:
+    scale: {x: 0.85, y: 0.85}
+    position: {x: 0, y: 0}
 --- !u!1 &5579370820533264177
 GameObject:
   m_ObjectHideFlags: 0
