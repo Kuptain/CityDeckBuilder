@@ -6,9 +6,9 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using System.Resources;
 
-public class TooltipUI : MonoBehaviour
+public class UI_HoverTooltip : MonoBehaviour
 {
-    public static TooltipUI Instance;
+    public static UI_HoverTooltip Instance;
 
     [SerializeField] private RectTransform backgroundRectTransform;
     [SerializeField] private TextMeshProUGUI tooltipText;
@@ -33,23 +33,7 @@ public class TooltipUI : MonoBehaviour
         {
             slot.gameObject.SetActive(false);
         }
-        
-        StartCoroutine(SubscribeToUpdateTooltip());
-    }
-    IEnumerator SubscribeToUpdateTooltip()
-    {
-        while (ResourceManager.instance == null)
-        {
-            yield return null;
-        }
-        //RessourceManager.instance.OnResourcesUpdated += UpdateTooltip; // add to RessourceManager
-    }
-    private void OnDestroy()
-    {
-        if (ResourceManager.instance != null)
-        {
-            //RessourceManager.instance.OnResourcesUpdated -= UpdateTooltip;
-        }
+       
     }
 
     void Update()
@@ -114,7 +98,7 @@ public class TooltipUI : MonoBehaviour
 
         int lineCount = tooltipText.textInfo.lineCount;
 
-        float baseSpacing = 10f;
+        float baseSpacing = 5f;
         float spacingPerLine = 5f;
         float newSpacing = baseSpacing + Mathf.Max(0, lineCount - 1) * spacingPerLine;
 
@@ -123,7 +107,6 @@ public class TooltipUI : MonoBehaviour
         {
             layout.spacing = newSpacing;
         }
-
         
         // Set resource icons
         //List<bool> hasResourcesList = ResourceManager.instance.HasResourcesAsList(RoomManager.Instance.localPlayer.playerID, _currentResourceTypes);

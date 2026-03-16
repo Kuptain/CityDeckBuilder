@@ -49,7 +49,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         }
 
         
-        TooltipUI.Instance.ShowTooltip(info, resourceTypes, transform.position);
+        UI_HoverTooltip.Instance.ShowTooltip(info, resourceTypes, transform.position);
 
     }
 
@@ -57,6 +57,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
     {
         // ####### Hover tooltip information, wip #######
         // #######
-        TooltipUI.Instance.HideTooltip(); 
+        UI_HoverTooltip.Instance.HideTooltip(); 
     }
 }
