@@ -11,7 +11,6 @@ public class GridManager : MonoBehaviour
 {
     public int width, height;
     [SerializeField] private float _tileSize;
-    [SerializeField] private Transform _cam;
     private const float TILE_SIZE_MULTIPLIER = 0.87f;
     public enum TileDirection { top, rightTop, rightBottom, bottom, leftBottom, leftTop }
     public Tile[] gridArray;

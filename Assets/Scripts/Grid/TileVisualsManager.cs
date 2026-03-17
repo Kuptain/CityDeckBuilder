@@ -12,6 +12,7 @@ public class TileVisualsManager : MonoBehaviour
     [SerializeField] private GameObject _tilePrefab;
     [SerializeField] private Transform gridVisualsNavMesh;
     [SerializeField] private BuildingData centreBuilding;
+    [SerializeField] private GameObject cameraController;
 
     public static TileVisualsManager Instance { get; private set; }
     public void Awake()
@@ -74,6 +75,8 @@ public class TileVisualsManager : MonoBehaviour
             {
                 tileType = TileType.Centre;
                 BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding, false);
+                Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
+                //cameraController.transform.position = GridManager.Instance.GridToWorldPosition(gridPosition);
             }
             else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
             {
