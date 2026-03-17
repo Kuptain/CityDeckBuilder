@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class InteractionManager : MonoBehaviour
+public class InteractionManager : Manager
 {
     public Card activeCard;
     public static UnityEvent<Card> OnPickUpCard = new UnityEvent<Card>();
@@ -38,7 +38,7 @@ public class InteractionManager : MonoBehaviour
             return;
         }
         BuildingObject building;
-        if (SearchForBuilding(out building))
+        if (SearchForBuilding(out building,true))
         {
             building.Click();
         }
@@ -72,14 +72,15 @@ public class InteractionManager : MonoBehaviour
     {
         isHoldingCard = false;
         BuildingObject building;
-        if (SearchForBuilding(out building))
+        if (SearchForBuilding(out building,true))
         {
-            building.Drag(activeCard);
+            building.PlayCardOnThis(activeCard);
         }
     }
 
-    bool SearchForBuilding(out BuildingObject building)
+    bool SearchForBuilding(out BuildingObject building,bool sentdebugMessage = false)
     {
+       
         Ray ray = Camera.main.ScreenPointToRay(Inputmanager.mousePosition);
         RaycastHit hit;
         int mask = LayerMask.GetMask("Ground");
@@ -88,7 +89,13 @@ public class InteractionManager : MonoBehaviour
         {
             if (TryToGetBuilding(hit.point, out building))
             {
+                if(sentdebugMessage)
+                SendLog("building found :" + building.data + " at :"+ building.GetTile().gridPosition);
                 return true;
+            }
+            else if (sentdebugMessage)
+            {
+                SendLog("no building found at :" + GridManager.Instance.WorldToGridPosition(hit.point));
             }
         }
         building = null;
@@ -98,7 +105,6 @@ public class InteractionManager : MonoBehaviour
     bool TryToGetBuilding(Vector3 pos, out BuildingObject building)
     {
         Vector2Int gridPos = GridManager.Instance.WorldToGridPosition(pos);
-        Debug.Log(gridPos);
         Tile tile;
         GridManager.Instance.TryGetTile(gridPos.x, gridPos.y, out tile);
         building = tile.currentBuilding;

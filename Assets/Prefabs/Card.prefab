@@ -702,15 +702,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ab08c8de3ff674cb25091adc20939a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Handslot
-  card: {fileID: 0}
-  image: {fileID: 2696855689651026275}
+  card:
+    data: {fileID: 0}
+    roundsInHand: 0
+    rank: 0
+  IconImage: {fileID: 2696855689651026275}
+  rect: {fileID: 3092996472844482826}
+  text_name: {fileID: 4053609592079936584}
+  text_description: {fileID: 7850826202941418153}
   arrowContainer: {fileID: 1114437677395890721}
   dragArrow: {fileID: 7784472566073528408}
   dragArrowTrail: {fileID: 8413903164156442657}
-  rect: {fileID: 3092996472844482826}
   highlight: {fileID: 9215132472698386791}
-  text_name: {fileID: 4053609592079936584}
-  text_description: {fileID: 7850826202941418153}
   stateHover:
     scale: {x: 0.92, y: 0.92}
     position: {x: 0, y: 120}

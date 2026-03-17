@@ -6,29 +6,34 @@ using static UnityEngine.UI.Image;
 using UnityEngine.InputSystem;
 using System;
 
-public class Handslot : MonoBehaviour
+public class CardVisuals : MonoBehaviour
 {
+   
     public Card card;
-    public Image image;
+    [Header("Card")]
+    public Image IconImage;
+    public RectTransform rect;
+    public TMP_Text text_name;
+    public TMP_Text text_description;
+    [Header("Arrow")]
     public GameObject arrowContainer;
     public RectTransform dragArrow;
     public RectTransform dragArrowTrail;
-    public RectTransform rect;
+    [Header("highlight")]
     public GameObject highlight;
-    public TMP_Text text_name;
-    public TMP_Text text_description;
 
-    private Canvas canvas;
-    private RectTransform canvasRectTransform;
-    private Vector2 arrowOrigin;
-
+    [Header("States")]
     public CardHover stateHover;
     public CardHover stateSelect;
     public CardHover stateHoverOverview;
-    private CardHover stateBase;
 
-    bool selected;
-    bool hovered;
+    private CardHover stateBase;
+    private Canvas canvas;
+    private RectTransform canvasRectTransform;
+    private Vector2 arrowOrigin;
+    private bool selected;
+    private bool hovered;
+
     public enum CardStates { Hand, Overview }
     CardStates state;
 
@@ -80,17 +85,17 @@ public class Handslot : MonoBehaviour
     {
         if (_card != null)
         {
-            image.sprite = _card.sprite;
+            IconImage.sprite = _card.data.sprite;
             //image.color = Color.gray7;
             card = _card;
-            text_name.text = _card.cardName;
-            text_description.text = _card.cardDescription;
+            text_name.text = _card.data.cardName;
+            text_description.text = _card.data.cardDescription;
             state = _newState;
         }
         else
         {
             card = null;
-            image.sprite = null;
+            IconImage.sprite = null;
             state = _newState;
         }
     }
@@ -144,7 +149,7 @@ public class Handslot : MonoBehaviour
     #region selection
     public void TryToSelect()
     {
-        if (card.selected)
+        if (selected)
         {
             Deselect();
         }
@@ -161,7 +166,6 @@ public class Handslot : MonoBehaviour
 
     public void Select()
     {
-        
         selected = true;
         //image.color = Color.white;
         highlight.SetActive(true);
@@ -183,7 +187,7 @@ public class Handslot : MonoBehaviour
 
     void PlayCard()
     {
-        Debug.Log("play card");
+        CardManager.instance.SendLog("play card");
         InteractionManager.OnReleaseCard.Invoke(card);
         if (!CardManager.instance.hand.Contains(card))
         {

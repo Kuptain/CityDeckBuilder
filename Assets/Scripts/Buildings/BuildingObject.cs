@@ -4,19 +4,35 @@ using static InteractionManager;
 
 public class BuildingObject : MonoBehaviour, Iinteractable
 {
-    [HideInInspector] public BuildingData data;
-    [HideInInspector] public int housingIncrease;
-    [HideInInspector] public int foodIncrease;
-    bool usedAbility;
-    [HideInInspector] public Tile tile;
+    [Header("basics")]
+    [ReadOnly] Tile tile;
+    [ReadOnly] public BuildingData data;
+    [ReadOnly] [SerializeField] int rank;
+    [Header("construction")]
+    [ReadOnly] bool constructed;
+    [ReadOnly] List<ResourceCost> constructionCost;
+    [ReadOnly] List<ResourceCost> ressourcesPaid = new List<ResourceCost>();
+    [Header("ability")]
+    [ReadOnly] bool hasCD;
+    [ReadOnly] int cooldown;
+    [ReadOnly] int cooldownDuration;
+
+
     MeshRenderer[] outlineRenderers;
     private Material[][] originalMaterials;
     BuildingOutlineStates currentOutlineState;
 
-    private void Awake()
+    public void BuildingSetup(BuildingData _data, Tile _tile)
     {
+        //references
+        data = _data;
+        hasCD = TryGetCooldOwnDuration(out cooldownDuration);
+        tile = _tile;
+        constructionCost = _data.GetBaseCost();
+        //events
         TurnManager.OnEndTurn.AddListener(EndOfTurn);
-
+        BuildEffect();
+        //visuals
         outlineRenderers = GetComponentsInChildren<MeshRenderer>();
         originalMaterials = new Material[outlineRenderers.Length][];
 
@@ -24,10 +40,128 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             originalMaterials[i] = outlineRenderers[i].materials;
         }
+
+
+    }
+    #region effects
+
+    void BuildEffect()
+    {
+        BuildingEffect effect;
+        if (TryToGetBuildingEffect(BuildingEffect.triggerType.onBuild, out effect))
+        {
+            effect.OnTrigger.Invoke(this, null);
+        }
+    }
+    void EndOfTurn()
+    {
+        BuildingEffect effect;
+        if (TryToGetBuildingEffect(BuildingEffect.triggerType.onEndOfTurn, out effect))
+        {
+            effect.OnTrigger.Invoke(this, null);
+        }
+    }
+    public void PlayCardOnThis(Card card)
+    {
+        if (!constructed)
+        {
+            PayForConstructiion(card);
+        }
+        else
+        {
+            OnCardEffect(card);
+        }
+    }
+    private void OnCardEffect(Card card)
+    {
+        BuildingEffect effect;
+        if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out effect))
+        {
+            if (card.data.Contains(effect.EffectCost))
+            {
+                effect.OnTrigger.Invoke(this, card);
+            }
+            else
+            {
+                CardManager.instance.SendLog("Card had not the right ressources");
+            }
+        }
+        else
+        {
+            CardManager.instance.SendLog("Building had no effect on Card played");
+        }
+    }
+    void PayForConstructiion(Card card)
+    {
+
+    }
+
+    public void SetConstructed()
+    {
+        constructed = true;
+    }
+    #endregion
+
+
+    #region utility
+    public Tile GetTile()
+    {
+        return tile;
+    }
+    public int GetRank()
+    {
+        return rank;
+    }
+    bool TryGetCooldOwnDuration(out int duration)
+    {
+        duration = 0;
+        List<BuildingEffect> effects = data.GetRankData(rank).effects;
+        for (int i = 0; i < effects.Count; i++)
+        {
+            if (effects[i].HasCoolDown)
+            {
+                duration = effects[i].cooldownDuration;
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<Card_Data> GetCurrentCards()
+    {
+        return data.GetRankData(rank).cardsToAdd;
+    }
+    public bool TryToGetBuildingEffect(BuildingEffect.triggerType type, out BuildingEffect effect)
+    {
+        List<BuildingEffect> effects = data.GetRankData(rank).effects;
+        for (int i = 0; i < effects.Count; i++)
+        {
+            if (effects[i].type == type)
+            {
+                effect = effects[i];
+                return true;
+            }
+        }
+        effect = null;
+        return false;
+    }
+    #endregion
+
+    #region feedback
+    public void Click()
+    {
+        //open context Tooltip of the building
+    }
+    public void StartHover(BuildingOutlineStates state)
+    {
+        EnableOutline(state);
+    }
+    public void StopHover()
+    {
+        DisableOutline();
     }
     public void EnableOutline(BuildingOutlineStates state)
     {
-        if (currentOutlineState  == state) return;
+        if (currentOutlineState == state) return;
         if (currentOutlineState != BuildingOutlineStates.Idle)
         {
             DisableOutline();
@@ -67,93 +201,5 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         currentOutlineState = BuildingOutlineStates.Idle;
     }
-    public void StartHover(BuildingOutlineStates state)
-    {
-        EnableOutline(state);
-    }
-    public void StopHover()
-    {
-        DisableOutline();
-    }
-    public void Click()
-    {
-        if (!data.endlessUses && usedAbility)
-        {
-            Debug.LogError(data.name + "ability was already used");
-            return;
-        }
-        Debug.Log("click");
-        data.OnClick.Invoke();
-        usedAbility = true;
-    }
-    public void Drag(Card card)
-    {
-        if (!data.endlessUses && usedAbility)
-        {
-            Debug.LogError(data.name + "ability was already used");
-            return;
-        }
-        if (card.Contains(data.EffectCost))
-        {
-            data.OnDrag.Invoke((Card)card);
-            usedAbility = true;
-        }
-    }
-
-    public void ShowHighlight()
-    {
-        Debug.Log("highlight");
-    }
-
-    void EndOfTurn()
-    {
-        usedAbility = false;
-        data.OnEndOfTurn.Invoke();
-    }
-
-    public void Build(Tile _tile)
-    {
-        data.OnBuild.Invoke(_tile);
-        tile = _tile;
-    }
-
-    public void increaseHousing()
-    {
-        IncreaseHousingPerNeighbour();
-        ResourceManager.instance.AddHousing( housingIncrease);
-    }
-
-    public void increaseFood()
-    {
-        IncreaseFoodPerFreeNeighbour();
-        ResourceManager.instance.ChangeFood( foodIncrease);
-    }
-
-    public void IncreaseFoodPerFreeNeighbour()
-    {
-        List<Tile> neighbours = GridManager.Instance.GetTilesInRange(tile.gridPosition, 1);
-        int sum = 0;
-        for (int i = 0; i < neighbours.Count; i++)
-        {
-            if (neighbours[i].currentBuilding == null)
-            {
-                sum += 1;
-            }
-        }
-        foodIncrease = sum;
-    }
-
-    public void IncreaseHousingPerNeighbour()
-    {
-        List<Tile> neighbours = GridManager.Instance.GetTilesInRange(tile.gridPosition, 1);
-        int sum = 0;
-        for (int i = 0; i < neighbours.Count; i++)
-        {
-            if (neighbours[i].currentBuilding!=null && neighbours[i].currentBuilding.data.ID == 2)
-            {
-                sum += 1;
-            }
-        }
-        housingIncrease = sum;
-    }
+    #endregion
 }
