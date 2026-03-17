@@ -5,9 +5,10 @@ using static Tile;
 public class TileVisual : MonoBehaviour
 {
     public List<GameObject> visualsWood, visualsStone;
+    public GameObject fogOfWar;
     public Vector2Int gridPosition;
 
-    [SerializeField] private Color _baseColor1, _baseColor2, _baseColor3, _centreColor, _edgeColor;
+    [SerializeField] private Color _baseColor1, _baseColor2, _baseColor3, _centreColor, _edgeColor, _unexploredColor;
     [SerializeField] private MeshRenderer _renderer;
 
     public void Init(Vector2Int _gridPosition)
@@ -15,7 +16,19 @@ public class TileVisual : MonoBehaviour
         gridPosition = _gridPosition;
         UpdateTileTypeVisual();
     }
-    public void UpdateTileTypeVisual()
+    public void SetExploredVisual(bool isExplored)
+    {
+        fogOfWar.SetActive(!isExplored);
+        if (isExplored)
+        {
+            SetOffsetColor();
+        }
+        else
+        {
+            _renderer.material.SetColor("_BaseColor", _unexploredColor);
+        }
+    }
+    private void SetOffsetColor()
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
 
@@ -31,6 +44,12 @@ public class TileVisual : MonoBehaviour
                 _renderer.material.SetColor("_BaseColor", _baseColor3);
                 break;
         }
+    }
+    public void UpdateTileTypeVisual()
+    {
+        Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
+
+        SetOffsetColor();
         foreach (var visual in visualsWood)
         {
             visual.SetActive(false);
@@ -42,11 +61,9 @@ public class TileVisual : MonoBehaviour
 
         switch (tile.tileType)
         {
-            case TileType.Wood:
+            case TileType.Forest:
                 break;
-            case TileType.Start:
-                break;
-            case TileType.Stone:
+            case TileType.Mountain:
                 break;
             case TileType.Centre:
                 _renderer.material.SetColor("_BaseColor", _edgeColor);
