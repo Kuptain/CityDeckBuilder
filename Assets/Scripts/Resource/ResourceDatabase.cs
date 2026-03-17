@@ -48,7 +48,7 @@ public class ResourceEntry
 }
 
 [System.Serializable]
-public class ResourceCost
+public struct ResourceCost
 {
     public ResourceType resource;
     public int amount;

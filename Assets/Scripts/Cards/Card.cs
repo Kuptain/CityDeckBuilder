@@ -1,45 +1,21 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
-public class Card : ScriptableObject
+[System.Serializable]
+public class Card
 {
 
+    public Card_Data data;
+    BuildingObject originBuilding;
+    public int roundsInHand;
+    public int rank;
 
-    [HideInInspector] public bool selected;
-    public Sprite sprite;
-    public string cardName;
-    public string cardDescription;
-    public List<ResourceCost> ressources;
-
-    public Card(Card card)
+    public Card(Card_Data _data)
     {
-        sprite = card.sprite;
-        ressources = new List<ResourceCost>(card.ressources);
+        data = _data;
     }
 
-    public bool Contains(List<ResourceCost> cost)
+    public void Upgrade()
     {
-        bool costSatisfied = false;
-        foreach(ResourceCost x in cost)
-        {
-            costSatisfied = false;
-            foreach(ResourceCost y in ressources)
-            {
-                if(x.resource == y.resource)
-                {
-                    if (x.amount <= y.amount)
-                    {
-                        costSatisfied = true;
-                    }
-                    break;
-                }
-            }
-            if(costSatisfied == false)
-            {
-                return false;
-            }
-        }
-        return true;
+        rank += 1;
     }
 }

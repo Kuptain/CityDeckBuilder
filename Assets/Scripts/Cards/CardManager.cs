@@ -2,13 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CardManager : MonoBehaviour
+public class CardManager : Manager
 {
     #region singleton
     public static CardManager instance;
-
-
-
     private void Awake()
     {
         if (instance == null)
@@ -27,15 +24,12 @@ public class CardManager : MonoBehaviour
     public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
     #endregion
 
-
-
     [Header("variables")]
     public int HandSize;
     public float cardSpeed = 5;
-    [Header("listen")]
+    [Header("Cards")]
     public List<Card> deck = new List<Card>(10);
     public List<Card> hand;
-    public List<Card> discardedCards;
     public List<Card> productionDeck;
     private void Start()
     {
@@ -51,6 +45,7 @@ public class CardManager : MonoBehaviour
     private void Update()
     {
         UpdateHUD(); // Probably move somewhere else, only when the values are actually changed
+        
     }
     private void EndTurnOnDiscard(Card card)
     {
@@ -63,38 +58,42 @@ public class CardManager : MonoBehaviour
     }
     public void StartTurn()
     {
-        Debug.Log("Start Of Turn");
+        SendLog("Start Of Turn");
 
         DrawCards(HandSize - hand.Count); // Refill back to hand size
     }
     public void EndTurn()
     {
-        Debug.Log("End Of Turn");
+        SendLog("End Of Turn");
         //DiscardHand();
     }
 
-    public void AddCardsToDeck(List<Card> cards)
+    public void AddCardsToDeck(List<Card_Data> cards_Data)
     {
-        deck.AddRange(cards);
+        for (int i = 0; i < cards_Data.Count; i++)
+        {
+            deck.Add(new Card(cards_Data[i]));
+        }
     }
 
-    public void AddCardsToHand(List<Card> cards)
+    public void AddCardsToHand(List<Card_Data> cards_Data)
     {
-        hand.AddRange(cards);
+        for (int i = 0; i < cards_Data.Count; i++)
+        {
+            hand.Add(new Card(cards_Data[i]));
+        }
     }
-
-    public void AddCardsToDiscard(List<Card> cards)
+    public void AddCardsToProduction(List<Card_Data> cards_Data)
     {
-        discardedCards.AddRange(cards);
-    }
-    public void AddCardsToProduction(List<Card> cards)
-    {
-        productionDeck.AddRange(cards);
+        for (int i = 0; i < cards_Data.Count; i++)
+        {
+            productionDeck.Add(new Card(cards_Data[i]));
+        }
     }
 
     public void ShuffleDeck()
     {
-        List<Card> newDeck = new List<Card>();
+        List<Card> newDeck = new List<Card >();
         while (deck.Count > 0)
         {
             int RandomIndex = Random.Range(0, deck.Count);
@@ -103,7 +102,6 @@ public class CardManager : MonoBehaviour
         }
         deck = newDeck;
     }
-
     public void DrawCards(int count)
     {
         for (int i = 0; i < count; i++)
@@ -111,10 +109,8 @@ public class CardManager : MonoBehaviour
             DrawCard();
         }
     }
-
-    public void DrawCard(int index = 0)
+    void DrawCard(int index = 0)
     {
-
         if (deck.Count > 0)
         {
             index = Mathf.Clamp(index, 0, deck.Count - 1);
@@ -139,12 +135,10 @@ public class CardManager : MonoBehaviour
             }
         }
     }
-
     public void DiscardCard(int index = 0)
     {
         if (index < hand.Count && index >= 0)
         {
-            discardedCards.Add(hand[index]);
             OnDiscard.Invoke(hand[index]);
             hand.RemoveAt(index);
         }
@@ -153,22 +147,10 @@ public class CardManager : MonoBehaviour
     {
         if (hand.Contains(card))
         {
-            discardedCards.Add(card);
             OnDiscard.Invoke(card);
             hand.Remove(card);
         }
     }
-
-    public void DiscardHand()
-    {
-        discardedCards.AddRange(hand);
-        foreach (Card c in hand)
-        {
-            OnDiscard.Invoke(c);
-        }
-        hand.Clear();
-    }
-
     public void ProductionToDeck()
     {
         deck.AddRange(productionDeck);
@@ -210,11 +192,6 @@ public class CardManager : MonoBehaviour
     public void Discard()
     {
         DiscardCard(0);
-    }
-    [ContextMenu("discard Hand")]
-    public void Test_DiscardHand()
-    {
-        DiscardHand();
     }
     #endregion
 }

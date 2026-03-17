@@ -133,8 +133,10 @@ public class TileVisualsManager : MonoBehaviour
             if (x == centre.x && y == centre.y)
             {
                 tileType = TileType.Centre;
-                BuildingManager.Instance.SpawnBuilding(gridPosition, centreBuilding, false);
+
+                BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding).SetConstructed();
                 Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
+
             }
             else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
             {

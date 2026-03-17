@@ -41,15 +41,8 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         };
 
         // // ####### Hover tooltip information, wip #######
-        
-        List<ResourceCost> resourceTypes = new List<ResourceCost>();
-        for (int i = 0; i < buildingData.resourceCosts.Count; i++)
-        {
-            resourceTypes.Add(buildingData.resourceCosts[i]);
-        }
 
-        
-        UI_HoverTooltip.Instance.ShowTooltip(info, resourceTypes, transform.position);
+        UI_HoverTooltip.Instance.ShowTooltip(info, buildingData.GetBaseCost(), transform.position);
 
     }
 
@@ -57,6 +50,6 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
     {
         // ####### Hover tooltip information, wip #######
         // #######
-        UI_HoverTooltip.Instance.HideTooltip(); 
+        UI_HoverTooltip.Instance.HideTooltip();
     }
 }

@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardContainer : MonoBehaviour
+public class CardVisualManager : MonoBehaviour
 {
     public Transform container;
     public GameObject cardPrefab;
-    public List<Handslot> slots = new List<Handslot>();
+    public List<CardVisuals> slots = new List<CardVisuals>();
     public bool mouseOverHand;
 
-    public Handslot.CardStates cardState;
+    public CardVisuals.CardStates cardState;
 
     private void Start()
     {
-        if (cardState == Handslot.CardStates.Hand)
+        if (cardState == CardVisuals.CardStates.Hand)
         {
             CardManager.OnDraw.AddListener(Draw);
             CardManager.OnDiscard.AddListener(Discard);
         }
-        else if (cardState == Handslot.CardStates.Overview)
+        else if (cardState == CardVisuals.CardStates.Overview)
         {
             // Whatever
         }
@@ -25,14 +25,14 @@ public class CardContainer : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (cardState == Handslot.CardStates.Overview)
+        if (cardState == CardVisuals.CardStates.Overview)
         {
             SetupOverview();
         }
     }
     private void OnDisable()
     {
-        if (cardState == Handslot.CardStates.Overview)
+        if (cardState == CardVisuals.CardStates.Overview)
         {
             foreach (var slot in slots)
             {
@@ -50,14 +50,14 @@ public class CardContainer : MonoBehaviour
     }
     void Draw(Card card)
     {
-        Handslot slot = AddHandSlot();
+        CardVisuals slot = AddHandSlot();
         slot.Setup(card, cardState);
         slots.Add(slot);
     }
 
     void Discard(Card card)
     {
-        foreach (Handslot slot in slots)
+        foreach (CardVisuals slot in slots)
         {
             if (slot.card == card)
             {
@@ -68,9 +68,9 @@ public class CardContainer : MonoBehaviour
         }
     }
 
-    Handslot AddHandSlot()
+    CardVisuals AddHandSlot()
     {
-        return Instantiate(cardPrefab, container).GetComponent<Handslot>();
+        return Instantiate(cardPrefab, container).GetComponent<CardVisuals>();
     }
 
     public void MouseOverHand(bool active)

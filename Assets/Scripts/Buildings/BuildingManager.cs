@@ -37,7 +37,7 @@ public class BuildingManager : MonoBehaviour
     private void Start()
     {
         buildingsPanel = HUD.Instance.panelBuildingButtons;
-        foreach(var building in unlockedBuildings)
+        foreach (var building in unlockedBuildings)
         {
             GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
             BuildingButton button = buttonGO.GetComponent<BuildingButton>();
@@ -66,7 +66,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     previewBuilding.transform.position = Vector3.Lerp(previewBuilding.transform.position, raycastHit.hitPosition, 0.6f);
                 }
-               
+
             }
 
             if (Mouse.current.leftButton.wasReleasedThisFrame && previewBuilding != null)
@@ -126,35 +126,18 @@ public class BuildingManager : MonoBehaviour
     }
     private void SpawnBuildingPreview(BuildingData building)
     {
-        if (ResourceManager.instance.IHaveEnoughRessources(building.resourceCosts))
-        {
-            selectedBuilding = building;
+        selectedBuilding = building;
 
-            var raycastHit = GroundRaycast();
-            previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
-            previewBuilding.GetComponent<BuildingObject>().data = building;
-            previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
-            previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
-        }
+        var raycastHit = GroundRaycast();
+        previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
+        previewBuilding.GetComponent<BuildingObject>().data = building;
+        previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
+        previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
     }
 
-   
-
-    public void SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool payBuildCost = true)
+    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn)
     {
         GridManager gridManager = GridManager.Instance;
-        if (payBuildCost)
-        {
-            if ((buildingToSpawn.resourceCosts.Count > 0 && ResourceManager.instance.IHaveEnoughRessources(buildingToSpawn.resourceCosts))
-            || buildingToSpawn.resourceCosts.Count == 0)
-            {
-                ResourceManager.instance.SpendRessources(buildingToSpawn.resourceCosts);
-            }
-            else
-            {
-                return;
-            }
-        }
 
         if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
@@ -170,10 +153,11 @@ public class BuildingManager : MonoBehaviour
                 //buildingObject.EnableOutline(); // Test outline
 
                 currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
-                currentTile.currentBuilding.data = buildingToSpawn;
+                currentTile.currentBuilding.BuildingSetup(buildingToSpawn,currentTile);
+
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
-               
+
 
                 foreach (Tile _tile in GridManager.Instance.GetTilesInRange(gridPosition, 0))
                 {
@@ -187,16 +171,13 @@ public class BuildingManager : MonoBehaviour
                         Debug.LogWarning($"No visual found for tile at {gridPosition}");
                     }
                 }
-
-                //Adding Cards
-                currentTile.currentBuilding.Build(currentTile);
-                currentTile.currentBuilding.tile = currentTile;
+                return buildingObject; 
             }
         }
 
-     
+        return null;
     }
 
 
-    
+
 }
