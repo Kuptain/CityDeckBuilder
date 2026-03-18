@@ -11,7 +11,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [Header("construction")]
     [ReadOnly] bool constructed;
     [ReadOnly] List<ResourceCost> constructionCost;
-    [ReadOnly] List<ResourceCost> ressourcesPaid = new List<ResourceCost>();
+    [ReadOnly] List<ResourceCost> CostStillOpen = new List<ResourceCost>();
     [Header("ability")]
     [ReadOnly] bool hasCD;
     [ReadOnly] int cooldown;
