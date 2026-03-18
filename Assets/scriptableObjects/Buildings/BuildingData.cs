@@ -13,7 +13,7 @@ public class BuildingData : ScriptableObject
     public Sprite uiIcon;
     public GameObject uiButton;
 
-    [SerializeField] List<RankData> ranks = new List<RankData>();
+    [SerializeField] List<RankData> ranks = new List<RankData>() { new RankData() };
 
     public RankData GetRankData(int rank)
     {

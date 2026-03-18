@@ -5,7 +5,7 @@ using static Unity.Collections.Unicode;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
-public class BuildingManager : MonoBehaviour
+public class BuildingManager : Manager
 {
 
     [SerializeField] GameObject buildingButtonPrefab;
@@ -148,7 +148,7 @@ public class BuildingManager : MonoBehaviour
 
                 GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, gridManager.GridToWorldPosition(gridPosition), Quaternion.identity);
                 spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
-                spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
+                //spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
                 var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
                 //buildingObject.EnableOutline(); // Test outline
 

@@ -15,54 +15,34 @@ MonoBehaviour:
   ID: 0
   buildingName: "Holzf\xE4ller"
   buildingDescription: "F\xFCgt dem Deck 1 Holz (x2) Karte hinzu."
-  cardsToAdd:
-  - {fileID: 11400000, guid: cecee1b0e104b684d864bb2e4c1cce2e, type: 2}
-  housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: ed032f3180b842646996c07faeb939f5, type: 3}
   uiIcon: {fileID: 21300000, guid: ab45bd27945b1604d81911201bccacbc, type: 3}
   uiButton: {fileID: 0}
-  resourceCosts:
-  - resource: 2
-    amount: 2
-  - resource: 3
-    amount: 1
-  endlessUses: 0
-  EffectCost:
-  - resource: 1
-    amount: 1
-  OnBuild:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddCards
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: SellCard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
+  ranks:
+  - cardsToAdd: []
+    resourceCosts:
+    - resource: 1
+      amount: 2
+    - resource: 4
+      amount: 1
+    housingIncrease: 0
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: Test
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2

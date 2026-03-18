@@ -15,41 +15,11 @@ MonoBehaviour:
   ID: 0
   buildingName: Park
   buildingDescription: Erzeugt 1 Wohnraum pro benachbartem Wohnhaus.
-  cardsToAdd: []
-  housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 8a269fe372853cf4ea37bad3d9e3c4f7, type: 3}
   uiIcon: {fileID: 21300000, guid: 11062db1551090e4a992d13b520559a7, type: 3}
   uiButton: {fileID: 0}
-  resourceCosts:
-  - resource: 3
-    amount: 1
-  - resource: 4
-    amount: 1
-  - resource: 1
-    amount: 1
-  endlessUses: 0
-  EffectCost: []
-  OnBuild:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: changeHousingPerNeighbour
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDrag:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
+  ranks:
+  - cardsToAdd: []
+    resourceCosts: []
+    housingIncrease: 0
+    effects: []
