@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ebf5d0475c624488acc944126bf7c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  moveSpeed: 300
+  moveSpeed: 400
   moveSmoothTime: 0.1
   zoomSpeed: 500
   minZoom: 30
@@ -102,7 +102,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 6c80762e-c539-4562-960c-bef328ac3eef
+    m_ActionId: ff3ec53c-97bf-4b2d-92f6-3bb24428f4c3
     m_ActionName: 'Player/CameraMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
@@ -118,8 +118,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: aed7bf5d-27c6-45ce-87b0-5dd46f1751d5
-    m_ActionName: 'Player/CameraZoom[/Mouse/scroll/y]'
+    m_ActionId: 3313eea6-9b66-428b-937b-8416d396e83a
+    m_ActionName: 'Player/CameraScroll[/Mouse/scroll/y]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
