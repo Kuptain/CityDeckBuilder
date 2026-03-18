@@ -80,7 +80,7 @@ public class BuildingManager : MonoBehaviour
             }
         }
     }
-    private (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
+    public (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
     {
         Vector3 hitPosition = new Vector3();
         bool isGround = false;

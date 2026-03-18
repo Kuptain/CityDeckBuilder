@@ -79,8 +79,6 @@ public class TileVisualsManager : MonoBehaviour
             {
                 tile.SetExplored(false);
             }
-            int index = GridManager.Instance.GetIndex(x, y);
-            GridManager.Instance.gridArray[index] = tile;
         }
         else
         {
@@ -97,11 +95,7 @@ public class TileVisualsManager : MonoBehaviour
 
         if (GridManager.Instance.TryGetTile(x, y, out Tile tile))
         {
-            if (tile.isExplored)
-            {
-                tile.SetVisible(true);
-            }
-            else if(GridManager.Instance.IsExploredTileInRange(gridPosition, DEFAULT_RANGE))
+            if (tile.isExplored || GridManager.Instance.IsExploredTileInRange(gridPosition, DEFAULT_RANGE))
             {
                 tile.SetVisible(true);
             }
@@ -109,8 +103,6 @@ public class TileVisualsManager : MonoBehaviour
             {
                 tile.SetVisible(false);
             }
-            int index = GridManager.Instance.GetIndex(x, y);
-            GridManager.Instance.gridArray[index] = tile;
         }
         else
         {
