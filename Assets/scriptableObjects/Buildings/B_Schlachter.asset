@@ -16,41 +16,11 @@ MonoBehaviour:
   buildingName: Schlachter
   buildingDescription: "<b>Drag & Drop:</b> L\xF6scht 1 Schafkarte aus dem Deck um
     3 Nahrung zu erzeugen."
-  cardsToAdd: []
-  housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: f677a5b00feedbe488d41fa7c17dc714, type: 3}
   uiIcon: {fileID: 21300000, guid: baf2b0365bd7c374a92acc9b170ca708, type: 3}
   uiButton: {fileID: 0}
-  resourceCosts:
-  - resource: 1
-    amount: 2
-  - resource: 2
-    amount: 1
-  endlessUses: 0
-  EffectCost:
-  - resource: 4
-    amount: 1
-  OnBuild:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: CreateFood
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
+  ranks:
+  - cardsToAdd: []
+    resourceCosts: []
+    housingIncrease: 0
+    effects: []
