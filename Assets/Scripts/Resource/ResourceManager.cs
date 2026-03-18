@@ -12,6 +12,7 @@ public class ResourceManager : Manager
         if (instance == null)
         {
             instance = this;
+            dataBase = database;
         }
         else
         {
@@ -30,6 +31,8 @@ public class ResourceManager : Manager
     #endregion
     Dictionary<ResourceType, int> ressources = new Dictionary<ResourceType, int>();
 
+    [SerializeField] ResourceDatabase database;
+    public static ResourceDatabase dataBase;
     public int housingBaseValue;
     public int housing;
     public int food;

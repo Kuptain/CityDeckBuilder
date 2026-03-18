@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890c4a3c404b4494e84de95ac4b3290d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RessourceManager
+  debugMode: 0
+  database: {fileID: 11400000, guid: 3bc5d2cd3c19f53489830cf2f5de7e91, type: 2}
   housingBaseValue: 7
   housing: 0
   food: 7

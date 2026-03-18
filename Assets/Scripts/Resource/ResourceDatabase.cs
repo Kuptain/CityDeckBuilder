@@ -52,4 +52,10 @@ public struct ResourceCost
 {
     public ResourceType resource;
     public int amount;
+
+    public ResourceCost (ResourceType type, int _value)
+    {
+        resource = type;
+        amount = _value;
+    }
 }

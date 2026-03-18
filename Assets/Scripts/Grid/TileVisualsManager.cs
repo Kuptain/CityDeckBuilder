@@ -134,7 +134,7 @@ public class TileVisualsManager : MonoBehaviour
             {
                 tileType = TileType.Centre;
 
-                BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding).SetConstructed();
+                BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding).FinishConstruction();
                 Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
 
             }

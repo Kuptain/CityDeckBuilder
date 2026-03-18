@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static InteractionManager;
 
 public class BuildingObject : MonoBehaviour, Iinteractable
@@ -9,18 +10,24 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] public BuildingData data;
     [ReadOnly] [SerializeField] int rank;
     [Header("construction")]
-    [ReadOnly] bool constructed;
-    [ReadOnly] List<ResourceCost> constructionCost;
-    [ReadOnly] List<ResourceCost> CostStillOpen = new List<ResourceCost>();
+    [ReadOnly] [SerializeField] bool constructed;
+    [ReadOnly] [SerializeField] List<ResourceCost> constructionCost;
+    [ReadOnly] [SerializeField] List<ResourceCost> CostStillOpen = new List<ResourceCost>();
     [Header("ability")]
-    [ReadOnly] bool hasCD;
-    [ReadOnly] int cooldown;
-    [ReadOnly] int cooldownDuration;
+    [ReadOnly] [SerializeField] bool hasCD;
+    [ReadOnly] [SerializeField] int cooldown;
+    [ReadOnly] [SerializeField] int cooldownDuration;
 
 
     MeshRenderer[] outlineRenderers;
     private Material[][] originalMaterials;
     BuildingOutlineStates currentOutlineState;
+    public UnityEvent<List<ResourceCost>, List<ResourceCost>> OnConstructionProgress = new UnityEvent<List<ResourceCost>, List<ResourceCost>>();
+
+    private void Start()
+    {
+        OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
+    }
 
     public void BuildingSetup(BuildingData _data, Tile _tile)
     {
@@ -29,9 +36,10 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         tile = _tile;
         constructionCost = _data.GetBaseCost();
+        CostStillOpen = new List<ResourceCost>(constructionCost);
         //events
         TurnManager.OnEndTurn.AddListener(EndOfTurn);
-        BuildEffect();
+        //BuildEffect();
         //visuals
         outlineRenderers = GetComponentsInChildren<MeshRenderer>();
         originalMaterials = new Material[outlineRenderers.Length][];
@@ -40,7 +48,6 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             originalMaterials[i] = outlineRenderers[i].materials;
         }
-
 
     }
     #region effects
@@ -65,7 +72,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         if (!constructed)
         {
-            PayForConstructiion(card);
+            PayForConstruction(card);
         }
         else
         {
@@ -91,14 +98,32 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             CardManager.instance.SendLog("Building had no effect on Card played");
         }
     }
-    void PayForConstructiion(Card card)
+    void PayForConstruction(Card card)
     {
-
+        if (card.TryToPayFor(ref CostStillOpen))
+        {
+            OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
+            if (CostStillOpen.Count == 0)
+            {
+                
+                Constructionfinished();
+            }
+        }
+        
+    }
+    void Constructionfinished()
+    {
+        BuildingManager.Instance.SendLog(data.name +" constructed");
+        constructed = true;
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(false);
+        BuildEffect();
     }
 
-    public void SetConstructed()
+    public void FinishConstruction()
     {
         constructed = true;
+        BuildEffect();
     }
     #endregion
 
