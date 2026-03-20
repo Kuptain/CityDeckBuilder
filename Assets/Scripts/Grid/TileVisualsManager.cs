@@ -57,7 +57,45 @@ public class TileVisualsManager : MonoBehaviour
             Debug.LogError("Failed to get GridTileVisual at gridPosition: " + gridPosition);
         }
     }
-    public void SetDefaultTileExploredState(Vector2Int gridPosition)
+    public void InstantiateGridTileVisualFromData(bool setInitialTypes = false)
+    {
+        foreach (var tile in GridManager.Instance.gridArray)
+        {
+            if (!tile.isValid) continue;
+            Quaternion hexRotation = Quaternion.Euler(new Vector3(0, tile.rotationIndex * 60f, 0));
+            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), hexRotation);
+            spawnedTile.name = $"Tile {tile.gridPosition.x} {tile.gridPosition.y}";
+            spawnedTile.transform.parent = gridVisualsNavMesh;
+
+
+            TileVisual gridTileVisual = spawnedTile.GetComponent<TileVisual>();
+            tileVisualMap[tile.gridPosition] = gridTileVisual;
+
+            gridTileVisual?.Init(tile.gridPosition);
+        }
+
+        NavMeshRuntimeBaker.Instance.BakeNavMesh();
+
+        if (setInitialTypes)
+        {
+            foreach (var tile in GridManager.Instance.gridArray)
+            {
+                if (!tile.isValid) continue;
+                SetInitialGridTileType(tile.gridPosition);
+            }
+            foreach (var tile in GridManager.Instance.gridArray)
+            {
+                if (!tile.isValid) continue;
+                SetInitialTileExploredState(tile.gridPosition);
+            }
+            foreach (var tile in GridManager.Instance.gridArray)
+            {
+                if (!tile.isValid) continue;
+                SetInitialTileVisibleState(tile.gridPosition);
+            }
+        }
+    }
+    public void SetInitialTileExploredState(Vector2Int gridPosition)
     {
         int x = gridPosition.x;
         int y = gridPosition.y;
@@ -86,7 +124,7 @@ public class TileVisualsManager : MonoBehaviour
         }
 
     }
-    public void SetDefaultTileVisibleState(Vector2Int gridPosition)
+    public void SetInitialTileVisibleState(Vector2Int gridPosition)
     {
         int x = gridPosition.x;
         int y = gridPosition.y;
@@ -143,45 +181,6 @@ public class TileVisualsManager : MonoBehaviour
         }
     }
 
-    public void InstantiateGridTileVisualFromData(bool setInitialTypes = false)
-    {
-        foreach (var tile in GridManager.Instance.gridArray)
-        {
-            if (!tile.isValid) continue;
-            Quaternion hexRotation = Quaternion.Euler(new Vector3(0, tile.rotationIndex * 60f, 0));
-            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), hexRotation);
-            spawnedTile.name = $"Tile {tile.gridPosition.x} {tile.gridPosition.y}";
-            spawnedTile.transform.parent = gridVisualsNavMesh;
 
-
-            TileVisual gridTileVisual = spawnedTile.GetComponent<TileVisual>();
-            tileVisualMap[tile.gridPosition] = gridTileVisual;
-
-            gridTileVisual?.Init(tile.gridPosition);
-        }
-
-        NavMeshRuntimeBaker.Instance.BakeNavMesh();
-
-        if (setInitialTypes)
-        {
-            foreach (var tile in GridManager.Instance.gridArray)
-            {
-                if (!tile.isValid) continue;
-                SetInitialGridTileType(tile.gridPosition);
-            }
-            foreach (var tile in GridManager.Instance.gridArray)
-            {
-                if (!tile.isValid) continue;
-                SetDefaultTileExploredState(tile.gridPosition);
-            }
-            foreach (var tile in GridManager.Instance.gridArray)
-            {
-                if (!tile.isValid) continue;
-                SetDefaultTileVisibleState(tile.gridPosition);
-            }
-        }
-
-
-    }
 
 }

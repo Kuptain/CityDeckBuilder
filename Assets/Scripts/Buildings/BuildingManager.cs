@@ -161,7 +161,9 @@ public class BuildingManager : Manager
 
                 foreach (Tile _tile in GridManager.Instance.GetTilesInRange(gridPosition, 0))
                 {
-                    Tile tileInRange = TileVisualsManager.Instance.GetVisualTilelData(_tile.gridPosition);
+                    //Tile tileInRange = TileVisualsManager.Instance.GetVisualTilelData(_tile.gridPosition);
+                    GridManager.Instance.TryGetTile(_tile.gridPosition, out Tile tileInRange);
+                    
                     if (tileInRange.tileType != TileType.Edge && tileInRange.tileType != TileType.Centre)
                     {
                         TileVisualsManager.Instance.HandleOnUpdateTileVisual(tileInRange.gridPosition, TileType.Default);
