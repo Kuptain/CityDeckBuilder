@@ -46,6 +46,7 @@ public struct Tile
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
             visual.gameObject.SetActive(state);
+            visual.SetExploredVisual(isExplored);
         }
 
         // Apply this tile back to the gridArray

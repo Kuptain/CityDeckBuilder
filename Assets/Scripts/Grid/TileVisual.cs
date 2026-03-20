@@ -6,6 +6,7 @@ public class TileVisual : MonoBehaviour
 {
     public List<GameObject> visualsWood, visualsStone;
     public GameObject fogOfWar;
+    public GameObject buildingObject;
     public Vector2Int gridPosition;
 
     [SerializeField] private Color _baseColor1, _baseColor2, _baseColor3, _centreColor, _edgeColor, _unexploredColor;
@@ -19,6 +20,11 @@ public class TileVisual : MonoBehaviour
     public void SetExploredVisual(bool isExplored)
     {
         fogOfWar.SetActive(!isExplored);
+        if (buildingObject != null )
+        {
+            buildingObject.SetActive(isExplored);
+        }
+
         if (isExplored)
         {
             SetOffsetColor();

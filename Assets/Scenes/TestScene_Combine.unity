@@ -1259,14 +1259,6 @@ PrefabInstance:
       propertyPath: gridVisualsNavMesh
       value: 
       objectReference: {fileID: 534258746}
-    - target: {fileID: 4273639655054052994, guid: a95bd6498b129094987323867dfe1d0f, type: 3}
-      propertyPath: width
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4273639655054052994, guid: a95bd6498b129094987323867dfe1d0f, type: 3}
-      propertyPath: height
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 5930988637790207383, guid: a95bd6498b129094987323867dfe1d0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 389.4013

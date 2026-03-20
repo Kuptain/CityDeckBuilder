@@ -1,8 +1,7 @@
 using UnityEngine;
-using System;
 using static Tile;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
+using static UnityEngine.EventSystems.EventTrigger;
 
 // Convert Network Objects to store grid visuals here
 
@@ -12,6 +11,7 @@ public class TileVisualsManager : MonoBehaviour
     [SerializeField] private GameObject _tilePrefab;
     [SerializeField] private Transform gridVisualsNavMesh;
     [SerializeField] private BuildingData centreBuilding;
+    [SerializeField] private BuildingData blueprintBuilding;
     [SerializeField] private GameObject cameraController;
 
     #region Singleton
@@ -30,10 +30,13 @@ public class TileVisualsManager : MonoBehaviour
     }
     #endregion
 
-    public Tile GetVisualTilelData(Vector2Int _gridPosition)
+    public TileVisual GetVisualTilelData(Vector2Int gridPosition)
     {
-        Tile _visual = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(_gridPosition.x, _gridPosition.y)];
-        return _visual;
+        if (!tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
+        {
+            Debug.LogError("Failed to get GridTileVisual at gridPosition: " + gridPosition);
+        }
+        return visual;
     }
 
     public void HandleOnUpdateTileVisual(Vector2Int gridPosition, TileType _tileType, byte _randomVariantID = 0)
@@ -78,28 +81,38 @@ public class TileVisualsManager : MonoBehaviour
 
         if (setInitialTypes)
         {
-            foreach (var tile in GridManager.Instance.gridArray)
-            {
-                if (!tile.isValid) continue;
-                SetInitialGridTileType(tile.gridPosition);
-            }
-            foreach (var tile in GridManager.Instance.gridArray)
-            {
-                if (!tile.isValid) continue;
-                SetInitialTileExploredState(tile.gridPosition);
-            }
-            foreach (var tile in GridManager.Instance.gridArray)
-            {
-                if (!tile.isValid) continue;
-                SetInitialTileVisibleState(tile.gridPosition);
-            }
+            SetInitialGridTileType();
+            SetInitialTileExploredState();
+            SetInitialBlueprintSpawns();
+            SetInitialTileVisibleState();
         }
     }
-    public void SetInitialTileExploredState(Vector2Int gridPosition)
+    private void SetInitialBlueprintSpawns()
     {
-        int x = gridPosition.x;
-        int y = gridPosition.y;
+        int amountOfBuildings = 30;
 
+
+        // 1. Copy all unexplored tiles to a list
+        List<Tile> unexploredTiles = new List<Tile>();
+        foreach (var tile in GridManager.Instance.gridArray)
+        {
+            if (!tile.isValid || tile.isExplored) continue;
+            unexploredTiles.Add(tile);
+        }
+        int spawnCount = Mathf.Min(amountOfBuildings, unexploredTiles.Count);
+
+        // 2. For each entry, spawn a building and remove from list.
+        for (int i = 0; i < spawnCount; i++)
+        {
+            int randomTile = Random.Range(0, unexploredTiles.Count);
+            Vector2Int tileGridPosition = unexploredTiles[randomTile].gridPosition;
+            BuildingManager.Instance.SpawnBuilding(new Vector2Int(tileGridPosition.x, tileGridPosition.y), blueprintBuilding);
+            unexploredTiles.Remove(unexploredTiles[randomTile]);
+        }
+    }
+
+    private void SetInitialTileExploredState()
+    {
         int width = GridManager.Instance.width;
         int height = GridManager.Instance.height;
 
@@ -107,8 +120,14 @@ public class TileVisualsManager : MonoBehaviour
 
         Vector2Int centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
 
-        if (GridManager.Instance.TryGetTile(x, y, out Tile tile))
+        foreach (var tile in GridManager.Instance.gridArray)
         {
+            if (!tile.isValid) continue;
+
+            Vector2Int gridPosition = tile.gridPosition;
+            int x = gridPosition.x;
+            int y = gridPosition.y;
+
             if (GridManager.Instance.IsTileInRange(new Vector2Int(x, y), centre, DEFAULT_RANGE))
             {
                 tile.SetExplored(true);
@@ -118,21 +137,17 @@ public class TileVisualsManager : MonoBehaviour
                 tile.SetExplored(false);
             }
         }
-        else
-        {
-            Debug.LogWarning($"GridTile is null for tile at gridPosition {gridPosition}");
-        }
-
     }
-    public void SetInitialTileVisibleState(Vector2Int gridPosition)
+    private void SetInitialTileVisibleState()
     {
-        int x = gridPosition.x;
-        int y = gridPosition.y;
-
         int DEFAULT_RANGE = 2;
 
-        if (GridManager.Instance.TryGetTile(x, y, out Tile tile))
+        foreach (var tile in GridManager.Instance.gridArray)
         {
+            if (!tile.isValid) continue;
+
+            Vector2Int gridPosition = tile.gridPosition;
+
             if (tile.isExplored || GridManager.Instance.IsExploredTileInRange(gridPosition, DEFAULT_RANGE))
             {
                 tile.SetVisible(true);
@@ -142,43 +157,45 @@ public class TileVisualsManager : MonoBehaviour
                 tile.SetVisible(false);
             }
         }
-        else
-        {
-            Debug.LogWarning($"GridTile is null for tile at gridPosition {gridPosition}");
-        }
     }
-    public void SetInitialGridTileType(Vector2Int gridPosition)
+    private void SetInitialGridTileType()
     {
         TileType tileType = TileType.Default;
-        int x = gridPosition.x;
-        int y = gridPosition.y;
-
         int width = GridManager.Instance.width;
         int height = GridManager.Instance.height;
 
-        Vector2Int centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
-
-        if (tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
+        foreach (var tile in GridManager.Instance.gridArray)
         {
-            if (x == centre.x && y == centre.y)
+            if (!tile.isValid) continue;
+            tileType = TileType.Default;
+            Vector2Int gridPosition = tile.gridPosition;
+            int x = gridPosition.x;
+            int y = gridPosition.y;
+            Vector2Int centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
+
+            if (tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
             {
-                tileType = TileType.Centre;
+                if (x == centre.x && y == centre.y)
+                {
+                    tileType = TileType.Centre;
 
-                BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding).FinishConstruction();
-                Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
+                    BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding).FinishConstruction();
+                    Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
 
+                }
+                else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
+                {
+                    tileType = TileType.Edge;
+                }
+
+                HandleOnUpdateTileVisual(gridPosition, tileType);
             }
-            else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
+            else
             {
-                tileType = TileType.Edge;
+                Debug.LogWarning($"GridTileVisual is null for tile at gridPosition {gridPosition}");
             }
+        }
 
-            HandleOnUpdateTileVisual(gridPosition, tileType);
-        }
-        else
-        {
-            Debug.LogWarning($"GridTileVisual is null for tile at gridPosition {gridPosition}");
-        }
     }
 
 

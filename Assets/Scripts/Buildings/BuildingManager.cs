@@ -148,12 +148,18 @@ public class BuildingManager : Manager
 
                 GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, gridManager.GridToWorldPosition(gridPosition), Quaternion.identity);
                 spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
+
+                var tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
+                tileVisual.buildingObject = spawnedBuilding;
+
                 //spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
                 var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
                 //buildingObject.EnableOutline(); // Test outline
 
                 currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
                 currentTile.currentBuilding.BuildingSetup(buildingToSpawn,currentTile);
+
+
 
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
@@ -170,7 +176,7 @@ public class BuildingManager : Manager
                     }
                     else
                     {
-                        Debug.LogWarning($"No visual found for tile at {gridPosition}");
+                        Debug.LogWarning($"No visual found for tile at {gridPosition}, tileType: " + tile.tileType);
                     }
                 }
                 return buildingObject; 
