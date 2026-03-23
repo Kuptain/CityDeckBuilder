@@ -1137,6 +1137,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 460802981698528313}
+  - component: {fileID: 591186481224188122}
+  - component: {fileID: 8049632607866371702}
+  - component: {fileID: 3448258215690620653}
   m_Layer: 5
   m_Name: Food
   m_TagString: Untagged
@@ -1162,9 +1165,63 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 384.9, y: 5}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 389, y: 0.22265}
+  m_SizeDelta: {x: 120, y: 64.345}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &591186481224188122
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735413405823063396}
+  m_CullTransparentMesh: 1
+--- !u!114 &8049632607866371702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735413405823063396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3448258215690620653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735413405823063396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b26bb8282b459c4abcc0f653d88f4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IconTooltip
+  tooltipName: Food
+  tooltiDescription: Amount of food you currently provide to your population. If
+    less than population at the end of the year, your population will die. Resets
+    at the end of the year.
 --- !u!1 &1998679268711828690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,10 +1778,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 61408336530702478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.200001, y: -55.64598}
-  m_SizeDelta: {x: 75.5701, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 31.008, y: 0}
+  m_SizeDelta: {x: 57.985, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1119835833634158389
 CanvasRenderer:
@@ -2149,9 +2206,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6012929192268807671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -71.5, y: -55.47058}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -24.8, y: 0}
   m_SizeDelta: {x: 90.7339, y: 90.734}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5115260476196476396
@@ -2302,11 +2359,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2724677085812494827}
-  - {fileID: 6087381364760523555}
   - {fileID: 5151696662154734752}
   - {fileID: 1635845368060184195}
   - {fileID: 733951864544785024}
   - {fileID: 7302692842898742998}
+  - {fileID: 6087381364760523555}
   - {fileID: 3284320990145771437}
   - {fileID: 6546149833127352044}
   - {fileID: 1405771867303104748}
@@ -2853,10 +2910,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6012929192268807671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.3, y: -55.64598}
-  m_SizeDelta: {x: 75.5701, y: 40.9548}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 29.307, y: 0}
+  m_SizeDelta: {x: 61.385, y: 40.9548}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2900137747356322781
 CanvasRenderer:
@@ -3397,9 +3454,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 61408336530702478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -77.5, y: -55.47058}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -27.5, y: 0}
   m_SizeDelta: {x: 88.3291, y: 88.3291}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6553121553447085045
@@ -4008,10 +4065,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 460802981698528313}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.200001, y: -55.64598}
-  m_SizeDelta: {x: 75.5701, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 29.107, y: 0}
+  m_SizeDelta: {x: 61.785, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1127547330094763006
 CanvasRenderer:
@@ -4455,9 +4512,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 460802981698528313}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -77.5, y: -55.47058}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -31.3, y: 0}
   m_SizeDelta: {x: 88.7546, y: 88.7546}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1165704645099159409
@@ -4719,6 +4776,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6012929192268807671}
+  - component: {fileID: 1515939966434240889}
+  - component: {fileID: 3509477757992715957}
+  - component: {fileID: 5357977143604147491}
   m_Layer: 5
   m_Name: Population
   m_TagString: Untagged
@@ -4745,9 +4805,61 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 141, y: 5}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 141, y: 0.00022506714}
+  m_SizeDelta: {x: 120, y: 63.9}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1515939966434240889
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050019402656904066}
+  m_CullTransparentMesh: 1
+--- !u!114 &3509477757992715957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050019402656904066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5357977143604147491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050019402656904066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b26bb8282b459c4abcc0f653d88f4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverableIcon
+  tooltipName: Population
+  tooltiDescription: Amount of population currently in your town.
 --- !u!1 &8212922213702910323
 GameObject:
   m_ObjectHideFlags: 0
@@ -4935,6 +5047,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 61408336530702478}
+  - component: {fileID: 8927535228711481248}
+  - component: {fileID: 1061531136944422991}
+  - component: {fileID: 6446259423206089407}
   m_Layer: 5
   m_Name: Housing
   m_TagString: Untagged
@@ -4960,9 +5075,62 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 264.60004, y: 5}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 264.60004, y: 0.000012398}
+  m_SizeDelta: {x: 120, y: 64.79}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8927535228711481248
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423573449321928910}
+  m_CullTransparentMesh: 1
+--- !u!114 &1061531136944422991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423573449321928910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6446259423206089407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423573449321928910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b26bb8282b459c4abcc0f653d88f4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IconTooltip
+  tooltipName: Housing
+  tooltiDescription: Amount of housing you currently provide to your population.
+    If less than population at the end of the year, your population will die.
 --- !u!1 &8430910404909821307
 GameObject:
   m_ObjectHideFlags: 0
@@ -5619,9 +5787,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6012929192268807671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.186302, y: -40.8}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 36.51377, y: 9.200001}
   m_SizeDelta: {x: 75.5701, y: 28.9683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1483519789953991140

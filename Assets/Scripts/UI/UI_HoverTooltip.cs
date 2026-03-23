@@ -22,6 +22,8 @@ public class UI_HoverTooltip : MonoBehaviour
     private ResourceSlotUI[] _iconSlots;
     private int _tooltipActiveState = 0;
 
+    public enum TooltipTypes { Building, Resource }
+
     private void Awake()
     {
         Instance = this;
@@ -73,6 +75,19 @@ public class UI_HoverTooltip : MonoBehaviour
         }
         _currentLines = lines;
         _currentResourceCosts = resourceTypes;
+        _tooltipActiveState = 1;
+        UpdateTooltip();
+    }
+    public void ShowTooltip(List<string> lines, Vector3 position)
+    {
+        transform.position = position;
+        backgroundRectTransform.gameObject.SetActive(true);
+        foreach (var slot in _iconSlots)
+        {
+            slot.gameObject.SetActive(false);
+        }
+        _currentLines = lines;
+        _currentResourceCosts = new List<ResourceCost>();
         _tooltipActiveState = 1;
         UpdateTooltip();
     }
