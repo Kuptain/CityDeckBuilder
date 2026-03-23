@@ -3,8 +3,15 @@ using static Tile;
 using System.Collections.Generic;
 using static UnityEngine.EventSystems.EventTrigger;
 
-// Convert Network Objects to store grid visuals here
-
+[System.Serializable]
+public class TileVisualType
+{
+    public TileType type;
+    public Color color;
+    [Tooltip("How frequent should this type spawn")]
+    public int weight;
+    public List<GameObject> visualVariants;
+}
 public class TileVisualsManager : MonoBehaviour
 {
     public Dictionary<Vector2Int, TileVisual> tileVisualMap = new Dictionary<Vector2Int, TileVisual>();
@@ -39,7 +46,7 @@ public class TileVisualsManager : MonoBehaviour
         return visual;
     }
 
-    public void HandleOnUpdateTileVisual(Vector2Int gridPosition, TileType _tileType, byte _randomVariantID = 0)
+    public void HandleOnUpdateTileVisual(Vector2Int gridPosition, TileType _tileType)
     {
         if (tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
@@ -158,6 +165,27 @@ public class TileVisualsManager : MonoBehaviour
             }
         }
     }
+    private TileVisualType GetRandomVariant(List<TileVisualType> variants) // ChatGPT
+    {
+        float totalWeight = 0f;
+
+        foreach (var v in variants)
+            totalWeight += v.weight;
+
+        float randomPoint = Random.Range(0f, totalWeight);
+
+        float current = 0f;
+
+        foreach (var v in variants)
+        {
+            current += v.weight;
+
+            if (randomPoint <= current)
+                return v;
+        }
+
+        return null; // fallback (shouldn't happen)
+    }
     private void SetInitialGridTileType()
     {
         TileType tileType = TileType.Default;
@@ -186,6 +214,10 @@ public class TileVisualsManager : MonoBehaviour
                 else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
                 {
                     tileType = TileType.Edge;
+                }
+                else
+                {
+                    tileType = GetRandomVariant(visual.tileVisualTypes).type;
                 }
 
                 HandleOnUpdateTileVisual(gridPosition, tileType);

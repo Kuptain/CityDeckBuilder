@@ -2,7 +2,7 @@ using UnityEngine;
 
 public struct Tile
 {
-    public enum TileType { Default, Centre, Edge, Forest, Mountain, Water }
+    public enum TileType { Default, Centre, Edge, Forest, Mountain, Lake }
 
     public TileType tileType;
     public Vector2Int gridPosition;

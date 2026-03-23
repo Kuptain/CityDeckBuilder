@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Tile;
+using UnityEngine.UI;
+using static UnityEditor.UIElements.ToolbarMenu;
 
 public class TileVisual : MonoBehaviour
 {
-    public List<GameObject> visualsWood, visualsStone;
-    public GameObject fogOfWar;
-    public GameObject buildingObject;
-    public Vector2Int gridPosition;
+    [HideInInspector] public GameObject buildingObject;
+    [HideInInspector] public TileVisualType currentTileVisualType;
 
-    [SerializeField] private Color _baseColor1, _baseColor2, _baseColor3, _centreColor, _edgeColor, _unexploredColor;
+    public List<TileVisualType> tileVisualTypes;
+    public GameObject fogOfWar;
+    public Vector2Int gridPosition;
+    [SerializeField] private Color _unexploredColor;
     [SerializeField] private MeshRenderer _renderer;
 
     public void Init(Vector2Int _gridPosition)
@@ -20,64 +22,67 @@ public class TileVisual : MonoBehaviour
     public void SetExploredVisual(bool isExplored)
     {
         fogOfWar.SetActive(!isExplored);
-        if (buildingObject != null )
+        if (buildingObject != null)
         {
             buildingObject.SetActive(isExplored);
         }
 
         if (isExplored)
         {
-            SetOffsetColor();
+            UpdateTileTypeVisual();
         }
         else
         {
-            _renderer.material.SetColor("_BaseColor", _unexploredColor);
+            SetOffsetColor(_unexploredColor);
+            foreach (var visualVariant in currentTileVisualType.visualVariants) // Disable all variants
+            {
+                visualVariant.SetActive(false);
+            }
         }
     }
-    private void SetOffsetColor()
+
+    private void SetTileColor(Color color)
+    {
+        _renderer.material.SetColor("_BaseColor", color);
+    }
+
+    private void SetOffsetColor(Color color)
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
+        float colorShade_2 = 1.03f;
+        float colorShade_3 = 0.97f;
 
         switch (tile.offsetColorID)
         {
             case 1:
-                _renderer.material.SetColor("_BaseColor", _baseColor1);
+                SetTileColor(color);
                 break;
             case 2:
-                _renderer.material.SetColor("_BaseColor", _baseColor2);
+                SetTileColor(new Color(color.r * colorShade_2, color.g * colorShade_2, color.b * colorShade_2));
                 break;
             case 3:
-                _renderer.material.SetColor("_BaseColor", _baseColor3);
+                SetTileColor(new Color(color.r * colorShade_3, color.g * colorShade_3, color.b * colorShade_3));
                 break;
         }
     }
     public void UpdateTileTypeVisual()
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
+        int randomInt = 0;
 
-        SetOffsetColor();
-        foreach (var visual in visualsWood)
+        foreach (var visualType in tileVisualTypes)
         {
-            visual.SetActive(false);
-        }
-        foreach (var visual in visualsStone)
-        {
-            visual.SetActive(false);
-        }
-
-        switch (tile.tileType)
-        {
-            case TileType.Forest:
-                break;
-            case TileType.Mountain:
-                break;
-            case TileType.Centre:
-                _renderer.material.SetColor("_BaseColor", _edgeColor);
-                break;
-            case TileType.Edge:
-                _renderer.material.SetColor("_BaseColor", _edgeColor);
-                break;
-
+            foreach (var visualVariant in visualType.visualVariants) // Disable all variants first
+            {
+                visualVariant.SetActive(false);
+            }
+            if (tile.tileType == visualType.type)
+            {
+                currentTileVisualType = visualType;
+                randomInt = Random.Range(0, visualType.visualVariants.Count);
+                visualType.visualVariants[randomInt].SetActive(true);
+                SetOffsetColor(visualType.color);
+            }
         }
     }
 }
