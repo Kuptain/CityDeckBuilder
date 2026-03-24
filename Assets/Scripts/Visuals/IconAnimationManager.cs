@@ -52,16 +52,11 @@ public class IconAnimationManager : MonoBehaviour
     {
         CentreBuilding = centre.transform;
     }
-    public void Anim_ResourceToDeck(ResourceType type, Vector3 startPosition)
+
+    public void Anim_ResourceToProductionDeck(Card_Data card, Vector3 startPosition)
     {
         IconAnimationData data = Instantiate(IconPrefab, startPosition, Quaternion.identity, transform).GetComponent<IconAnimationData>();
-        data.SetUp(ResourceManager.dataBase.GetIcon(type),startPosition, DeckTarget);
-        icons.Add(data);
-    }
-    public void Anim_ResourceToProductionDeck(ResourceType type, Vector3 startPosition)
-    {
-        IconAnimationData data = Instantiate(IconPrefab, startPosition, Quaternion.identity, transform).GetComponent<IconAnimationData>();
-        data.SetUp(ResourceManager.dataBase.GetIcon(type), startPosition, CentreBuilding);
+        data.SetUp(card.sprite, startPosition, CentreBuilding);
         icons.Add(data);
     }
 

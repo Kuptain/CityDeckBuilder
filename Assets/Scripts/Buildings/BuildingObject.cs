@@ -67,7 +67,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         Vector3 pos = GridManager.Instance.GridToWorldPosition(tile.gridPosition);
         for (int i = 0; i < GetCurrentCards().Count; i++)
         {
-            IconAnimationManager.instance.Anim_ResourceToProductionDeck(GetCurrentCards()[i].ressources[0].resource, pos);
+            IconAnimationManager.instance.Anim_ResourceToProductionDeck(GetCurrentCards()[i], pos);
         }
     }
 

@@ -8,8 +8,8 @@ public class IconAnimationData : MonoBehaviour
     [SerializeField] AnimationCurve curve;
     [SerializeField] AnimationCurve yCurve;
     [SerializeField] float heigthMultiplier;
-    [SerializeField] Vector3 startPosition;
-    [SerializeField] Transform endTarget;
+    Vector3 startPosition;
+    Transform endTarget;
     float timer;
 
     public void SetUp(Sprite sprite,Vector3 start ,Transform target)

@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IconAnimationData
   image: {fileID: 3227627815705505347}
-  duration: 0.5
+  duration: 0.8
   curve:
     serializedVersion: 2
     m_Curve:
@@ -195,8 +195,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.020833401
     - serializedVersion: 3
-      time: 0.9925232
-      value: 0.19558716
+      time: 0.9843445
+      value: 0.35980225
       inSlope: 0.34550238
       outSlope: 0.34550238
       tangentMode: 0
@@ -206,9 +206,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  heigthMultiplier: 4
-  startPosition: {x: 0, y: 0, z: 0}
-  endTarget: {fileID: 0}
+  heigthMultiplier: 5
 --- !u!1 &4894420998609479235
 GameObject:
   m_ObjectHideFlags: 0
