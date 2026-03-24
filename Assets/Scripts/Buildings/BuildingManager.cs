@@ -80,7 +80,7 @@ public class BuildingManager : Manager
             }
         }
     }
-    private (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
+    public (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
     {
         Vector3 hitPosition = new Vector3();
         bool isGround = false;
@@ -148,6 +148,10 @@ public class BuildingManager : Manager
 
                 GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, gridManager.GridToWorldPosition(gridPosition), Quaternion.identity);
                 spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
+
+                var tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
+                tileVisual.buildingObject = spawnedBuilding;
+
                 //spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
                 var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
                 //buildingObject.EnableOutline(); // Test outline
@@ -155,20 +159,24 @@ public class BuildingManager : Manager
                 currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
                 currentTile.currentBuilding.BuildingSetup(buildingToSpawn,currentTile);
 
+
+
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
 
 
                 foreach (Tile _tile in GridManager.Instance.GetTilesInRange(gridPosition, 0))
                 {
-                    Tile tileInRange = TileVisualsManager.Instance.GetVisualTilelData(_tile.gridPosition);
+                    //Tile tileInRange = TileVisualsManager.Instance.GetVisualTilelData(_tile.gridPosition);
+                    GridManager.Instance.TryGetTile(_tile.gridPosition, out Tile tileInRange);
+                    
                     if (tileInRange.tileType != TileType.Edge && tileInRange.tileType != TileType.Centre)
                     {
                         TileVisualsManager.Instance.HandleOnUpdateTileVisual(tileInRange.gridPosition, TileType.Default);
                     }
                     else
                     {
-                        Debug.LogWarning($"No visual found for tile at {gridPosition}");
+                        Debug.LogWarning($"No visual found for tile at {gridPosition}, tileType: " + tile.tileType);
                     }
                 }
                 return buildingObject; 

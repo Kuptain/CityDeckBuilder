@@ -72,10 +72,34 @@ public class InteractionManager : Manager
     {
         isHoldingCard = false;
         BuildingObject building;
-        if (SearchForBuilding(out building,true))
+        if (IsUnexplored())
+        {
+            // Any card works for now
+            return;
+        }
+        else if (SearchForBuilding(out building,true))
         {
             building.PlayCardOnThis(activeCard);
         }
+
+    }
+    bool IsUnexplored()
+    {
+        var raycastHit = BuildingManager.Instance.GroundRaycast();
+        Vector2Int gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
+
+        if (raycastHit.isGround)
+        {
+            if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
+            {
+                if (!tile.isExplored)
+                {
+                    tile.SetExplored(true, true);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     bool SearchForBuilding(out BuildingObject building,bool sentdebugMessage = false)

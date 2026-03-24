@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Resources;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -37,19 +35,13 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
         {
             $"<b>{buildingData.buildingName}</b>", $"",
             buildingData.buildingDescription
-            //$"Cost:"
         };
 
-        // // ####### Hover tooltip information, wip #######
-
         UI_HoverTooltip.Instance.ShowTooltip(info, buildingData.GetBaseCost(), transform.position);
-
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // ####### Hover tooltip information, wip #######
-        // #######
         UI_HoverTooltip.Instance.HideTooltip();
     }
 }

@@ -73,6 +73,18 @@ public class GridManager : MonoBehaviour
         tile = gridArray[x + y * width];
         return true;
     }
+    public bool TryGetTile(Vector2Int gridPosition, out Tile tile)
+    {
+        tile = default;
+        var x = gridPosition.x;
+        var y = gridPosition.y;
+
+        if (x < 0 || x >= width || y < 0 || y >= height)
+            return false;
+
+        tile = gridArray[x + y * width];
+        return true;
+    }
 
     public bool IsTileInRange(Vector2Int fromOffset, Vector2Int toOffset, int range) // Chat GPT helped
     {

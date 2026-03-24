@@ -2,7 +2,7 @@ using UnityEngine;
 
 public struct Tile
 {
-    public enum TileType { Default, Centre, Edge, Forest, Mountain, Water }
+    public enum TileType { Default, Centre, Edge, Forest, Mountain, Lake }
 
     public TileType tileType;
     public Vector2Int gridPosition;
@@ -16,13 +16,29 @@ public struct Tile
     public byte offsetColorID;
     public BuildingObject currentBuilding;
 
-    public void SetExplored(bool state)
+    public void SetExplored(bool state, bool enableInvisibleTiles = false)
     {
         isExplored = state;
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
             visual.SetExploredVisual(state);
         }
+        if (state == true)
+        {
+            SetVisible(true);
+        }
+        if (enableInvisibleTiles)
+        {
+            var tilesInRange = GridManager.Instance.GetTilesInRange(gridPosition, 2);
+            foreach(Tile tile in tilesInRange)
+            {
+                tile.SetVisible(state);
+            }
+        }
+
+        // Apply this tile back to the gridArray
+        int index = GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y);
+        GridManager.Instance.gridArray[index] = this;
     }
     public void SetVisible(bool state)
     {
@@ -30,8 +46,12 @@ public struct Tile
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
             visual.gameObject.SetActive(state);
+            visual.SetExploredVisual(isExplored);
         }
-        // Enable/Disable visuals
+
+        // Apply this tile back to the gridArray
+        int index = GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y);
+        GridManager.Instance.gridArray[index] = this;
     }
     public void Init(Vector2Int _gridPosition, byte _offsetColorID, bool _isOffset = false,
         TileType _tileType = TileType.Default, bool _isValid = true, byte _rotationIndex = 0)
