@@ -29,13 +29,12 @@ public class CardManager : Manager
     public float cardSpeed = 5;
     [Header("Cards")]
     public List<Card> deck = new List<Card>(10);
-    public List<Card> hand;
+    public List<Handslot> hand;
     public List<Card> productionDeck;
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(EndTurn);
         TurnManager.OnStartTurn.AddListener(StartTurn);
-        OnDiscard.AddListener(EndTurnOnDiscard);
     }
     private void OnDestroy()
     {
@@ -47,10 +46,6 @@ public class CardManager : Manager
         UpdateHUD(); // Probably move somewhere else, only when the values are actually changed
         
     }
-    private void EndTurnOnDiscard(Card card)
-    {
-        TurnManager.OnEndTurn.Invoke();
-    }
     private void UpdateHUD()
     {
         HUD.Instance.text_Deck.text = deck.Count.ToString();
@@ -60,7 +55,15 @@ public class CardManager : Manager
     {
         SendLog("Start Of Turn");
 
-        DrawCards(HandSize - hand.Count); // Refill back to hand size
+        for(int i = 0; i < hand.Count; i++)
+        {
+            if(hand[i].empty)
+            {
+                DrawCard(i);
+            }
+        }
+
+        //DrawCards(HandSize - hand.Count); // Refill back to hand size
     }
     public void EndTurn()
     {
@@ -78,10 +81,7 @@ public class CardManager : Manager
 
     public void AddCardsToHand(List<Card_Data> cards_Data)
     {
-        for (int i = 0; i < cards_Data.Count; i++)
-        {
-            hand.Add(new Card(cards_Data[i]));
-        }
+        SendError("addCardsToHand is not implemented yet");
     }
     public void AddCardsToProduction(List<Card_Data> cards_Data)
     {
@@ -140,7 +140,7 @@ public class CardManager : Manager
         if (index < hand.Count && index >= 0)
         {
             OnDiscard.Invoke(hand[index]);
-            hand.RemoveAt(index);
+            hand[index] = null;
         }
     }
     public void DiscardCard(Card card)
@@ -148,6 +148,7 @@ public class CardManager : Manager
         if (hand.Contains(card))
         {
             OnDiscard.Invoke(card);
+            hand[hand.IndexOf(card)] = null;
             hand.Remove(card);
         }
     }
@@ -158,38 +159,33 @@ public class CardManager : Manager
         //discardedCards.Clear();
     }
 
-    public void RemoveCardFromHand(Card card)
-    {
-        hand.Remove(card);
-        OnDiscard.Invoke(card);
-    }
 
     #region test functions
     [ContextMenu("shuffle Deck")]
-    public void Test_Shuffle()
+    void Test_Shuffle()
     {
         ShuffleDeck();
     }
 
     [ContextMenu("resshuffle Discard")]
-    public void Test_Reshuffle()
+    void Test_Reshuffle()
     {
         ProductionToDeck();
     }
 
     [ContextMenu("draw Hand")]
-    public void Test_DrawHand()
+    void Test_DrawHand()
     {
         DrawCards(HandSize);
     }
 
     [ContextMenu("draw Card")]
-    public void Test_Draw()
+    void Test_Draw()
     {
         DrawCard();
     }
     [ContextMenu("discard Card")]
-    public void Discard()
+    void Discard()
     {
         DiscardCard(0);
     }
