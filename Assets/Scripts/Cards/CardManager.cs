@@ -22,10 +22,11 @@ public class CardManager : Manager
     #region events
     public static UnityEvent<Card> OnDraw = new UnityEvent<Card>();
     public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
+    public static UnityEvent OnProductiionToDeck = new UnityEvent();
     #endregion
 
     [Header("variables")]
-    public int HandSize;
+    public int handSize;
     public float cardSpeed = 5;
     [Header("Cards")]
     public List<Card> deck = new List<Card>(10);
@@ -55,8 +56,13 @@ public class CardManager : Manager
     {
         SendLog("Start Of Turn");
 
-        for(int i = 0; i < hand.Count; i++)
+        for(int i = 0; i < handSize; i++)
         {
+            if (i >= hand.Count)
+            {
+                hand.Add(new Handslot());
+            }
+
             if(hand[i].empty)
             {
                 DrawCard(i);
@@ -102,36 +108,27 @@ public class CardManager : Manager
         }
         deck = newDeck;
     }
-    public void DrawCards(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            DrawCard();
-        }
-    }
-    void DrawCard(int index = 0)
+    void DrawCard(int handPosition, int deckIndex = 0)
     {
         if (deck.Count > 0)
         {
-            index = Mathf.Clamp(index, 0, deck.Count - 1);
-            hand.Add(deck[index]);
-            OnDraw.Invoke(deck[index]);
-            deck.RemoveAt(index);
+            deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
+            hand[handPosition].DrawCard(deck[deckIndex]);
+            deck.RemoveAt(deckIndex);
         }
         else
         {
             ProductionToDeck();
             if (deck.Count > 0)
             {
-                index = Mathf.Clamp(index, 0, deck.Count - 1);
-                hand.Add(deck[index]);
-                OnDraw.Invoke(deck[index]);
-                deck.RemoveAt(index);
+                deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
+                hand[handPosition].DrawCard(deck[deckIndex]);
+                deck.RemoveAt(deckIndex);
             }
             else
             {
                 //add reaction to nno cards beeing drawn
-                Debug.Log("No cards in the Deckk to Draw");
+                Debug.Log("No cards in the Deck to Draw");
             }
         }
     }
@@ -139,17 +136,18 @@ public class CardManager : Manager
     {
         if (index < hand.Count && index >= 0)
         {
-            OnDiscard.Invoke(hand[index]);
-            hand[index] = null;
+            hand[index].Discard();
         }
     }
     public void DiscardCard(Card card)
     {
-        if (hand.Contains(card))
+        for( int i = 0; i< hand.Count; i++)
         {
-            OnDiscard.Invoke(card);
-            hand[hand.IndexOf(card)] = null;
-            hand.Remove(card);
+            if(hand[i].currentCard == card)
+            {
+                SendLog("discard " + card.data.cardName);
+                hand[i].Discard();
+            }
         }
     }
     public void ProductionToDeck()
@@ -157,6 +155,7 @@ public class CardManager : Manager
         deck.AddRange(productionDeck);
         ShuffleDeck();
         //discardedCards.Clear();
+        OnProductiionToDeck.Invoke();
     }
 
 
@@ -173,17 +172,6 @@ public class CardManager : Manager
         ProductionToDeck();
     }
 
-    [ContextMenu("draw Hand")]
-    void Test_DrawHand()
-    {
-        DrawCards(HandSize);
-    }
-
-    [ContextMenu("draw Card")]
-    void Test_Draw()
-    {
-        DrawCard();
-    }
     [ContextMenu("discard Card")]
     void Discard()
     {

@@ -29,6 +29,10 @@ public class BuildingData : ScriptableObject
         return ranks[0].resourceCosts;
     }
 
+    public bool HasCardsToAddOnBuild(int currentRank)
+    {
+        return ranks[currentRank].cardsToAdd.Count > 0;
+    }
 }
 [System.Serializable]
 public class RankData

@@ -50,7 +50,7 @@ public class CardVisualManager : MonoBehaviour
     }
     void Draw(Card card)
     {
-        CardVisuals slot = AddHandSlot();
+        CardVisuals slot = AddVisualCard();
         slot.Setup(card, cardState);
         slots.Add(slot);
     }
@@ -68,7 +68,7 @@ public class CardVisualManager : MonoBehaviour
         }
     }
 
-    CardVisuals AddHandSlot()
+    CardVisuals AddVisualCard()
     {
         return Instantiate(cardPrefab, container).GetComponent<CardVisuals>();
     }

@@ -19,7 +19,8 @@ MonoBehaviour:
   uiIcon: {fileID: 21300000, guid: ab45bd27945b1604d81911201bccacbc, type: 3}
   uiButton: {fileID: 0}
   ranks:
-  - cardsToAdd: []
+  - cardsToAdd:
+    - {fileID: 11400000, guid: cecee1b0e104b684d864bb2e4c1cce2e, type: 2}
     resourceCosts:
     - resource: 1
       amount: 2
@@ -36,7 +37,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
             m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: Test
+            m_MethodName: AddCards
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}

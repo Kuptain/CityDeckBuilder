@@ -8,7 +8,6 @@ using System;
 
 public class CardVisuals : MonoBehaviour
 {
-   
     public Card card;
     [Header("Card")]
     public Image IconImage;
@@ -98,6 +97,7 @@ public class CardVisuals : MonoBehaviour
             IconImage.sprite = null;
             state = _newState;
         }
+        CardManager.OnDiscard.AddListener(DiscardCheck);
     }
     void MoveHover()
     {
@@ -189,9 +189,14 @@ public class CardVisuals : MonoBehaviour
     {
         CardManager.instance.SendLog("play card");
         InteractionManager.OnReleaseCard.Invoke(card);
-        if (!CardManager.instance.hand.Contains(card))
+        
+    }
+
+    void DiscardCheck(Card _card)
+    {
+        if(_card == card)
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
     }
     #endregion

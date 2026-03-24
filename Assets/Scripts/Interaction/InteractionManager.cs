@@ -95,6 +95,8 @@ public class InteractionManager : Manager
                 if (!tile.isExplored)
                 {
                     tile.SetExplored(true, true);
+                    CardManager.instance.DiscardCard(activeCard);
+                    TurnManager.OnEndTurn.Invoke();
                     return true;
                 }
             }

@@ -3,8 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "EffectLibrary", menuName = "Scriptable Objects/EffectLibrary")]
 public class EffectLibrary : ScriptableObject
-{
-
+{ 
     public void AddListenerSpawnNPC(BuildingObject building, Card card)
     {
         Vector3 spawnPosition = GridManager.Instance.GridToWorldPosition(building.GetTile().gridPosition);
@@ -14,6 +13,8 @@ public class EffectLibrary : ScriptableObject
     {
         List<Card_Data> cardsToAdd = building.GetCurrentCards();
         CardManager.instance.AddCardsToProduction(cardsToAdd);
+        building.AddProductionCardsEffect();
+        CardManager.OnProductiionToDeck.AddListener(building.AddProductionCardsEffect);
     }
 
     public void Test(BuildingObject building, Card card)

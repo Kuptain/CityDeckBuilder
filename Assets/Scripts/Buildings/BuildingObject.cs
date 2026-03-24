@@ -58,8 +58,19 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onBuild, out effect))
         {
             effect.OnTrigger.Invoke(this, null);
+          
         }
     }
+
+    public void AddProductionCardsEffect()
+    {
+        Vector3 pos = GridManager.Instance.GridToWorldPosition(tile.gridPosition);
+        for (int i = 0; i < GetCurrentCards().Count; i++)
+        {
+            IconAnimationManager.instance.Anim_ResourceToProductionDeck(GetCurrentCards()[i].ressources[0].resource, pos);
+        }
+    }
+
     void EndOfTurn()
     {
         BuildingEffect effect;
@@ -107,17 +118,17 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
             if (CostStillOpen.Count == 0)
             {
-                
+
                 Constructionfinished();
             }
             CardManager.instance.DiscardCard(card);
             TurnManager.OnEndTurn.Invoke();
         }
-        
+
     }
     void Constructionfinished()
     {
-        BuildingManager.Instance.SendLog(data.name +" constructed");
+        BuildingManager.Instance.SendLog(data.name + " constructed");
         constructed = true;
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
