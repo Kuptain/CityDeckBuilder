@@ -9,7 +9,8 @@ public class TileVisual : MonoBehaviour
     [HideInInspector] public TileVisualType currentTileVisualType;
 
     public List<TileVisualType> tileVisualTypes;
-    public GameObject fogOfWar;
+    public GameObject fogOfWar_dense;
+    public GameObject fogOfWar_visible;
     public Vector2Int gridPosition;
     [SerializeField] private Color _unexploredColor;
     [SerializeField] private MeshRenderer _renderer;
@@ -19,15 +20,16 @@ public class TileVisual : MonoBehaviour
         gridPosition = _gridPosition;
         UpdateTileTypeVisual();
     }
-    public void SetExploredVisual(bool isExplored)
+    public void SetExploredVisual(bool isExplored, bool isVisible)
     {
-        fogOfWar.SetActive(!isExplored);
+        fogOfWar_dense.SetActive(!isVisible);
+        fogOfWar_visible.SetActive(!isExplored);
         if (buildingObject != null)
         {
-            buildingObject.SetActive(isExplored);
+            buildingObject.SetActive(isVisible);
         }
 
-        if (isExplored)
+        if (isVisible)
         {
             UpdateTileTypeVisual();
         }

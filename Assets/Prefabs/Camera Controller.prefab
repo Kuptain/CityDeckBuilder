@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   moveSpeed: 400
   moveSmoothTime: 0.1
-  zoomSpeed: 500
-  minZoom: 30
+  zoomSpeed: 8
+  minZoom: 40
   maxZoom: 150
   cameraTransform: {fileID: 5244781079698790495}
   groundMask:

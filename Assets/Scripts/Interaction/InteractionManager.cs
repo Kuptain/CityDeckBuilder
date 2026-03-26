@@ -92,7 +92,7 @@ public class InteractionManager : Manager
         {
             if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
             {
-                if (!tile.isExplored)
+                if (!tile.isExplored && tile.isVisible)
                 {
                     tile.SetExplored(true, true);
                     CardManager.instance.DiscardCard(activeCard);

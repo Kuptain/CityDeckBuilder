@@ -6,6 +6,8 @@ public class IconTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     public string tooltipName;
     public string tooltiDescription;
+    public UI_HoverTooltip.Pivot pivot;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (ResourceManager.instance == null) return;
@@ -16,7 +18,7 @@ public class IconTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             tooltiDescription
         };
 
-        UI_HoverTooltip.Instance.ShowTooltip(info, transform.position);
+        UI_HoverTooltip.Instance.ShowTooltip(info, new List<ResourceCost>(), transform.position, pivot);
     }
 
     public void OnPointerExit(PointerEventData eventData)

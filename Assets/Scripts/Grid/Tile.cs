@@ -21,7 +21,7 @@ public struct Tile
         isExplored = state;
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
-            visual.SetExploredVisual(state);
+            visual.SetExploredVisual(state, true);
         }
         if (state == true)
         {
@@ -45,8 +45,8 @@ public struct Tile
         isVisible = state;
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
-            visual.gameObject.SetActive(state);
-            visual.SetExploredVisual(isExplored);
+            //visual.gameObject.SetActive(state);
+            visual.SetExploredVisual(isExplored, state);
         }
 
         // Apply this tile back to the gridArray

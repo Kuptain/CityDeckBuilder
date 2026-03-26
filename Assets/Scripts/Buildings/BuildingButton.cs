@@ -8,6 +8,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
     public static event System.Action<BuildingData> OnPressedBuildingUI;
 
     [SerializeField] private Image icon;
+    [SerializeField] private UI_HoverTooltip.Pivot pivot;
     private BuildingData buildingData;
 
     public void ChangeIcon(Sprite sprite)
@@ -37,7 +38,7 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
             buildingData.buildingDescription
         };
 
-        UI_HoverTooltip.Instance.ShowTooltip(info, buildingData.GetBaseCost(), transform.position);
+        UI_HoverTooltip.Instance.ShowTooltip(info, buildingData.GetBaseCost(), transform.position, pivot);
     }
 
     public void OnPointerExit(PointerEventData eventData)

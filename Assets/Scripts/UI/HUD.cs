@@ -18,7 +18,8 @@ public class HUD : MonoBehaviour
     public Transform panelGameLost;
     [Header("UI State Panels")]
     public Transform panelPause;
-    public Transform panelCardOverview;
+    public Transform panelProductionOverview;
+    public Transform panelDeckOverview;
   
     public static HUD Instance { get; private set; }
 

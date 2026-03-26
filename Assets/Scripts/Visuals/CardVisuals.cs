@@ -33,7 +33,7 @@ public class CardVisuals : MonoBehaviour
     private bool selected;
     private bool hovered;
 
-    public enum CardStates { Hand, Overview }
+    public enum CardStates { Hand, Overview, Deck }
     CardStates state;
 
     private void Start()
