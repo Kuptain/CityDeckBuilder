@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using static Tile;
 
 public class GridManager : MonoBehaviour
@@ -32,7 +33,44 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         gridArray = new Tile[width * height];
+        gridNullTile = new Tile();
+        gridNullTile.Init(new Vector2Int(-1, -1), 0);
         GenerateGridData();
+    }
+    public (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
+    {
+        Vector3 hitPosition = new Vector3();
+        bool isGround = false;
+        Transform hitTransform = null;
+
+        int layer_maskGround = LayerMask.GetMask("Ground");
+
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+
+        // Try ground raycast first
+        if (Physics.Raycast(ray, out hit, 1000f, layer_maskGround))
+        {
+            if (hit.transform.GetComponent<Ground>() != null)
+            {
+                hitPosition = hit.point;
+                isGround = true;
+                hitTransform = hit.collider.transform;
+            }
+        }
+        else
+        {
+            // Fallback if no ground hit
+            Plane fallbackPlane = new Plane(Vector3.up, Camera.main.transform.position + Camera.main.transform.forward * 60f);
+
+            if (fallbackPlane.Raycast(ray, out float distance))
+            {
+                hitPosition = ray.GetPoint(distance);
+            }
+        }
+
+        return (hitPosition, isGround, hitTransform);
     }
     public void GenerateGridData()
     {

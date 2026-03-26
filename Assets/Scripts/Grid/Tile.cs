@@ -4,43 +4,58 @@ public struct Tile
 {
     public enum TileType { Default, Centre, Edge, Forest, Mountain, Lake }
 
-    public TileType tileType;
-    public Vector2Int gridPosition;
-    public bool isOffset;
-    public bool isValid;
+    [ReadOnly] public TileType tileType;
+    [ReadOnly] public Vector2Int gridPosition;
+    [ReadOnly] public bool isOffset;
+    [ReadOnly] public bool isValid;
 
-    public bool isExplored;
-    public bool isVisible;
+    [ReadOnly] public bool isExplored;
+    [ReadOnly] public bool isVisible;
 
-    public byte rotationIndex;
-    public byte offsetColorID;
-    public BuildingObject currentBuilding;
+    [ReadOnly] public byte rotationIndex;
+    [ReadOnly] public byte offsetColorID;
+    [ReadOnly] public BuildingObject currentBuilding;
 
-    public void SetExplored(bool state, bool enableInvisibleTiles = false)
+    public void SetExploredState(bool state, bool enableInvisibleTiles = false, bool checkDirectionalOutlines = false)
     {
         isExplored = state;
-        if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
-        {
-            visual.SetExploredVisual(state, true);
-        }
         if (state == true)
         {
-            SetVisible(true);
+            SetVisibleState(true);
         }
         if (enableInvisibleTiles)
         {
-            var tilesInRange = GridManager.Instance.GetTilesInRange(gridPosition, 2);
+            var tilesInRange = GridManager.Instance.GetTilesInRange(gridPosition, TileVisualsManager.Instance.tileVisibleRange);
             foreach(Tile tile in tilesInRange)
             {
-                tile.SetVisible(state);
+                tile.SetVisibleState(true);
             }
         }
 
         // Apply this tile back to the gridArray
         int index = GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y);
         GridManager.Instance.gridArray[index] = this;
+
+        if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
+        {
+            visual.SetExploredVisual(state, true);
+            if (checkDirectionalOutlines)
+            {
+                visual.CheckDirectionalOutlines();
+
+                // Also do this check for neighbors, so previous outlines get disabled
+                var tilesInRange = GridManager.Instance.GetTilesInRange(gridPosition, 1);
+                foreach (Tile tile in tilesInRange)
+                {
+                    if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(tile.gridPosition, out TileVisual neighborVisual))
+                    {
+                        neighborVisual.CheckDirectionalOutlines();
+                    }
+                }
+            }
+        }
     }
-    public void SetVisible(bool state)
+    public void SetVisibleState(bool state)
     {
         isVisible = state;
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
@@ -62,5 +77,14 @@ public struct Tile
         offsetColorID = _offsetColorID;
         isValid = _isValid;
         rotationIndex = _rotationIndex;
+    }
+
+    public void StartHover()
+    {
+        TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outline.SetActive(true);
+    }
+    public void StopHover()
+    {
+        TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outline.SetActive(false);
     }
 }

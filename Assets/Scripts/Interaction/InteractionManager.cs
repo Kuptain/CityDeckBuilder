@@ -11,6 +11,7 @@ public class InteractionManager : Manager
     public static UnityEvent<Card> OnHoldCard = new UnityEvent<Card>();
     public static UnityEvent<Card> OnReleaseCard = new UnityEvent<Card>();
     BuildingObject currentHoverBuilding;
+    Tile currentHoverTile;
     bool isHoldingCard;
 
     public enum BuildingOutlineStates { Idle, Hover, Draggable, Clickable}
@@ -19,10 +20,12 @@ public class InteractionManager : Manager
         OnPickUpCard.AddListener(PickUpCard);
         OnReleaseCard.AddListener(ReleaseCard);
         Inputmanager.OnInteract.AddListener(TryToInteract);
+        currentHoverTile = GridManager.Instance.gridNullTile;
     }
     private void Update()
     {
-        HoverInteract();
+        //HoverBuilding();
+        HoverTile();
     }
 
     public void PickUpCard(Card card)
@@ -43,7 +46,7 @@ public class InteractionManager : Manager
             building.Click();
         }
     }
-    void HoverInteract()
+    void HoverBuilding()
     {
         BuildingOutlineStates state = BuildingOutlineStates.Hover;
         if (isHoldingCard)
@@ -67,6 +70,23 @@ public class InteractionManager : Manager
         }
     }
 
+    void HoverTile()
+    {
+        Tile tile;
+        if (SearchForTile(out tile))
+        {
+            if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition && currentHoverTile.gridPosition != tile.gridPosition)
+            {
+                currentHoverTile.StopHover();
+            }
+            currentHoverTile = tile;
+            currentHoverTile.StartHover();
+        }
+        else if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition)
+        {
+            currentHoverTile.StopHover();
+        }
+    }
 
     public void ReleaseCard(Card card)
     {
@@ -85,7 +105,7 @@ public class InteractionManager : Manager
     }
     bool IsUnexplored()
     {
-        var raycastHit = BuildingManager.Instance.GroundRaycast();
+        var raycastHit = GridManager.Instance.GroundRaycast();
         Vector2Int gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
 
         if (raycastHit.isGround)
@@ -94,7 +114,7 @@ public class InteractionManager : Manager
             {
                 if (!tile.isExplored && tile.isVisible)
                 {
-                    tile.SetExplored(true, true);
+                    tile.SetExploredState(true, true, true);
                     CardManager.instance.DiscardCard(activeCard);
                     TurnManager.OnEndTurn.Invoke();
                     return true;
@@ -103,7 +123,22 @@ public class InteractionManager : Manager
         }
         return false;
     }
+    bool SearchForTile(out Tile tile, bool sentdebugMessage = false)
+    {
+        var raycastHit = GridManager.Instance.GroundRaycast();
+        var gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
 
+        if (raycastHit.isGround && GridManager.Instance.TryGetTile(gridPosition, out tile))
+        {
+            return true;
+        }
+        else if (sentdebugMessage)
+        {
+            SendLog("no tile hit at:" + GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition));
+        }
+        tile = new Tile();
+        return false;
+    }
     bool SearchForBuilding(out BuildingObject building,bool sentdebugMessage = false)
     {
        

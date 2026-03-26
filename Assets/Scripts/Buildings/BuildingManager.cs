@@ -53,7 +53,7 @@ public class BuildingManager : Manager
     {
         if (Mouse.current != null)
         {
-            var raycastHit = GroundRaycast();
+            var raycastHit = GridManager.Instance.GroundRaycast();
 
             if (previewBuilding != null)
             {
@@ -80,41 +80,7 @@ public class BuildingManager : Manager
             }
         }
     }
-    public (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
-    {
-        Vector3 hitPosition = new Vector3();
-        bool isGround = false;
-        Transform hitTransform = null;
 
-        int layer_maskGround = LayerMask.GetMask("Ground");
-
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        RaycastHit hit;
-
-        // Try ground raycast first
-        if (Physics.Raycast(ray, out hit, 1000f, layer_maskGround))
-        {
-            if (hit.transform.GetComponent<Ground>() != null)
-            {
-                hitPosition = hit.point;
-                isGround = true;
-                hitTransform = hit.collider.transform;
-            }
-        }
-        else
-        {
-            // Fallback if no ground hit
-            Plane fallbackPlane = new Plane(Vector3.up, Camera.main.transform.position + Camera.main.transform.forward * 60f);
-
-            if (fallbackPlane.Raycast(ray, out float distance))
-            {
-                hitPosition = ray.GetPoint(distance);
-            }
-        }
-
-        return (hitPosition, isGround, hitTransform);
-    }
     private void OnEnable()
     {
         BuildingButton.OnPressedBuildingUI += SpawnBuildingPreview;
@@ -128,7 +94,7 @@ public class BuildingManager : Manager
     {
         selectedBuilding = building;
 
-        var raycastHit = GroundRaycast();
+        var raycastHit = GridManager.Instance.GroundRaycast();
         previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
         previewBuilding.GetComponent<BuildingObject>().data = building;
         previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
