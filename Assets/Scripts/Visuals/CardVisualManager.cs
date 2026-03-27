@@ -25,14 +25,11 @@ public class CardVisualManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (cardState == CardVisuals.CardStates.Overview)
-        {
-            SetupOverview();
-        }
+        SetupOverview(cardState);
     }
     private void OnDisable()
     {
-        if (cardState == CardVisuals.CardStates.Overview)
+        if (cardState == CardVisuals.CardStates.Overview || cardState == CardVisuals.CardStates.Deck)
         {
             foreach (var slot in slots)
             {
@@ -41,11 +38,21 @@ public class CardVisualManager : MonoBehaviour
             slots.Clear();
         }
     }
-    void SetupOverview()
+    void SetupOverview(CardVisuals.CardStates state)
     {
-        foreach (var card in CardManager.instance.productionDeck)
+        if (cardState == CardVisuals.CardStates.Overview)
         {
-            Draw(card);
+            foreach (var card in CardManager.instance.productionDeck)
+            {
+                Draw(card);
+            }
+        }
+        if (cardState == CardVisuals.CardStates.Deck)
+        {
+            foreach (var card in CardManager.instance.deck)
+            {
+                Draw(card);
+            }
         }
     }
     void Draw(Card card, int handPosition = 0)

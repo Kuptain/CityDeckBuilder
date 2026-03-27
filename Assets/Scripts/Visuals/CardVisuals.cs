@@ -5,13 +5,14 @@ using UnityEditor;
 using static UnityEngine.UI.Image;
 using UnityEngine.InputSystem;
 using System;
+using System.Collections;
 
 public class CardVisuals : MonoBehaviour
 {
     public Card card;
     [Header("Card")]
     public Image IconImage;
-    public RectTransform rect;
+    public RectTransform cardRect;
     public TMP_Text text_name;
     public TMP_Text text_description;
     [Header("Arrow")]
@@ -28,31 +29,42 @@ public class CardVisuals : MonoBehaviour
 
     private CardHover stateBase;
     private Canvas canvas;
-    private RectTransform canvasRectTransform;
     private Vector2 arrowOrigin;
     private bool selected;
     private bool hovered;
+    private bool isDrawn;
 
-    public enum CardStates { Hand, Overview }
+    public enum CardStates { Hand, Overview, Deck }
     CardStates state;
 
     private void Start()
     {
         //rect = image.GetComponent<RectTransform>();
         canvas = HUD.Instance.canvas;
-        canvasRectTransform = canvas.GetComponent<RectTransform>();
         arrowOrigin = dragArrowTrail.anchoredPosition;
 
         stateBase = new CardHover();
         stateBase.position = Vector2.zero;
-        stateBase.scale = rect.localScale;
+        stateBase.scale = cardRect.localScale;
+
+        if (state == CardStates.Hand)
+            StartCoroutine(LerpToOrigin());
     }
 
     private void Update()
     {
         if (state == CardStates.Hand)
         {
-            if (selected)
+            if(isDrawn)
+            {
+                //cardRect.anchoredPosition = Vector2.Lerp(cardRect.anchoredPosition, GetComponent<RectTransform>().anchoredPosition, 0.02f);
+                if(Vector2.Distance(GetComponent<RectTransform>().anchoredPosition, cardRect.anchoredPosition) < 10f)
+                {
+                    //isDrawn = false;
+                    //cardRect.localPosition = Vector3.zero;
+                }
+            }
+            else if (selected)
             {
                 Move();
             }
@@ -79,6 +91,46 @@ public class CardVisuals : MonoBehaviour
         }
     }
 
+    float duration = 0.5f;
+    float arcHeight = 150f;
+
+    IEnumerator LerpToOrigin() // ChatGPT helped
+    {
+        isDrawn = true;
+        cardRect.parent = HUD.Instance.gameObject.transform;
+
+        // Start at deck
+        cardRect.position = HUD.Instance.deckButtonTransform.position;
+
+        Vector3 start = cardRect.position;
+
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.SmoothStep(0, 1, time / duration);
+
+            // Base straight movement
+            Vector3 pos = Vector3.Lerp(start, transform.position, t);
+
+            // Add arc (Y axis)
+            float arc = arcHeight * 4f * (t * (1f - t));
+            pos.y += arc;
+
+            cardRect.position = pos;
+
+            // Scale animation
+            cardRect.localScale = Vector3.Lerp(stateBase.scale * 0.6f, stateBase.scale, t);
+
+            yield return null;
+        }
+
+        cardRect.position = transform.position;
+
+        isDrawn = false;
+        cardRect.parent = transform;
+    }
 
     public void Setup(Card _card, CardStates _newState)
     {
@@ -99,34 +151,35 @@ public class CardVisuals : MonoBehaviour
         }
         CardManager.OnDiscard.AddListener(DiscardCheck);
     }
+
     void MoveHover()
     {
-        rect.localPosition = Vector3.Lerp(rect.localPosition, stateHover.position, CardManager.instance.cardSpeed * Time.deltaTime);
-        rect.localScale = Vector3.Lerp(rect.localScale, stateHover.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localPosition = Vector3.Lerp(cardRect.localPosition, stateHover.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localScale = Vector3.Lerp(cardRect.localScale, stateHover.scale, CardManager.instance.cardSpeed * Time.deltaTime);
     }
     void MoveHoverOverview()
     {
-        rect.localPosition = Vector3.Lerp(rect.localPosition, stateHoverOverview.position, CardManager.instance.cardSpeed * Time.deltaTime);
-        rect.localScale = Vector3.Lerp(rect.localScale, stateHoverOverview.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localPosition = Vector3.Lerp(cardRect.localPosition, stateHoverOverview.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localScale = Vector3.Lerp(cardRect.localScale, stateHoverOverview.scale, CardManager.instance.cardSpeed * Time.deltaTime);
     }
     void Move()
     {
         //Vector2 targetPosition = Inputmanager.mousePosition;
         //rect.position = Vector3.Lerp(rect.position, targetPosition, CardManager.instance.cardSpeed * Time.deltaTime);
 
-        rect.localPosition = Vector3.Lerp(rect.localPosition, stateSelect.position, CardManager.instance.cardSpeed * Time.deltaTime);
-        rect.localScale = Vector3.Lerp(rect.localScale, stateSelect.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localPosition = Vector3.Lerp(cardRect.localPosition, stateSelect.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localScale = Vector3.Lerp(cardRect.localScale, stateSelect.scale, CardManager.instance.cardSpeed * Time.deltaTime);
         MoveArrow();
     }
     void Moveback()
     {
         //Vector2 targetPosition = Vector2.zero;
-        rect.localPosition = Vector3.Lerp(rect.localPosition, stateBase.position, CardManager.instance.cardSpeed * Time.deltaTime);
-        rect.localScale = Vector3.Lerp(rect.localScale, stateBase.scale, CardManager.instance.cardSpeed * Time.deltaTime);
-        if (Vector2.Distance(rect.localPosition, stateBase.position) < 5)
+        cardRect.localPosition = Vector3.Lerp(cardRect.localPosition, stateBase.position, CardManager.instance.cardSpeed * Time.deltaTime);
+        cardRect.localScale = Vector3.Lerp(cardRect.localScale, stateBase.scale, CardManager.instance.cardSpeed * Time.deltaTime);
+        if (Vector2.Distance(cardRect.localPosition, stateBase.position) < 5)
         {
-            rect.localPosition = stateBase.position;
-            rect.localScale = stateBase.scale;
+            cardRect.localPosition = stateBase.position;
+            cardRect.localScale = stateBase.scale;
             //stateBase.position = Vector2.zero;
         }
     }

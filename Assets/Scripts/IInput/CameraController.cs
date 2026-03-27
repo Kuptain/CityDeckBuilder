@@ -38,27 +38,38 @@ public class CameraController : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector3 direction = new Vector3(moveInput.x, 0, moveInput.y);
-        Vector3 targetPosition = transform.position + direction * moveSpeed * Time.deltaTime;
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+
+        forward.y = 0;
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 direction = forward * moveInput.y + right * moveInput.x;
+
+        Vector3 move = direction * moveSpeed * Time.deltaTime;
 
         transform.position = Vector3.SmoothDamp(
             transform.position,
-            targetPosition,
+            transform.position + move,
             ref velocity,
             moveSmoothTime
         );
     }
 
-    [SerializeField] private LayerMask groundMask; // assign in inspector
-
-    private Vector3 offsetVelocity = Vector3.zero; // keep this in your class
+    [SerializeField] private LayerMask groundMask;
 
     void HandleZoom()
     {
         if (Mathf.Abs(zoomInput) < 0.01f) return;
 
-        // 1. Invert scroll: scroll up = zoom in
-        float zoomDelta = -zoomInput * zoomSpeed * Time.deltaTime;
+        // 1. Invert scroll (DO NOT use deltaTime here)
+        float zoomDelta = -zoomInput * zoomSpeed;
+
+        // Optional safety clamp to prevent spikes on lag frames
+        zoomDelta = Mathf.Clamp(zoomDelta, -zoomSpeed * 3, zoomSpeed * 3);
 
         // 2. Raycast from mouse to get the world point under cursor BEFORE zoom
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -74,6 +85,7 @@ public class CameraController : MonoBehaviour
 
         float newDistance = Mathf.Clamp(distance + zoomDelta, minZoom, maxZoom);
         float appliedDelta = newDistance - distance;
+
         if (Mathf.Abs(appliedDelta) < 0.001f)
             return; // at min/max, stop
 
@@ -82,12 +94,13 @@ public class CameraController : MonoBehaviour
         // 4. Move CameraController only if zooming in
         if (appliedDelta < 0f) // zoom in
         {
-            // Raycast again to see where the mouse points after zoom
+            // Raycast again after zoom
             Ray newRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(newRay, out RaycastHit newHit, 1000f, groundMask))
             {
                 Vector3 offset = targetPoint - newHit.point;
                 offset.y = 0f; // only horizontal movement
+
                 transform.position += offset;
             }
         }

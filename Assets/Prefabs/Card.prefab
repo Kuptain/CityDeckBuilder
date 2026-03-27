@@ -707,7 +707,7 @@ MonoBehaviour:
     roundsInHand: 0
     rank: 0
   IconImage: {fileID: 2696855689651026275}
-  rect: {fileID: 3092996472844482826}
+  cardRect: {fileID: 3092996472844482826}
   text_name: {fileID: 4053609592079936584}
   text_description: {fileID: 7850826202941418153}
   arrowContainer: {fileID: 1114437677395890721}

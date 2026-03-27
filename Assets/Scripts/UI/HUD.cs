@@ -16,9 +16,11 @@ public class HUD : MonoBehaviour
     public TMPro.TMP_Text text_Production;
     public Transform panelBuildingButtons;
     public Transform panelGameLost;
+    public RectTransform deckButtonTransform;
     [Header("UI State Panels")]
     public Transform panelPause;
-    public Transform panelCardOverview;
+    public Transform panelProductionOverview;
+    public Transform panelDeckOverview;
   
     public static HUD Instance { get; private set; }
 

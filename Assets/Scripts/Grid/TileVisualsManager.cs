@@ -1,7 +1,6 @@
 using UnityEngine;
 using static Tile;
 using System.Collections.Generic;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [System.Serializable]
 public class TileVisualType
@@ -15,6 +14,7 @@ public class TileVisualType
 public class TileVisualsManager : MonoBehaviour
 {
     public Dictionary<Vector2Int, TileVisual> tileVisualMap = new Dictionary<Vector2Int, TileVisual>();
+    public int tileVisibleRange = 3;
     [SerializeField] private GameObject _tilePrefab;
     [SerializeField] private Transform gridVisualsNavMesh;
     [SerializeField] private BuildingData centreBuilding;
@@ -45,7 +45,17 @@ public class TileVisualsManager : MonoBehaviour
         }
         return visual;
     }
+    void SetInitialUnexploredDirectionOutlines()
+    {
+        // Gets all directions and stores them in a list
+        foreach (var tile in GridManager.Instance.gridArray)
+        {
+            if (!tile.isValid || !tile.isExplored) continue;
 
+            Vector2Int gridPosition = tile.gridPosition;
+            GetVisualTilelData(gridPosition).CheckDirectionalOutlines();
+        }
+    }
     public void HandleOnUpdateTileVisual(Vector2Int gridPosition, TileType _tileType)
     {
         if (tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
@@ -69,17 +79,20 @@ public class TileVisualsManager : MonoBehaviour
     }
     public void InstantiateGridTileVisualFromData(bool setInitialTypes = false)
     {
-        foreach (var tile in GridManager.Instance.gridArray)
+        for (int i = 0; i < GridManager.Instance.gridArray.Length; i++)
         {
+            var tile = GridManager.Instance.gridArray[i];
             if (!tile.isValid) continue;
             Quaternion hexRotation = Quaternion.Euler(new Vector3(0, tile.rotationIndex * 60f, 0));
-            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), hexRotation);
-            spawnedTile.name = $"Tile {tile.gridPosition.x} {tile.gridPosition.y}";
-            spawnedTile.transform.parent = gridVisualsNavMesh;
-
-
+            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), Quaternion.identity);
+ 
             TileVisual gridTileVisual = spawnedTile.GetComponent<TileVisual>();
             tileVisualMap[tile.gridPosition] = gridTileVisual;
+
+            gridTileVisual.directionOutlines_parent.transform.parent = null;
+            spawnedTile.transform.rotation = hexRotation;
+            spawnedTile.name = $"Tile {tile.gridPosition.x} {tile.gridPosition.y}";
+            spawnedTile.transform.parent = gridVisualsNavMesh;
 
             gridTileVisual?.Init(tile.gridPosition);
         }
@@ -90,6 +103,7 @@ public class TileVisualsManager : MonoBehaviour
         {
             SetInitialGridTileType();
             SetInitialTileExploredState();
+            SetInitialUnexploredDirectionOutlines();
             SetInitialBlueprintSpawns();
             SetInitialTileVisibleState();
         }
@@ -137,31 +151,29 @@ public class TileVisualsManager : MonoBehaviour
 
             if (GridManager.Instance.IsTileInRange(new Vector2Int(x, y), centre, DEFAULT_RANGE))
             {
-                tile.SetExplored(true);
+                tile.SetExploredState(true);
             }
             else
             {
-                tile.SetExplored(false);
+                tile.SetExploredState(false);
             }
         }
     }
     private void SetInitialTileVisibleState()
     {
-        int DEFAULT_RANGE = 2;
-
         foreach (var tile in GridManager.Instance.gridArray)
         {
             if (!tile.isValid) continue;
 
             Vector2Int gridPosition = tile.gridPosition;
 
-            if (tile.isExplored || GridManager.Instance.IsExploredTileInRange(gridPosition, DEFAULT_RANGE))
+            if (tile.isExplored || GridManager.Instance.IsExploredTileInRange(gridPosition, tileVisibleRange))
             {
-                tile.SetVisible(true);
+                tile.SetVisibleState(true);
             }
             else
             {
-                tile.SetVisible(false);
+                tile.SetVisibleState(false);
             }
         }
     }

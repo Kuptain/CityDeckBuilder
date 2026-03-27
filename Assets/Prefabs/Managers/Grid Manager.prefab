@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b14f5ce6e54d3b4b82694ac7d1007c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileVisualsManager
+  tileVisibleRange: 2
   _tilePrefab: {fileID: 3922066366113985173, guid: 90877c92e38fd40439c7570bee153e3a, type: 3}
   gridVisualsNavMesh: {fileID: 0}
   centreBuilding: {fileID: 11400000, guid: 1b51be2cf9551a8459e86bc9220dcabe, type: 2}

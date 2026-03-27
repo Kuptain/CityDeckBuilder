@@ -9,11 +9,23 @@ using System.Resources;
 public class UI_HoverTooltip : MonoBehaviour
 {
     public static UI_HoverTooltip Instance;
+    public enum Pivot
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
+    }
 
     [SerializeField] private RectTransform backgroundRectTransform;
     [SerializeField] private TextMeshProUGUI tooltipText;
     [SerializeField] private GameObject resourceIconSlotContainer;
-    [SerializeField] private Vector2 padding = new Vector2(8, 8);
+    [SerializeField] private float padding = 150f;
+    [SerializeField] private float paddingResouceIcons = 50f;
+    [SerializeField] private Vector2 pivotTopLeft;
+    [SerializeField] private Vector2 pivotBottomLeft;
+    [SerializeField] private Vector2 pivotTopRight;
+    [SerializeField] private Vector2 pivotBottomRight;
     [SerializeField] private ResourceDatabase resourceDatabase;
 
     private List<string> _currentLines;
@@ -64,10 +76,20 @@ public class UI_HoverTooltip : MonoBehaviour
         }
     }
 
-
-    public void ShowTooltip(List<string> lines, List<ResourceCost> resourceTypes, Vector3 position)
+    public Vector2 PivotToVector2(Pivot dir)
     {
-        transform.position = position;
+        return dir switch
+        {
+            Pivot.TopLeft => pivotTopLeft,
+            Pivot.TopRight => pivotTopRight,
+            Pivot.BottomLeft => pivotBottomLeft,
+            Pivot.BottomRight => pivotBottomRight,
+            _ => Vector2.zero
+        };
+    }
+    public void ShowTooltip(List<string> lines, List<ResourceCost> resourceTypes, Vector3 position, Pivot pivot)
+    {
+        transform.position = position + (Vector3)PivotToVector2(pivot);
         backgroundRectTransform.gameObject.SetActive(true);
         foreach (var slot in _iconSlots)
         {
@@ -75,19 +97,6 @@ public class UI_HoverTooltip : MonoBehaviour
         }
         _currentLines = lines;
         _currentResourceCosts = resourceTypes;
-        _tooltipActiveState = 1;
-        UpdateTooltip();
-    }
-    public void ShowTooltip(List<string> lines, Vector3 position)
-    {
-        transform.position = position;
-        backgroundRectTransform.gameObject.SetActive(true);
-        foreach (var slot in _iconSlots)
-        {
-            slot.gameObject.SetActive(false);
-        }
-        _currentLines = lines;
-        _currentResourceCosts = new List<ResourceCost>();
         _tooltipActiveState = 1;
         UpdateTooltip();
     }
@@ -101,13 +110,18 @@ public class UI_HoverTooltip : MonoBehaviour
         // Ensure TMP layout is updated
         tooltipText.ForceMeshUpdate();
 
-        // Get preferred height only
         float textHeight = tooltipText.preferredHeight;
 
         Vector2 size = backgroundRectTransform.sizeDelta;
 
-        // Only modify height
-        size.y = textHeight + padding.y;
+        if (_currentResourceCosts.Count > 0)
+        {
+            size.y = textHeight + padding + paddingResouceIcons;
+        }
+        else
+        {
+            size.y = textHeight + padding;
+        }
 
         backgroundRectTransform.sizeDelta = size;
 
