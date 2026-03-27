@@ -2458,6 +2458,7 @@ MonoBehaviour:
   text_Production: {fileID: 6000953460501095455}
   panelBuildingButtons: {fileID: 2724677085812494827}
   panelGameLost: {fileID: 1405771867303104748}
+  deckButtonTransform: {fileID: 733951864544785024}
   panelPause: {fileID: 3284320990145771437}
   panelProductionOverview: {fileID: 6546149833127352044}
   panelDeckOverview: {fileID: 464809877938216690}
