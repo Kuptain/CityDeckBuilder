@@ -126,6 +126,11 @@ public class InteractionManager : Manager
     bool SearchForTile(out Tile tile, bool sentdebugMessage = false)
     {
         var raycastHit = GridManager.Instance.GroundRaycast();
+        if (!raycastHit.isGround)
+        {
+            tile = new Tile();
+            return false;
+        }
         var gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
 
         if (raycastHit.isGround && GridManager.Instance.TryGetTile(gridPosition, out tile))

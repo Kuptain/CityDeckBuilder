@@ -10,23 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: B_Feld
+  m_Name: B_Lager
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingName: Feld
-  buildingDescription: Produziert Grain
-  prefab: {fileID: 5122269274258173990, guid: cc25c033c5a2bde4993ebd30768b71c3, type: 3}
-  uiIcon: {fileID: 21300000, guid: b49ca53b9f3cc8a478ad1f0d20741f6a, type: 3}
+  buildingName: Lager
+  buildingDescription: Kann genutzt werden um Karten einzulagern
+  prefab: {fileID: 0}
+  uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
-  - cardsToAdd:
-    - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
+  - cardsToAdd: []
     resourceCosts:
-    - resource: 5
+    - resource: 1
+      amount: 1
+    - resource: 10
       amount: 1
     housingIncrease: 0
     effects:
-    - type: 0
+    - type: 1
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
@@ -35,7 +36,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
             m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: AddCards
+            m_MethodName: StockRessource
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}

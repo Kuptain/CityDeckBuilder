@@ -44,16 +44,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df924291858101140a8734cc4a421f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
+  debugMode: 0
+  container: {fileID: 11400000, guid: b166f8109a85bac4a9518f52e4ef3929, type: 2}
   buildingButtonPrefab: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
   unlockedBuildings:
-  - {fileID: 11400000, guid: 4e97117695a90044ba0ccfa0513853fb, type: 2}
   - {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}
-  - {fileID: 11400000, guid: a8507f5f188685346900dcf2ffd5b53e, type: 2}
   - {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
   - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
   - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
-  - {fileID: 11400000, guid: 66b194e4715925840840555e082eb9df, type: 2}
   - {fileID: 11400000, guid: e425c6c61c1a9d94a9bc115242c05af5, type: 2}
+  - {fileID: 11400000, guid: 6bdb355d08fd2184abb5b0051cefc93f, type: 2}
+  lockedBuildings:
+  - {fileID: 11400000, guid: fd9166cf4a31a604184cef2c763d945e, type: 2}
+  - {fileID: 11400000, guid: c5621c59430d62047a0e21ffaf2541af, type: 2}
+  - {fileID: 11400000, guid: d92364cde81313744bfa08a98d71636d, type: 2}
+  - {fileID: 11400000, guid: 46c62f02e497df442a616f6d7e3ef86b, type: 2}
+  - {fileID: 11400000, guid: da2c287c00c7b2749aacdffa0f5d63d3, type: 2}
+  - {fileID: 11400000, guid: 7af5c81d447ccac47a10851d3e265808, type: 2}
   previewBuildingSnapStrength: 1
   outlineHover: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
   outlineDragCard: {fileID: 2100000, guid: 2b96707992a985044928597f3ce69ac7, type: 2}

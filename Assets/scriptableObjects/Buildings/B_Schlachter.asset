@@ -12,15 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: B_Schlachter
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
   buildingName: Schlachter
   buildingDescription: "<b>Drag & Drop:</b> L\xF6scht 1 Schafkarte aus dem Deck um
     3 Nahrung zu erzeugen."
   prefab: {fileID: 5122269274258173990, guid: f677a5b00feedbe488d41fa7c17dc714, type: 3}
   uiIcon: {fileID: 21300000, guid: baf2b0365bd7c374a92acc9b170ca708, type: 3}
   uiButton: {fileID: 0}
+  requiredTerrain: 0
   ranks:
   - cardsToAdd: []
-    resourceCosts: []
+    resourceCosts:
+    - resource: 6
+      amount: 2
     housingIncrease: 0
-    effects: []
+    effects:
+    - type: 1
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost:
+      - resource: 4
+        amount: 1
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      cardsToAdd:
+      - {fileID: 11400000, guid: 97ccf2bcdaa60a240b4f46e23f2093cd, type: 2}
+  - cardsToAdd: []
+    resourceCosts:
+    - resource: 14
+      amount: 2
+    housingIncrease: 0
+    effects:
+    - type: 1
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost:
+      - resource: 4
+        amount: 1
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      cardsToAdd:
+      - {fileID: 11400000, guid: 97ccf2bcdaa60a240b4f46e23f2093cd, type: 2}
+      - {fileID: 11400000, guid: 97ccf2bcdaa60a240b4f46e23f2093cd, type: 2}

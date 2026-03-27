@@ -21,4 +21,23 @@ public class EffectLibrary : ScriptableObject
     {
         Debug.Log("test");
     }
+
+    public void StockRessource(BuildingObject building, Card card)
+    {
+        building.AddCardToStock(card);
+    }
+
+    public void createCard(BuildingObject building, Card card)
+    {
+        building.TryToCraft();
+    }
+
+    public void discoverTiles(BuildingObject building, Card card)
+    {
+
+    }
+    public void discoverMoreTiles(BuildingObject building, Card card)
+    {
+
+    }
 }
