@@ -13,10 +13,10 @@ public class Handslot
         empty = true;
     }
 
-    public void DrawCard(Card card)
+    public void DrawCard(Card card,int index)
     {
         currentCard = card;
         empty = false;
-        CardManager.OnDraw.Invoke(card);
+        CardManager.OnDraw.Invoke(card,index);
     }
 }

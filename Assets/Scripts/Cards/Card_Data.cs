@@ -8,6 +8,11 @@ public class Card_Data : ScriptableObject
     public string cardName;
     public string cardDescription;
     public List<ResourceCost> ressources;
+    [Header("decay")]
+    public int decay;
+    public Card_Data decayTarget;
+    [Header("food")]
+    public int FoodAmount;
 
     public Card_Data(Card_Data card)
     {

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
-  m_Name: "B_Jagdh\xFCtte"
+  m_Name: B_Steinmetz
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
-  buildingName: "Jagdh\xFCtte"
-  buildingDescription: "Erzeugt am Ende des Jahres 1 Nahrung f\xFCr jedes leere benachbarte
-    Feld."
-  prefab: {fileID: 5122269274258173990, guid: cc25c033c5a2bde4993ebd30768b71c3, type: 3}
-  uiIcon: {fileID: 21300000, guid: b49ca53b9f3cc8a478ad1f0d20741f6a, type: 3}
+  buildingName: Steinmetz
+  buildingDescription: "F\xFCgt dem Deck 1 Steinkarte hinzu. \\n<b>Click:</b> Gibt
+    1 Gold aus um 1 Stein zu erzeugen."
+  prefab: {fileID: 5122269274258173990, guid: 2123b78c426a4a74baeca3b9aa3fd5fb, type: 3}
+  uiIcon: {fileID: 21300000, guid: 5dce4732d839d16448dc74ea03f6bc87, type: 3}
   uiButton: {fileID: 0}
   ranks:
-  - cardsToAdd: []
+  - cardsToAdd:
+    - {fileID: 0}
     resourceCosts: []
     housingIncrease: 0
     effects: []

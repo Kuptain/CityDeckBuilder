@@ -1548,6 +1548,10 @@ PrefabInstance:
       value: Building Manager (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: container
+      value: 
+      objectReference: {fileID: 11400000, guid: b166f8109a85bac4a9518f52e4ef3929, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
       propertyPath: buildingsPanel
       value: 
       objectReference: {fileID: 1451419494}

@@ -48,9 +48,9 @@ public class CardVisualManager : MonoBehaviour
             Draw(card);
         }
     }
-    void Draw(Card card)
+    void Draw(Card card, int handPosition = 0)
     {
-        CardVisuals slot = AddVisualCard();
+        CardVisuals slot = AddVisualCard(handPosition);
         slot.Setup(card, cardState);
         slots.Add(slot);
     }
@@ -68,9 +68,11 @@ public class CardVisualManager : MonoBehaviour
         }
     }
 
-    CardVisuals AddVisualCard()
+    CardVisuals AddVisualCard(int position)
     {
-        return Instantiate(cardPrefab, container).GetComponent<CardVisuals>();
+        CardVisuals card = Instantiate(cardPrefab, container).GetComponent<CardVisuals>();
+        card.transform.SetSiblingIndex(position);
+        return card;
     }
 
     public void MouseOverHand(bool active)

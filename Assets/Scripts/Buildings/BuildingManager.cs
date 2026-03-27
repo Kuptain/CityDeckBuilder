@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class BuildingManager : Manager
 {
-
+    public BuildingDataContainer container;
     [SerializeField] GameObject buildingButtonPrefab;
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] float previewBuildingSnapStrength = 0.5f;

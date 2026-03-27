@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: B_Wohnhaus
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 2
   buildingName: Wohnhaus
   buildingDescription: Erzeugt 1 Wohnraum.
   prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
@@ -20,6 +19,22 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   ranks:
   - cardsToAdd: []
-    resourceCosts: []
-    housingIncrease: 0
+    resourceCosts:
+    - resource: 6
+      amount: 1
+    - resource: 10
+      amount: 1
+    housingIncrease: 1
+    effects: []
+  - cardsToAdd: []
+    resourceCosts:
+    - resource: 1
+      amount: 1
+    housingIncrease: 3
+    effects: []
+  - cardsToAdd: []
+    resourceCosts:
+    - resource: 14
+      amount: 1
+    housingIncrease: 6
     effects: []

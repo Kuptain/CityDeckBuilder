@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: B_Marktplatz
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
   buildingName: Marktplatz
   buildingDescription: "F\xFCgt dem Deck 1 Goldkarte hinzu. \\n<b>Click</b>: Gibt
     1 Nahrung aus um 1 Gold zu erzeugen."
@@ -20,7 +19,8 @@ MonoBehaviour:
   uiIcon: {fileID: 21300000, guid: b9a738fff9a5df54ea6f9d76087a7689, type: 3}
   uiButton: {fileID: 0}
   ranks:
-  - cardsToAdd: []
+  - cardsToAdd:
+    - {fileID: 11400000, guid: 50933c0599b47bc4f940624b84f74b3c, type: 2}
     resourceCosts: []
     housingIncrease: 0
     effects: []

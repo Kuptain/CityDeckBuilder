@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "NewBuildingData", menuName = "Scriptable Objects/Building Data")]
 public class BuildingData : ScriptableObject
 {
-    public byte ID;
-    public string buildingName;
-    public string buildingDescription;
+    //public byte ID;
+    [SerializeField] public string buildingName;
+    [SerializeField] public string buildingDescription;
 
     public GameObject prefab;
     public Sprite uiIcon;

@@ -20,7 +20,7 @@ public class CardManager : Manager
     #endregion
 
     #region events
-    public static UnityEvent<Card> OnDraw = new UnityEvent<Card>();
+    public static UnityEvent<Card,int> OnDraw = new UnityEvent<Card,int>();
     public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
     public static UnityEvent OnProductiionToDeck = new UnityEvent();
     #endregion
@@ -113,7 +113,7 @@ public class CardManager : Manager
         if (deck.Count > 0)
         {
             deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
-            hand[handPosition].DrawCard(deck[deckIndex]);
+            hand[handPosition].DrawCard(deck[deckIndex],handPosition);
             deck.RemoveAt(deckIndex);
         }
         else
@@ -122,7 +122,7 @@ public class CardManager : Manager
             if (deck.Count > 0)
             {
                 deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
-                hand[handPosition].DrawCard(deck[deckIndex]);
+                hand[handPosition].DrawCard(deck[deckIndex],handPosition);
                 deck.RemoveAt(deckIndex);
             }
             else
