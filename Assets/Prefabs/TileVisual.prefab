@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 536904138238984332}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 58796601987750204}
   - component: {fileID: 2140256944562686822}
   - component: {fileID: 8932448613166803915}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fog Particles - Dense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4916,7 +4916,7 @@ GameObject:
   - component: {fileID: 4151608988501506423}
   - component: {fileID: 5608825912969988691}
   - component: {fileID: 2812833300108271020}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fog Particles - Visible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9754,7 +9754,7 @@ GameObject:
   - component: {fileID: 800377511773690187}
   - component: {fileID: 4775347301723746875}
   - component: {fileID: 4145976533407350987}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9865,7 +9865,7 @@ GameObject:
   - component: {fileID: 341472245736597007}
   - component: {fileID: 122599430937300536}
   - component: {fileID: 560681557916616321}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fog Particles (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14699,7 +14699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4179155198283708570}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tile Lake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14733,7 +14733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8494319970131966839}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tree (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14768,7 +14768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8455391624754638120}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tile Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14799,7 +14799,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8825722499147220429}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tile Mountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14839,7 +14839,7 @@ GameObject:
   - component: {fileID: 892667972247343727}
   - component: {fileID: 5246081205828377097}
   - component: {fileID: 5157380234583518152}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14951,7 +14951,7 @@ GameObject:
   - component: {fileID: 1020247866774649056}
   - component: {fileID: 2742560589828687647}
   - component: {fileID: 2948184235724293364}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15162,7 +15162,7 @@ GameObject:
   - component: {fileID: 858293697159910397}
   - component: {fileID: 6337652049679712655}
   - component: {fileID: 4191609589513230773}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Fog Particles (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20031,7 +20031,7 @@ GameObject:
   - component: {fileID: 8711813698088454878}
   - component: {fileID: 1923150433280081867}
   - component: {fileID: 8486427807740287612}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20140,7 +20140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6976762984831653803}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Exploration Outlines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20180,7 +20180,7 @@ GameObject:
   - component: {fileID: 2272341361183689299}
   - component: {fileID: 7483631864904914137}
   - component: {fileID: 2409498404248051431}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20292,7 +20292,7 @@ GameObject:
   - component: {fileID: 5226028454473130502}
   - component: {fileID: 3284914198408976394}
   - component: {fileID: 6133593827297414113}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20500,7 +20500,7 @@ GameObject:
   - component: {fileID: 6100148430745907469}
   - component: {fileID: 7800432859514153209}
   - component: {fileID: 7005727024016219887}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20641,7 +20641,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3944772383733299799}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tile Forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20675,7 +20675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 730433650473917472}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Tree (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20771,7 +20771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20894,7 +20894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21112,7 +21112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21194,7 +21194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21346,7 +21346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21424,7 +21424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21621,7 +21621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21703,7 +21703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21971,7 +21971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22119,7 +22119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22242,7 +22242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22369,7 +22369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22492,7 +22492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22619,7 +22619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22742,7 +22742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35149e1dd7d0bf44b9fe87ef934c6cf2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
