@@ -13,7 +13,7 @@ public class BuildingData : ScriptableObject
     public GameObject prefab;
     public Sprite uiIcon;
     public GameObject uiButton;
-
+    public Tile.TileType requiredTerrain;
     [SerializeField] List<RankData> ranks = new List<RankData>() { new RankData() };
 
     public RankData GetRankData(int rank)
@@ -51,12 +51,14 @@ public class BuildingEffect
     public int cooldownDuration;
     public List<ResourceCost> EffectCost = new List<ResourceCost>();
     public UnityEvent<BuildingObject, Card> OnTrigger = new UnityEvent<BuildingObject, Card>();
+    public List<Card_Data> cardsToAdd;
     public enum triggerType
     {
         onBuild = 0,
         onCard = 1,
         onEndOfTurn = 2
     }
+
 }
 
 

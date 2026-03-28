@@ -18,6 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 5122269274258173990, guid: 4d7a3378adf15944a887d26dcd7d6823, type: 3}
   uiIcon: {fileID: 21300000, guid: ccc7276eaee33fc4593ef02c0f517f6b, type: 3}
   uiButton: {fileID: 0}
+  requiredTerrain: 0
   ranks:
   - cardsToAdd:
     - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
@@ -25,6 +26,8 @@ MonoBehaviour:
     - resource: 6
       amount: 1
     - resource: 10
+      amount: 1
+    - resource: 5
       amount: 1
     housingIncrease: 0
     effects:
@@ -47,6 +50,7 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+      cardsToAdd: []
   - cardsToAdd:
     - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
     - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
@@ -74,12 +78,13 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+      cardsToAdd: []
   - cardsToAdd:
     - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
     - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
     - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
     resourceCosts:
-    - resource: 8
+    - resource: 4
       amount: 1
     housingIncrease: 0
     effects:
@@ -102,3 +107,4 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+      cardsToAdd: []

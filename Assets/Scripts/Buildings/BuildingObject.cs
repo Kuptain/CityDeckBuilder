@@ -17,7 +17,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] bool hasCD;
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
-
+    [ReadOnly] public List<Card> stockedCards;
 
     MeshRenderer[] outlineRenderers;
     private Material[][] originalMaterials;
@@ -139,6 +139,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         constructed = true;
         BuildEffect();
+    }
+
+    public void AddCardToStock(Card card)
+    {
+        stockedCards.Add(card);
+    }
+
+    public void TryToCraft()
+    {
+
     }
     #endregion
 

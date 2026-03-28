@@ -1387,11 +1387,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5930988637790207383, guid: a95bd6498b129094987323867dfe1d0f, type: 3}
   m_PrefabInstance: {fileID: 1118744720}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1451419494 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2724677085812494827, guid: 1986c80d0fc90de4489aa724cf06282c, type: 3}
-  m_PrefabInstance: {fileID: 920934577}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1686911289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,18 +1566,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building Manager (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: container
-      value: 
-      objectReference: {fileID: 11400000, guid: b166f8109a85bac4a9518f52e4ef3929, type: 2}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: buildingsPanel
-      value: 
-      objectReference: {fileID: 1451419494}
-    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
-      propertyPath: outlineBuilding
-      value: 
-      objectReference: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1684,30 +1667,6 @@ PrefabInstance:
     - target: {fileID: 1531632260760342668, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: handSize
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: debugMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: hand.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: hand.Array.data[0].empty
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: hand.Array.data[1].empty
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: hand.Array.data[2].empty
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9088492645230061255, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_Name
