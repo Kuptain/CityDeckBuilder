@@ -33,6 +33,7 @@ public class CardVisuals : MonoBehaviour
     private bool selected;
     private bool hovered;
     private bool isDrawn;
+    private bool isPlayed;
 
     public enum CardStates { Hand, Overview, Deck }
     CardStates state;
@@ -48,7 +49,7 @@ public class CardVisuals : MonoBehaviour
         stateBase.scale = cardRect.localScale;
 
         if (state == CardStates.Hand)
-            StartCoroutine(LerpToOrigin());
+            StartCoroutine(LerpDraw());
     }
 
     private void Update()
@@ -91,10 +92,11 @@ public class CardVisuals : MonoBehaviour
         }
     }
 
-    float duration = 0.5f;
+    float drawDuration = 0.5f;
+    float playDuration = 0.35f;
     float arcHeight = 150f;
 
-    IEnumerator LerpToOrigin() // ChatGPT helped
+    IEnumerator LerpDraw() // ChatGPT helped
     {
         isDrawn = true;
         cardRect.parent = HUD.Instance.gameObject.transform;
@@ -106,10 +108,10 @@ public class CardVisuals : MonoBehaviour
 
         float time = 0f;
 
-        while (time < duration)
+        while (time < drawDuration)
         {
             time += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, time / duration);
+            float t = Mathf.SmoothStep(0, 1, time / drawDuration);
 
             // Base straight movement
             Vector3 pos = Vector3.Lerp(start, transform.position, t);
@@ -130,6 +132,39 @@ public class CardVisuals : MonoBehaviour
 
         isDrawn = false;
         cardRect.parent = transform;
+    }
+
+    public IEnumerator LerpPlay(Vector2 targetPos) // ChatGPT helped
+    {
+        isPlayed = true;
+        cardRect.parent = HUD.Instance.gameObject.transform;
+
+        Vector3 start = cardRect.position;
+
+        float time = 0f;
+
+        while (time < playDuration)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.SmoothStep(0, 1, time / playDuration);
+
+            // Base straight movement
+            Vector3 pos = Vector3.Lerp(start, targetPos, t);
+
+            // Add arc (X axis)
+            float arc = arcHeight * 4f * (t * (1f - t));
+            pos.x += arc;
+
+            cardRect.position = pos;
+
+            // Scale animation
+            cardRect.localScale = Vector3.Lerp(stateBase.scale, stateBase.scale * 0.1f, t);
+
+            yield return null;
+        }
+
+        isPlayed = false;
+        Destroy(cardRect.gameObject);
     }
 
     public void Setup(Card _card, CardStates _newState)
@@ -232,7 +267,7 @@ public class CardVisuals : MonoBehaviour
         //image.color = Color.gray7;
         highlight.SetActive(false);
         arrowContainer.SetActive(false);
-        if (dragArrow.localPosition.y > 50)
+        if (dragArrow.localPosition.y > 50 && !isPlayed)
         {
             PlayCard();
         }
@@ -245,9 +280,9 @@ public class CardVisuals : MonoBehaviour
         
     }
 
-    void DiscardCheck(Card _card)
+    void DiscardCheck(Card _card, bool wasPlayed)
     {
-        if(_card == card)
+        if(_card == card && !wasPlayed)
         {
             Destroy(this);
         }

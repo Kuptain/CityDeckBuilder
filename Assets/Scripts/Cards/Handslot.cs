@@ -6,9 +6,9 @@ public class Handslot
     public bool empty = true;
     public Card currentCard;
 
-    public void Discard()
+    public void Discard(bool wasPlayed)
     {
-        CardManager.OnDiscard.Invoke(currentCard);
+        CardManager.OnDiscard.Invoke(currentCard, wasPlayed);
         currentCard = null;
         empty = true;
     }
