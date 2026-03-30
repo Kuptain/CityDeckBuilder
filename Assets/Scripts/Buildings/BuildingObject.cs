@@ -126,6 +126,10 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
 
     }
+    public List<ResourceCost> GetCostsStillOpen()
+    {
+        return CostStillOpen;
+    }
     void Constructionfinished()
     {
         BuildingManager.Instance.SendLog(data.name + " constructed");
