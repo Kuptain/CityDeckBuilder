@@ -13,8 +13,8 @@ public class EffectLibrary : ScriptableObject
     {
         List<Card_Data> cardsToAdd = building.GetCurrentCards();
         CardManager.instance.AddCardsToProduction(cardsToAdd);
-        building.AddProductionCardsEffect();
-        CardManager.OnProductiionToDeck.AddListener(building.AddProductionCardsEffect);
+        building.VisualProductionCards();
+        CardManager.OnProductiionToDeck.AddListener(building.VisualProductionCards);
     }
 
     public void Test(BuildingObject building, Card card)
@@ -30,6 +30,19 @@ public class EffectLibrary : ScriptableObject
     public void createCard(BuildingObject building, Card card)
     {
         building.TryToCraft();
+    }
+
+    public static void AddHousing(BuildingObject building, Card card)
+    {
+        int housing = building.data.GetRankData(building.GetRank()).housingIncrease;
+        if(building.housingValue == null)
+        {
+            building.housingValue = new HousingValue(building);
+            ResourceManager.instance.housingValues.Add(building.housingValue);
+        }
+        int housingChange = housing - building.housingValue.currentValue;
+        building.housingValue.currentValue = housing;
+        ResourceManager.OnHousingChange.Invoke(housingChange);
     }
 
     public void discoverTiles(BuildingObject building, Card card)

@@ -27,38 +27,41 @@ public class ResourceManager : Manager
     public static UnityEvent<ResourceType> OnNotEnoughRessources = new UnityEvent<ResourceType>();
     public static UnityEvent<ResourceType> OneNewRessource = new UnityEvent<ResourceType>();
     public static UnityEvent OnRessourceschanged = new UnityEvent();
-    public static UnityEvent  OnHousingChange = new UnityEvent();
+    public static UnityEvent<int> OnHousingChange = new UnityEvent<int>();
     #endregion
     Dictionary<ResourceType, int> ressources = new Dictionary<ResourceType, int>();
 
     [SerializeField] ResourceDatabase database;
     public static ResourceDatabase dataBase;
     public int housingBaseValue;
-    public int housing;
+    [ReadOnly] public int housing;
     public int food;
     public int population;
+    public List<HousingValue> housingValues = new List<HousingValue>();
 
     private void Start()
     {
         //TurnManager.OnEndTurn.AddListener(LooseAllRessources);
-        OnHousingChange.AddListener(SetUpHousing);
-        SetUpHousing();
-        HUD.Instance.text_FoodCount.text = food.ToString();
+        CalculateHousing(0);
+        OnHousingChange.AddListener(CalculateHousing);
     }
-    void SetUpHousing()
+    public void CalculateHousing(int housingIncrease)
     {
-        SendLog("SetUpHousing()");
         housing = housingBaseValue;
-        HUD.Instance.text_HousingCount.text = housing.ToString();
-    }
-    public void AddHousing(int value)
-    {
-        housing += value;
-        HUD.Instance.text_HousingCount.text = housing.ToString();
-        TurnManager.Instance.CheckLosingCondition(false);
+        for (int i = 0; i < housingValues.Count; i++)
+        {
+            housing += housingValues[i].currentValue;
+        }
+        ShowHousingText(housingIncrease);
+        void ShowHousingText(int increase)
+        {
+            //change text of HousingCount
+            HUD.Instance.text_HousingCount.text = housing.ToString();
+            //add feedback here to show how much the housing increased
+        }
     }
 
-    public void ChangeFood(int amount )
+    public void ChangeFood(int amount)
     {
         food += amount;
         HUD.Instance.text_FoodCount.text = food.ToString();
@@ -74,3 +77,18 @@ public class ResourceManager : Manager
 
 }
 
+public class HousingValue
+{
+    private BuildingObject source;
+    public int currentValue;
+
+    public HousingValue(BuildingObject _source)
+    {
+        source = _source;
+    }
+
+    public BuildingObject GetSource()
+    {
+        return source;
+    }
+}

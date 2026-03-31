@@ -20,7 +20,6 @@ public class BuildingData : ScriptableObject
     {
         return ranks[rank];
     }
-
     public List<ResourceCost> GetBaseCost()
     {
         if (ranks.Count == 0)
@@ -38,10 +37,12 @@ public class BuildingData : ScriptableObject
 [System.Serializable]
 public class RankData
 {
+    public int housingIncrease;
+    public bool usesCrafting;
     public List<Card_Data> cardsToAdd;
     public List<ResourceCost> resourceCosts;
-    public int housingIncrease;
     public List<BuildingEffect> effects = new List<BuildingEffect>();
+    public List<CraftRecipe> craftingRecipes = new List<CraftRecipe>();
 }
 [System.Serializable]
 public class BuildingEffect
@@ -50,8 +51,8 @@ public class BuildingEffect
     public bool HasCoolDown;
     public int cooldownDuration;
     public List<ResourceCost> EffectCost = new List<ResourceCost>();
-    public UnityEvent<BuildingObject, Card> OnTrigger = new UnityEvent<BuildingObject, Card>();
     public List<Card_Data> cardsToAdd;
+    public UnityEvent<BuildingObject, Card> OnTrigger = new UnityEvent<BuildingObject, Card>();
     public enum triggerType
     {
         onBuild = 0,
@@ -59,6 +60,13 @@ public class BuildingEffect
         onEndOfTurn = 2
     }
 
+}
+
+[System.Serializable]
+public class CraftRecipe
+{
+    public List<ResourceCost> costs;
+    public List<Card> cardsToCreate;
 }
 
 

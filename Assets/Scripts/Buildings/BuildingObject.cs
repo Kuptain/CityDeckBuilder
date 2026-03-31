@@ -18,6 +18,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
     [ReadOnly] public List<Card> stockedCards;
+    [ReadOnly] public HousingValue housingValue;
 
     MeshRenderer[] outlineRenderers;
     private Material[][] originalMaterials;
@@ -62,14 +63,6 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
     }
 
-    public void AddProductionCardsEffect()
-    {
-        Vector3 pos = GridManager.Instance.GridToWorldPosition(tile.gridPosition);
-        for (int i = 0; i < GetCurrentCards().Count; i++)
-        {
-            IconAnimationManager.instance.Anim_ResourceToProductionDeck(GetCurrentCards()[i], pos);
-        }
-    }
 
     void EndOfTurn()
     {
@@ -144,17 +137,23 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         constructed = true;
         BuildEffect();
     }
-
     public void AddCardToStock(Card card)
     {
         stockedCards.Add(card);
     }
-
     public void TryToCraft()
     {
 
     }
     #endregion
+    public void VisualProductionCards()
+    {
+        Vector3 pos = GridManager.Instance.GridToWorldPosition(tile.gridPosition);
+        for (int i = 0; i < GetCurrentCards().Count; i++)
+        {
+            IconAnimationManager.instance.Anim_ResourceToProductionDeck(GetCurrentCards()[i], pos);
+        }
+    }
 
 
     #region utility
