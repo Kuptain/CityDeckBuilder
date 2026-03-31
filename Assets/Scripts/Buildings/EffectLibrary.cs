@@ -53,4 +53,9 @@ public class EffectLibrary : ScriptableObject
     {
 
     }
+
+    public void AddFood(BuildingObject building, Card card)
+    {
+        ResourceManager.instance.ChangeFood(card.GetCurrentFood());
+    }
 }

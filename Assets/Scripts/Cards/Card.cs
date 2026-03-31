@@ -86,4 +86,8 @@ public class Card
         return false;
     }
 
+    public int GetCurrentFood()
+    {
+        return data.FoodAmount;
+    }
 }
