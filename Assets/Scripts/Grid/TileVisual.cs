@@ -21,6 +21,7 @@ public class TileVisual : MonoBehaviour
     public GameObject fogOfWar_visible;
     public GameObject outlineHover;
     public GameObject outlinePlayable;
+    public GameObject outlineEffect;
     public GameObject directionOutlines_parent;
 
     [SerializeField] private List<TileDirectionOutline> directionOutlines;
@@ -31,6 +32,7 @@ public class TileVisual : MonoBehaviour
     {
         gridPosition = _gridPosition;
         UpdateTileTypeVisual();
+        DisableHighlight(null);
     }
     public void EnableHighlight(Card card)
     {
@@ -41,12 +43,18 @@ public class TileVisual : MonoBehaviour
             {
                 outlinePlayable.SetActive(true);
             }    
+            if (tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect) 
+             && card.data.Contains(effect.EffectCost))
+            {
+                outlineEffect.SetActive(true);
+            }
         }
     }
 
     public void DisableHighlight(Card card)
     {
         outlinePlayable.SetActive(false);
+        outlineEffect.SetActive(false);
     }
 
     public void SetExploredVisual(bool isExplored, bool isVisible)
