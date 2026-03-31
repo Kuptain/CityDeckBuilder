@@ -34,7 +34,7 @@ public class EffectLibrary : ScriptableObject
 
     public void discoverTiles(BuildingObject building, Card card)
     {
-
+        
     }
     public void discoverMoreTiles(BuildingObject building, Card card)
     {
