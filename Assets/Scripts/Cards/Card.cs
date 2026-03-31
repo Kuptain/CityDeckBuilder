@@ -52,6 +52,24 @@ public class Card
 
         return returnBool;
     }
+    public bool CheckMatchingResources(List<ResourceCost> cost)
+    {
+        bool returnBool = false;
+        List<ResourceCost> currentResources = GetCurrentResources();
+        for (int i = cost.Count - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < currentResources.Count; j++)
+            {
+                if (cost[i].resource == currentResources[j].resource)
+                {
+                    returnBool = true;
+                    break;
+                }
+            }
+        }
+
+        return returnBool;
+    }
     public bool HasDesiredRessources(List<ResourceCost> cost)
     {
         List<ResourceCost> currentResources = GetCurrentResources();

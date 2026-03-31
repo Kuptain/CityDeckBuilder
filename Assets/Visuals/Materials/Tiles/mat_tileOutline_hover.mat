@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_tileOutline
+  m_Name: mat_tileOutline_hover
   m_Shader: {fileID: 4800000, guid: abba5bec794249d49a74074df94b1ce5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -19,7 +19,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 4001
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS

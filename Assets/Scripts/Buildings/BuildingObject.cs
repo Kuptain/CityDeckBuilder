@@ -98,7 +98,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             if (card.data.Contains(effect.EffectCost))
             {
                 effect.OnTrigger.Invoke(this, card);
-                CardManager.instance.DiscardCard(card);
+                CardManager.instance.DiscardCard(card, true);
                 TurnManager.OnEndTurn.Invoke();
             }
             else
@@ -121,10 +121,14 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
                 Constructionfinished();
             }
-            CardManager.instance.DiscardCard(card);
+            CardManager.instance.DiscardCard(card, true);
             TurnManager.OnEndTurn.Invoke();
         }
 
+    }
+    public List<ResourceCost> GetCostsStillOpen()
+    {
+        return CostStillOpen;
     }
     void Constructionfinished()
     {

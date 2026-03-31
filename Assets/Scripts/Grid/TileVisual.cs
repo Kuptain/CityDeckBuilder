@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.UIElements.ToolbarMenu;
@@ -18,7 +19,8 @@ public class TileVisual : MonoBehaviour
     public List<TileVisualType> tileVisualTypes;
     public GameObject fogOfWar_dense;
     public GameObject fogOfWar_visible;
-    public GameObject outline;
+    public GameObject outlineHover;
+    public GameObject outlinePlayable;
     public GameObject directionOutlines_parent;
 
     [SerializeField] private List<TileDirectionOutline> directionOutlines;
@@ -30,6 +32,23 @@ public class TileVisual : MonoBehaviour
         gridPosition = _gridPosition;
         UpdateTileTypeVisual();
     }
+    public void EnableHighlight(Card card)
+    {
+        if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
+        {
+            var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
+            if (card.CheckMatchingResources(buildingResourceCosts))
+            {
+                outlinePlayable.SetActive(true);
+            }    
+        }
+    }
+
+    public void DisableHighlight(Card card)
+    {
+        outlinePlayable.SetActive(false);
+    }
+
     public void SetExploredVisual(bool isExplored, bool isVisible)
     {
         fogOfWar_dense.SetActive(!isVisible);

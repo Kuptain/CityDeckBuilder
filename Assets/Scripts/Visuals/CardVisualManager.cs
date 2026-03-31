@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CardVisualManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class CardVisualManager : MonoBehaviour
     public bool mouseOverHand;
 
     public CardVisuals.CardStates cardState;
+
+    [SerializeField] private GameObject cardPlaceholder;
 
     private void Start()
     {
@@ -22,6 +26,13 @@ public class CardVisualManager : MonoBehaviour
             // Whatever
         }
 
+        cardPlaceholder = new GameObject("CardPlaceholder", typeof(RectTransform));
+        //cardPlaceholder.transform.SetParent(container);
+
+        cardPlaceholder.SetActive(false);
+
+        RectTransform rect = cardPlaceholder.GetComponent<RectTransform>();
+        rect.sizeDelta = cardPrefab.GetComponent<RectTransform>().sizeDelta;
     }
     private void OnEnable()
     {
@@ -62,21 +73,40 @@ public class CardVisualManager : MonoBehaviour
         slots.Add(slot);
     }
 
-    void Discard(Card card)
+    void Discard(Card card, bool wasPlayed)
     {
         foreach (CardVisuals slot in slots)
         {
             if (slot.card == card)
             {
-                Destroy(slot.gameObject);
-                slots.Remove(slot);
+                DestroyCardVisual(slot, wasPlayed);
                 return;
             }
         }
     }
 
+    void DestroyCardVisual(CardVisuals slot, bool wasPlayed)
+    {
+        if (wasPlayed)
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            StartCoroutine(slot.LerpPlay(mousePosition));
+        }
+
+        int index = slot.transform.GetSiblingIndex();
+        Destroy(slot.gameObject);
+        slots.Remove(slot);
+
+        cardPlaceholder.gameObject.SetActive(true);
+        cardPlaceholder.transform.parent = container;
+        cardPlaceholder.transform.SetSiblingIndex(index);
+    }
     CardVisuals AddVisualCard(int position)
     {
+        Debug.Log("CardVisualManager: AddVisualCard position: " + position);
+        cardPlaceholder.gameObject.SetActive(false);
+        cardPlaceholder.transform.parent = null;
+
         CardVisuals card = Instantiate(cardPrefab, container).GetComponent<CardVisuals>();
         card.transform.SetSiblingIndex(position);
         return card;

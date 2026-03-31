@@ -81,10 +81,10 @@ public struct Tile
 
     public void StartHover()
     {
-        TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outline.SetActive(true);
+        TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outlineHover.SetActive(true);
     }
     public void StopHover()
     {
-        TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outline.SetActive(false);
+        TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outlineHover.SetActive(false);
     }
 }

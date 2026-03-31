@@ -21,7 +21,7 @@ public class CardManager : Manager
 
     #region events
     public static UnityEvent<Card,int> OnDraw = new UnityEvent<Card,int>();
-    public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
+    public static UnityEvent<Card, bool> OnDiscard = new UnityEvent<Card, bool>(); // bool = was this card played (true) or just discarded (false)
     public static UnityEvent OnProductiionToDeck = new UnityEvent();
     #endregion
 
@@ -132,21 +132,21 @@ public class CardManager : Manager
             }
         }
     }
-    public void DiscardCard(int index = 0)
+    public void DiscardCard(int index = 0, bool wasPlayed = false)
     {
         if (index < hand.Count && index >= 0)
         {
-            hand[index].Discard();
+            hand[index].Discard(wasPlayed);
         }
     }
-    public void DiscardCard(Card card)
+    public void DiscardCard(Card card, bool wasPlayed = false)
     {
         for( int i = 0; i< hand.Count; i++)
         {
             if(hand[i].currentCard == card)
             {
                 SendLog("discard " + card.data.cardName);
-                hand[i].Discard();
+                hand[i].Discard(wasPlayed);
             }
         }
     }
@@ -175,7 +175,7 @@ public class CardManager : Manager
     [ContextMenu("discard Card")]
     void Discard()
     {
-        DiscardCard(0);
+        DiscardCard(0, false);
     }
     #endregion
 }
