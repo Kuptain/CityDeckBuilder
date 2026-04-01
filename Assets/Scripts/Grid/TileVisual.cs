@@ -54,7 +54,7 @@ public class TileVisual : MonoBehaviour
                 }
 
                 if (tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect)
-                 && card.data.Contains(effect.EffectCost))
+                 && card.data.TryToPayFor(effect.EffectCost))
                 {
                     outlineEffect.SetActive(true);
                     return;
