@@ -47,7 +47,8 @@ public enum ResourceType
     bread = 12, 
     meat = 13,
     brick = 14,
-    coal = 15
+    coal = 15,
+    sandwich = 16
 
 }
 [System.Serializable]
@@ -58,7 +59,7 @@ public class ResourceEntry
 }
 
 [System.Serializable]
-public struct ResourceCost
+public class ResourceCost
 {
     public ResourceType resource;
     public int amount;

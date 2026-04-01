@@ -23,25 +23,46 @@ public class Card_Data : ScriptableObject
     public bool Contains(List<ResourceCost> cost)
     {
         bool costSatisfied = false;
-        foreach(ResourceCost x in cost)
+        foreach (ResourceCost x in cost)
         {
             costSatisfied = false;
-            foreach(ResourceCost y in ressources)
+            foreach (ResourceCost y in ressources)
             {
-                if(x.resource == y.resource)
+                if (x.resource == y.resource)
                 {
-                    if (x.amount <= y.amount)
+                    if (y.amount > 0)
                     {
                         costSatisfied = true;
                     }
                     break;
                 }
             }
-            if(costSatisfied == false)
+            if (costSatisfied == false)
             {
                 return false;
             }
         }
         return true;
+    }
+
+    public bool TryToPayFor(List<ResourceCost> cost)
+    {
+        bool costSatisfied = false;
+        for (int i = cost.Count-1; i >=0; i--)
+        {
+            foreach (ResourceCost y in ressources)
+            {
+                if (cost[i].resource == y.resource)
+                {
+                    if (y.amount > 0)
+                    {
+                        costSatisfied = true;
+                    }
+                    break;
+                }
+            }
+
+        }
+        return costSatisfied;
     }
 }

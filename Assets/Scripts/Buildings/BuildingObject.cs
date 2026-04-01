@@ -14,6 +14,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] List<ResourceCost> constructionCost;
     [ReadOnly] [SerializeField] List<ResourceCost> CostStillOpen = new List<ResourceCost>();
     [Header("ability")]
+    [ReadOnly] [SerializeField] bool startedToPayForAbility;
     [ReadOnly] [SerializeField] bool hasCD;
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
@@ -78,6 +79,10 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             PayForConstruction(card);
         }
+        if (startedToPayForAbility)
+        {
+
+        }
         else
         {
             OnCardEffect(card);
@@ -88,7 +93,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out effect))
         {
-            if (card.data.Contains(effect.EffectCost))
+            if (card.data.TryToPayFor(effect.EffectCost))
             {
                 effect.OnTrigger.Invoke(this, card);
                 CardManager.instance.DiscardCard(card, true);
@@ -104,6 +109,8 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             CardManager.instance.SendLog("Building had no effect on Card played");
         }
     }
+    
+
     void PayForConstruction(Card card)
     {
         if (card.TryToPayFor(ref CostStillOpen))
