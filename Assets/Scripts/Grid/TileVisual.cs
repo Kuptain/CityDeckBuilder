@@ -38,15 +38,27 @@ public class TileVisual : MonoBehaviour
     {
         if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
         {
-            var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
-            if (card.CheckMatchingResources(buildingResourceCosts))
+            if (!tile.isExplored && tile.isVisible)
             {
                 outlinePlayable.SetActive(true);
-            }    
-            if (tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect) 
-             && card.data.Contains(effect.EffectCost))
+                return;
+            }
+
+            if (tile.currentBuilding != null)
             {
-                outlineEffect.SetActive(true);
+                var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
+                if (card.CheckMatchingResources(buildingResourceCosts))
+                {
+                    outlinePlayable.SetActive(true);
+                    return;
+                }
+
+                if (tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect)
+                 && card.data.Contains(effect.EffectCost))
+                {
+                    outlineEffect.SetActive(true);
+                    return;
+                }
             }
         }
     }

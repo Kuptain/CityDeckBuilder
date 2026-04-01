@@ -87,6 +87,10 @@ public class TileVisualsManager : MonoBehaviour
             GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), Quaternion.identity);
  
             TileVisual gridTileVisual = spawnedTile.GetComponent<TileVisual>();
+
+            InteractionManager.OnPickUpCard.AddListener(gridTileVisual.EnableHighlight);
+            InteractionManager.OnReleaseCard.AddListener(gridTileVisual.DisableHighlight);
+
             tileVisualMap[tile.gridPosition] = gridTileVisual;
 
             gridTileVisual.directionOutlines_parent.transform.parent = null;

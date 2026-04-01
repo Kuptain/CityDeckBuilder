@@ -118,8 +118,9 @@ public class BuildingManager : Manager
 
                 var tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
                 tileVisual.buildingObject = spawnedBuilding;
-                InteractionManager.OnPickUpCard.AddListener(tileVisual.EnableHighlight);
-                InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
+
+                //InteractionManager.OnPickUpCard.AddListener(tileVisual.EnableHighlight);
+                //InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
 
                 //spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
                 var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
