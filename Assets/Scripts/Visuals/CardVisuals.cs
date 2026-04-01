@@ -9,23 +9,27 @@ using System.Collections;
 
 public class CardVisuals : MonoBehaviour
 {
-    public Card card;
+    public  Card card;
     [Header("Card")]
-    public Image IconImage;
-    public RectTransform cardRect;
-    public TMP_Text text_name;
-    public TMP_Text text_description;
+    [SerializeField] Image IconImage;
+    [SerializeField] RectTransform cardRect;
+    [SerializeField] TMP_Text text_name;
+    [SerializeField] TMP_Text text_description;
     [Header("Arrow")]
-    public GameObject arrowContainer;
-    public RectTransform dragArrow;
-    public RectTransform dragArrowTrail;
+    [SerializeField] GameObject arrowContainer;
+    [SerializeField] RectTransform dragArrow;
+    [SerializeField] RectTransform dragArrowTrail;
     [Header("highlight")]
-    public GameObject highlight;
+    [SerializeField] GameObject highlight;
 
     [Header("States")]
-    public CardHover stateHover;
-    public CardHover stateSelect;
-    public CardHover stateHoverOverview;
+    [SerializeField] CardHover stateHover;
+    [SerializeField] CardHover stateSelect;
+    [SerializeField] CardHover stateHoverOverview;
+
+    [Header("CardEffects")]
+    [SerializeField] GameObject decayVisuals;
+    [SerializeField] TMP_Text decayCount;
 
     private CardHover stateBase;
     private Canvas canvas;
@@ -89,6 +93,16 @@ public class CardVisuals : MonoBehaviour
                 Moveback();
             }
 
+        }
+
+        if(card.data.decay != 0)
+        {
+            decayVisuals.SetActive(true);
+            decayCount.text = card.GetDecayCount().ToString();
+        }
+        else
+        {
+            decayVisuals.SetActive(false);
         }
     }
 
@@ -185,6 +199,17 @@ public class CardVisuals : MonoBehaviour
             state = _newState;
         }
         CardManager.OnDiscard.AddListener(DiscardCheck);
+        CardManager.OnCardDecayed.AddListener(RefreshVisuals);
+    }
+
+    void RefreshVisuals(Card _card)
+    {
+        if (card == _card)
+        {
+            IconImage.sprite = card.data.sprite;
+            text_name.text = card.data.cardName;
+            text_description.text = card.data.cardDescription;
+        }
     }
 
     void MoveHover()

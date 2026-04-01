@@ -19,7 +19,9 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
-  - cardsToAdd:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
     - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
     - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
     - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
@@ -31,12 +33,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     resourceCosts: []
-    housingIncrease: 0
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -52,17 +54,25 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd: []
     - type: 1
       HasCoolDown: 0
       cooldownDuration: 0
-      EffectCost: []
+      EffectCost:
+      - resource: 8
+        amount: 1
+      - resource: 12
+        amount: 1
+      - resource: 13
+        amount: 1
+      - resource: 13
+        amount: 1
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
           - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
             m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: Test
+            m_MethodName: AddFood
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -72,4 +82,4 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd: []
+    craftingRecipes: []

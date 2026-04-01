@@ -23,6 +23,7 @@ public class CardManager : Manager
     public static UnityEvent<Card,int> OnDraw = new UnityEvent<Card,int>();
     public static UnityEvent<Card, bool> OnDiscard = new UnityEvent<Card, bool>(); // bool = was this card played (true) or just discarded (false)
     public static UnityEvent OnProductiionToDeck = new UnityEvent();
+    public static UnityEvent<Card> OnCardDecayed = new UnityEvent<Card>();
     #endregion
 
     [Header("variables")]
@@ -152,7 +153,10 @@ public class CardManager : Manager
     }
     public void ProductionToDeck()
     {
-        deck.AddRange(productionDeck);
+        for(int i = 0; i < productionDeck.Count; i++)
+        {
+            deck.Add(new Card(productionDeck[i]));
+        }
         ShuffleDeck();
         //discardedCards.Clear();
         OnProductiionToDeck.Invoke();

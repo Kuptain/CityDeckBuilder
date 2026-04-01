@@ -19,13 +19,14 @@ MonoBehaviour:
   uiButton: {fileID: 0}
   requiredTerrain: 5
   ranks:
-  - cardsToAdd: []
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd: []
     resourceCosts:
     - resource: 1
       amount: 1
     - resource: 5
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 1
       HasCoolDown: 0
@@ -33,6 +34,8 @@ MonoBehaviour:
       EffectCost:
       - resource: 5
         amount: 1
+      cardsToAdd:
+      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -48,15 +51,17 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd:
-      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
-  - cardsToAdd: []
+    craftingRecipes:
+    - costs: []
+      cardsToCreate: []
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd: []
     resourceCosts:
     - resource: 1
       amount: 2
     - resource: 5
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 1
       HasCoolDown: 0
@@ -64,6 +69,9 @@ MonoBehaviour:
       EffectCost:
       - resource: 5
         amount: 1
+      cardsToAdd:
+      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
+      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -79,6 +87,4 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd:
-      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
-      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
+    craftingRecipes: []

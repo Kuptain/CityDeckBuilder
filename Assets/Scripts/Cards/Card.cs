@@ -5,6 +5,7 @@ using UnityEngine;
 public class Card
 {
 
+
     public Card_Data data;
     BuildingObject originBuilding;
     public int roundsInHand;
@@ -15,6 +16,14 @@ public class Card
         data = _data;
     }
 
+    public Card(Card copy)
+    {
+        data = copy.data;
+        originBuilding = copy.originBuilding;
+        rank = copy.rank;
+        roundsInHand = copy.roundsInHand;
+    }
+
     public void Upgrade()
     {
         rank += 1;
@@ -23,6 +32,11 @@ public class Card
     public List<ResourceCost> GetCurrentResources()
     {
         return data.ressources;
+    }
+
+    public int GetDecayCount()
+    {
+        return data.decay - roundsInHand;
     }
 
     public bool TryToPayFor(ref List<ResourceCost> cost)
@@ -85,9 +99,18 @@ public class Card
         }
         return false;
     }
-
     public int GetCurrentFood()
     {
         return data.FoodAmount;
+    }
+
+    public void EndOfTurnInHand()
+    {
+        roundsInHand += 1;
+        if (data.decay != 0 && roundsInHand >= data.decay)
+        {
+            data = data.decayTarget;
+            CardManager.OnCardDecayed.Invoke(this);
+        }
     }
 }

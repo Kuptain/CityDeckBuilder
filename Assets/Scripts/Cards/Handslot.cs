@@ -6,6 +6,12 @@ public class Handslot
     public bool empty = true;
     public Card currentCard;
 
+    public Handslot()
+    {
+        TurnManager.OnEndTurn.AddListener(OnEndOfTurn);
+    }
+
+
     public void Discard(bool wasPlayed)
     {
         CardManager.OnDiscard.Invoke(currentCard, wasPlayed);
@@ -18,5 +24,13 @@ public class Handslot
         currentCard = card;
         empty = false;
         CardManager.OnDraw.Invoke(card,index);
+    }
+
+    public void OnEndOfTurn()
+    {
+        if (currentCard != null)
+        {
+            currentCard.EndOfTurnInHand();
+        }
     }
 }
