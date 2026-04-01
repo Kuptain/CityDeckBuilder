@@ -289,12 +289,13 @@ public class CardVisuals : MonoBehaviour
     public void Deselect()
     {
         selected = false;
-        //image.color = Color.gray7;
         highlight.SetActive(false);
         arrowContainer.SetActive(false);
+        PlayCard();
+
         if (dragArrow.localPosition.y > 50 && !isPlayed)
         {
-            PlayCard();
+            //PlayCard();
         }
     }
 
