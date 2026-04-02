@@ -113,7 +113,7 @@ public class CardVisuals : MonoBehaviour
     IEnumerator LerpDraw() // ChatGPT helped
     {
         isDrawn = true;
-        cardRect.parent = HUD.Instance.gameObject.transform;
+        cardRect.SetParent(HUD.Instance.gameObject.transform);
 
         // Start at deck
         cardRect.position = HUD.Instance.deckButtonTransform.position;
@@ -145,13 +145,13 @@ public class CardVisuals : MonoBehaviour
         cardRect.position = transform.position;
 
         isDrawn = false;
-        cardRect.parent = transform;
+        cardRect.SetParent(transform);
     }
 
     public IEnumerator LerpPlay(Vector2 targetPos) // ChatGPT helped
     {
         isPlayed = true;
-        cardRect.parent = HUD.Instance.gameObject.transform;
+        cardRect.SetParent(HUD.Instance.gameObject.transform);
 
         Vector3 start = cardRect.position;
 

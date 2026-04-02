@@ -98,14 +98,14 @@ public class CardVisualManager : MonoBehaviour
         slots.Remove(slot);
 
         cardPlaceholder.gameObject.SetActive(true);
-        cardPlaceholder.transform.parent = container;
+        cardPlaceholder.transform.SetParent(container);
         cardPlaceholder.transform.SetSiblingIndex(index);
     }
     CardVisuals AddVisualCard(int position)
     {
         Debug.Log("CardVisualManager: AddVisualCard position: " + position);
         cardPlaceholder.gameObject.SetActive(false);
-        cardPlaceholder.transform.parent = null;
+        cardPlaceholder.transform.SetParent(null);
 
         CardVisuals card = Instantiate(cardPrefab, container).GetComponent<CardVisuals>();
         card.transform.SetSiblingIndex(position);
