@@ -14,22 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Lehmgrube
   buildingDescription: Produziert Lehm
-  prefab: {fileID: 5122269274258173990, guid: 8a269fe372853cf4ea37bad3d9e3c4f7, type: 3}
+  prefab: {fileID: 5122269274258173990, guid: c95304a3ff6a294479224a17ebe58d8a, type: 3}
   uiIcon: {fileID: 21300000, guid: 11062db1551090e4a992d13b520559a7, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
-  - cardsToAdd:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
     - {fileID: 11400000, guid: ad7f885568fe056439a58c4854aac241, type: 2}
     resourceCosts:
     - resource: 5
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -45,8 +47,10 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd: []
-  - cardsToAdd:
+    craftingRecipes: []
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
     - {fileID: 11400000, guid: ad7f885568fe056439a58c4854aac241, type: 2}
     - {fileID: 11400000, guid: ad7f885568fe056439a58c4854aac241, type: 2}
     resourceCosts:
@@ -54,12 +58,12 @@ MonoBehaviour:
       amount: 1
     - resource: 10
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -75,4 +79,4 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd: []
+    craftingRecipes: []

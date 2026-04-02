@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class ConstructionVisualizer : MonoBehaviour
 {
-    [SerializeField] BuildingObject building;
+    [ReadOnly] public BuildingObject building;
     [SerializeField] List<GameObject> objectProgression = new List<GameObject>();
     [SerializeField] Transform uiParent;
     [SerializeField] GameObject iconPrefab;
     List<GameObject> uiIcons = new List<GameObject>();
-    public double progress;
+    [ReadOnly] public double progress;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()

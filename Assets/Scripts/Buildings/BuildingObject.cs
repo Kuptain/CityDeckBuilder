@@ -217,14 +217,14 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     public void StopHover()
     {
-        DisableOutline();
+        EnableOriginMaterials();
     }
     public void EnableOutline(BuildingOutlineStates state)
     {
         if (currentOutlineState == state) return;
         if (currentOutlineState != BuildingOutlineStates.Idle)
         {
-            DisableOutline();
+            EnableOriginMaterials();
         }
         currentOutlineState = state;
 
@@ -252,8 +252,15 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             outlineRenderers[i].materials = newMats;
         }
     }
-
-    public void DisableOutline()
+    public void EnablePreviewMaterials()
+    {
+        for (int i = 0; i < outlineRenderers.Length; i++)
+        {
+            outlineRenderers[i].materials = originalMaterials[i];
+        }
+        currentOutlineState = BuildingOutlineStates.Idle;
+    }
+    public void EnableOriginMaterials()
     {
         for (int i = 0; i < outlineRenderers.Length; i++)
         {

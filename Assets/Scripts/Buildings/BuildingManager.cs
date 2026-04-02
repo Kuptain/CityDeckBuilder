@@ -9,14 +9,18 @@ public class BuildingManager : Manager
 {
     public BuildingDataContainer container;
     [SerializeField] GameObject buildingButtonPrefab;
+    [SerializeField] GameObject buildingConstructionUIPrefab;
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] List<BuildingData> lockedBuildings;
     [SerializeField] float previewBuildingSnapStrength = 0.5f;
+
     public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, BuildingObject> spawnedBuildings = new Dictionary<int, BuildingObject>(); // To save progress later
+
     public Material outlineHover;
     public Material outlineDragCard;
     public Material outlineClickable;
+    public Material matPreviewBuilding;
 
     private GameObject previewBuilding;
     private Transform buildingsPanel;
@@ -98,8 +102,23 @@ public class BuildingManager : Manager
         var raycastHit = GridManager.Instance.GroundRaycast();
         previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
         previewBuilding.GetComponent<BuildingObject>().data = building;
-        previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
-        previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
+
+        ToggleBuildingPreview(previewBuilding, true);
+    }
+
+    private void ToggleBuildingPreview(GameObject building, bool state)
+    {
+        if (building.TryGetComponent<BuildingObject>(out var buildingObject))
+        {
+            if (state)
+            {
+                buildingObject.EnablePreviewMaterials();
+            }
+            else
+            {
+                buildingObject.EnableOriginMaterials();
+            }
+        }
     }
 
     public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn)
@@ -112,25 +131,26 @@ public class BuildingManager : Manager
             {
 
                 Tile currentTile = gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)];
+                Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
 
-                GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, gridManager.GridToWorldPosition(gridPosition), Quaternion.identity);
+                GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity);
                 spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
 
-                var tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
+                TileVisual tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
                 tileVisual.buildingObject = spawnedBuilding;
 
                 //InteractionManager.OnPickUpCard.AddListener(tileVisual.EnableHighlight);
                 //InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
 
-                //spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
-                var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
-                //buildingObject.EnableOutline(); // Test outline
+                BuildingObject buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
 
                 currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
                 currentTile.currentBuilding.BuildingSetup(buildingToSpawn,currentTile);
 
+                ConstructionVisualizer buildingConstructionUI = Instantiate(buildingConstructionUIPrefab, worldPos, Quaternion.identity, spawnedBuilding.transform).GetComponent<ConstructionVisualizer>();
+                buildingConstructionUI.building = buildingObject;
 
-
+                // Apply Grid Array
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
 
