@@ -5,18 +5,22 @@ using UnityEngine.UI;
 public class ConstructionVisualizer : MonoBehaviour
 {
     [ReadOnly] public BuildingObject building;
-    [SerializeField] List<GameObject> objectProgression = new List<GameObject>();
     [SerializeField] Transform uiParent;
     [SerializeField] GameObject iconPrefab;
+    List<GameObject> objectProgression = new List<GameObject>();
     List<GameObject> uiIcons = new List<GameObject>();
     [ReadOnly] public double progress;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    public void Init(BuildingObject newBuilding)
     {
+        building = newBuilding;
         building.OnConstructionProgress.AddListener(ChangeConstruction);
-    }
 
+        foreach (Transform child in building.buildingVisualTransform.transform)
+        {
+            objectProgression.Add(child.gameObject);
+        }
+    }
     void ChangeConstruction(List<ResourceCost> constructionCost, List<ResourceCost> CostStillOpen)
     {
         float sumOfCosts = 0;
@@ -33,10 +37,14 @@ public class ConstructionVisualizer : MonoBehaviour
        
 
         progress = (sumOfCosts - sumOfOpenCosts)/sumOfCosts;
-        ChangeObjects(progress);
+
+        if((int)sumOfCosts - (int)sumOfOpenCosts > 0 || sumOfCosts == 0)
+        {
+            building.EnableOriginMaterials();
+        }
+        //ChangeObjects(progress);
         ChangeUI(CostStillOpen);
     }
-
     void ChangeObjects(double progess)
     {
         float visibleProgression = objectProgression.Count * (float)progess;
@@ -45,11 +53,11 @@ public class ConstructionVisualizer : MonoBehaviour
         {
             if (i < visibleProgression)
             {
-                objectProgression[i].SetActive(true);
+                objectProgression[i].SetActive(true); // Change Material instead
             }
             else
             {
-                objectProgression[i].SetActive(false);
+                objectProgression[i].SetActive(false); // Change Material instead
             }
         }
     }

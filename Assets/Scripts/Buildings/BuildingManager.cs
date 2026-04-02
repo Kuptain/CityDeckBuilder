@@ -8,8 +8,8 @@ using UnityEngine.InputSystem;
 public class BuildingManager : Manager
 {
     public BuildingDataContainer container;
+    public GameObject buildingConstructionUIPrefab;
     [SerializeField] GameObject buildingButtonPrefab;
-    [SerializeField] GameObject buildingConstructionUIPrefab;
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] List<BuildingData> lockedBuildings;
     [SerializeField] float previewBuildingSnapStrength = 0.5f;
@@ -76,11 +76,13 @@ public class BuildingManager : Manager
 
             if (Mouse.current.leftButton.wasReleasedThisFrame && previewBuilding != null)
             {
-                Destroy(previewBuilding);
-
                 if (raycastHit.isGround)
                 {
                     SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
+                }
+                else
+                {
+                    Destroy(previewBuilding);
                 }
             }
         }
@@ -101,9 +103,8 @@ public class BuildingManager : Manager
 
         var raycastHit = GridManager.Instance.GroundRaycast();
         previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
-        previewBuilding.GetComponent<BuildingObject>().data = building;
-
-        ToggleBuildingPreview(previewBuilding, true);
+        previewBuilding.GetComponent<BuildingObject>().BuildingPreviewSetup(building);
+        //ToggleBuildingPreview(previewBuilding, true);
     }
 
     private void ToggleBuildingPreview(GameObject building, bool state)
@@ -129,26 +130,32 @@ public class BuildingManager : Manager
         {
             if (tile.currentBuilding == null)
             {
-
                 Tile currentTile = gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)];
-                Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
+                BuildingObject buildingObject;
 
-                GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity);
-                spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
+                if (previewBuilding == null)
+                {
+                    Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
+                    previewBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity);
+
+                    buildingObject = previewBuilding.GetComponent<BuildingObject>();
+                    buildingObject.BuildingPreviewSetup(buildingToSpawn);
+                }
+                else
+                {
+                    buildingObject = previewBuilding.GetComponent<BuildingObject>();
+                }
 
                 TileVisual tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
-                tileVisual.buildingObject = spawnedBuilding;
+                tileVisual.buildingObject = previewBuilding;
 
                 //InteractionManager.OnPickUpCard.AddListener(tileVisual.EnableHighlight);
                 //InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
 
-                BuildingObject buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
-
-                currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
+                currentTile.currentBuilding = previewBuilding.GetComponent<BuildingObject>();
                 currentTile.currentBuilding.BuildingSetup(buildingToSpawn,currentTile);
 
-                ConstructionVisualizer buildingConstructionUI = Instantiate(buildingConstructionUIPrefab, worldPos, Quaternion.identity, spawnedBuilding.transform).GetComponent<ConstructionVisualizer>();
-                buildingConstructionUI.building = buildingObject;
+                previewBuilding = null;
 
                 // Apply Grid Array
                 gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;

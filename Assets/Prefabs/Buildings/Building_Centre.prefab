@@ -83,11 +83,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a682cd7f22c574b84833c7a6277aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingObject
+  buildingVisualTransform: {fileID: 976741648744785093}
   data: {fileID: 0}
   rank: 0
   constructed: 0
   constructionCost: []
   CostStillOpen: []
+  constructionUI: {fileID: 0}
+  startedToPayForAbility: 0
   hasCD: 0
   cooldown: 0
   cooldownDuration: 0

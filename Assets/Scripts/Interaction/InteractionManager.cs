@@ -14,7 +14,7 @@ public class InteractionManager : Manager
     Tile currentHoverTile;
     bool isHoldingCard;
 
-    public enum BuildingOutlineStates { Idle, Hover, Draggable, Clickable}
+    public enum BuildingOutlineStates { Idle, Hover, Draggable, Clickable, Preview}
     private void Start()
     {
         OnPickUpCard.AddListener(PickUpCard);

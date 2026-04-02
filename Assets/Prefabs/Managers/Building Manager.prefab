@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   debugMode: 0
   container: {fileID: 11400000, guid: b166f8109a85bac4a9518f52e4ef3929, type: 2}
+  buildingConstructionUIPrefab: {fileID: 3470972133574614521, guid: c8bad3ac40906bc429e68edd260c3718, type: 3}
   buildingButtonPrefab: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
   unlockedBuildings:
   - {fileID: 11400000, guid: d92364cde81313744bfa08a98d71636d, type: 2}
@@ -65,3 +66,4 @@ MonoBehaviour:
   outlineHover: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
   outlineDragCard: {fileID: 2100000, guid: 2b96707992a985044928597f3ce69ac7, type: 2}
   outlineClickable: {fileID: 2100000, guid: 616053169b2346d4e89ce4dd92e7ec04, type: 2}
+  matPreviewBuilding: {fileID: 2100000, guid: 81eef282a0b95f14f98c0a269c38acd4, type: 2}

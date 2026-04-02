@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 using static InteractionManager;
 
 public class BuildingObject : MonoBehaviour, Iinteractable
 {
     [Header("basics")]
+    public Transform buildingVisualTransform;
     [ReadOnly] Tile tile;
     [ReadOnly] public BuildingData data;
     [ReadOnly] [SerializeField] int rank;
@@ -13,6 +15,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] bool constructed;
     [ReadOnly] [SerializeField] List<ResourceCost> constructionCost;
     [ReadOnly] [SerializeField] List<ResourceCost> CostStillOpen = new List<ResourceCost>();
+    [ReadOnly] [SerializeField] ConstructionVisualizer constructionUI;
     [Header("ability")]
     [ReadOnly] [SerializeField] bool startedToPayForAbility;
     [ReadOnly] [SerializeField] bool hasCD;
@@ -28,9 +31,23 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     private void Start()
     {
-        OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
-    }
 
+    }
+    public void BuildingPreviewSetup(BuildingData _data)
+    {
+        //references
+        data = _data;
+
+        //visuals
+        outlineRenderers = buildingVisualTransform.GetComponentsInChildren<MeshRenderer>();
+        originalMaterials = new Material[outlineRenderers.Length][];
+
+        for (int i = 0; i < outlineRenderers.Length; i++)
+        {
+            originalMaterials[i] = outlineRenderers[i].materials;
+        }
+        EnablePreviewMaterials();
+    }
     public void BuildingSetup(BuildingData _data, Tile _tile)
     {
         //references
@@ -39,18 +56,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         tile = _tile;
         constructionCost = _data.GetBaseCost();
         CostStillOpen = new List<ResourceCost>(constructionCost);
+        constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<ConstructionVisualizer>();
+        constructionUI.Init(this);
+        OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
         //events
         TurnManager.OnEndTurn.AddListener(EndOfTurn);
-        //BuildEffect();
-        //visuals
-        outlineRenderers = GetComponentsInChildren<MeshRenderer>();
-        originalMaterials = new Material[outlineRenderers.Length][];
-
-        for (int i = 0; i < outlineRenderers.Length; i++)
-        {
-            originalMaterials[i] = outlineRenderers[i].materials;
-        }
-
     }
     #region effects
 
@@ -252,12 +262,21 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             outlineRenderers[i].materials = newMats;
         }
     }
+
     public void EnablePreviewMaterials()
     {
         for (int i = 0; i < outlineRenderers.Length; i++)
         {
-            outlineRenderers[i].materials = originalMaterials[i];
+            var mats = outlineRenderers[i].materials;
+
+            for (int m = 0; m < mats.Length; m++)
+            {
+                mats[m] = BuildingManager.Instance.matPreviewBuilding;
+            }
+
+            outlineRenderers[i].materials = mats;
         }
+
         currentOutlineState = BuildingOutlineStates.Idle;
     }
     public void EnableOriginMaterials()
@@ -268,5 +287,29 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         currentOutlineState = BuildingOutlineStates.Idle;
     }
+
+    public void EnableOriginMaterial(int childPos) // BROKEN!!
+    {
+        Debug.Log("BuildingObject: EnableOriginMaterial, childPos: " + childPos);
+
+        for (int i = 0; i < outlineRenderers.Length; i++)
+        {
+            if (i == childPos)
+            {
+                var mats = outlineRenderers[i].materials;
+
+                for (int m = 0; m < mats.Length; m++)
+                {
+                    var currentMat = originalMaterials[childPos][m];
+                    mats[m] = currentMat;
+                    Debug.Log("BuildingObject: EnableOriginMaterial, m: " + m);
+                }
+
+                outlineRenderers[i].materials = mats;
+            }
+        }
+        currentOutlineState = BuildingOutlineStates.Idle;
+    }
+
     #endregion
 }
