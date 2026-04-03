@@ -42,7 +42,10 @@ public class ConstructionVisualizer : MonoBehaviour
         {
             building.EnableOriginMaterials();
         }
-        //ChangeObjects(progress);
+        else
+        {
+            ChangeObjects(progress);
+        }
         ChangeUI(CostStillOpen);
     }
     void ChangeObjects(double progess)
@@ -53,11 +56,12 @@ public class ConstructionVisualizer : MonoBehaviour
         {
             if (i < visibleProgression)
             {
-                objectProgression[i].SetActive(true); // Change Material instead
+                building.EnableOriginMaterial(i);
+                //objectProgression[i].SetActive(true); // Change Material instead
             }
             else
             {
-                objectProgression[i].SetActive(false); // Change Material instead
+                //objectProgression[i].SetActive(false); // Change Material instead
             }
         }
     }

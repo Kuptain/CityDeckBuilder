@@ -294,13 +294,13 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
         for (int i = 0; i < outlineRenderers.Length; i++)
         {
-            if (i == childPos)
+            if (outlineRenderers[i].transform.parent == buildingVisualTransform.GetChild(childPos))
             {
                 var mats = outlineRenderers[i].materials;
 
                 for (int m = 0; m < mats.Length; m++)
                 {
-                    var currentMat = originalMaterials[childPos][m];
+                    var currentMat = originalMaterials[i][m];
                     mats[m] = currentMat;
                     Debug.Log("BuildingObject: EnableOriginMaterial, m: " + m);
                 }
