@@ -23,14 +23,16 @@ MonoBehaviour:
     usesCrafting: 0
     cardsToAdd: []
     resourceCosts:
-    - resource: 5
+    - resource: 6
+      amount: 1
+    - resource: 10
       amount: 1
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
-      cardsToAdd: []
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:

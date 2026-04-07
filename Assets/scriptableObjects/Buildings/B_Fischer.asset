@@ -34,14 +34,14 @@ MonoBehaviour:
       EffectCost:
       - resource: 5
         amount: 1
-      cardsToAdd:
+      temporaryCards:
       - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
           - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
             m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: createCard
+            m_MethodName: createTemporaryCard
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -69,9 +69,7 @@ MonoBehaviour:
       EffectCost:
       - resource: 5
         amount: 1
-      cardsToAdd:
-      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
-      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:

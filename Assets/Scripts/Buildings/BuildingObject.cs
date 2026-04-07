@@ -69,7 +69,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onBuild, out effect))
         {
-            effect.OnTrigger.Invoke(this, null);
+            effect.Invoke(this, null);
           
         }
     }
@@ -80,7 +80,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onEndOfTurn, out effect))
         {
-            effect.OnTrigger.Invoke(this, null);
+            effect.Invoke(this, null);
         }
     }
     public void PlayCardOnThis(Card card)
@@ -105,7 +105,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             if (card.data.TryToPayFor(effect.EffectCost))
             {
-                effect.OnTrigger.Invoke(this, card);
+                effect.Invoke(this, card);
                 CardManager.instance.DiscardCard(card, true);
                 TurnManager.OnEndTurn.Invoke();
             }
@@ -172,6 +172,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
     }
 
+    #region crafting
+
+
+
+    #endregion
 
     #region utility
     public Tile GetTile()

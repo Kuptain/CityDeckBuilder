@@ -32,6 +32,7 @@ public class CardManager : Manager
     [Header("Cards")]
     public List<Card> deck = new List<Card>(10);
     public List<Handslot> hand;
+    public List<Card> temporaryHand;
     public List<Card> productionDeck;
     private void Start()
     {
@@ -148,8 +149,20 @@ public class CardManager : Manager
             {
                 SendLog("discard " + card.data.cardName);
                 hand[i].Discard(wasPlayed);
+                return;
             }
         }
+        for (int i = 0; i < temporaryHand.Count; i++)
+        {
+            if (temporaryHand[i] == card)
+            {
+                SendLog("discard " + card.data.cardName);
+                CardManager.OnDiscard.Invoke(temporaryHand[i], wasPlayed);
+                return;
+            }
+        }
+
+
     }
     public void ProductionToDeck()
     {
@@ -162,7 +175,12 @@ public class CardManager : Manager
         OnProductiionToDeck.Invoke();
     }
 
-
+    public void GetTemporaryCard(Card_Data data)
+    {
+        Card newCard = new Card(data);
+        temporaryHand.Add(newCard);
+        OnDraw.Invoke(newCard,handSize+temporaryHand.Count-1);
+    }
     #region test functions
     [ContextMenu("shuffle Deck")]
     void Test_Shuffle()
