@@ -83,6 +83,7 @@ public class CardVisualManager : MonoBehaviour
                 return;
             }
         }
+
     }
 
     void DestroyCardVisual(CardVisuals slot, bool wasPlayed)
