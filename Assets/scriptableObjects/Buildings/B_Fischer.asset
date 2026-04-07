@@ -15,7 +15,7 @@ MonoBehaviour:
   buildingName: Fischer
   buildingDescription: fischt fischige Fische
   prefab: {fileID: 5122269274258173990, guid: 3c18fc677ffc63048accf8e790a33de5, type: 3}
-  uiIcon: {fileID: 21300000, guid: b305de058e04dcf438ea3c934907b6ed, type: 3}
+  uiIcon: {fileID: 21300000, guid: 14e8898770bf43340adc168aa5662f9b, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 5
   ranks:

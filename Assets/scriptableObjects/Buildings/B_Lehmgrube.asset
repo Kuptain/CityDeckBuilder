@@ -15,7 +15,7 @@ MonoBehaviour:
   buildingName: Lehmgrube
   buildingDescription: Produziert Lehm
   prefab: {fileID: 5122269274258173990, guid: c95304a3ff6a294479224a17ebe58d8a, type: 3}
-  uiIcon: {fileID: 21300000, guid: 11062db1551090e4a992d13b520559a7, type: 3}
+  uiIcon: {fileID: 21300000, guid: 08538c0c65200b1438c7c68be6186588, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
@@ -31,7 +31,7 @@ MonoBehaviour:
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
-      cardsToAdd: []
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -63,7 +63,7 @@ MonoBehaviour:
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
-      cardsToAdd: []
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:

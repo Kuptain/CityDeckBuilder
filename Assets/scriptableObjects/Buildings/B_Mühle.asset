@@ -15,7 +15,7 @@ MonoBehaviour:
   buildingName: "M\xFChle"
   buildingDescription: mahlt getreide zu Mehl
   prefab: {fileID: 5122269274258173990, guid: ca2f30a42a4358f4eaaa62837b3c042a, type: 3}
-  uiIcon: {fileID: 21300000, guid: 6ef2e05eddcf7564980514bef532a93b, type: 3}
+  uiIcon: {fileID: 21300000, guid: 25277df954e384d4ba95e8f33b1bdb6c, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
