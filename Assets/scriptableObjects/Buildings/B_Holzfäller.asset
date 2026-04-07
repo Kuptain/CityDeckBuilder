@@ -12,26 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: "B_Holzf\xE4ller"
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
   buildingName: "Holzf\xE4ller"
   buildingDescription: "F\xFCgt dem Deck 1 Holz (x2) Karte hinzu."
   prefab: {fileID: 5122269274258173990, guid: ed032f3180b842646996c07faeb939f5, type: 3}
   uiIcon: {fileID: 21300000, guid: ab45bd27945b1604d81911201bccacbc, type: 3}
   uiButton: {fileID: 0}
+  requiredTerrain: 0
   ranks:
-  - cardsToAdd:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
     - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
     resourceCosts:
     - resource: 6
       amount: 2
     - resource: 10
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -47,3 +49,80 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+    - type: 1
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost:
+      - resource: 5
+        amount: 1
+      cardsToAdd:
+      - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes: []
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
+    - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+    resourceCosts:
+    - resource: 1
+      amount: 2
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      cardsToAdd: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: AddCards
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - type: 1
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost:
+      - resource: 5
+        amount: 1
+      cardsToAdd:
+      - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+      - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes: []
