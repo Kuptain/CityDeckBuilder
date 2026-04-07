@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Ofen
   buildingDescription: essen Zubereiten, Kohle erschaffen und Ziegel brennen
-  prefab: {fileID: 0}
-  uiIcon: {fileID: 0}
+  prefab: {fileID: 5122269274258173990, guid: 5655a0c37d197a04b9f522dfdc21e280, type: 3}
+  uiIcon: {fileID: 21300000, guid: 1755bdc949463ca40ace794cf1433770, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
-  - cardsToAdd: []
+  - housingIncrease: 0
+    usesCrafting: 1
+    cardsToAdd: []
     resourceCosts:
     - resource: 6
       amount: 2
     - resource: 5
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 1
       HasCoolDown: 0
@@ -41,6 +42,7 @@ MonoBehaviour:
         amount: 1
       - resource: 15
         amount: 1
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -56,26 +58,4 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd: []
-    - type: 1
-      HasCoolDown: 0
-      cooldownDuration: 0
-      EffectCost:
-      - resource: 1
-        amount: 2
-      OnTrigger:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
-            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: createCard
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      cardsToAdd: []
+    craftingRecipes: []

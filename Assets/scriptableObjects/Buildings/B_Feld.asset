@@ -14,22 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Feld
   buildingDescription: Produziert Grain
-  prefab: {fileID: 5122269274258173990, guid: cc25c033c5a2bde4993ebd30768b71c3, type: 3}
+  prefab: {fileID: 5122269274258173990, guid: 92dd916043901074b991ded2bd23365c, type: 3}
   uiIcon: {fileID: 21300000, guid: b49ca53b9f3cc8a478ad1f0d20741f6a, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
-  - cardsToAdd:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
     - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     resourceCosts:
     - resource: 5
       amount: 1
-    housingIncrease: 0
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
+      cardsToAdd: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -45,4 +47,4 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-      cardsToAdd: []
+    craftingRecipes: []

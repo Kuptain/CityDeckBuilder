@@ -47,12 +47,22 @@ public class EffectLibrary : ScriptableObject
 
     public void discoverTiles(BuildingObject building, Card card)
     {
-        
+        discoverneighbours(building, 1);
     }
     public void discoverMoreTiles(BuildingObject building, Card card)
     {
-
+        discoverneighbours(building, 2);
     }
+
+    private static void discoverneighbours(BuildingObject building, int range)
+    {
+        List<Tile> neighbours = GridManager.Instance.GetTilesInRange(building.GetTile().gridPosition, range);
+        for (int i = 0; i < neighbours.Count; i++)
+        {
+            neighbours[i].SetExploredState(true, true,true);
+        }
+    }
+
 
     public void AddFood(BuildingObject building, Card card)
     {
