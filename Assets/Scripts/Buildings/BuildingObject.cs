@@ -22,6 +22,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
     [ReadOnly] public List<Card> stockedCards;
+    [ReadOnly] List<ResourceCost> stockedResources;
     [ReadOnly] public HousingValue housingValue;
 
     MeshRenderer[] outlineRenderers;
@@ -70,7 +71,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onBuild, out effect))
         {
             effect.Invoke(this, null);
-          
+
         }
     }
 
@@ -119,7 +120,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             CardManager.instance.SendLog("Building had no effect on Card played");
         }
     }
-    
+
 
     void PayForConstruction(Card card)
     {
@@ -158,10 +159,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         stockedCards.Add(card);
     }
-    public void TryToCraft()
-    {
 
-    }
     #endregion
     public void VisualProductionCards()
     {
@@ -175,6 +173,42 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     #region crafting
 
 
+    public bool TryToGetCraftingRecipes(out List<CraftRecipe> recipes)
+    {
+        recipes = data.GetRankData(rank).craftingRecipes;
+        return data.GetRankData(rank).usesCrafting;
+    }
+
+    public bool isCraftable(CraftRecipe recipe)
+    {
+        List<ResourceCost> costs = new List<ResourceCost>(recipe.costs);
+        bool costSatisfyed = false;
+        for (int i = costs.Count - 1; i >= 0; i--)
+        {
+            costSatisfyed = false;
+            for (int j = 0; j < stockedResources.Count; j++)
+            {
+                if (stockedResources[j].resource == costs[i].resource)
+                {
+                    costs[i].amount -= stockedResources[j].amount;
+                    costSatisfyed = true;
+                    break;
+                }
+            }
+            if (costSatisfyed == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+  
+
+    public void Craft(CraftRecipe recipe)
+    {
+
+    }
 
     #endregion
 
