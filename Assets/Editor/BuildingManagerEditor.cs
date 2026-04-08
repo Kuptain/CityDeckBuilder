@@ -12,7 +12,7 @@ public class BuildingManagerEditor : Editor
     {
         if(GUILayout.Button("Open Editor")) 
         {
-            BuildingEditorWindow.Open(FindAnyObjectByType<BuildingManager>().container);
+            //BuildingEditorWindow.Open(FindAnyObjectByType<BuildingManager>().container);
         }
         base.OnInspectorGUI();
     }

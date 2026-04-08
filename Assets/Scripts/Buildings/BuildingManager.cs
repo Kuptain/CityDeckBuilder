@@ -7,12 +7,11 @@ using UnityEngine.InputSystem;
 
 public class BuildingManager : Manager
 {
-    public BuildingDataContainer container;
     public GameObject buildingConstructionUIPrefab;
     [SerializeField] GameObject buildingButtonPrefab;
     [SerializeField] List<BuildingData> unlockedBuildings;
     [SerializeField] List<BuildingData> lockedBuildings;
-    [SerializeField] float previewBuildingSnapStrength = 0.5f;
+    //[SerializeField] float previewBuildingSnapStrength = 0.5f;
 
     public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, BuildingObject> spawnedBuildings = new Dictionary<int, BuildingObject>(); // To save progress later

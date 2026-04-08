@@ -23,7 +23,7 @@ MonoBehaviour:
     usesCrafting: 0
     cardsToAdd: []
     resourceCosts:
-    - resource: 5
+    - resource: 1
       amount: 2
     effects:
     - type: 0
@@ -33,45 +33,11 @@ MonoBehaviour:
       temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
-            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: discoverTiles
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+          m_Calls: []
     craftingRecipes: []
   - housingIncrease: 0
     usesCrafting: 0
     cardsToAdd: []
-    resourceCosts:
-    - resource: 1
-      amount: 3
-    effects:
-    - type: 0
-      HasCoolDown: 0
-      cooldownDuration: 0
-      EffectCost: []
-      temporaryCards: []
-      OnTrigger:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
-            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: discoverMoreTiles
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+    resourceCosts: []
+    effects: []
     craftingRecipes: []
