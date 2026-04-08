@@ -20,7 +20,7 @@ MonoBehaviour:
   requiredTerrain: 0
   ranks:
   - housingIncrease: 0
-    usesCrafting: 0
+    usesCrafting: 1
     cardsToAdd:
     - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     resourceCosts:
