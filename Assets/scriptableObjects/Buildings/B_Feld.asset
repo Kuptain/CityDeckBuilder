@@ -15,7 +15,7 @@ MonoBehaviour:
   buildingName: Feld
   buildingDescription: Produziert Grain
   prefab: {fileID: 5122269274258173990, guid: 92dd916043901074b991ded2bd23365c, type: 3}
-  uiIcon: {fileID: 21300000, guid: b49ca53b9f3cc8a478ad1f0d20741f6a, type: 3}
+  uiIcon: {fileID: 21300000, guid: b1ee43d2124dd83468128c21625d0bff, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
@@ -31,7 +31,7 @@ MonoBehaviour:
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
-      cardsToAdd: []
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
