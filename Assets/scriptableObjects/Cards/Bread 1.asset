@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5feeecc50abc4e4ab62d72fb59f987b, type: 3}
   m_Name: Bread 1
   m_EditorClassIdentifier: Assembly-CSharp::Card_Data
-  sprite: {fileID: 21300000, guid: 7acdfdf0903a4524faac92bad53675ee, type: 3}
+  sprite: {fileID: 21300000, guid: e6c7b471d97ac7c4cb6264b1aeb8e1c4, type: 3}
   cardName: Quality Bread
   cardDescription: ' a REALLY tasty Bread '
   ressources:

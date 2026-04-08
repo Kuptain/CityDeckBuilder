@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: spoiled meat
   m_EditorClassIdentifier: Assembly-CSharp::Card_Data
   sprite: {fileID: 21300000, guid: 03702942806997541a72b646b7a95bc0, type: 3}
-  cardName: Quality Meat
+  cardName: Spoiled Meat. not edible
   cardDescription: some hgh qulity sheep meat
   ressources: []
   decay: 0

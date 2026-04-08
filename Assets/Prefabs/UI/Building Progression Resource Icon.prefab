@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5095596953886600645}
   - component: {fileID: 6043861396761973489}
   m_Layer: 0
-  m_Name: construction Resource Icon
+  m_Name: Building Progression Resource Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
