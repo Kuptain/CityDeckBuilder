@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Castle
   buildingDescription: 
+  test: 0
   prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
@@ -38,7 +39,7 @@ MonoBehaviour:
       HasCoolDown: 0
       cooldownDuration: 0
       EffectCost: []
-      cardsToAdd: []
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:
@@ -66,7 +67,7 @@ MonoBehaviour:
         amount: 1
       - resource: 13
         amount: 1
-      cardsToAdd: []
+      temporaryCards: []
       OnTrigger:
         m_PersistentCalls:
           m_Calls:

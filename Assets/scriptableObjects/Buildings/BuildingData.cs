@@ -9,7 +9,7 @@ public class BuildingData : ScriptableObject
     //public byte ID;
     [SerializeField] public string buildingName;
     [SerializeField] public string buildingDescription;
-
+    public ResourceType test;
     public GameObject prefab;
     public Sprite uiIcon;
     public GameObject uiButton;
