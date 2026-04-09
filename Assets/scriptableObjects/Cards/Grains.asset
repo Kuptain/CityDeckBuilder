@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5feeecc50abc4e4ab62d72fb59f987b, type: 3}
   m_Name: Grains
   m_EditorClassIdentifier: Assembly-CSharp::Card_Data
-  sprite: {fileID: 21300000, guid: 7096c714223d44f4eb6a19c564106027, type: 3}
+  sprite: {fileID: 21300000, guid: 965dc1874e0feea43ae35a60394fe532, type: 3}
   cardName: Grains
   cardDescription: a bunch of grains
   ressources:

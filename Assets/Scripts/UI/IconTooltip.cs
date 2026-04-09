@@ -12,13 +12,15 @@ public class IconTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (ResourceManager.instance == null) return;
 
+        /*
         List<string> info = new List<string>
         {
             $"<b>{tooltipName}</b>", $"",
             tooltiDescription
         };
+        */
 
-        UI_HoverTooltip.Instance.ShowTooltip(info, new List<ResourceCost>(), transform.position, pivot);
+        UI_HoverTooltip.Instance.ShowTooltip(tooltipName, tooltiDescription, new List<ResourceCost>(), transform.position, pivot);
     }
 
     public void OnPointerExit(PointerEventData eventData)
