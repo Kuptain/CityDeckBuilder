@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: B_Castle
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Castle
-  buildingDescription: The centre of your town.
+  buildingDescription: 
+  test: 0
   prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
