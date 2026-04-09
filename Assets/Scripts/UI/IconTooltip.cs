@@ -2,29 +2,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class IconTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class IconTooltip : UIBase
 {
     public string tooltipName;
     public string tooltiDescription;
     public UI_HoverTooltip.Pivot pivot;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    protected override void HandlePointerEnter(PointerEventData eventData)
     {
         if (ResourceManager.instance == null) return;
 
-        /*
-        List<string> info = new List<string>
-        {
-            $"<b>{tooltipName}</b>", $"",
-            tooltiDescription
-        };
-        */
-
-        UI_HoverTooltip.Instance.ShowTooltip(tooltipName, tooltiDescription, new List<ResourceCost>(), transform.position, pivot);
+        UI_HoverTooltip.Instance.ShowTooltip(tooltipName, tooltiDescription, new List<ResourceCost>(), transform.position, pivot, GetInstanceID());
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    protected override void HandlePointerExit(PointerEventData eventData)
     {
-        UI_HoverTooltip.Instance.HideTooltip();
+        UI_HoverTooltip.Instance.TryHideTooltip(GetInstanceID());
     }
 }

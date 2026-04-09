@@ -98,6 +98,7 @@ public class BuildingManager : Manager
     }
     private void SpawnBuildingPreview(BuildingData building)
     {
+        HUD.Instance.EnterUI();
         selectedBuilding = building;
 
         var raycastHit = GridManager.Instance.GroundRaycast();
@@ -142,6 +143,7 @@ public class BuildingManager : Manager
                 }
                 else
                 {
+                    HUD.Instance.ExitUI();
                     buildingObject = previewBuilding.GetComponent<BuildingObject>();
                 }
 

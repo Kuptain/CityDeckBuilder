@@ -21,6 +21,9 @@ public class HUD : MonoBehaviour
     public Transform panelPause;
     public Transform panelProductionOverview;
     public Transform panelDeckOverview;
+
+    private int hoverintUI;
+
   
     public static HUD Instance { get; private set; }
 
@@ -36,6 +39,22 @@ public class HUD : MonoBehaviour
         {
             Instance = this;
         }
+    }
+    public void EnterUI()
+    {
+        hoverintUI += 1;
+    }
+    public void ExitUI()
+    {
+        hoverintUI -= 1;
+    }
+    public bool IsHoveringUI()
+    {
+        if (hoverintUI > 0)
+        {
+            return true;
+        }
+        return false;
     }
     public void RestartGame()
     {
