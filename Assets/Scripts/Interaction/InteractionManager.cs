@@ -69,6 +69,7 @@ public class InteractionManager : Manager
             currentHoverBuilding.StopHover();
         }
     }
+    BuildingObject lastHoveredBuilding;
 
     void HoverTile()
     {
@@ -78,13 +79,22 @@ public class InteractionManager : Manager
             if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition && currentHoverTile.gridPosition != tile.gridPosition)
             {
                 currentHoverTile.StopHover();
+                Debug.Log("Stop Hover()");
+                UI_HoverTooltip.Instance.HideTooltip();
             }
             currentHoverTile = tile;
             currentHoverTile.StartHover();
+            if(tile.currentBuilding != null)
+            {
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(tile.currentBuilding.transform.position);
+                UI_HoverTooltip.Instance.ShowTooltip(tile.currentBuilding.data.buildingName, tile.currentBuilding.data.buildingDescription, tile.currentBuilding.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft);
+            }
         }
         else if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition)
         {
             currentHoverTile.StopHover();
+            Debug.Log("Stop Hover()");
+            UI_HoverTooltip.Instance.HideTooltip();
         }
     }
 

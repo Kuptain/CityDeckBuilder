@@ -87,8 +87,14 @@ public class UI_HoverTooltip : MonoBehaviour
             _ => Vector2.zero
         };
     }
-    public void ShowTooltip(List<string> lines, List<ResourceCost> resourceTypes, Vector3 position, Pivot pivot)
+    public void ShowTooltip(string name, string description, List<ResourceCost> resourceTypes, Vector3 position, Pivot pivot)
     {
+        List<string> lines = new List<string>
+        {
+            $"<b>{name}</b>", $"",
+            description
+        };
+
         transform.position = position + (Vector3)PivotToVector2(pivot);
         backgroundRectTransform.gameObject.SetActive(true);
         foreach (var slot in _iconSlots)

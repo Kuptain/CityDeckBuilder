@@ -32,13 +32,15 @@ public class BuildingButton : MonoBehaviour, IPointerDownHandler, IPointerEnterH
     {
         if (ResourceManager.instance == null) return;
 
+        /*
         List<string> info = new List<string>
         {
             $"<b>{buildingData.buildingName}</b>", $"",
             buildingData.buildingDescription
         };
+        */
 
-        UI_HoverTooltip.Instance.ShowTooltip(info, buildingData.GetBaseCost(), transform.position, pivot);
+        UI_HoverTooltip.Instance.ShowTooltip(buildingData.buildingName, buildingData.buildingDescription, buildingData.GetBaseCost(), transform.position, pivot);
     }
 
     public void OnPointerExit(PointerEventData eventData)
