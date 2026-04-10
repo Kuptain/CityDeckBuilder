@@ -69,4 +69,20 @@ public class ResourceCost
         resource = type;
         amount = _value;
     }
+
+    public void Subtract(ResourceCost cost)
+    {
+        if(cost.resource == resource)
+        {
+            amount -= cost.amount;
+        }
+    }
+
+    public void Add(ResourceCost cost)
+    {
+        if (cost.resource == resource)
+        {
+            amount += cost.amount;
+        }
+    }
 }

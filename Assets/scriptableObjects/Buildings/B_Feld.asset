@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingName: Feld
   buildingDescription: Produziert Grain
-  test: 3
+  test: 1
   prefab: {fileID: 5122269274258173990, guid: 92dd916043901074b991ded2bd23365c, type: 3}
   uiIcon: {fileID: 21300000, guid: b1ee43d2124dd83468128c21625d0bff, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
   ranks:
   - housingIncrease: 0
-    usesCrafting: 1
+    usesCrafting: 0
     cardsToAdd:
     - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     resourceCosts:

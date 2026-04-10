@@ -2,53 +2,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConstructionVisualizer : MonoBehaviour
+public class EffectCostVisualizer : MonoBehaviour
 {
+    public bool isConstruction;
     [ReadOnly] public BuildingObject building;
     [SerializeField] Transform uiParent;
     [SerializeField] GameObject iconPrefab;
     List<GameObject> objectProgression = new List<GameObject>();
     List<GameObject> uiIcons = new List<GameObject>();
     [ReadOnly] public double progress;
-
     public void Init(BuildingObject newBuilding)
     {
         building = newBuilding;
-        building.OnConstructionProgress.AddListener(ChangeConstruction);
+        building.OnEffectProgress.AddListener(ChangeCosts);
 
         foreach (Transform child in building.buildingVisualTransform.transform)
         {
             objectProgression.Add(child.gameObject);
         }
     }
-    void ChangeConstruction(List<ResourceCost> constructionCost, List<ResourceCost> CostStillOpen)
+
+    void ChangeCosts(BuildingObject.OpenEffect effect)
     {
-        float sumOfCosts = 0;
-        for (int i = 0; i < constructionCost.Count; i++)
+        if (effect.isConstruction)
         {
-            sumOfCosts += constructionCost[i].amount;
-        }
-        float sumOfOpenCosts = 0;
-        for (int i = 0; i < CostStillOpen.Count; i++)
-        {
-            sumOfOpenCosts += CostStillOpen[i].amount;
-        }
+            float sumOfCosts = 0;
+            for (int i = 0; i < effect.Costs.Count; i++)
+            {
+                sumOfCosts += effect.Costs[i].amount;
+            }
+            float sumOfOpenCosts = 0;
+            for (int i = 0; i < effect.CostsStillOpen.Count; i++)
+            {
+                sumOfOpenCosts += effect.CostsStillOpen[i].amount;
+            }
 
-       
+            progress = (sumOfCosts - sumOfOpenCosts) / sumOfCosts;
 
-        progress = (sumOfCosts - sumOfOpenCosts)/sumOfCosts;
-
-        if((int)sumOfCosts - (int)sumOfOpenCosts > 0 || sumOfCosts == 0)
-        {
-            building.EnableOriginMaterials();
+            if ((int)sumOfCosts - (int)sumOfOpenCosts > 0 || sumOfCosts == 0)
+            {
+                building.EnableOriginMaterials();
+            }
+            else
+            {
+                ChangeIcons(progress);
+            }
         }
-        else
-        {
-            ChangeObjects(progress);
-        }
-        ChangeUI(CostStillOpen);
+        ChangeUI(effect.CostsStillOpen);
     }
-    void ChangeObjects(double progess)
+    void ChangeIcons(double progess)
     {
         float visibleProgression = objectProgression.Count * (float)progess;
 
@@ -68,7 +70,7 @@ public class ConstructionVisualizer : MonoBehaviour
 
     void ChangeUI(List<ResourceCost> openCosts)
     {
-        for(int i = 0; i < uiIcons.Count;i++)
+        for (int i = 0; i < uiIcons.Count; i++)
         {
             Destroy(uiIcons[i]);
         }
@@ -84,7 +86,7 @@ public class ConstructionVisualizer : MonoBehaviour
     void CreateUIIcon(Sprite icon)
     {
         GameObject go = Instantiate(iconPrefab, uiParent);
-        go.GetComponent<Image>().sprite =icon;
+        go.GetComponent<Image>().sprite = icon;
         uiIcons.Add(go);
     }
 }

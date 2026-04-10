@@ -149,6 +149,7 @@ public class CardManager : Manager
             {
                 SendLog("discard " + card.data.cardName);
                 hand[i].Discard(wasPlayed);
+                TurnManager.OnEndTurn.Invoke();
                 return;
             }
         }
@@ -158,6 +159,7 @@ public class CardManager : Manager
             {
                 SendLog("discard " + card.data.cardName);
                 CardManager.OnDiscard.Invoke(temporaryHand[i], wasPlayed);
+                TurnManager.OnEndTurn.Invoke();
                 return;
             }
         }

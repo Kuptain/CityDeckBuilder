@@ -12,23 +12,19 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] public BuildingData data;
     [ReadOnly] [SerializeField] int rank;
     [Header("construction")]
-    [ReadOnly] [SerializeField] bool constructed;
-    [ReadOnly] [SerializeField] List<ResourceCost> constructionCost;
-    [ReadOnly] [SerializeField] List<ResourceCost> CostStillOpen = new List<ResourceCost>();
-    [ReadOnly] [SerializeField] ConstructionVisualizer constructionUI;
+    [ReadOnly] [SerializeField] EffectCostVisualizer constructionUI;
     [Header("ability")]
-    [ReadOnly] [SerializeField] bool startedToPayForAbility;
+    [ReadOnly] [SerializeField] OpenEffect openEffect;
     [ReadOnly] [SerializeField] bool hasCD;
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
     [ReadOnly] public List<Card> stockedCards;
-    [ReadOnly] List<ResourceCost> stockedResources;
     [ReadOnly] public HousingValue housingValue;
 
     MeshRenderer[] outlineRenderers;
     private Material[][] originalMaterials;
     BuildingOutlineStates currentOutlineState;
-    public UnityEvent<List<ResourceCost>, List<ResourceCost>> OnConstructionProgress = new UnityEvent<List<ResourceCost>, List<ResourceCost>>();
+    public UnityEvent<OpenEffect> OnEffectProgress = new UnityEvent<OpenEffect>();
 
     private void Start()
     {
@@ -55,17 +51,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         tile = _tile;
-        constructionCost = _data.GetBaseCost();
-        CostStillOpen = new List<ResourceCost>(constructionCost);
-        constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<ConstructionVisualizer>();
+        openEffect = new OpenEffect(true,_data.GetBaseCost(), Constructionfinished);
+        constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
         constructionUI.Init(this);
-        OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
+        OnEffectProgress.Invoke(openEffect);
         //events
-        TurnManager.OnEndTurn.AddListener(EndOfTurn);
+        TurnManager.OnEndTurn.AddListener(OnEndOfTurnEffect);
     }
     #region effects
 
-    void BuildEffect()
+    void OnBuildEffect()
     {
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onBuild, out effect))
@@ -76,7 +71,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
 
 
-    void EndOfTurn()
+    void OnEndOfTurnEffect()
     {
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onEndOfTurn, out effect))
@@ -86,13 +81,9 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     public void PlayCardOnThis(Card card)
     {
-        if (!constructed)
+        if (openEffect !=  null && openEffect.CostsStillOpen.Count > 0)
         {
-            PayForConstruction(card);
-        }
-        if (startedToPayForAbility)
-        {
-
+            PayForOpenEffect(card);
         }
         else
         {
@@ -122,38 +113,36 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
 
 
-    void PayForConstruction(Card card)
+    void PayForOpenEffect(Card card)
     {
-        if (card.TryToPayFor(ref CostStillOpen))
+        if (openEffect.Contains(card.GetCurrentResources()))
         {
-            OnConstructionProgress.Invoke(constructionCost, CostStillOpen);
-            if (CostStillOpen.Count == 0)
-            {
-
-                Constructionfinished();
-            }
+            openEffect.PayCosts(card.GetCurrentResources());
+            OnEffectProgress.Invoke(openEffect);
+           
             CardManager.instance.DiscardCard(card, true);
-            TurnManager.OnEndTurn.Invoke();
         }
 
     }
     public List<ResourceCost> GetCostsStillOpen()
     {
-        return CostStillOpen;
+        if(openEffect == null)
+        {
+            return new List<ResourceCost>();
+        }
+        return openEffect.CostsStillOpen;
     }
     void Constructionfinished()
     {
         BuildingManager.Instance.SendLog(data.name + " constructed");
-        constructed = true;
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
-        BuildEffect();
+        OnBuildEffect();
     }
 
     public void FinishConstruction()
     {
-        constructed = true;
-        BuildEffect();
+        OnBuildEffect();
     }
     public void AddCardToStock(Card card)
     {
@@ -179,31 +168,8 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         return data.GetRankData(rank).usesCrafting;
     }
 
-    public bool isCraftable(CraftRecipe recipe)
-    {
-        List<ResourceCost> costs = new List<ResourceCost>(recipe.costs);
-        bool costSatisfyed = false;
-        for (int i = costs.Count - 1; i >= 0; i--)
-        {
-            costSatisfyed = false;
-            for (int j = 0; j < stockedResources.Count; j++)
-            {
-                if (stockedResources[j].resource == costs[i].resource)
-                {
-                    costs[i].amount -= stockedResources[j].amount;
-                    costSatisfyed = true;
-                    break;
-                }
-            }
-            if (costSatisfyed == false)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+   
 
-  
 
     public void Craft(CraftRecipe recipe)
     {
@@ -351,4 +317,81 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
 
     #endregion
+    [System.Serializable]
+    public class OpenEffect
+    {
+        [ReadOnly] [SerializeField] List<ResourceCost> costs = new List<ResourceCost>();
+        [ReadOnly] [SerializeField] List<ResourceCost> costsPayed = new List<ResourceCost>();
+        [ReadOnly] [SerializeField] List<ResourceCost> openCosts = new List<ResourceCost>();
+        bool costsDirty;
+        public bool isConstruction;
+        public List<ResourceCost> Costs { get { return costs; } set { costsDirty = true; costs = value; } }
+        public List<ResourceCost> CostsPayed { get { return costsPayed; } set { costsDirty = true; costsPayed = value; } }
+        public List<ResourceCost> CostsStillOpen
+        {
+            get
+            {
+                if (costsDirty)
+                {
+                    List<ResourceCost> _openCosts = new List<ResourceCost>(Costs);
+                    for (int i = _openCosts.Count - 1; i >= 0; i--)
+                    {
+                        for (int j = 0; j < CostsPayed.Count; j++)
+                        {
+                            _openCosts[i].Subtract(CostsPayed[j]);
+                        }
+                        if (_openCosts[i].amount <= 0)
+                        {
+                            _openCosts.RemoveAt(i);
+                        }
+                    }
+                    openCosts = _openCosts;
+                    costsDirty = false;
+                    return _openCosts;
+                }
+                else
+                {
+                    return openCosts;
+                }
+            }
+        }
+
+        public UnityEvent OnFinish = new UnityEvent();
+
+        public OpenEffect(bool _isConstruction, List<ResourceCost> _costs, UnityAction _onFinish)
+        {
+            OnFinish.AddListener(_onFinish);
+            Costs = new List<ResourceCost>();
+            for( int i = 0; i < _costs.Count; i++)
+            {
+                Costs.Add(new ResourceCost(_costs[i].resource, _costs[i].amount));
+            }
+            isConstruction = _isConstruction;
+        }
+        public void PayCosts(List<ResourceCost> costs)
+        {
+            CostsPayed.AddRange(costs);
+            costsDirty = true;
+            if (CostsStillOpen.Count <= 0)
+            {
+                OnFinish.Invoke();
+            }
+        }
+
+        public bool Contains(List<ResourceCost> _costs)
+        {
+            for (int i = 0; i < CostsStillOpen.Count; i++)
+            {
+                for (int j = 0; j < _costs.Count; j++)
+                {
+                    if (CostsStillOpen[i].resource == _costs[j].resource)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
+        }
+    }
 }
