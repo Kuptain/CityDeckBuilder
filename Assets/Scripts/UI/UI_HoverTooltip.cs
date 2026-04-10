@@ -2,11 +2,11 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using System.Resources;
+using System.Collections;
 
-public class UI_HoverTooltip : MonoBehaviour
+public class UI_HoverTooltip : UIBase
 {
     public static UI_HoverTooltip Instance;
     public enum Pivot
@@ -20,6 +20,7 @@ public class UI_HoverTooltip : MonoBehaviour
     [SerializeField] private RectTransform backgroundRectTransform;
     [SerializeField] private TextMeshProUGUI tooltipText;
     [SerializeField] private GameObject resourceIconSlotContainer;
+    [SerializeField] private GameObject buildingSettings;
     [SerializeField] private float padding = 150f;
     [SerializeField] private float paddingResouceIcons = 50f;
     [SerializeField] private Vector2 pivotTopLeft;
@@ -33,6 +34,7 @@ public class UI_HoverTooltip : MonoBehaviour
     private RectTransform _canvasRectTransform;
     private ResourceSlotUI[] _iconSlots;
     private int _tooltipActiveState = 0;
+    private int tooltipID;
 
     public enum TooltipTypes { Building, Resource }
 
@@ -52,15 +54,6 @@ public class UI_HoverTooltip : MonoBehaviour
 
     void Update()
     {
-        /*
-        Vector2 anchoredPos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _canvasRectTransform,
-            Mouse.current.position.ReadValue(),
-            null,
-            out anchoredPos);
-        transform.localPosition = anchoredPos;
-        */
 
         switch (_tooltipActiveState)
         {
@@ -87,8 +80,11 @@ public class UI_HoverTooltip : MonoBehaviour
             _ => Vector2.zero
         };
     }
-    public void ShowTooltip(string name, string description, List<ResourceCost> resourceTypes, Vector3 position, Pivot pivot)
+
+    public void ShowTooltip(string name, string description, List<ResourceCost> resourceTypes, Vector3 position, Pivot pivot, int id, bool hasBuildingSettings = false)
     {
+        if (tooltipID > 0) return;
+        tooltipID = id;
         List<string> lines = new List<string>
         {
             $"<b>{name}</b>", $"",
@@ -104,6 +100,9 @@ public class UI_HoverTooltip : MonoBehaviour
         _currentLines = lines;
         _currentResourceCosts = resourceTypes;
         _tooltipActiveState = 1;
+
+        buildingSettings.SetActive(hasBuildingSettings);
+
         UpdateTooltip();
     }
 
@@ -157,9 +156,61 @@ public class UI_HoverTooltip : MonoBehaviour
         LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundRectTransform);
     }
 
-    public void HideTooltip()
+    public void HideTooltip(int id = 0)
     {
-        backgroundRectTransform.gameObject.SetActive(false);
-        _tooltipActiveState = 0;
+        if( id == 0 || id == tooltipID)
+        {
+            tooltipID = 0;
+            backgroundRectTransform.gameObject.SetActive(false);
+            _tooltipActiveState = 0;
+        }
+    }
+
+    private IEnumerator DelayHideToolip(float delay, int id)
+    {
+        yield return new WaitForSeconds(delay);
+
+        HideTooltip(id);
+    }
+
+    public bool TryHideTooltip(int id = 0)
+    {
+        if (!IsMouseOver())
+        {
+            HideTooltip(id);
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsMouseOver()
+    {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = mousePos
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        foreach (var result in results)
+        {
+            if (result.gameObject.transform.IsChildOf(transform))
+                return true;
+        }
+
+        return false;
+    }
+
+    protected override void HandlePointerEnter(PointerEventData eventData)
+    {
+        // nothin yet
+    }
+
+    protected override void HandlePointerExit(PointerEventData eventData)
+    {
+        TryHideTooltip();
     }
 }

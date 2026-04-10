@@ -73,28 +73,36 @@ public class InteractionManager : Manager
 
     void HoverTile()
     {
+        if (HUD.Instance.IsHoveringUI()) return;
+
         Tile tile;
         if (SearchForTile(out tile))
         {
             if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition && currentHoverTile.gridPosition != tile.gridPosition)
             {
-                currentHoverTile.StopHover();
-                Debug.Log("Stop Hover()");
-                UI_HoverTooltip.Instance.HideTooltip();
+                StopHoverTile();
             }
             currentHoverTile = tile;
             currentHoverTile.StartHover();
             if(tile.currentBuilding != null)
             {
+                lastHoveredBuilding = tile.currentBuilding;
                 Vector3 screenPos = Camera.main.WorldToScreenPoint(tile.currentBuilding.transform.position);
-                UI_HoverTooltip.Instance.ShowTooltip(tile.currentBuilding.data.buildingName, tile.currentBuilding.data.buildingDescription, tile.currentBuilding.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft);
+                UI_HoverTooltip.Instance.ShowTooltip(tile.currentBuilding.data.buildingName, tile.currentBuilding.data.buildingDescription, tile.currentBuilding.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft, lastHoveredBuilding.GetInstanceID(), true);
             }
         }
         else if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition)
         {
-            currentHoverTile.StopHover();
-            Debug.Log("Stop Hover()");
-            UI_HoverTooltip.Instance.HideTooltip();
+            StopHoverTile();
+        }
+    }
+    void StopHoverTile()
+    {
+        currentHoverTile.StopHover();
+        if (lastHoveredBuilding != null
+            && UI_HoverTooltip.Instance.TryHideTooltip(lastHoveredBuilding.GetInstanceID()))
+        {
+            lastHoveredBuilding = null;
         }
     }
 
