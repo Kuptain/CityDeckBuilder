@@ -160,10 +160,8 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     void Constructionfinished()
     {
-
-        //transform.GetChild(0).gameObject.SetActive(true);
-        //transform.GetChild(1).gameObject.SetActive(false);
         OnBuildEffect();
+        BuildingManager.Instance.UnlockBuilding(data);
     }
 
     public void FinishConstruction()

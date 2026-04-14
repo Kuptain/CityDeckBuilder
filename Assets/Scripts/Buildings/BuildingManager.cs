@@ -2,13 +2,17 @@ using UnityEngine;
 using System.Collections.Generic;
 using static Tile;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class BuildingManager : Manager
 {
     public GameObject buildingConstructionUIPrefab;
     [SerializeField] GameObject buildingButtonPrefab;
+    public BuildingData centreBuilding;
+    public BuildingData blueprintBuilding;
+    [SerializeField] bool unlockAllBuildings; // DEBUG
     [SerializeField] List<BuildingData> unlockedBuildings;
-    [SerializeField] List<BuildingData> lockedBuildings;
+    public List<BuildingData> lockedBuildings;
     //[SerializeField] float previewBuildingSnapStrength = 0.5f;
 
     public BuildingData selectedBuilding { get; set; }
@@ -38,14 +42,47 @@ public class BuildingManager : Manager
     }
     private void Start()
     {
+        SetupInitialUnlockedBuildings();
+    }
+
+    void SetupInitialUnlockedBuildings()
+    {
         buildingsPanel = HUD.Instance.panelBuildingButtons;
         foreach (var building in unlockedBuildings)
         {
-            GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
-            BuildingButton button = buttonGO.GetComponent<BuildingButton>();
-            button.ChangeBuildingData(building);
+            SpawnBuildingButton(building);
+        }
+        if (unlockAllBuildings)
+        {
+            foreach (var building in lockedBuildings)
+            {
+                SpawnBuildingButton(building);
+            }
         }
     }
+
+    public bool UnlockBuilding(BuildingData building)
+    {
+        Debug.Log("1) UnlockBuilding: " + building.buildingName);
+        if (!unlockedBuildings.Contains(building) && lockedBuildings.Contains(building))
+        {
+            Debug.Log("2) UnlockBuilding: " + building.buildingName);
+            SpawnBuildingButton(building);
+            unlockedBuildings.Add(building);
+            lockedBuildings.Remove(building);
+
+            return true;
+        }
+        return false;
+    }
+
+    void SpawnBuildingButton(BuildingData building)
+    {
+        GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
+        BuildingButton button = buttonGO.GetComponent<BuildingButton>();
+        button.ChangeBuildingData(building);
+    }
+
     private void Update()
     {
         MouseInputRaycast();
