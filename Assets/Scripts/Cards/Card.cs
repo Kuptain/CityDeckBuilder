@@ -4,8 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class Card
 {
-
-
     public Card_Data data;
     BuildingObject originBuilding;
     public int roundsInHand;

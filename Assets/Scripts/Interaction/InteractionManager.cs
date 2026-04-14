@@ -87,8 +87,7 @@ public class InteractionManager : Manager
             if(tile.currentBuilding != null)
             {
                 lastHoveredBuilding = tile.currentBuilding;
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(tile.currentBuilding.transform.position);
-                UI_HoverTooltip.Instance.ShowTooltip(tile.currentBuilding.data.buildingName, tile.currentBuilding.data.buildingDescription, tile.currentBuilding.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft, lastHoveredBuilding.GetInstanceID(), true);
+                UI_HoverTooltip.Instance.SelectBuilding(tile.currentBuilding);
             }
         }
         else if (currentHoverTile.gridPosition != GridManager.Instance.gridNullTile.gridPosition)

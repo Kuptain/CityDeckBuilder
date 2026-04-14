@@ -18,6 +18,10 @@ public class BuildingData : ScriptableObject
 
     public RankData GetRankData(int rank)
     {
+        if (ranks.Count < rank + 1)
+        {
+            return null;
+        }
         return ranks[rank];
     }
     public List<ResourceCost> GetBaseCost()
@@ -71,7 +75,7 @@ public class BuildingEffect
 public class CraftRecipe
 {
     public List<ResourceCost> costs;
-    public List<Card> cardsToCreate;
+    public List<Card_Data> cardsToCreate;
 }
 
 

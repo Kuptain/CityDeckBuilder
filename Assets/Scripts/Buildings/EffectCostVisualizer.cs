@@ -45,12 +45,12 @@ public class EffectCostVisualizer : MonoBehaviour
             }
             else
             {
-                ChangeIcons(progress);
+                ChangePreview(progress);
             }
         }
         ChangeUI(effect.CostsStillOpen);
     }
-    void ChangeIcons(double progess)
+    void ChangePreview(double progess)
     {
         float visibleProgression = objectProgression.Count * (float)progess;
 
@@ -70,6 +70,7 @@ public class EffectCostVisualizer : MonoBehaviour
 
     void ChangeUI(List<ResourceCost> openCosts)
     {
+        Debug.Log("change UI: " + openCosts.Count);
         for (int i = 0; i < uiIcons.Count; i++)
         {
             Destroy(uiIcons[i]);

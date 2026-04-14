@@ -159,7 +159,7 @@ public class CardManager : Manager
             {
                 SendLog("discard " + card.data.cardName);
                 CardManager.OnDiscard.Invoke(temporaryHand[i], wasPlayed);
-                TurnManager.OnEndTurn.Invoke();
+                //TurnManager.OnEndTurn.Invoke();
                 return;
             }
         }

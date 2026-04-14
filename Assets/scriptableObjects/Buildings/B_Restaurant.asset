@@ -53,4 +53,11 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-    craftingRecipes: []
+    craftingRecipes:
+    - costs:
+      - resource: 12
+        amount: 1
+      - resource: 13
+        amount: 1
+      cardsToCreate:
+      - {fileID: 11400000, guid: f66d3dd97b44bb24d9913727548dc66a, type: 2}

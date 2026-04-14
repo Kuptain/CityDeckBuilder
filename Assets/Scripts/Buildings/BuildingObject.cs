@@ -60,6 +60,19 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     #region effects
 
+    public void StartUpgrade()
+    {
+        Debug.Log("start upgrade");
+        openEffect = new OpenEffect(false, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
+        OnEffectProgress.Invoke(openEffect);
+    }
+
+    void IncreaseRank()
+    {
+        rank += 1;
+        OnBuildEffect();
+    }
+
     void OnBuildEffect()
     {
         BuildingEffect effect;
@@ -119,7 +132,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             openEffect.PayCosts(card.GetCurrentResources());
             OnEffectProgress.Invoke(openEffect);
-           
+            if (openEffect.CostsStillOpen.Count == 0)
+            {
+                openEffect = null;
+            }           
+
             CardManager.instance.DiscardCard(card, true);
         }
 
@@ -134,9 +151,9 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     void Constructionfinished()
     {
-        BuildingManager.Instance.SendLog(data.name + " constructed");
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(false);
+        
+        //transform.GetChild(0).gameObject.SetActive(true);
+        //transform.GetChild(1).gameObject.SetActive(false);
         OnBuildEffect();
     }
 
@@ -218,6 +235,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         effect = null;
         return false;
+    }
+
+    public bool HasUpgrade()
+    {
+        return data.GetRankData(rank + 1) != null;
+    }
+
+    public bool HasOpenEffect()
+    {
+        return openEffect != null;
     }
     #endregion
 
@@ -375,6 +402,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             if (CostsStillOpen.Count <= 0)
             {
                 OnFinish.Invoke();
+                
             }
         }
 
