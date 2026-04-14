@@ -17,9 +17,8 @@ public class TileVisualsManager : MonoBehaviour
     public int tileVisibleRange = 3;
     [SerializeField] private GameObject _tilePrefab;
     [SerializeField] private Transform gridVisualsNavMesh;
-    [SerializeField] private BuildingData centreBuilding;
-    [SerializeField] private BuildingData blueprintBuilding;
     [SerializeField] private GameObject cameraController;
+    Vector2Int centre;
 
     #region Singleton
     public static TileVisualsManager Instance { get; private set; }
@@ -36,7 +35,12 @@ public class TileVisualsManager : MonoBehaviour
         Instance = this;
     }
     #endregion
-
+    private void Start()
+    {
+        int width = GridManager.Instance.width;
+        int height = GridManager.Instance.height;
+        centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
+    }
     public TileVisual GetVisualTilelData(Vector2Int gridPosition)
     {
         if (!tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
@@ -114,24 +118,24 @@ public class TileVisualsManager : MonoBehaviour
     }
     private void SetInitialBlueprintSpawns()
     {
-        int amountOfBuildings = 30;
-
+        int DEFAULT_RANGE = 7;
 
         // 1. Copy all unexplored tiles to a list
         List<Tile> unexploredTiles = new List<Tile>();
-        foreach (var tile in GridManager.Instance.gridArray)
+        foreach (var tile in GridManager.Instance.GetTilesInRange(centre, DEFAULT_RANGE))
         {
             if (!tile.isValid || tile.isExplored) continue;
             unexploredTiles.Add(tile);
         }
-        int spawnCount = Mathf.Min(amountOfBuildings, unexploredTiles.Count);
+
+        int spawnCount = BuildingManager.Instance.lockedBuildings.Count;
 
         // 2. For each entry, spawn a building and remove from list.
         for (int i = 0; i < spawnCount; i++)
         {
             int randomTile = Random.Range(0, unexploredTiles.Count);
             Vector2Int tileGridPosition = unexploredTiles[randomTile].gridPosition;
-            BuildingManager.Instance.SpawnBuilding(new Vector2Int(tileGridPosition.x, tileGridPosition.y), blueprintBuilding);
+            BuildingManager.Instance.SpawnBuilding(new Vector2Int(tileGridPosition.x, tileGridPosition.y), BuildingManager.Instance.lockedBuildings[i], true);
             unexploredTiles.Remove(unexploredTiles[randomTile]);
         }
     }
@@ -215,19 +219,17 @@ public class TileVisualsManager : MonoBehaviour
             Vector2Int gridPosition = tile.gridPosition;
             int x = gridPosition.x;
             int y = gridPosition.y;
-            Vector2Int centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
 
             if (tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
             {
                 if (x == centre.x && y == centre.y)
                 {
                     tileType = TileType.Centre;
-
-                    BuildingObject _centreBuilding = BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding);
-                    _centreBuilding.FinishConstruction();
-                    IconAnimationManager.OnCentrebuilding.Invoke(_centreBuilding);
                     Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
 
+                    BuildingObject _centreBuilding = BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), BuildingManager.Instance.centreBuilding, true);
+                    _centreBuilding.FinishConstruction();
+                    IconAnimationManager.OnCentrebuilding.Invoke(_centreBuilding);
                 }
                 else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
                 {

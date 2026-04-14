@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
 using static Tile;
-using static Unity.Collections.Unicode;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class BuildingManager : Manager
 {
     public GameObject buildingConstructionUIPrefab;
     [SerializeField] GameObject buildingButtonPrefab;
+    public BuildingData centreBuilding;
+    public BuildingData blueprintBuilding;
+    [SerializeField] bool unlockAllBuildings; // DEBUG
     [SerializeField] List<BuildingData> unlockedBuildings;
-    [SerializeField] List<BuildingData> lockedBuildings;
+    public List<BuildingData> lockedBuildings;
     //[SerializeField] float previewBuildingSnapStrength = 0.5f;
 
     public BuildingData selectedBuilding { get; set; }
@@ -40,14 +42,47 @@ public class BuildingManager : Manager
     }
     private void Start()
     {
+        SetupInitialUnlockedBuildings();
+    }
+
+    void SetupInitialUnlockedBuildings()
+    {
         buildingsPanel = HUD.Instance.panelBuildingButtons;
         foreach (var building in unlockedBuildings)
         {
-            GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
-            BuildingButton button = buttonGO.GetComponent<BuildingButton>();
-            button.ChangeBuildingData(building);
+            SpawnBuildingButton(building);
+        }
+        if (unlockAllBuildings)
+        {
+            foreach (var building in lockedBuildings)
+            {
+                SpawnBuildingButton(building);
+            }
         }
     }
+
+    public bool UnlockBuilding(BuildingData building)
+    {
+        Debug.Log("1) UnlockBuilding: " + building.buildingName);
+        if (!unlockedBuildings.Contains(building) && lockedBuildings.Contains(building))
+        {
+            Debug.Log("2) UnlockBuilding: " + building.buildingName);
+            SpawnBuildingButton(building);
+            unlockedBuildings.Add(building);
+            lockedBuildings.Remove(building);
+
+            return true;
+        }
+        return false;
+    }
+
+    void SpawnBuildingButton(BuildingData building)
+    {
+        GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
+        BuildingButton button = buttonGO.GetComponent<BuildingButton>();
+        button.ChangeBuildingData(building);
+    }
+
     private void Update()
     {
         MouseInputRaycast();
@@ -77,7 +112,7 @@ public class BuildingManager : Manager
             {
                 if (raycastHit.isGround)
                 {
-                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false);
                 }
                 else
                 {
@@ -122,13 +157,13 @@ public class BuildingManager : Manager
         }
     }
 
-    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn)
+    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool ignoreRestrains)
     {
         GridManager gridManager = GridManager.Instance;
 
         if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
-            if (tile.currentBuilding == null)
+            if (tile.currentBuilding == null && (ignoreRestrains || (!ignoreRestrains && tile.isExplored)))
             {
                 
                 BuildingObject buildingObject;
@@ -178,6 +213,17 @@ public class BuildingManager : Manager
                     }
                 }
                 return buildingObject; 
+            }
+            else
+            {
+                if (previewBuilding != null)
+                {
+                    Destroy(previewBuilding);
+                    previewBuilding = null;
+                    HUD.Instance.ExitUI();
+                }
+
+                return null;
             }
         }
 
