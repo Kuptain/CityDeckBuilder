@@ -51,7 +51,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         tile = _tile;
-        openEffect = new OpenEffect(true, _data.GetBaseCost(), Constructionfinished);
+        openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), Constructionfinished);
         constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
         constructionUI.Init(this);
         OnEffectProgress.Invoke(openEffect);
@@ -64,7 +64,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         if (openEffect == null || !openEffect.active)
         {
-            openEffect = new OpenEffect(false, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
+            openEffect = new OpenEffect(OpenEffect.Type.upgrade, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
             OnEffectProgress.Invoke(openEffect);
         }
     }
@@ -146,8 +146,17 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     public void CancleOpenEffect()
     {
-        openEffect = null;
-        OnEffectProgress.Invoke(openEffect);
+        if (openEffect!=null && openEffect.active)
+        {
+            if (openEffect.type == OpenEffect.Type.construction)
+            {
+                BuildingManager.Instance.DestroyBuilding(tile.gridPosition);
+                Destroy(gameObject);
+            }
+            openEffect = null;
+            OnEffectProgress.Invoke(openEffect);
+        }
+
     }
 
     public List<ResourceCost> GetCostsStillOpen()
@@ -204,7 +213,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             Debug.Log("start crafting");
             currentActiveRecipe = recipe;
-            openEffect = new OpenEffect(false, recipe.costs, FinishRecipe);
+            openEffect = new OpenEffect(OpenEffect.Type.other, recipe.costs, FinishRecipe);
             OnEffectProgress.Invoke(openEffect);
         }
     }
@@ -268,7 +277,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     public bool HasOpenEffect()
     {
-        return openEffect != null;
+        return openEffect != null && openEffect.active;
     }
     #endregion
 
@@ -378,7 +387,6 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             openEffect.PayCosts(openEffect.CostsStillOpen);
             OnEffectProgress.Invoke(openEffect);
-            openEffect = null;
         }
     }
 
@@ -390,7 +398,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         [ReadOnly] [SerializeField] List<ResourceCost> costsPayed = new List<ResourceCost>();
         [ReadOnly] [SerializeField] List<ResourceCost> openCosts = new List<ResourceCost>();
         bool costsDirty;
-        public bool isConstruction;
+        public Type type;
         public List<ResourceCost> Costs { get { return costs; } set { costsDirty = true; costs = value; } }
         public List<ResourceCost> CostsPayed { get { return costsPayed; } set { costsDirty = true; costsPayed = value; } }
         public List<ResourceCost> CostsStillOpen
@@ -417,6 +425,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
                 }
                 else
                 {
+                    if(openCosts == null)
+                    {
+                        openCosts = new List<ResourceCost>();
+                        costsDirty = true;
+                    }
                     return openCosts;
                 }
             }
@@ -424,7 +437,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         public bool active = true;
         public UnityEvent OnFinish = new UnityEvent();
 
-        public OpenEffect(bool _isConstruction, List<ResourceCost> _costs, UnityAction _onFinish)
+        public OpenEffect(Type effectType, List<ResourceCost> _costs, UnityAction _onFinish)
         {
             OnFinish.AddListener(_onFinish);
             Costs = new List<ResourceCost>();
@@ -432,7 +445,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             {
                 Costs.Add(new ResourceCost(_costs[i].resource, _costs[i].amount));
             }
-            isConstruction = _isConstruction;
+            type = effectType;
         }
         public void PayCosts(List<ResourceCost> costs)
         {
@@ -459,6 +472,13 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             }
             return false;
 
+        }
+
+        public enum Type
+        {
+            construction = 0,
+            upgrade = 1,
+            other = 2
         }
     }
 }

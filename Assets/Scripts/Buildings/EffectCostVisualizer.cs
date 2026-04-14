@@ -29,7 +29,7 @@ public class EffectCostVisualizer : MonoBehaviour
             ChangeUI(new List<ResourceCost>());
             return;
         }
-        if (effect.isConstruction)
+        if (effect.type == BuildingObject.OpenEffect.Type.construction)
         {
             float sumOfCosts = 0;
             for (int i = 0; i < effect.Costs.Count; i++)

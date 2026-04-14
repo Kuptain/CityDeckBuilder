@@ -6,11 +6,13 @@ using static UnityEngine.UI.Image;
 using UnityEngine.InputSystem;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CardVisuals : MonoBehaviour
 {
     public  Card card;
     [Header("Card")]
+    [SerializeField] Image BGImage;
     [SerializeField] Image IconImage;
     [SerializeField] RectTransform cardRect;
     [SerializeField] TMP_Text text_name;
@@ -54,6 +56,14 @@ public class CardVisuals : MonoBehaviour
 
         if (state == CardStates.Hand)
             StartCoroutine(LerpDraw());
+        if (card.temporary)
+        {
+            Image[] images = BGImage.GetComponentsInChildren<Image>();
+            foreach (Image i in images)
+            {
+                i.color = new Color(i.color.r,i.color.g,i.color.b+.2f, .8f);
+            }
+        }
     }
 
     private void Update()

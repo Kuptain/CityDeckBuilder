@@ -180,6 +180,7 @@ public class CardManager : Manager
     public void GetTemporaryCard(Card_Data data)
     {
         Card newCard = new Card(data);
+        newCard.temporary = true;
         temporaryHand.Add(newCard);
         OnDraw.Invoke(newCard,handSize+temporaryHand.Count-1);
     }

@@ -846,6 +846,8 @@ MonoBehaviour:
     data: {fileID: 0}
     roundsInHand: 0
     rank: 0
+    temporary: 0
+  BGImage: {fileID: 6475983302989337633}
   IconImage: {fileID: 2696855689651026275}
   cardRect: {fileID: 3092996472844482826}
   text_name: {fileID: 4053609592079936584}

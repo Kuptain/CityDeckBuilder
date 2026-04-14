@@ -8,6 +8,7 @@ public class Card
     BuildingObject originBuilding;
     public int roundsInHand;
     public int rank;
+    public bool temporary;
 
     public Card(Card_Data _data)
     {

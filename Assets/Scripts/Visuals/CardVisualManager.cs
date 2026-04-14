@@ -98,9 +98,12 @@ public class CardVisualManager : MonoBehaviour
         Destroy(slot.gameObject);
         slots.Remove(slot);
 
-        cardPlaceholder.gameObject.SetActive(true);
-        cardPlaceholder.transform.SetParent(container);
-        cardPlaceholder.transform.SetSiblingIndex(index);
+        if (!slot.card.temporary)
+        {
+            cardPlaceholder.gameObject.SetActive(true);
+            cardPlaceholder.transform.SetParent(container);
+            cardPlaceholder.transform.SetSiblingIndex(index);
+        }
     }
     CardVisuals AddVisualCard(int position)
     {

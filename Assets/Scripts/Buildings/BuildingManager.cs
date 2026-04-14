@@ -130,7 +130,7 @@ public class BuildingManager : Manager
         {
             if (tile.currentBuilding == null)
             {
-                Tile currentTile = gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)];
+                
                 BuildingObject buildingObject;
 
                 if (previewBuilding == null)
@@ -147,19 +147,19 @@ public class BuildingManager : Manager
                     buildingObject = previewBuilding.GetComponent<BuildingObject>();
                 }
 
-                TileVisual tileVisual = TileVisualsManager.Instance.GetVisualTilelData(currentTile.gridPosition);
+                TileVisual tileVisual = TileVisualsManager.Instance.GetVisualTilelData(tile.gridPosition);
                 tileVisual.buildingObject = previewBuilding;
 
                 //InteractionManager.OnPickUpCard.AddListener(tileVisual.EnableHighlight);
                 //InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
 
-                currentTile.currentBuilding = previewBuilding.GetComponent<BuildingObject>();
-                currentTile.currentBuilding.BuildingSetup(buildingToSpawn,currentTile);
+                tile.currentBuilding = previewBuilding.GetComponent<BuildingObject>();
+                tile.currentBuilding.BuildingSetup(buildingToSpawn,tile);
 
                 previewBuilding = null;
 
                 // Apply Grid Array
-                gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
+                gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = tile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
 
 
@@ -184,6 +184,20 @@ public class BuildingManager : Manager
         return null;
     }
 
+    public void DestroyBuilding(Vector2Int gridPosition)
+    {
+        if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
+        {
+            if (tile.currentBuilding != null)
+            {
+                tile.currentBuilding =null;
 
+                GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)] = tile;
+                spawnedBuildings.Remove(GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y));
+            }
+
+
+        }
+    }
 
 }
