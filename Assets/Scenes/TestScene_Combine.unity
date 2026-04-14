@@ -952,6 +952,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3846137796817295172, guid: 1986c80d0fc90de4489aa724cf06282c, type: 3}
+      propertyPath: m_Name
+      value: Button CancleEffect
+      objectReference: {fileID: 0}
     - target: {fileID: 4470969808830740214, guid: 1986c80d0fc90de4489aa724cf06282c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
