@@ -62,9 +62,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     public void StartUpgrade()
     {
-        Debug.Log("start upgrade");
-        openEffect = new OpenEffect(false, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
-        OnEffectProgress.Invoke(openEffect);
+        if (openEffect == null || !openEffect.active)
+        {
+            openEffect = new OpenEffect(false, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
+            OnEffectProgress.Invoke(openEffect);
+        }
     }
 
     void IncreaseRank()
@@ -141,6 +143,13 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
 
     }
+
+    public void CancleOpenEffect()
+    {
+        openEffect = null;
+        OnEffectProgress.Invoke(openEffect);
+    }
+
     public List<ResourceCost> GetCostsStillOpen()
     {
         if (openEffect == null)

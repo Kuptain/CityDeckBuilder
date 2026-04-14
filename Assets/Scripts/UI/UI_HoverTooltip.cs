@@ -273,5 +273,11 @@ public class UI_HoverTooltip : UIBase
     {
         selectedBuilding.StartUpgrade();
     }
+
+    public void CancleEffect()
+    {
+        Debug.Log("cancle button");
+        selectedBuilding.CancleOpenEffect();
+    }
     #endregion
 }

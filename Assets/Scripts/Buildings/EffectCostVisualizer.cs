@@ -24,6 +24,11 @@ public class EffectCostVisualizer : MonoBehaviour
 
     void ChangeCosts(BuildingObject.OpenEffect effect)
     {
+        if(effect == null)
+        {
+            ChangeUI(new List<ResourceCost>());
+            return;
+        }
         if (effect.isConstruction)
         {
             float sumOfCosts = 0;
