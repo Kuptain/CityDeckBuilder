@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using static Tile;
-using static Unity.Collections.Unicode;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
 public class BuildingManager : Manager
@@ -77,7 +75,7 @@ public class BuildingManager : Manager
             {
                 if (raycastHit.isGround)
                 {
-                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false);
                 }
                 else
                 {
@@ -122,13 +120,13 @@ public class BuildingManager : Manager
         }
     }
 
-    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn)
+    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool ignoreRestrains)
     {
         GridManager gridManager = GridManager.Instance;
 
         if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
-            if (tile.currentBuilding == null)
+            if (tile.currentBuilding == null && (ignoreRestrains || (!ignoreRestrains && tile.isExplored)))
             {
                 Tile currentTile = gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)];
                 BuildingObject buildingObject;
@@ -178,6 +176,17 @@ public class BuildingManager : Manager
                     }
                 }
                 return buildingObject; 
+            }
+            else
+            {
+                if (previewBuilding != null)
+                {
+                    Destroy(previewBuilding);
+                    previewBuilding = null;
+                    HUD.Instance.ExitUI();
+                }
+
+                return null;
             }
         }
 

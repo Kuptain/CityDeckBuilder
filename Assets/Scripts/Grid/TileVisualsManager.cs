@@ -131,7 +131,7 @@ public class TileVisualsManager : MonoBehaviour
         {
             int randomTile = Random.Range(0, unexploredTiles.Count);
             Vector2Int tileGridPosition = unexploredTiles[randomTile].gridPosition;
-            BuildingManager.Instance.SpawnBuilding(new Vector2Int(tileGridPosition.x, tileGridPosition.y), blueprintBuilding);
+            BuildingManager.Instance.SpawnBuilding(new Vector2Int(tileGridPosition.x, tileGridPosition.y), blueprintBuilding, true);
             unexploredTiles.Remove(unexploredTiles[randomTile]);
         }
     }
@@ -222,12 +222,11 @@ public class TileVisualsManager : MonoBehaviour
                 if (x == centre.x && y == centre.y)
                 {
                     tileType = TileType.Centre;
-
-                    BuildingObject _centreBuilding = BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding);
-                    _centreBuilding.FinishConstruction();
-                    IconAnimationManager.OnCentrebuilding.Invoke(_centreBuilding);
                     Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
 
+                    BuildingObject _centreBuilding = BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), centreBuilding, true);
+                    _centreBuilding.FinishConstruction();
+                    IconAnimationManager.OnCentrebuilding.Invoke(_centreBuilding);
                 }
                 else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
                 {
