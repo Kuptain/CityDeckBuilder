@@ -15,10 +15,13 @@ public class TileVisualsManager : MonoBehaviour
 {
     public Dictionary<Vector2Int, TileVisual> tileVisualMap = new Dictionary<Vector2Int, TileVisual>();
     public int tileVisibleRange = 3;
+    [SerializeField] private GameObject tileParent;
     [SerializeField] private GameObject _tilePrefab;
     [SerializeField] private Transform gridVisualsNavMesh;
     [SerializeField] private GameObject cameraController;
+    
     Vector2Int centre;
+
 
     #region Singleton
     public static TileVisualsManager Instance { get; private set; }
@@ -88,7 +91,7 @@ public class TileVisualsManager : MonoBehaviour
             var tile = GridManager.Instance.gridArray[i];
             if (!tile.isValid) continue;
             Quaternion hexRotation = Quaternion.Euler(new Vector3(0, tile.rotationIndex * 60f, 0));
-            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), Quaternion.identity);
+            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), Quaternion.identity,tileParent.transform);
  
             TileVisual gridTileVisual = spawnedTile.GetComponent<TileVisual>();
 
@@ -97,7 +100,7 @@ public class TileVisualsManager : MonoBehaviour
 
             tileVisualMap[tile.gridPosition] = gridTileVisual;
 
-            gridTileVisual.directionOutlines_parent.transform.parent = null;
+            gridTileVisual.directionOutlines_parent.transform.parent = tileParent.transform;
             spawnedTile.transform.rotation = hexRotation;
             spawnedTile.name = $"Tile {tile.gridPosition.x} {tile.gridPosition.y}";
             spawnedTile.transform.parent = gridVisualsNavMesh;

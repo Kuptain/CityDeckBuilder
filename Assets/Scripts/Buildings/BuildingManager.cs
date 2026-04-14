@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class BuildingManager : Manager
 {
+    [SerializeField] GameObject lockedBuildingParent;
+    [SerializeField] GameObject buildingParent;
     public GameObject buildingConstructionUIPrefab;
     [SerializeField] GameObject buildingButtonPrefab;
     public BuildingData centreBuilding;
@@ -137,7 +139,7 @@ public class BuildingManager : Manager
         selectedBuilding = building;
 
         var raycastHit = GridManager.Instance.GroundRaycast();
-        previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
+        previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity,buildingParent.transform);
         previewBuilding.GetComponent<BuildingObject>().BuildingPreviewSetup(building);
         //ToggleBuildingPreview(previewBuilding, true);
     }
@@ -171,7 +173,7 @@ public class BuildingManager : Manager
                 if (previewBuilding == null)
                 {
                     Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
-                    previewBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity);
+                    previewBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity,lockedBuildingParent.transform);
 
                     buildingObject = previewBuilding.GetComponent<BuildingObject>();
                     buildingObject.BuildingPreviewSetup(buildingToSpawn);
