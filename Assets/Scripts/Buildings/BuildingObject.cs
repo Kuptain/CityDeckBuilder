@@ -51,7 +51,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         tile = _tile;
-        openEffect = new OpenEffect(true,_data.GetBaseCost(), Constructionfinished);
+        openEffect = new OpenEffect(true, _data.GetBaseCost(), Constructionfinished);
         constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
         constructionUI.Init(this);
         OnEffectProgress.Invoke(openEffect);
@@ -59,6 +59,21 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         TurnManager.OnEndTurn.AddListener(OnEndOfTurnEffect);
     }
     #region effects
+
+    public void StartUpgrade()
+    {
+        if (openEffect == null || !openEffect.active)
+        {
+            openEffect = new OpenEffect(false, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
+            OnEffectProgress.Invoke(openEffect);
+        }
+    }
+
+    void IncreaseRank()
+    {
+        rank += 1;
+        OnBuildEffect();
+    }
 
     void OnBuildEffect()
     {
@@ -81,7 +96,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     public void PlayCardOnThis(Card card)
     {
-        if (openEffect !=  null && openEffect.CostsStillOpen.Count > 0)
+        if (openEffect != null && openEffect.CostsStillOpen.Count > 0)
         {
             PayForOpenEffect(card);
         }
@@ -119,14 +134,25 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             openEffect.PayCosts(card.GetCurrentResources());
             OnEffectProgress.Invoke(openEffect);
-           
+            if (openEffect.CostsStillOpen.Count == 0)
+            {
+                openEffect = null;
+            }
+
             CardManager.instance.DiscardCard(card, true);
         }
 
     }
+
+    public void CancleOpenEffect()
+    {
+        openEffect = null;
+        OnEffectProgress.Invoke(openEffect);
+    }
+
     public List<ResourceCost> GetCostsStillOpen()
     {
-        if(openEffect == null)
+        if (openEffect == null)
         {
             return new List<ResourceCost>();
         }
@@ -134,9 +160,9 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     void Constructionfinished()
     {
-        BuildingManager.Instance.SendLog(data.name + " constructed");
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(false);
+
+        //transform.GetChild(0).gameObject.SetActive(true);
+        //transform.GetChild(1).gameObject.SetActive(false);
         OnBuildEffect();
     }
 
@@ -168,13 +194,28 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         return data.GetRankData(rank).usesCrafting;
     }
 
-   
 
 
+    CraftRecipe currentActiveRecipe;
     public void Craft(CraftRecipe recipe)
     {
-
+        Debug.Log("try to craft");
+        if (openEffect == null || !openEffect.active)
+        {
+            Debug.Log("start crafting");
+            currentActiveRecipe = recipe;
+            openEffect = new OpenEffect(false, recipe.costs, FinishRecipe);
+            OnEffectProgress.Invoke(openEffect);
+        }
     }
+    void FinishRecipe()
+    {
+        for (int i = 0; i < currentActiveRecipe.cardsToCreate.Count; i++)
+        {
+            CardManager.instance.GetTemporaryCard(currentActiveRecipe.cardsToCreate[i]);
+        }
+    }
+
 
     #endregion
 
@@ -218,6 +259,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         effect = null;
         return false;
+    }
+
+    public bool HasUpgrade()
+    {
+        return data.GetRankData(rank + 1) != null;
+    }
+
+    public bool HasOpenEffect()
+    {
+        return openEffect != null;
     }
     #endregion
 
@@ -317,6 +368,21 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
 
     #endregion
+
+    #region debug
+
+    [ContextMenu("Trigger active Effect")]
+    void PayConstrcuctionCost()
+    {
+        if (openEffect != null)
+        {
+            openEffect.PayCosts(openEffect.CostsStillOpen);
+            OnEffectProgress.Invoke(openEffect);
+            openEffect = null;
+        }
+    }
+
+    #endregion
     [System.Serializable]
     public class OpenEffect
     {
@@ -355,14 +421,14 @@ public class BuildingObject : MonoBehaviour, Iinteractable
                 }
             }
         }
-
+        public bool active = true;
         public UnityEvent OnFinish = new UnityEvent();
 
         public OpenEffect(bool _isConstruction, List<ResourceCost> _costs, UnityAction _onFinish)
         {
             OnFinish.AddListener(_onFinish);
             Costs = new List<ResourceCost>();
-            for( int i = 0; i < _costs.Count; i++)
+            for (int i = 0; i < _costs.Count; i++)
             {
                 Costs.Add(new ResourceCost(_costs[i].resource, _costs[i].amount));
             }
@@ -375,6 +441,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             if (CostsStillOpen.Count <= 0)
             {
                 OnFinish.Invoke();
+                active = false;
             }
         }
 

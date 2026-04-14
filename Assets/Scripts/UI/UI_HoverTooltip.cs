@@ -21,6 +21,10 @@ public class UI_HoverTooltip : UIBase
     [SerializeField] private TextMeshProUGUI tooltipText;
     [SerializeField] private GameObject resourceIconSlotContainer;
     [SerializeField] private GameObject buildingSettings;
+    [SerializeField] private GameObject recipeButtonContainer;
+    [SerializeField] private GameObject recipeButtonPrefab;
+    [SerializeField] private GameObject UpgradeButton;
+    [SerializeField] private GameObject CancleButton;
     [SerializeField] private float padding = 150f;
     [SerializeField] private float paddingResouceIcons = 50f;
     [SerializeField] private Vector2 pivotTopLeft;
@@ -31,10 +35,12 @@ public class UI_HoverTooltip : UIBase
 
     private List<string> _currentLines;
     private List<ResourceCost> _currentResourceCosts;
+    private List<GameObject> recipesButtons = new List<GameObject>();
     private RectTransform _canvasRectTransform;
     private ResourceSlotUI[] _iconSlots;
     private int _tooltipActiveState = 0;
     private int tooltipID;
+    BuildingObject selectedBuilding;
 
     public enum TooltipTypes { Building, Resource }
 
@@ -43,13 +49,13 @@ public class UI_HoverTooltip : UIBase
         Instance = this;
         _canvasRectTransform = transform.parent.GetComponent<RectTransform>();
         HideTooltip();
-        
+
         _iconSlots = resourceIconSlotContainer.GetComponentsInChildren<ResourceSlotUI>(true);
         foreach (var slot in _iconSlots)
         {
             slot.gameObject.SetActive(false);
         }
-       
+
     }
 
     void Update()
@@ -80,6 +86,49 @@ public class UI_HoverTooltip : UIBase
             _ => Vector2.zero
         };
     }
+
+    public void SelectBuilding(BuildingObject building)
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
+        ShowTooltip(building.data.buildingName, building.data.buildingDescription, building.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft, building.GetInstanceID(), true);
+        selectedBuilding = building;
+        UpgradeButton.SetActive(building.HasUpgrade());
+        CancleButton.SetActive(building.HasOpenEffect());
+        List<CraftRecipe> recipes;
+
+        for (int i = 0; i < recipesButtons.Count; i++)
+        {
+            recipesButtons[i].SetActive(false);
+        }
+        if (building.TryToGetCraftingRecipes(out recipes))
+        {
+            for (int i = 0; i < recipes.Count; i++)
+            {
+
+                CreateRecipeButton(recipes[i], i);
+
+            }
+        }
+    }
+
+    void CreateRecipeButton(CraftRecipe recipe, int index)
+    {
+        GameObject button;
+        Sprite icon = recipe.cardsToCreate[0].sprite;
+        if (index < recipesButtons.Count)
+        {
+            button = recipesButtons[index];
+            button.SetActive(true);
+        }
+        else
+        {
+            button = Instantiate(recipeButtonPrefab, recipeButtonContainer.transform);
+            recipesButtons.Add(button);
+        }
+        button.GetComponentInChildren<Image>().sprite = icon;
+        button.GetComponent<UIRecipeButton>().recipe = recipe;
+    }
+
 
     public void ShowTooltip(string name, string description, List<ResourceCost> resourceTypes, Vector3 position, Pivot pivot, int id, bool hasBuildingSettings = false)
     {
@@ -141,7 +190,7 @@ public class UI_HoverTooltip : UIBase
         {
             layout.spacing = newSpacing;
         }
-        
+
         // Set resource icons
         //List<bool> hasResourcesList = ResourceManager.instance.HasResourcesAsList(RoomManager.Instance.localPlayer.playerID, _currentResourceTypes);
         for (int i = 0; i < _currentResourceCosts.Count; i++)
@@ -158,7 +207,7 @@ public class UI_HoverTooltip : UIBase
 
     public void HideTooltip(int id = 0)
     {
-        if( id == 0 || id == tooltipID)
+        if (id == 0 || id == tooltipID)
         {
             tooltipID = 0;
             backgroundRectTransform.gameObject.SetActive(false);
@@ -213,4 +262,22 @@ public class UI_HoverTooltip : UIBase
     {
         TryHideTooltip();
     }
+
+    #region buttons
+    public void StartRecipe(CraftRecipe recipe)
+    {
+        selectedBuilding.Craft(recipe);
+    }
+
+    public void StartUpgrade()
+    {
+        selectedBuilding.StartUpgrade();
+    }
+
+    public void CancleEffect()
+    {
+        Debug.Log("cancle button");
+        selectedBuilding.CancleOpenEffect();
+    }
+    #endregion
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class Card
 {
-
-
     public Card_Data data;
     BuildingObject originBuilding;
     public int roundsInHand;
@@ -69,6 +67,10 @@ public class Card
     public bool CheckMatchingResources(List<ResourceCost> cost)
     {
         bool returnBool = false;
+        if(cost == null)
+        {
+            return false;
+        }
         List<ResourceCost> currentResources = GetCurrentResources();
         for (int i = cost.Count - 1; i >= 0; i--)
         {
