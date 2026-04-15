@@ -89,24 +89,28 @@ public class UI_HoverTooltip : UIBase
 
     public void SelectBuilding(BuildingObject building)
     {
+        BuildingObject.OpenEffect effect;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
         ShowTooltip(building.data.buildingName, building.data.buildingDescription, building.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft, building.GetInstanceID(), true);
         selectedBuilding = building;
         UpgradeButton.SetActive(building.HasUpgrade());
-        CancleButton.SetActive(building.HasOpenEffect());
+        CancleButton.SetActive(building.HasOpenEffect(out effect));
         List<CraftRecipe> recipes;
 
-        for (int i = 0; i < recipesButtons.Count; i++)
+        if (effect.type != BuildingObject.OpenEffect.Type.construction)
         {
-            recipesButtons[i].SetActive(false);
-        }
-        if (building.TryToGetCraftingRecipes(out recipes))
-        {
-            for (int i = 0; i < recipes.Count; i++)
+            for (int i = 0; i < recipesButtons.Count; i++)
             {
+                recipesButtons[i].SetActive(false);
+            }
+            if (building.TryToGetCraftingRecipes(out recipes))
+            {
+                for (int i = 0; i < recipes.Count; i++)
+                {
 
-                CreateRecipeButton(recipes[i], i);
+                    CreateRecipeButton(recipes[i], i);
 
+                }
             }
         }
     }
@@ -267,17 +271,20 @@ public class UI_HoverTooltip : UIBase
     public void StartRecipe(CraftRecipe recipe)
     {
         selectedBuilding.Craft(recipe);
+        CancleButton.SetActive(selectedBuilding.HasOpenEffect());
     }
 
     public void StartUpgrade()
     {
         selectedBuilding.StartUpgrade();
+        CancleButton.SetActive(selectedBuilding.HasOpenEffect());
     }
 
     public void CancleEffect()
     {
         Debug.Log("cancle button");
         selectedBuilding.CancleOpenEffect();
+        CancleButton.SetActive(selectedBuilding.HasOpenEffect());
     }
     #endregion
 }

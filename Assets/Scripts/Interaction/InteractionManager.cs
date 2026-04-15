@@ -133,7 +133,7 @@ public class InteractionManager : Manager
                 {
                     tile.SetExploredState(true, true, true);
                     CardManager.instance.DiscardCard(activeCard, true);
-                    TurnManager.OnEndTurn.Invoke();
+                    //TurnManager.OnEndTurn.Invoke();
                     return true;
                 }
             }
