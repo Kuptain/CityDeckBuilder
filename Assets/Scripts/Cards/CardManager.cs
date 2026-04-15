@@ -29,6 +29,7 @@ public class CardManager : Manager
     [Header("variables")]
     public int handSize;
     public float cardSpeed = 5;
+    public Card_Data population;
     [Header("Cards")]
     public List<Card> deck = new List<Card>(10);
     public List<Handslot> hand;
@@ -38,6 +39,7 @@ public class CardManager : Manager
     {
         TurnManager.OnEndTurn.AddListener(EndTurn);
         TurnManager.OnStartTurn.AddListener(StartTurn);
+        TurnManager.OnPopulationIncreased.AddListener(AddPopulationCardToProduction);
     }
     private void OnDestroy()
     {
@@ -77,6 +79,10 @@ public class CardManager : Manager
     {
         SendLog("End Of Turn");
         //DiscardHand();
+        for(int i = 0; i < temporaryHand.Count; i++)
+        {
+            temporaryHand[i].EndOfTurnInHand();
+        }
     }
 
     public bool HasCardResource(Card card, ResourceType type)
@@ -110,6 +116,11 @@ public class CardManager : Manager
         {
             productionDeck.Add(new Card(cards_Data[i]));
         }
+    }
+
+    public void AddPopulationCardToProduction()
+    {
+        productionDeck.Add(new Card(population));
     }
 
     public void ShuffleDeck()

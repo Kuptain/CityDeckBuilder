@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
   debugMode: 0
+  lockedBuildingParent: {fileID: 0}
+  buildingParent: {fileID: 0}
   buildingConstructionUIPrefab: {fileID: 3470972133574614521, guid: c8bad3ac40906bc429e68edd260c3718, type: 3}
   buildingButtonPrefab: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
   centreBuilding: {fileID: 11400000, guid: 1b51be2cf9551a8459e86bc9220dcabe, type: 2}
@@ -59,7 +61,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
   - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
   - {fileID: 11400000, guid: fd9166cf4a31a604184cef2c763d945e, type: 2}
-  - {fileID: 11400000, guid: c5621c59430d62047a0e21ffaf2541af, type: 2}
   - {fileID: 11400000, guid: 46c62f02e497df442a616f6d7e3ef86b, type: 2}
   - {fileID: 11400000, guid: da2c287c00c7b2749aacdffa0f5d63d3, type: 2}
   - {fileID: 11400000, guid: 7af5c81d447ccac47a10851d3e265808, type: 2}

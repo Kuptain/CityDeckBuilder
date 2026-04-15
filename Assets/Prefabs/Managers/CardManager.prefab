@@ -47,6 +47,7 @@ MonoBehaviour:
   debugMode: 0
   handSize: 3
   cardSpeed: 25
+  population: {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
   deck: []
   hand: []
   temporaryHand: []

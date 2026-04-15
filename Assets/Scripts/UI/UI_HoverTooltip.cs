@@ -89,12 +89,14 @@ public class UI_HoverTooltip : UIBase
 
     public void SelectBuilding(BuildingObject building)
     {
+        BuildingObject.OpenEffect effect;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
         ShowTooltip(building.data.buildingName, building.data.buildingDescription, building.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft, building.GetInstanceID(), true);
         selectedBuilding = building;
         UpgradeButton.SetActive(building.HasUpgrade());
-        CancleButton.SetActive(building.HasOpenEffect());
+        CancleButton.SetActive(building.HasOpenEffect(out effect));
         List<CraftRecipe> recipes;
+
 
         for (int i = 0; i < recipesButtons.Count; i++)
         {
@@ -125,7 +127,7 @@ public class UI_HoverTooltip : UIBase
             button = Instantiate(recipeButtonPrefab, recipeButtonContainer.transform);
             recipesButtons.Add(button);
         }
-        button.GetComponentInChildren<Image>().sprite = icon;
+        button.GetComponentsInChildren<Image>()[1].sprite = icon;
         button.GetComponent<UIRecipeButton>().recipe = recipe;
     }
 
@@ -267,17 +269,20 @@ public class UI_HoverTooltip : UIBase
     public void StartRecipe(CraftRecipe recipe)
     {
         selectedBuilding.Craft(recipe);
+        CancleButton.SetActive(selectedBuilding.HasOpenEffect());
     }
 
     public void StartUpgrade()
     {
         selectedBuilding.StartUpgrade();
+        CancleButton.SetActive(selectedBuilding.HasOpenEffect());
     }
 
     public void CancleEffect()
     {
         Debug.Log("cancle button");
         selectedBuilding.CancleOpenEffect();
+        CancleButton.SetActive(selectedBuilding.HasOpenEffect());
     }
     #endregion
 }

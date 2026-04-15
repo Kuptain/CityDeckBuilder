@@ -50,6 +50,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         //references
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
+        cooldown = cooldownDuration;
         tile = _tile;
         if (isLocked)
         {
@@ -99,6 +100,8 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     void OnEndOfTurnEffect()
     {
+        Debug.Log("end of turn");
+        cooldown += 1;
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onEndOfTurn, out effect))
         {
@@ -121,11 +124,13 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out effect))
         {
-            if (card.data.TryToPayFor(effect.EffectCost))
+            if ( !IsOnCooldown() && card.data.TryToPayFor(effect.EffectCost))
             {
                 effect.Invoke(this, card);
                 CardManager.instance.DiscardCard(card, true);
-                TurnManager.OnEndTurn.Invoke();
+                cooldown = 0;
+                //TurnManager.OnEndTurn.Invoke();
+
             }
             else
             {
@@ -295,10 +300,21 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         return data.GetRankData(rank + 1) != null;
     }
 
+    public bool HasOpenEffect(out OpenEffect effect)
+    {
+        effect = openEffect;
+        return openEffect != null && openEffect.active;
+    }
     public bool HasOpenEffect()
     {
         return openEffect != null && openEffect.active;
     }
+
+    public bool IsOnCooldown()
+    {
+        return cooldown < cooldownDuration;
+    }
+
     #endregion
 
     #region feedback

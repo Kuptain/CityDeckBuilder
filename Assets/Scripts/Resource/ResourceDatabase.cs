@@ -48,7 +48,8 @@ public enum ResourceType
     meat = 13,
     brick = 14,
     coal = 15,
-    sandwich = 16
+    sandwich = 16,
+    Fish = 17
 
 }
 [System.Serializable]

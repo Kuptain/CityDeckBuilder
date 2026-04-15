@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RessourceManager
   debugMode: 0
   database: {fileID: 11400000, guid: 3bc5d2cd3c19f53489830cf2f5de7e91, type: 2}
-  housingBaseValue: 7
+  housingBaseValue: 3
   housing: 0
-  food: 7
+  food: 0
   population: 0
