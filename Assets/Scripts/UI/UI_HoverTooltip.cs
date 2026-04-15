@@ -97,20 +97,18 @@ public class UI_HoverTooltip : UIBase
         CancleButton.SetActive(building.HasOpenEffect(out effect));
         List<CraftRecipe> recipes;
 
-        if (effect.type != BuildingObject.OpenEffect.Type.construction)
+
+        for (int i = 0; i < recipesButtons.Count; i++)
         {
-            for (int i = 0; i < recipesButtons.Count; i++)
+            recipesButtons[i].SetActive(false);
+        }
+        if (building.TryToGetCraftingRecipes(out recipes))
+        {
+            for (int i = 0; i < recipes.Count; i++)
             {
-                recipesButtons[i].SetActive(false);
-            }
-            if (building.TryToGetCraftingRecipes(out recipes))
-            {
-                for (int i = 0; i < recipes.Count; i++)
-                {
 
-                    CreateRecipeButton(recipes[i], i);
+                CreateRecipeButton(recipes[i], i);
 
-                }
             }
         }
     }
@@ -129,7 +127,7 @@ public class UI_HoverTooltip : UIBase
             button = Instantiate(recipeButtonPrefab, recipeButtonContainer.transform);
             recipesButtons.Add(button);
         }
-        button.GetComponentInChildren<Image>().sprite = icon;
+        button.GetComponentsInChildren<Image>()[1].sprite = icon;
         button.GetComponent<UIRecipeButton>().recipe = recipe;
     }
 

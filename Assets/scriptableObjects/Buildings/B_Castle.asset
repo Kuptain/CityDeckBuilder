@@ -23,15 +23,6 @@ MonoBehaviour:
   - housingIncrease: 0
     usesCrafting: 0
     cardsToAdd:
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-    - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
-    - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
     resourceCosts: []
     effects:
@@ -66,6 +57,8 @@ MonoBehaviour:
       - resource: 13
         amount: 1
       - resource: 13
+        amount: 1
+      - resource: 17
         amount: 1
       temporaryCards: []
       OnTrigger:

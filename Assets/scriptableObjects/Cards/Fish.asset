@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Fish
   m_EditorClassIdentifier: Assembly-CSharp::Card_Data
   sprite: {fileID: 21300000, guid: b305de058e04dcf438ea3c934907b6ed, type: 3}
-  cardName: 
-  cardDescription: 
-  ressources: []
-  decay: 2
+  cardName: Fish
+  cardDescription: flap flap
+  ressources:
+  - resource: 17
+    amount: 1
+  decay: 3
   decayTarget: {fileID: 11400000, guid: a226397f67e250243948f6ef812bb4d7, type: 2}
   FoodAmount: 2

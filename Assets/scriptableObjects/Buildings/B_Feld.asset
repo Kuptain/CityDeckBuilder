@@ -48,4 +48,27 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
+    - type: 1
+      HasCoolDown: 1
+      cooldownDuration: 3
+      EffectCost:
+      - resource: 5
+        amount: 0
+      temporaryCards:
+      - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createTemporaryCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
     craftingRecipes: []

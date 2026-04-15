@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
   startingTurnCount: 20
-  populactionIncreaseModifier: 4
-  populationPerYear: 8
+  populactionIncreaseModifier: 3
+  populationPerYear: 4
   npcPrefab: {fileID: 5122269274258173990, guid: 9e9305bc3a57893479ae91e8aceb0c2b, type: 3}

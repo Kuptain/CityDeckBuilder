@@ -20,4 +20,4 @@ MonoBehaviour:
     amount: 1
   decay: 4
   decayTarget: {fileID: 11400000, guid: a226397f67e250243948f6ef812bb4d7, type: 2}
-  FoodAmount: 15
+  FoodAmount: 20
