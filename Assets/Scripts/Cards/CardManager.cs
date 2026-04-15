@@ -79,6 +79,19 @@ public class CardManager : Manager
         //DiscardHand();
     }
 
+    public bool HasCardResource(Card card, ResourceType type)
+    {
+        foreach(var resource in card.data.ressources)
+        {
+            if (resource.resource == type)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void AddCardsToDeck(List<Card_Data> cards_Data)
     {
         for (int i = 0; i < cards_Data.Count; i++)

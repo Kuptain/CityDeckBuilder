@@ -84,7 +84,7 @@ public class InteractionManager : Manager
             }
             currentHoverTile = tile;
             currentHoverTile.StartHover();
-            if(tile.currentBuilding != null)
+            if(tile.currentBuilding != null && tile.isExplored)
             {
                 lastHoveredBuilding = tile.currentBuilding;
                 UI_HoverTooltip.Instance.SelectBuilding(tile.currentBuilding);
@@ -109,18 +109,22 @@ public class InteractionManager : Manager
     {
         isHoldingCard = false;
         BuildingObject building;
-        if (IsUnexplored())
+        if (ExploreTile(card))
         {
-            // Any card works for now
+            // Explore Feedback
             return;
         }
-        else if (SearchForBuilding(out building,true))
+
+        else if (SearchForBuilding(out building, true))
         {
-            building.PlayCardOnThis(activeCard);
+            if (GridManager.Instance.TryGetTile(building.GetTile().gridPosition, out Tile newTile) && newTile.isExplored)
+            {
+                building.PlayCardOnThis(activeCard);
+            }
         }
 
     }
-    bool IsUnexplored()
+    bool ExploreTile(Card card)
     {
         var raycastHit = GridManager.Instance.GroundRaycast();
         Vector2Int gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
@@ -129,11 +133,17 @@ public class InteractionManager : Manager
         {
             if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
             {
-                if (!tile.isExplored && tile.isVisible)
+                if (!tile.isExplored && tile.isVisible && CardManager.instance.HasCardResource(card, ResourceType.person))
                 {
                     tile.SetExploredState(true, true, true);
                     CardManager.instance.DiscardCard(activeCard, true);
                     TurnManager.OnEndTurn.Invoke();
+
+                    if (tile.currentBuilding != null)
+                    {
+                        tile.currentBuilding.constructionUI.ToggleVisible(true);
+                    }
+
                     return true;
                 }
             }
@@ -163,24 +173,22 @@ public class InteractionManager : Manager
     }
     bool SearchForBuilding(out BuildingObject building,bool sentdebugMessage = false)
     {
-       
-        Ray ray = Camera.main.ScreenPointToRay(Inputmanager.mousePosition);
-        RaycastHit hit;
-        int mask = LayerMask.GetMask("Ground");
-        Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        if (Physics.Raycast(ray, out hit, 1000, mask))
+        var raycastHit = GridManager.Instance.GroundRaycast();
+
+        if (raycastHit.isGround)
         {
-            if (TryToGetBuilding(hit.point, out building))
+            if (TryToGetBuilding(raycastHit.hitPosition, out building))
             {
-                if(sentdebugMessage)
-                SendLog("building found :" + building.data + " at :"+ building.GetTile().gridPosition);
+                if (sentdebugMessage)
+                    SendLog("building found :" + building.data + " at :" + building.GetTile().gridPosition);
                 return true;
             }
             else if (sentdebugMessage)
             {
-                SendLog("no building found at :" + GridManager.Instance.WorldToGridPosition(hit.point));
+                SendLog("no building found at :" + GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition));
             }
         }
+
         building = null;
         return false;
     }

@@ -12,7 +12,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] public BuildingData data;
     [ReadOnly] [SerializeField] int rank;
     [Header("construction")]
-    [ReadOnly] [SerializeField] EffectCostVisualizer constructionUI;
+    [ReadOnly] public EffectCostVisualizer constructionUI;
     [Header("ability")]
     [ReadOnly] [SerializeField] OpenEffect openEffect;
     [ReadOnly] [SerializeField] bool hasCD;
@@ -45,15 +45,26 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         EnablePreviewMaterials();
     }
-    public void BuildingSetup(BuildingData _data, Tile _tile)
+    public void BuildingSetup(BuildingData _data, Tile _tile, bool isLocked)
     {
         //references
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         tile = _tile;
-        openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), Constructionfinished);
+        if (isLocked)
+        {
+            var unlockCost = new List<ResourceCost>();
+            var resource = new ResourceCost(ResourceType.person, 4);
+            unlockCost.Add(resource);
+            openEffect = new OpenEffect(OpenEffect.Type.construction, unlockCost, BuildingUnlocked);
+        }
+        else
+        {
+            openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), Constructionfinished);
+        }
         constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
         constructionUI.Init(this);
+        constructionUI.ToggleVisible(tile.isExplored);
         OnEffectProgress.Invoke(openEffect);
         //events
         TurnManager.OnEndTurn.AddListener(OnEndOfTurnEffect);
@@ -170,7 +181,13 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     void Constructionfinished()
     {
         OnBuildEffect();
+
+    }
+    void BuildingUnlocked()
+    {
         BuildingManager.Instance.UnlockBuilding(data);
+        BuildingManager.Instance.DestroyBuilding(tile.gridPosition);
+        Destroy(gameObject);
     }
 
     public void FinishConstruction()
@@ -229,6 +246,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     #region utility
     public Tile GetTile()
     {
+        if(GridManager.Instance.TryGetTile(tile.gridPosition, out Tile newTile))
+        {
+            tile = newTile;
+            return newTile;
+        }
         return tile;
     }
     public int GetRank()

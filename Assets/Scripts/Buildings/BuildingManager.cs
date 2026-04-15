@@ -114,7 +114,7 @@ public class BuildingManager : Manager
             {
                 if (raycastHit.isGround)
                 {
-                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false);
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false, false);
                 }
                 else
                 {
@@ -159,7 +159,7 @@ public class BuildingManager : Manager
         }
     }
 
-    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool ignoreRestrains)
+    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool ignoreRestrains, bool isLocked)
     {
         GridManager gridManager = GridManager.Instance;
 
@@ -191,7 +191,7 @@ public class BuildingManager : Manager
                 //InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
 
                 tile.currentBuilding = previewBuilding.GetComponent<BuildingObject>();
-                tile.currentBuilding.BuildingSetup(buildingToSpawn,tile);
+                tile.currentBuilding.BuildingSetup(buildingToSpawn, tile, isLocked);
 
                 previewBuilding = null;
 

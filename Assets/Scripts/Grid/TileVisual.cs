@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityEditor.UIElements.ToolbarMenu;
 
 [System.Serializable]
@@ -38,14 +39,15 @@ public class TileVisual : MonoBehaviour
     {
         if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
         {
-            if (!tile.isExplored && tile.isVisible)
+            if (!tile.isExplored && tile.isVisible && CardManager.instance.HasCardResource(card, ResourceType.person))
             {
                 outlinePlayable.SetActive(true);
                 return;
             }
 
-            if (tile.currentBuilding != null)
+            if (tile.currentBuilding != null && tile.isExplored)
             {
+                Debug.Log("IsExplored: " + tile.isExplored);
                 var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
                 if (card.CheckMatchingResources(buildingResourceCosts))
                 {

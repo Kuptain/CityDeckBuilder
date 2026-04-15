@@ -50,7 +50,7 @@ MonoBehaviour:
   moveSmoothTime: 0.1
   zoomSpeed: 8
   minZoom: 40
-  maxZoom: 150
+  maxZoom: 100
   cameraTransform: {fileID: 5244781079698790495}
   groundMask:
     serializedVersion: 2

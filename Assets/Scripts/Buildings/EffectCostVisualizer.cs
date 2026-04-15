@@ -72,6 +72,10 @@ public class EffectCostVisualizer : MonoBehaviour
             }
         }
     }
+    public void ToggleVisible(bool state)
+    {
+        uiParent.gameObject.SetActive(state);
+    }
 
     void ChangeUI(List<ResourceCost> openCosts)
     {
