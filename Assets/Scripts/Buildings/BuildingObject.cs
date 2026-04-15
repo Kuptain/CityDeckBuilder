@@ -11,6 +11,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] Tile tile;
     [ReadOnly] public BuildingData data;
     [ReadOnly] [SerializeField] int rank;
+    [ReadOnly] public bool isConstructing;
     [Header("construction")]
     [ReadOnly] public EffectCostVisualizer constructionUI;
     [Header("ability")]
@@ -63,6 +64,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), Constructionfinished);
         }
+        isConstructing = true;
         constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
         constructionUI.Init(this);
         constructionUI.ToggleVisible(tile.isExplored);
@@ -78,6 +80,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             openEffect = new OpenEffect(OpenEffect.Type.upgrade, data.GetRankData(rank + 1).resourceCosts, IncreaseRank);
             OnEffectProgress.Invoke(openEffect);
+            isConstructing = true;
         }
     }
 
@@ -185,8 +188,8 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
     void Constructionfinished()
     {
+        isConstructing = false;
         OnBuildEffect();
-
     }
     void BuildingUnlocked()
     {
@@ -197,6 +200,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
 
     public void FinishConstruction()
     {
+        isConstructing = false;
         OnBuildEffect();
     }
     public void AddCardToStock(Card card)
