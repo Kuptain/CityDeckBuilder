@@ -1,43 +1,119 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
-public class Card : ScriptableObject
+[System.Serializable]
+public class Card
 {
+    public Card_Data data;
+    BuildingObject originBuilding;
+    public int roundsInHand;
+    public int rank;
+    public bool temporary;
 
-
-    [HideInInspector] public bool selected;
-    public Sprite sprite;
-    public List<ResourceCost> ressources;
-
-    public Card(Card card)
+    public Card(Card_Data _data)
     {
-        sprite = card.sprite;
-        ressources = new List<ResourceCost>(card.ressources);
+        data = _data;
     }
 
-    public bool Contains(List<ResourceCost> cost)
+    public Card(Card copy)
     {
-        bool costSatisfied = false;
-        foreach(ResourceCost x in cost)
+        data = copy.data;
+        originBuilding = copy.originBuilding;
+        rank = copy.rank;
+        roundsInHand = copy.roundsInHand;
+    }
+
+    public void Upgrade()
+    {
+        rank += 1;
+    }
+
+    public List<ResourceCost> GetCurrentResources()
+    {
+        return data.ressources;
+    }
+
+    public int GetDecayCount()
+    {
+        return data.decay - roundsInHand;
+    }
+
+    public bool TryToPayFor(ref List<ResourceCost> cost)
+    {
+        bool returnBool = false;
+        List<ResourceCost> currentResources = GetCurrentResources();
+        for (int i = cost.Count-1; i >=0; i--)
         {
-            costSatisfied = false;
-            foreach(ResourceCost y in ressources)
+            for (int j = 0; j < currentResources.Count; j++)
             {
-                if(x.resource == y.resource)
+                if (cost[i].resource == currentResources[j].resource)
                 {
-                    if (x.amount <= y.amount)
+                    int newCost = cost[i].amount - currentResources[j].amount;
+                    if (newCost > 0)
                     {
-                        costSatisfied = true;
+                        cost[i] = new ResourceCost(cost[i].resource,newCost);
                     }
+                    else
+                    {
+                        cost.RemoveAt(i);
+                    }
+                    returnBool = true;
                     break;
                 }
             }
-            if(costSatisfied == false)
+        }
+
+        return returnBool;
+    }
+    public bool CheckMatchingResources(List<ResourceCost> cost)
+    {
+        bool returnBool = false;
+        if(cost == null)
+        {
+            return false;
+        }
+        List<ResourceCost> currentResources = GetCurrentResources();
+        for (int i = cost.Count - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < currentResources.Count; j++)
             {
-                return false;
+                if (cost[i].resource == currentResources[j].resource)
+                {
+                    returnBool = true;
+                    break;
+                }
             }
         }
-        return true;
+
+        return returnBool;
+    }
+    public bool HasDesiredRessources(List<ResourceCost> cost)
+    {
+        List<ResourceCost> currentResources = GetCurrentResources();
+        for (int i = cost.Count - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < currentResources.Count; j++)
+            {
+                if (cost[i].resource == currentResources[j].resource)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public int GetCurrentFood()
+    {
+        return data.FoodAmount;
+    }
+
+    public void EndOfTurnInHand()
+    {
+        roundsInHand += 1;
+        if (data.decay != 0 && roundsInHand >= data.decay)
+        {
+            data = data.decayTarget;
+            CardManager.OnCardDecayed.Invoke(this);
+        }
     }
 }

@@ -45,10 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055cba4673cd2514980cefea03e3a440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  width: 13
-  height: 13
+  width: 23
+  height: 23
   _tileSize: 4.2
-  _cam: {fileID: 0}
 --- !u!114 &843698045150862914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b14f5ce6e54d3b4b82694ac7d1007c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileVisualsManager
+  tileVisibleRange: 2
   _tilePrefab: {fileID: 3922066366113985173, guid: 90877c92e38fd40439c7570bee153e3a, type: 3}
   gridVisualsNavMesh: {fileID: 0}
   centreBuilding: {fileID: 11400000, guid: 1b51be2cf9551a8459e86bc9220dcabe, type: 2}
+  blueprintBuilding: {fileID: 11400000, guid: 2fced3cc4160b1246bc7b7d9000138a3, type: 2}
+  cameraController: {fileID: 5658536982609723793, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}

@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using static Tile;
 
 public class GridManager : MonoBehaviour
 {
     public int width, height;
     [SerializeField] private float _tileSize;
-    [SerializeField] private Transform _cam;
     private const float TILE_SIZE_MULTIPLIER = 0.87f;
     public enum TileDirection { top, rightTop, rightBottom, bottom, leftBottom, leftTop }
     public Tile[] gridArray;
@@ -32,9 +33,63 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         gridArray = new Tile[width * height];
+        gridNullTile = new Tile();
+        gridNullTile.Init(new Vector2Int(-1, -1), 0);
         GenerateGridData();
     }
+    public (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
+    {
+        Vector3 hitPosition = new Vector3();
+        bool isGround = false;
+        Transform hitTransform = null;
 
+        int layer_maskGround = LayerMask.GetMask("Ground");
+
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+
+        // Try ground raycast first
+        if (Physics.Raycast(ray, out hit, 1000f, layer_maskGround))
+        {
+            if (hit.transform.GetComponent<Ground>() != null)
+            {
+                hitPosition = hit.point;
+                isGround = true;
+                hitTransform = hit.collider.transform;
+            }
+        }
+        else
+        {
+            // Fallback if no ground hit
+            Plane fallbackPlane = new Plane(Vector3.up, Camera.main.transform.position + Camera.main.transform.forward * 60f);
+
+            if (fallbackPlane.Raycast(ray, out float distance))
+            {
+                hitPosition = ray.GetPoint(distance);
+            }
+        }
+
+        return (hitPosition, isGround, hitTransform);
+    }
+    public void GenerateGridData()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Tile visualData = new Tile();
+                Vector2Int gridPos = new Vector2Int(x, y);
+                (int colorID, bool isOffset) = GetColorAndOffset(x, y);
+                TileType tileType = TileType.Forest;
+                byte angleIndex = (byte)UnityEngine.Random.Range(0, 6); // 0 to 5
+
+                visualData.Init(gridPos, (byte)colorID, isOffset, tileType, true, angleIndex);
+                gridArray[GetIndex(x, y)] = visualData;
+            }
+        }
+        TileVisualsManager.Instance.InstantiateGridTileVisualFromData(true);
+    }
     public int GetIndex(int x, int y)
     {
         if (x < 0 || x >= width || y < 0 || y >= height)
@@ -56,40 +111,59 @@ public class GridManager : MonoBehaviour
         tile = gridArray[x + y * width];
         return true;
     }
+    public bool TryGetTile(Vector2Int gridPosition, out Tile tile)
+    {
+        tile = default;
+        var x = gridPosition.x;
+        var y = gridPosition.y;
 
-    // https://www.redblobgames.com/grids/hexagons/
-    Vector3Int OffsetToCube(int x, int y) // Chat GPT helped
-    {
-        int realX = -x; // Flip X to match increasing left
-        int z = y - (realX + (realX & 1)) / 2;
-        int yCube = -realX - z;
-        return new Vector3Int(realX, yCube, z);
+        if (x < 0 || x >= width || y < 0 || y >= height)
+            return false;
+
+        tile = gridArray[x + y * width];
+        return true;
     }
-    Vector2Int CubeToOffset(Vector3Int cube)
-    {
-        int col = -cube.x; // Flip back X if OffsetToCube flipped it
-        int row = cube.z + ((cube.x + (cube.x & 1)) / 2);
-        return new Vector2Int(col, row);
-    }
+
     public bool IsTileInRange(Vector2Int fromOffset, Vector2Int toOffset, int range) // Chat GPT helped
     {
         Vector3Int fromCube = OffsetToCube(fromOffset.x, fromOffset.y);
         Vector3Int toCube = OffsetToCube(toOffset.x, toOffset.y);
         return HexDistance(fromCube, toCube) <= range;
     }
-    int HexDistance(Vector3Int a, Vector3Int b) // Chat GPT helped
+    // Pass a list of tile types. The code then checks if those types are in range and returns all tiles with that type.
+    public List<Tile> GetTileTypesInRange(Vector2Int origin, int range, List<TileType> typesToCheck) 
     {
-        return Mathf.Max(
-            Mathf.Abs(a.x - b.x),
-            Mathf.Abs(a.y - b.y),
-            Mathf.Abs(a.z - b.z)
-        );
+        List<Tile> tilesInRange = GetTilesInRange(origin, range);
+        List<Tile> typesInRange = new List<Tile>();
+        foreach (Tile tile in tilesInRange)
+        {
+            for (int i = 0; i < typesToCheck.Count; i++)
+            {
+                if (tile.tileType == typesToCheck[i])
+                {
+                    typesInRange.Add(tile);
+                }
+            }
+        }
+        return typesInRange;
+    }
+    public bool IsExploredTileInRange(Vector2Int origin, int range)
+    {
+        List<Tile> tilesInRange = GetTilesInRange(origin, range);
+        foreach (Tile tile in tilesInRange)
+        {
+            if (tile.isExplored)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public List<Tile> GetTilesInRange(Vector2Int center, int range)
+    public List<Tile> GetTilesInRange(Vector2Int origin, int range)
     {
         List<Tile> result = new List<Tile>();
-        Vector3Int centerCube = OffsetToCube(center.x, center.y);
+        Vector3Int centerCube = OffsetToCube(origin.x, origin.y);
 
         for (int dx = -range; dx <= range; dx++)
         {
@@ -109,10 +183,9 @@ public class GridManager : MonoBehaviour
 
         return result;
     }
-    public Tile ReturnDirectionalTile(Vector2 gridPosition, TileDirection direction, int distance) // Chat GPT helped
-    {
-        Vector2Int origin = new Vector2Int((int)gridPosition.x, (int)gridPosition.y);
 
+    public Tile ReturnDirectionalTile(Vector2Int origin, TileDirection direction, int distance) // Chat GPT helped
+    {
         if (!IsValidGridPosition(origin)) return gridNullTile;
 
         bool isOffset = gridArray[GetIndex(origin.x, origin.y)].isOffset;
@@ -136,6 +209,74 @@ public class GridManager : MonoBehaviour
         }
 
         return targetTile;
+    }
+
+    public Vector3 GridToWorldPosition(Vector2 gridPosition)
+    {
+        bool isOffset = gridArray[GetIndex((int)gridPosition.x, (int)gridPosition.y)].isOffset;
+        float offsetHeight = isOffset ? -_tileSize / 2f : 0;
+
+        Vector3 worldPos = new Vector3(gridPosition.x * _tileSize * TILE_SIZE_MULTIPLIER, 0, gridPosition.y * _tileSize + offsetHeight);
+        return worldPos;
+    }
+
+    public Vector2Int WorldToGridPosition(Vector3 worldPosition)
+    {
+        int gridX = Mathf.RoundToInt(
+            worldPosition.x / (_tileSize * TILE_SIZE_MULTIPLIER)
+        );
+
+        // Determine if this column is offset
+        bool isOffset = gridArray[GetIndex(gridX, 0)].isOffset;
+        float offsetHeight = isOffset ? -_tileSize / 2f : 0f;
+
+        int gridY = Mathf.RoundToInt(
+            (worldPosition.z - offsetHeight) / _tileSize
+        );
+
+        return new Vector2Int(gridX, gridY);
+    }
+
+    public Vector3 SnapToGrid(Vector3 worldPosition, float snapStrength) // Chat GPT
+    {
+        snapStrength = Mathf.Clamp01(snapStrength);
+
+        // 1. Get grid position
+        Vector2Int gridPos = WorldToGridPosition(worldPosition);
+
+        // 2. Get tile center in world space
+        Vector3 tileCenter = GridToWorldPosition(gridPos);
+
+        // 3. Measure distance
+        float distance = Vector2.Distance(new Vector2(worldPosition.x, worldPosition.z), new Vector2(tileCenter.x, tileCenter.z));
+
+        // 4. Define max snap distance (half tile size works well)
+        float maxSnapDistance = _tileSize * 0.5f;
+
+        float allowedDistance = maxSnapDistance * snapStrength;
+
+        if (distance <= allowedDistance)
+        {
+            return tileCenter;
+        }
+
+        return worldPosition;
+    }
+
+    #region Internal Helper Methods
+    // https://www.redblobgames.com/grids/hexagons/
+    Vector3Int OffsetToCube(int x, int y) // Chat GPT helped
+    {
+        int realX = -x; // Flip X to match increasing left
+        int z = y - (realX + (realX & 1)) / 2;
+        int yCube = -realX - z;
+        return new Vector3Int(realX, yCube, z);
+    }
+    Vector2Int CubeToOffset(Vector3Int cube)
+    {
+        int col = -cube.x; // Flip back X if OffsetToCube flipped it
+        int row = cube.z + ((cube.x + (cube.x & 1)) / 2);
+        return new Vector2Int(col, row);
     }
     private Vector2Int GetDirectionalOffset(TileDirection dir, int distance, bool isOffset) // Chat GPT helped
     {
@@ -165,72 +306,15 @@ public class GridManager : MonoBehaviour
         return pos.x >= 0 && pos.y >= 0 &&
                pos.x < width && pos.y < height;
     }
-    public Tile FindPlayerStartingTile(int _playerID)
+    int HexDistance(Vector3Int a, Vector3Int b) // Chat GPT helped
     {
-        Tile targetTile = new Tile();
-        Tile centreTile = gridArray[GetIndex((width - 1) / 2, (height - 1) / 2)];
-
-        switch (_playerID)
-        {
-            case 1:
-                targetTile = ReturnDirectionalTile(centreTile.gridPosition, TileDirection.top, 2);
-                break;
-            case 2:
-                targetTile = ReturnDirectionalTile(centreTile.gridPosition, TileDirection.bottom, 2);
-                break;
-        }
-        return targetTile;
-    }
-    public Vector3 GridToWorldPosition(Vector2 gridPosition)
-    {
-        bool isOffset = gridArray[GetIndex((int)gridPosition.x, (int)gridPosition.y)].isOffset;
-        float offsetHeight = isOffset ? -_tileSize / 2f : 0;
-
-        Vector3 worldPos = new Vector3(gridPosition.x * _tileSize * TILE_SIZE_MULTIPLIER, 0, gridPosition.y * _tileSize + offsetHeight);
-        return worldPos;
-    }
-    public Vector2Int WorldToGridPosition(Vector3 worldPosition)
-    {
-        int gridX = Mathf.RoundToInt(
-            worldPosition.x / (_tileSize * TILE_SIZE_MULTIPLIER)
+        return Mathf.Max(
+            Mathf.Abs(a.x - b.x),
+            Mathf.Abs(a.y - b.y),
+            Mathf.Abs(a.z - b.z)
         );
-
-        // Determine if this column is offset
-        bool isOffset = gridArray[GetIndex(gridX, 0)].isOffset;
-        float offsetHeight = isOffset ? -_tileSize / 2f : 0f;
-
-        int gridY = Mathf.RoundToInt(
-            (worldPosition.z - offsetHeight) / _tileSize
-        );
-
-        return new Vector2Int(gridX, gridY);
     }
-    public Vector3 SnapToGrid(Vector3 worldPosition, float snapStrength) // Chat GPT
-    {
-        snapStrength = Mathf.Clamp01(snapStrength);
-
-        // 1. Get grid position
-        Vector2Int gridPos = WorldToGridPosition(worldPosition);
-
-        // 2. Get tile center in world space
-        Vector3 tileCenter = GridToWorldPosition(gridPos);
-
-        // 3. Measure distance
-        float distance = Vector2.Distance(new Vector2(worldPosition.x, worldPosition.z), new Vector2(tileCenter.x, tileCenter.z));
-
-        // 4. Define max snap distance (half tile size works well)
-        float maxSnapDistance = _tileSize * 0.5f;
-
-        float allowedDistance = maxSnapDistance * snapStrength;
-
-        if (distance <= allowedDistance)
-        {
-            return tileCenter;
-        }
-
-        return worldPosition;
-    }
-    private (int colorID, bool isOffset) GetColorAndOffset(int x, int y)
+    private (int colorID, bool isOffset) GetColorAndOffset(int x, int y) // For the 3 different hex shades
     {
         if ((x % 2 == 0 && y % 3 == 0) || (x % 2 != 0 && (y - 2) % 3 == 0))
             return (1, x % 2 != 0);
@@ -243,23 +327,5 @@ public class GridManager : MonoBehaviour
 
         return (0, false);
     }
-
-    public void GenerateGridData()
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                Tile visualData = new Tile();
-                Vector2Int gridPos = new Vector2Int(x, y);
-                (int colorID, bool isOffset) = GetColorAndOffset(x, y);
-                TileType tileType = TileType.Wood;
-                byte angleIndex = (byte)UnityEngine.Random.Range(0, 6); // 0 to 5
-
-                visualData.Init(gridPos, (byte)colorID, isOffset, tileType, 0, true, angleIndex);
-                gridArray[GetIndex(x, y)] = visualData;
-            }
-        }
-        TileVisualsManager.Instance.InstantiateGridTileVisualFromData(true);
-    }
+    #endregion
 }

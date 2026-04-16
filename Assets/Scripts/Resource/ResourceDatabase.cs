@@ -38,7 +38,19 @@ public enum ResourceType
     wood = 1,
     stone = 2,
     gold = 3,
-    sheep = 4
+    sheep = 4,
+    person = 5,
+    clay = 6,
+    grain = 8,
+    straw = 10,
+    flour = 11,
+    bread = 12, 
+    meat = 13,
+    brick = 14,
+    coal = 15,
+    sandwich = 16,
+    Fish = 17
+
 }
 [System.Serializable]
 public class ResourceEntry
@@ -52,4 +64,26 @@ public class ResourceCost
 {
     public ResourceType resource;
     public int amount;
+
+    public ResourceCost (ResourceType type, int _value)
+    {
+        resource = type;
+        amount = _value;
+    }
+
+    public void Subtract(ResourceCost cost)
+    {
+        if(cost.resource == resource)
+        {
+            amount -= cost.amount;
+        }
+    }
+
+    public void Add(ResourceCost cost)
+    {
+        if (cost.resource == resource)
+        {
+            amount += cost.amount;
+        }
+    }
 }

@@ -15,8 +15,8 @@ public class Ui_Resssource : MonoBehaviour
 
     public void ChangeText()
     {
-        string text = type.ToString() + ": " + ResourceManager.instance.GetRessourceCount(type);
-        textfield.text = text;
+        //string text = type.ToString() + ": " + ResourceManager.instance.GetRessourceCount(type);
+        //textfield.text = text;
     }
 
 }

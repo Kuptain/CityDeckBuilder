@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff6c06272a7d2e3428a437773c08dffc, type: 3}
+  m_Name: BuildingContainer
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingDataContainer
+  buildings:
+  - {fileID: 11400000, guid: 2fced3cc4160b1246bc7b7d9000138a3, type: 2}
+  - {fileID: 11400000, guid: 1b51be2cf9551a8459e86bc9220dcabe, type: 2}
+  - {fileID: 11400000, guid: e425c6c61c1a9d94a9bc115242c05af5, type: 2}
+  - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
+  - {fileID: 11400000, guid: d92364cde81313744bfa08a98d71636d, type: 2}
+  - {fileID: 11400000, guid: a8507f5f188685346900dcf2ffd5b53e, type: 2}
+  - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
+  - {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
+  - {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}

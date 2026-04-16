@@ -12,72 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: B_Castle
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
   buildingName: Castle
   buildingDescription: 
-  cardsToAdd:
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: d34734ac41d982c449d77dce9c7a88d1, type: 2}
-  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
-  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
-  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
-  housingIncrease: 0
+  test: 0
   prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
-  resourceCosts: []
-  endlessUses: 1
-  EffectCost: []
-  OnBuild:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddCards
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddListenerSpawnNPC
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddRessources
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
+  requiredTerrain: 0
+  ranks:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd:
+    - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
+    resourceCosts: []
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      temporaryCards: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: AddCards
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - type: 1
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost:
+      - resource: 8
+        amount: 1
+      - resource: 12
+        amount: 1
+      - resource: 13
+        amount: 1
+      - resource: 13
+        amount: 1
+      - resource: 17
+        amount: 1
+      temporaryCards: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: AddFood
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes: []

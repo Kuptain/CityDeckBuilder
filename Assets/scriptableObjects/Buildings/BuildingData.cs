@@ -2,106 +2,81 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "NewBuildingData", menuName = "Scriptable Objects/Building Data")]
 public class BuildingData : ScriptableObject
 {
-    public byte ID;
-    public string buildingName;
-    public string buildingDescription;
-    public List<Card> cardsToAdd;
-    public int housingIncrease;
-
+    //public byte ID;
+    [SerializeField] public string buildingName;
+    [SerializeField] public string buildingDescription;
+    public ResourceType test;
     public GameObject prefab;
     public Sprite uiIcon;
     public GameObject uiButton;
-    public List<ResourceCost> resourceCosts;
+    public Tile.TileType requiredTerrain;
+    public bool isLocked;
+    [SerializeField] List<RankData> ranks = new List<RankData>() { new RankData() };
 
-    [Header("Effects")]
-    public bool endlessUses;
-    public List<ResourceCost> EffectCost = new List<ResourceCost>();
-    public UnityEvent<Tile> OnBuild = new UnityEvent<Tile>();
-    public UnityEvent<Card> OnDrag = new UnityEvent<Card>();
-    public UnityEvent OnClick = new UnityEvent();
-    public UnityEvent OnEndOfTurn = new UnityEvent();
-
-
-    public void DuplicateCard(Card card)
+    public RankData GetRankData(int rank)
     {
-        if (card.Contains(EffectCost))
+        if (ranks.Count < rank + 1)
         {
-            Card duplication = card;
-            List<Card> cardsToAdd = new List<Card>() { duplication };
-            CardManager.instance.AddCardsToDiscard(cardsToAdd);
-            CardManager.instance.DiscardCard(card);
+            return null;
         }
+        return ranks[rank];
     }
-
-    public void AddRessources(Card card)
+    public List<ResourceCost> GetBaseCost()
     {
-        ResourceManager.instance.GetRessources(card.ressources);
-        CardManager.instance.DiscardCard(card);
-    }
-
-    public void SellCard(Card card)
-    {
-        if (card.Contains(EffectCost))
+        if (ranks.Count == 0)
         {
-            CardManager.instance.RemoveCardFromHand(card);
-            ResourceManager.instance.GetRessources(ResourceType.gold, 1);
+            return new List<ResourceCost>();
         }
+        return ranks[0].resourceCosts;
     }
 
-    public void AddCards()
+    public bool HasCardsToAddOnBuild(int currentRank)
     {
-        CardManager.instance.AddCardsToDiscard(cardsToAdd);
-    }
-    public void changeFoodPerNeighbourAtEndOfYear(Tile tile)
-    {
-        TurnManager.OnStartCheckingLosingCondition.AddListener(tile.currentBuilding.increaseFood);
-        if (TurnManager.Instance.GetCurrentTurn() == 1)
-        {
-            tile.currentBuilding.increaseFood();
-        }
-    }
-  
-    public void changeHousingPerNeighbour(Tile tile)
-    {
-        ResourceManager.OnHousingChange.AddListener(tile.currentBuilding.increaseHousing);
-        ResourceManager.OnHousingChange.Invoke();
-    }
-    public void changeHousing()
-    {
-        ResourceManager.OnHousingChange.AddListener(increaseHousing);
-        ResourceManager.OnHousingChange.Invoke();
-    }
-    void increaseHousing()
-    {
-        ResourceManager.instance.AddHousing(housingIncrease);
-    }
-
-    public void SellFood()
-    {
-        ResourceManager.instance.ChangeFood(-1);
-        ResourceManager.instance.GetRessources(ResourceType.gold, 1);
-    }
-
-    public void CreateFood(Card card)
-    {
-        CardManager.instance.RemoveCardFromHand(card);
-        ResourceManager.instance.ChangeFood(3);
-    }
-
-    public void BuyStone()
-    {
-        if (ResourceManager.instance.TryToSpendRessource(EffectCost))
-        {
-            ResourceManager.instance.GetRessources(ResourceType.stone, 1);
-        }
-    }
-    public void AddListenerSpawnNPC(Tile tile)
-    {
-        Vector3 spawnPosition = GridManager.Instance.GridToWorldPosition(tile.gridPosition);
-        TurnManager.OnPopulationIncreased.AddListener(() => TurnManager.Instance.SpawnNPC(spawnPosition));
+        return ranks[currentRank].cardsToAdd.Count > 0;
     }
 }
+[System.Serializable]
+public class RankData
+{
+    public int housingIncrease;
+    public bool usesCrafting;
+    public List<Card_Data> cardsToAdd;
+    public List<ResourceCost> resourceCosts;
+    public List<BuildingEffect> effects = new List<BuildingEffect>();
+    public List<CraftRecipe> craftingRecipes = new List<CraftRecipe>();
+}
+[System.Serializable]
+public class BuildingEffect
+{
+    public triggerType type;
+    public bool HasCoolDown;
+    public int cooldownDuration;
+    public List<ResourceCost> EffectCost = new List<ResourceCost>();
+    public List<Card_Data> temporaryCards;
+    public UnityEvent<BuildingObject, Card, BuildingEffect> OnTrigger = new UnityEvent<BuildingObject, Card,BuildingEffect>();
+    public enum triggerType
+    {
+        onBuild = 0,
+        onCard = 1,
+        onEndOfTurn = 2
+    }
+
+    public void Invoke(BuildingObject bO, Card card)
+    {
+        OnTrigger.Invoke(bO, card, this);
+    }
+
+}
+
+[System.Serializable]
+public class CraftRecipe
+{
+    public List<ResourceCost> costs;
+    public List<Card_Data> cardsToCreate;
+}
+
 

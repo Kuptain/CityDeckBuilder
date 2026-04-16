@@ -12,59 +12,99 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
   m_Name: "B_Sch\xE4fer"
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  ID: 0
   buildingName: "Sch\xE4fer"
-  buildingDescription: "F\xFCgt dem Deck 2 Schafkarten hinzu. \\n<b>Drag & Drop:</b>
+  buildingDescription: "F\xFCgt dem Deck 1 Schafkarten hinzu. \\n<b>Drag & Drop:</b>
     Dupliziere 1 Schafkarte."
-  cardsToAdd:
-  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
-  - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
-  housingIncrease: 0
   prefab: {fileID: 5122269274258173990, guid: 4d7a3378adf15944a887d26dcd7d6823, type: 3}
   uiIcon: {fileID: 21300000, guid: ccc7276eaee33fc4593ef02c0f517f6b, type: 3}
   uiButton: {fileID: 0}
-  resourceCosts:
-  - resource: 1
-    amount: 2
-  - resource: 2
-    amount: 1
-  endlessUses: 0
-  EffectCost:
-  - resource: 4
-    amount: 1
-  OnBuild:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: AddCards
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: BuildingData, Assembly-CSharp
-        m_MethodName: DuplicateCard
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
+  requiredTerrain: 0
+  ranks:
+  - cardsToAdd:
+    - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+    resourceCosts:
+    - resource: 6
+      amount: 1
+    - resource: 10
+      amount: 1
+    - resource: 5
+      amount: 1
+    housingIncrease: 0
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: AddCards
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      cardsToAdd: []
+  - cardsToAdd:
+    - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+    - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+    resourceCosts:
+    - resource: 4
+      amount: 1
+    housingIncrease: 0
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: AddCards
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      cardsToAdd: []
+  - cardsToAdd:
+    - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+    - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+    - {fileID: 11400000, guid: 3d74ee7747a965a4da7d10d68ee9b499, type: 2}
+    resourceCosts:
+    - resource: 4
+      amount: 1
+    housingIncrease: 0
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: AddCards
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      cardsToAdd: []

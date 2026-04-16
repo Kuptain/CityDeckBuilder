@@ -2,13 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CardManager : MonoBehaviour
+public class CardManager : Manager
 {
     #region singleton
     public static CardManager instance;
-
-
-
     private void Awake()
     {
         if (instance == null)
@@ -23,23 +20,26 @@ public class CardManager : MonoBehaviour
     #endregion
 
     #region events
-    public static UnityEvent<Card> OnDraw = new UnityEvent<Card>();
-    public static UnityEvent<Card> OnDiscard = new UnityEvent<Card>();
+    public static UnityEvent<Card,int> OnDraw = new UnityEvent<Card,int>();
+    public static UnityEvent<Card, bool> OnDiscard = new UnityEvent<Card, bool>(); // bool = was this card played (true) or just discarded (false)
+    public static UnityEvent OnProductiionToDeck = new UnityEvent();
+    public static UnityEvent<Card> OnCardDecayed = new UnityEvent<Card>();
     #endregion
 
-
-
     [Header("variables")]
-    public int HandSize;
+    public int handSize;
     public float cardSpeed = 5;
-    [Header("listen")]
+    public Card_Data population;
+    [Header("Cards")]
     public List<Card> deck = new List<Card>(10);
-    public List<Card> hand;
-    public List<Card> discardedCards;
+    public List<Handslot> hand;
+    public List<Card> temporaryHand;
+    public List<Card> productionDeck;
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(EndTurn);
         TurnManager.OnStartTurn.AddListener(StartTurn);
+        TurnManager.OnPopulationIncreased.AddListener(AddPopulationCardToProduction);
     }
     private void OnDestroy()
     {
@@ -49,43 +49,83 @@ public class CardManager : MonoBehaviour
     private void Update()
     {
         UpdateHUD(); // Probably move somewhere else, only when the values are actually changed
+        
     }
     private void UpdateHUD()
     {
         HUD.Instance.text_Deck.text = deck.Count.ToString();
-        HUD.Instance.text_Discard.text = discardedCards.Count.ToString();
+        HUD.Instance.text_Production.text = productionDeck.Count.ToString();
     }
     public void StartTurn()
     {
-        Debug.Log("Start Of Turn");
+        SendLog("Start Of Turn");
 
-        DrawCards(HandSize);
+        for(int i = 0; i < handSize; i++)
+        {
+            if (i >= hand.Count)
+            {
+                hand.Add(new Handslot());
+            }
+
+            if(hand[i].empty)
+            {
+                DrawCard(i);
+            }
+        }
+
+        //DrawCards(HandSize - hand.Count); // Refill back to hand size
     }
     public void EndTurn()
     {
-        Debug.Log("End Of Turn");
-        DiscardHand();
+        SendLog("End Of Turn");
+        //DiscardHand();
+        for(int i = 0; i < temporaryHand.Count; i++)
+        {
+            temporaryHand[i].EndOfTurnInHand();
+        }
     }
 
-    public void AddCardsToDeck(List<Card> cards)
+    public bool HasCardResource(Card card, ResourceType type)
     {
-        deck.AddRange(cards);
+        foreach(var resource in card.data.ressources)
+        {
+            if (resource.resource == type)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public void AddCardsToHand(List<Card> cards)
+    public void AddCardsToDeck(List<Card_Data> cards_Data)
     {
-        hand.AddRange(cards);
+        for (int i = 0; i < cards_Data.Count; i++)
+        {
+            deck.Add(new Card(cards_Data[i]));
+        }
     }
 
-    public void AddCardsToDiscard(List<Card> cards)
+    public void AddCardsToHand(List<Card_Data> cards_Data)
     {
-        discardedCards.AddRange(cards);
+        SendError("addCardsToHand is not implemented yet");
+    }
+    public void AddCardsToProduction(List<Card_Data> cards_Data)
+    {
+        for (int i = 0; i < cards_Data.Count; i++)
+        {
+            productionDeck.Add(new Card(cards_Data[i]));
+        }
     }
 
+    public void AddPopulationCardToProduction()
+    {
+        productionDeck.Add(new Card(population));
+    }
 
     public void ShuffleDeck()
     {
-        List<Card> newDeck = new List<Card>();
+        List<Card> newDeck = new List<Card >();
         while (deck.Count > 0)
         {
             int RandomIndex = Random.Range(0, deck.Count);
@@ -94,118 +134,97 @@ public class CardManager : MonoBehaviour
         }
         deck = newDeck;
     }
-
-    public void DrawCards(int count)
+    void DrawCard(int handPosition, int deckIndex = 0)
     {
-        for (int i = 0; i < count; i++)
-        {
-            DrawCard();
-        }
-    }
-
-    public void DrawCard(int index = 0)
-    {
-
         if (deck.Count > 0)
         {
-            index = Mathf.Clamp(index, 0, deck.Count - 1);
-            hand.Add(deck[index]);
-            OnDraw.Invoke(deck[index]);
-            deck.RemoveAt(index);
+            deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
+            hand[handPosition].DrawCard(deck[deckIndex],handPosition);
+            deck.RemoveAt(deckIndex);
         }
         else
         {
-            ReshuffleDiscard();
+            ProductionToDeck();
             if (deck.Count > 0)
             {
-                index = Mathf.Clamp(index, 0, deck.Count - 1);
-                hand.Add(deck[index]);
-                OnDraw.Invoke(deck[index]);
-                deck.RemoveAt(index);
+                deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
+                hand[handPosition].DrawCard(deck[deckIndex],handPosition);
+                deck.RemoveAt(deckIndex);
             }
             else
             {
                 //add reaction to nno cards beeing drawn
-                Debug.Log("No cards in the Deckk to Draw");
+                Debug.Log("No cards in the Deck to Draw");
             }
         }
     }
-
-    public void DiscardCard(int index = 0)
+    public void DiscardCard(int index = 0, bool wasPlayed = false)
     {
         if (index < hand.Count && index >= 0)
         {
-            discardedCards.Add(hand[index]);
-            OnDiscard.Invoke(hand[index]);
-            hand.RemoveAt(index);
+            hand[index].Discard(wasPlayed);
         }
     }
-    public void DiscardCard(Card card)
+    public void DiscardCard(Card card, bool wasPlayed = false)
     {
-        if (hand.Contains(card))
+        for( int i = 0; i< hand.Count; i++)
         {
-            discardedCards.Add(card);
-            OnDiscard.Invoke(card);
-            hand.Remove(card);
+            if(hand[i].currentCard == card)
+            {
+                SendLog("discard " + card.data.cardName);
+                hand[i].Discard(wasPlayed);
+                TurnManager.OnEndTurn.Invoke();
+                return;
+            }
         }
-    }
-
-    public void DiscardHand()
-    {
-        discardedCards.AddRange(hand);
-        foreach (Card c in hand)
+        for (int i = 0; i < temporaryHand.Count; i++)
         {
-            OnDiscard.Invoke(c);
+            if (temporaryHand[i] == card)
+            {
+                SendLog("discard " + card.data.cardName);
+                CardManager.OnDiscard.Invoke(temporaryHand[i], wasPlayed);
+                //TurnManager.OnEndTurn.Invoke();
+                return;
+            }
         }
-        hand.Clear();
-    }
 
-    public void ReshuffleDiscard()
+
+    }
+    public void ProductionToDeck()
     {
-        deck.AddRange(discardedCards);
+        for(int i = 0; i < productionDeck.Count; i++)
+        {
+            deck.Add(new Card(productionDeck[i]));
+        }
         ShuffleDeck();
-        discardedCards.Clear();
+        //discardedCards.Clear();
+        OnProductiionToDeck.Invoke();
     }
 
-    public void RemoveCardFromHand(Card card)
+    public void GetTemporaryCard(Card_Data data)
     {
-        hand.Remove(card);
-        OnDiscard.Invoke(card);
+        Card newCard = new Card(data);
+        newCard.temporary = true;
+        temporaryHand.Add(newCard);
+        OnDraw.Invoke(newCard,handSize+temporaryHand.Count-1);
     }
-
     #region test functions
     [ContextMenu("shuffle Deck")]
-    public void Test_Shuffle()
+    void Test_Shuffle()
     {
         ShuffleDeck();
     }
 
     [ContextMenu("resshuffle Discard")]
-    public void Test_Reshuffle()
+    void Test_Reshuffle()
     {
-        ReshuffleDiscard();
+        ProductionToDeck();
     }
 
-    [ContextMenu("draw Hand")]
-    public void Test_DrawHand()
-    {
-        DrawCards(HandSize);
-    }
-
-    [ContextMenu("draw Card")]
-    public void Test_Draw()
-    {
-        DrawCard();
-    }
     [ContextMenu("discard Card")]
-    public void Discard()
+    void Discard()
     {
-        DiscardCard(0);
-    }
-    [ContextMenu("discard Hand")]
-    public void Test_DiscardHand()
-    {
-        DiscardHand();
+        DiscardCard(0, false);
     }
     #endregion
 }

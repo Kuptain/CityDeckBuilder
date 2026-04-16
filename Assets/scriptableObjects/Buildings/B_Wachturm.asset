@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
+  m_Name: B_Wachturm
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  buildingName: Wachturm
+  buildingDescription: discover tiles in range
+  test: 0
+  prefab: {fileID: 5122269274258173990, guid: 3afa97580c2722445b7b4b155d83f585, type: 3}
+  uiIcon: {fileID: 21300000, guid: 1b8aa1f3605a01d4da95a89a20e5bd85, type: 3}
+  uiButton: {fileID: 0}
+  requiredTerrain: 0
+  ranks:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd: []
+    resourceCosts:
+    - resource: 1
+      amount: 2
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      temporaryCards: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: discoverTiles
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes: []
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd: []
+    resourceCosts: []
+    effects:
+    - type: 0
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost: []
+      temporaryCards: []
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: discoverMoreTiles
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes: []

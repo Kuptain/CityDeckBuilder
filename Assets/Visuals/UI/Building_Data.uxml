@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:TextField label="Name" placeholder-text="please fill in..." binding-path="buildingName" enabled="true" name="name" class="unity-base-field_aligned"/>
+    <ui:TextField label="Description" placeholder-text="please fill in..." binding-path="buildingDescription" enabled="true" name="description" class="unity-base-field_aligned"/>
+</ui:UXML>

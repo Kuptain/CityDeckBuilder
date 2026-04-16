@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
+  m_Name: B_Fischer
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  buildingName: Fischer
+  buildingDescription: fischt fischige Fische
+  test: 0
+  prefab: {fileID: 5122269274258173990, guid: 3c18fc677ffc63048accf8e790a33de5, type: 3}
+  uiIcon: {fileID: 21300000, guid: 14e8898770bf43340adc168aa5662f9b, type: 3}
+  uiButton: {fileID: 0}
+  requiredTerrain: 5
+  isLocked: 0
+  ranks:
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd: []
+    resourceCosts:
+    - resource: 1
+      amount: 1
+    - resource: 5
+      amount: 1
+    effects:
+    - type: 1
+      HasCoolDown: 0
+      cooldownDuration: 0
+      EffectCost:
+      - resource: 5
+        amount: 1
+      temporaryCards:
+      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createTemporaryCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes:
+    - costs: []
+      cardsToCreate: []
+  - housingIncrease: 0
+    usesCrafting: 0
+    cardsToAdd: []
+    resourceCosts:
+    - resource: 1
+      amount: 2
+    - resource: 5
+      amount: 1
+    effects:
+    - type: 1
+      HasCoolDown: 1
+      cooldownDuration: 2
+      EffectCost:
+      - resource: 5
+        amount: 1
+      temporaryCards:
+      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
+      - {fileID: 11400000, guid: 942525840f8ce504daa15c72d6a18904, type: 2}
+      OnTrigger:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+            m_MethodName: createTemporaryCard
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    craftingRecipes: []

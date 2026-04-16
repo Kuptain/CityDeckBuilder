@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11a9e687b1d2224c9438657ab8792f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
-  HandSize: 5
+  debugMode: 0
+  handSize: 3
   cardSpeed: 25
+  population: {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
   deck: []
   hand: []
-  discardedCards: []
+  temporaryHand: []
+  productionDeck: []

@@ -1,21 +1,29 @@
 using UnityEngine;
 using System.Collections.Generic;
 using static Tile;
-using static Unity.Collections.Unicode;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
-public class BuildingManager : MonoBehaviour
+public class BuildingManager : Manager
 {
-
+    [SerializeField] GameObject lockedBuildingParent;
+    [SerializeField] GameObject buildingParent;
+    public GameObject buildingConstructionUIPrefab;
     [SerializeField] GameObject buildingButtonPrefab;
+    public BuildingData centreBuilding;
+    public BuildingData blueprintBuilding;
+    [SerializeField] bool unlockAllBuildings; // DEBUG
     [SerializeField] List<BuildingData> unlockedBuildings;
-    [SerializeField] float previewBuildingSnapStrength = 0.5f;
+    public List<BuildingData> lockedBuildings;
+    //[SerializeField] float previewBuildingSnapStrength = 0.5f;
+
     public BuildingData selectedBuilding { get; set; }
     public Dictionary<int, BuildingObject> spawnedBuildings = new Dictionary<int, BuildingObject>(); // To save progress later
+
     public Material outlineHover;
     public Material outlineDragCard;
     public Material outlineClickable;
+    public Material matPreviewBuilding;
 
     private GameObject previewBuilding;
     private Transform buildingsPanel;
@@ -36,14 +44,47 @@ public class BuildingManager : MonoBehaviour
     }
     private void Start()
     {
+        SetupInitialUnlockedBuildings();
+    }
+
+    void SetupInitialUnlockedBuildings()
+    {
         buildingsPanel = HUD.Instance.panelBuildingButtons;
-        foreach(var building in unlockedBuildings)
+        foreach (var building in unlockedBuildings)
         {
-            GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
-            BuildingButton button = buttonGO.GetComponent<BuildingButton>();
-            button.ChangeBuildingData(building);
+            SpawnBuildingButton(building);
+        }
+        if (unlockAllBuildings)
+        {
+            foreach (var building in lockedBuildings)
+            {
+                SpawnBuildingButton(building);
+            }
         }
     }
+
+    public bool UnlockBuilding(BuildingData building)
+    {
+        Debug.Log("1) UnlockBuilding: " + building.buildingName);
+        if (!unlockedBuildings.Contains(building) && lockedBuildings.Contains(building))
+        {
+            Debug.Log("2) UnlockBuilding: " + building.buildingName);
+            SpawnBuildingButton(building);
+            unlockedBuildings.Add(building);
+            lockedBuildings.Remove(building);
+
+            return true;
+        }
+        return false;
+    }
+
+    void SpawnBuildingButton(BuildingData building)
+    {
+        GameObject buttonGO = Instantiate(buildingButtonPrefab, buildingsPanel);
+        BuildingButton button = buttonGO.GetComponent<BuildingButton>();
+        button.ChangeBuildingData(building);
+    }
+
     private void Update()
     {
         MouseInputRaycast();
@@ -53,7 +94,7 @@ public class BuildingManager : MonoBehaviour
     {
         if (Mouse.current != null)
         {
-            var raycastHit = GroundRaycast();
+            var raycastHit = GridManager.Instance.GroundRaycast();
 
             if (previewBuilding != null)
             {
@@ -66,55 +107,23 @@ public class BuildingManager : MonoBehaviour
                 {
                     previewBuilding.transform.position = Vector3.Lerp(previewBuilding.transform.position, raycastHit.hitPosition, 0.6f);
                 }
-               
+
             }
 
             if (Mouse.current.leftButton.wasReleasedThisFrame && previewBuilding != null)
             {
-                Destroy(previewBuilding);
-
                 if (raycastHit.isGround)
                 {
-                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding);
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false, false);
+                }
+                else
+                {
+                    Destroy(previewBuilding);
                 }
             }
         }
     }
-    private (Vector3 hitPosition, bool isGround, Transform hitTransform) GroundRaycast()
-    {
-        Vector3 hitPosition = new Vector3();
-        bool isGround = false;
-        Transform hitTransform = null;
 
-        int layer_maskGround = LayerMask.GetMask("Ground");
-
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        RaycastHit hit;
-
-        // Try ground raycast first
-        if (Physics.Raycast(ray, out hit, 1000f, layer_maskGround))
-        {
-            if (hit.transform.GetComponent<Ground>() != null)
-            {
-                hitPosition = hit.point;
-                isGround = true;
-                hitTransform = hit.collider.transform;
-            }
-        }
-        else
-        {
-            // Fallback if no ground hit
-            Plane fallbackPlane = new Plane(Vector3.up, Camera.main.transform.position + Camera.main.transform.forward * 60f);
-
-            if (fallbackPlane.Raycast(ray, out float distance))
-            {
-                hitPosition = ray.GetPoint(distance);
-            }
-        }
-
-        return (hitPosition, isGround, hitTransform);
-    }
     private void OnEnable()
     {
         BuildingButton.OnPressedBuildingUI += SpawnBuildingPreview;
@@ -126,77 +135,117 @@ public class BuildingManager : MonoBehaviour
     }
     private void SpawnBuildingPreview(BuildingData building)
     {
-        if (ResourceManager.instance.IHaveEnoughRessources(building.resourceCosts))
-        {
-            selectedBuilding = building;
+        HUD.Instance.EnterUI();
+        selectedBuilding = building;
 
-            var raycastHit = GroundRaycast();
-            previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity);
-            previewBuilding.GetComponent<BuildingObject>().data = building;
-            previewBuilding.transform.GetChild(0).gameObject.SetActive(false);
-            previewBuilding.transform.GetChild(1).gameObject.SetActive(true);
-        }
+        var raycastHit = GridManager.Instance.GroundRaycast();
+        previewBuilding = Instantiate(building.prefab, raycastHit.hitPosition, Quaternion.identity,buildingParent.transform);
+        previewBuilding.GetComponent<BuildingObject>().BuildingPreviewSetup(building);
+        //ToggleBuildingPreview(previewBuilding, true);
     }
 
-   
-
-    public void SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool payBuildCost = true)
+    private void ToggleBuildingPreview(GameObject building, bool state)
     {
-        GridManager gridManager = GridManager.Instance;
-        if (payBuildCost)
+        if (building.TryGetComponent<BuildingObject>(out var buildingObject))
         {
-            if ((buildingToSpawn.resourceCosts.Count > 0 && ResourceManager.instance.IHaveEnoughRessources(buildingToSpawn.resourceCosts))
-            || buildingToSpawn.resourceCosts.Count == 0)
+            if (state)
             {
-                ResourceManager.instance.SpendRessources(buildingToSpawn.resourceCosts);
+                buildingObject.EnablePreviewMaterials();
             }
             else
             {
-                return;
+                buildingObject.EnableOriginMaterials();
             }
         }
+    }
+
+    public BuildingObject SpawnBuilding(Vector2Int gridPosition, BuildingData buildingToSpawn, bool ignoreRestrains, bool isLocked)
+    {
+        GridManager gridManager = GridManager.Instance;
 
         if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
-            if (tile.currentBuilding == null)
+            if (tile.currentBuilding == null && (ignoreRestrains || (!ignoreRestrains && tile.isExplored)))
             {
+                
+                BuildingObject buildingObject;
 
-                Tile currentTile = gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)];
+                if (previewBuilding == null)
+                {
+                    Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
+                    previewBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity,lockedBuildingParent.transform);
 
-                GameObject spawnedBuilding = Instantiate(buildingToSpawn.prefab, gridManager.GridToWorldPosition(gridPosition), Quaternion.identity);
-                spawnedBuilding.transform.GetChild(0).gameObject.SetActive(true);
-                spawnedBuilding.transform.GetChild(1).gameObject.SetActive(false);
-                var buildingObject = spawnedBuilding.GetComponent<BuildingObject>();
-                //buildingObject.EnableOutline(); // Test outline
+                    buildingObject = previewBuilding.GetComponent<BuildingObject>();
+                    buildingObject.BuildingPreviewSetup(buildingToSpawn);
+                }
+                else
+                {
+                    HUD.Instance.ExitUI();
+                    buildingObject = previewBuilding.GetComponent<BuildingObject>();
+                }
 
-                currentTile.currentBuilding = spawnedBuilding.GetComponent<BuildingObject>();
-                currentTile.currentBuilding.data = buildingToSpawn;
-                gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = currentTile;
+                TileVisual tileVisual = TileVisualsManager.Instance.GetVisualTilelData(tile.gridPosition);
+                tileVisual.buildingObject = previewBuilding;
+
+                //InteractionManager.OnPickUpCard.AddListener(tileVisual.EnableHighlight);
+                //InteractionManager.OnReleaseCard.AddListener(tileVisual.DisableHighlight);
+
+                tile.currentBuilding = previewBuilding.GetComponent<BuildingObject>();
+                tile.currentBuilding.BuildingSetup(buildingToSpawn, tile, isLocked);
+
+                previewBuilding = null;
+
+                // Apply Grid Array
+                gridManager.gridArray[gridManager.GetIndex(gridPosition.x, gridPosition.y)] = tile;
                 spawnedBuildings.Add(gridManager.GetIndex(gridPosition.x, gridPosition.y), buildingObject);
-               
+
 
                 foreach (Tile _tile in GridManager.Instance.GetTilesInRange(gridPosition, 0))
                 {
-                    Tile tileInRange = TileVisualsManager.Instance.GetVisualTilelData(_tile.gridPosition);
+                    //Tile tileInRange = TileVisualsManager.Instance.GetVisualTilelData(_tile.gridPosition);
+                    GridManager.Instance.TryGetTile(_tile.gridPosition, out Tile tileInRange);
+                    
                     if (tileInRange.tileType != TileType.Edge && tileInRange.tileType != TileType.Centre)
                     {
                         TileVisualsManager.Instance.HandleOnUpdateTileVisual(tileInRange.gridPosition, TileType.Default);
                     }
                     else
                     {
-                        Debug.LogWarning($"No visual found for tile at {gridPosition}");
+                        Debug.LogWarning($"No visual found for tile at {gridPosition}, tileType: " + tile.tileType);
                     }
                 }
+                return buildingObject; 
+            }
+            else
+            {
+                if (previewBuilding != null)
+                {
+                    Destroy(previewBuilding);
+                    previewBuilding = null;
+                    HUD.Instance.ExitUI();
+                }
 
-                //Adding Cards
-                currentTile.currentBuilding.Build(currentTile);
-                currentTile.currentBuilding.tile = currentTile;
+                return null;
             }
         }
 
-     
+        return null;
     }
 
+    public void DestroyBuilding(Vector2Int gridPosition)
+    {
+        if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
+        {
+            if (tile.currentBuilding != null)
+            {
+                tile.currentBuilding =null;
 
-    
+                GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)] = tile;
+                spawnedBuildings.Remove(GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y));
+            }
+
+
+        }
+    }
+
 }

@@ -78,7 +78,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 2
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -104,8 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   ID: 0
   originPosition: {x: 0, y: 0, z: 0}
-  wanderRadius: 20
-  wanderInterval: {x: 1, y: 12}
+  wanderRadius: 12
+  wanderInterval: {x: 4, y: 12}
 --- !u!1001 &1092380940013790959
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 777fa78a6a9087a4c8538c224a845166, type: 3}
+  m_Name: B_Park
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  buildingName: Park
+  buildingDescription: Erzeugt 1 Wohnraum pro benachbartem Wohnhaus.
+  prefab: {fileID: 5122269274258173990, guid: 8a269fe372853cf4ea37bad3d9e3c4f7, type: 3}
+  uiIcon: {fileID: 21300000, guid: 11062db1551090e4a992d13b520559a7, type: 3}
+  uiButton: {fileID: 0}
+  ranks:
+  - cardsToAdd:
+    - {fileID: 0}
+    resourceCosts: []
+    housingIncrease: 0
+    effects: []
