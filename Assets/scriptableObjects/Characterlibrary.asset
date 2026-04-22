@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a7962b71a253449ac13985206d4c77, type: 3}
+  m_Name: Characterlibrary
+  m_EditorClassIdentifier: Assembly-CSharp::Characterlibrary
+  names:
+  - George
+  - Elizabeth
+  - Alejo
+  - Ellen
+  - Thomas
+  - Ben
+  - Raj
+  - Tessa
+  - Noor
+  - Amy
+  - Rose
+  - Will
+  - Ester
+  - Austin
+  - Aero
+  - Abdu
+  - Karl
+  surnames:
+  - Burnes
+  - Schmidt
+  - Attridge
+  - Carsley
+  - Denison
+  - Everly
+  - East
+  - Fichter
+  - Gloak
+  - Hexter
+  - Irvin
+  - Juppe
+  - Kiplin
+  - Locksford
+  - Marx
+  - Nivet
+  - Narramore
+  - Orritt
+  - Pye
+  - Quilty
+  - Roderarm
+  - Stebbins
+  - Twitchet
+  - Tycer
+  - Unsted
+  - Vicary
+  - Werth
+  - Wipple
+  - Yoakum
+  - Zentner
+  - Zephara
+  colorits:
+  - baseColor: {r: 0, g: 0.2735849, b: 0.020978345, a: 1}
+    secondColor: {r: 0.0028479954, g: 0.6037736, b: 0.045771234, a: 1}
+    highlightColor: {r: 0.6132076, g: 0.020247431, b: 0.45226124, a: 1}
+  - baseColor: {r: 0.5943396, g: 0.38493708, b: 0, a: 1}
+    secondColor: {r: 0.8301887, g: 0.5352532, b: 0, a: 1}
+    highlightColor: {r: 0, g: 0.48590878, b: 0.83137256, a: 1}
+  - baseColor: {r: 0.6226415, g: 0, b: 0, a: 1}
+    secondColor: {r: 0.8490566, g: 0, b: 0, a: 1}
+    highlightColor: {r: 0, g: 0.8509804, b: 0.8509804, a: 1}
+  - baseColor: {r: 0.3301887, g: 0, b: 0.11766855, a: 1}
+    secondColor: {r: 0.6698113, g: 0, b: 0.23921837, a: 1}
+    highlightColor: {r: 0, g: 0.67058825, b: 0.26792935, a: 1}
+  - baseColor: {r: 0.048179924, g: 0, b: 0.4811321, a: 1}
+    secondColor: {r: 0.19692479, g: 0.13710396, b: 0.745283, a: 1}
+    highlightColor: {r: 0.68662566, g: 0.745283, b: 0, a: 1}
+  - baseColor: {r: 0.6226415, g: 0.6089669, b: 0, a: 1}
+    secondColor: {r: 0.8490566, g: 0.8290065, b: 0.052064814, a: 1}
+    highlightColor: {r: 0.04118896, g: 0, b: 0.7830189, a: 1}
+  - baseColor: {r: 0.5943396, g: 0, b: 0.22858, a: 1}
+    secondColor: {r: 0.7830189, g: 0.0110804355, b: 0.30563587, a: 1}
+    highlightColor: {r: 0.011764695, g: 0.78431374, b: 0.39499953, a: 1}
+  - baseColor: {r: 0.27749035, g: 0.5188679, b: 0, a: 1}
+    secondColor: {r: 0.39072326, g: 0.7264151, b: 0, a: 1}
+    highlightColor: {r: 0.402393, g: 0, b: 0.7254902, a: 1}
