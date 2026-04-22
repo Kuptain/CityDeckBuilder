@@ -447,7 +447,11 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             {
                 if (costsDirty)
                 {
-                    List<ResourceCost> _openCosts = new List<ResourceCost>(Costs);
+                    List<ResourceCost> _openCosts = new List<ResourceCost>();
+                    for (int i = 0; i < Costs.Count; i++)
+                    {
+                        _openCosts.Add(new ResourceCost(Costs[i].resource, Costs[i].amount));
+                    }
                     for (int i = _openCosts.Count - 1; i >= 0; i--)
                     {
                         for (int j = 0; j < CostsPayed.Count; j++)
