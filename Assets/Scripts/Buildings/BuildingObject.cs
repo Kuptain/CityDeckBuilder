@@ -14,6 +14,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] public bool isConstructing;
     [Header("construction")]
     [ReadOnly] public EffectCostVisualizer constructionUI;
+    [ReadOnly] public bool isLocked;
     [Header("ability")]
     [ReadOnly] [SerializeField] OpenEffect openEffect;
     [ReadOnly] [SerializeField] bool hasCD;
@@ -46,17 +47,18 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         EnablePreviewMaterials();
     }
-    public void BuildingSetup(BuildingData _data, Tile _tile, bool isLocked)
+    public void BuildingSetup(BuildingData _data, Tile _tile, bool _isLocked)
     {
         //references
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         cooldown = cooldownDuration;
         tile = _tile;
+        isLocked = _isLocked;
         if (isLocked)
         {
             var unlockCost = new List<ResourceCost>();
-            var resource = new ResourceCost(ResourceType.person, 4);
+            var resource = BuildingManager.Instance.blueprintCost;
             unlockCost.Add(resource);
             openEffect = new OpenEffect(OpenEffect.Type.construction, unlockCost, BuildingUnlocked);
         }

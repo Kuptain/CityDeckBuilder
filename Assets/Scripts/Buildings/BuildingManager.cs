@@ -12,6 +12,7 @@ public class BuildingManager : Manager
     [SerializeField] GameObject buildingButtonPrefab;
     public BuildingData centreBuilding;
     public BuildingData blueprintBuilding;
+    public ResourceCost blueprintCost;
     [SerializeField] bool unlockAllBuildings; // DEBUG
     [SerializeField] List<BuildingData> unlockedBuildings;
     public List<BuildingData> lockedBuildings;

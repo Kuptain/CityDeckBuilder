@@ -51,6 +51,9 @@ MonoBehaviour:
   buildingButtonPrefab: {fileID: 495298549434245956, guid: 7798e41e176288a4b8e66910b56de6a7, type: 3}
   centreBuilding: {fileID: 11400000, guid: 1b51be2cf9551a8459e86bc9220dcabe, type: 2}
   blueprintBuilding: {fileID: 11400000, guid: 2fced3cc4160b1246bc7b7d9000138a3, type: 2}
+  blueprintCost:
+    resource: 5
+    amount: 2
   unlockAllBuildings: 0
   unlockedBuildings:
   - {fileID: 11400000, guid: d92364cde81313744bfa08a98d71636d, type: 2}

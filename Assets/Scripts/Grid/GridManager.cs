@@ -100,6 +100,12 @@ public class GridManager : MonoBehaviour
         }
         return x + y * width;
     }
+    public void ApplyTileChanges(Tile tile)
+    {
+        // Apply this tile back to the gridArray
+        int index = GetIndex(tile.gridPosition.x, tile.gridPosition.y);
+        gridArray[index] = tile;
+    }
 
     public bool TryGetTile(int x, int y, out Tile tile)
     {

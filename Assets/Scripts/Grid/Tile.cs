@@ -10,6 +10,7 @@ public struct Tile
     [ReadOnly] public bool isValid;
 
     [ReadOnly] public bool isExplored;
+    [ReadOnly] public bool isExplorable;
     [ReadOnly] public bool isVisible;
 
     [ReadOnly] public byte rotationIndex;
@@ -33,8 +34,8 @@ public struct Tile
         }
 
         // Apply this tile back to the gridArray
-        int index = GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y);
-        GridManager.Instance.gridArray[index] = this;
+        GridManager.Instance.ApplyTileChanges(this);
+
 
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {

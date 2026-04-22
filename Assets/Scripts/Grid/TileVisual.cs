@@ -21,6 +21,7 @@ public class TileVisual : MonoBehaviour
     public GameObject fogOfWar_visible;
     public GameObject outlineHover;
     public GameObject outlinePlayable;
+    public GameObject outlineExplorable;
     public GameObject outlineEffect;
     public GameObject directionOutlines_parent;
 
@@ -38,15 +39,14 @@ public class TileVisual : MonoBehaviour
     {
         if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
         {
-            if (!tile.isExplored && tile.isVisible && CardManager.instance.HasCardResource(card, ResourceType.person))
+            if (!tile.isExplored && tile.isVisible && tile.isExplorable && CardManager.instance.HasCardResource(card, ResourceType.person))
             {
-                outlinePlayable.SetActive(true);
+                outlineExplorable.SetActive(true);
                 return;
             }
 
             if (tile.currentBuilding != null && tile.isExplored)
             {
-                Debug.Log("IsExplored: " + tile.isExplored);
                 var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
                 if (card.CheckMatchingResources(buildingResourceCosts))
                 {
@@ -68,6 +68,7 @@ public class TileVisual : MonoBehaviour
     {
         outlinePlayable.SetActive(false);
         outlineEffect.SetActive(false);
+        outlineExplorable.SetActive(false);
     }
 
     public void SetExploredVisual(bool isExplored, bool isVisible)
@@ -109,6 +110,12 @@ public class TileVisual : MonoBehaviour
                     if (!tileNeighbor.isExplored)
                     {
                         ToggleDirectionOutline(direction, true);
+                        if (GridManager.Instance.TryGetTile(tileNeighbor.gridPosition, out Tile neighbour))
+                        {
+                            neighbour.isExplorable = true;
+                            GridManager.Instance.ApplyTileChanges(neighbour);
+
+                        }
                     }
                     else
                     {
