@@ -23,6 +23,10 @@ public struct Tile
         if (state == true)
         {
             SetVisibleState(true);
+            if (currentBuilding != null)
+            {
+                currentBuilding.constructionUI.ToggleVisible(true);
+            }
         }
         if (enableInvisibleTiles)
         {
