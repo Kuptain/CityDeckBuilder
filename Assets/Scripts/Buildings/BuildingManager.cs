@@ -166,7 +166,8 @@ public class BuildingManager : Manager
 
         if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
-            if (tile.currentBuilding == null && (ignoreRestrains || (!ignoreRestrains && tile.isExplored)))
+            if (tile.currentBuilding == null && 
+                ( ignoreRestrains || (!ignoreRestrains && tile.isExplored && tile.tileType == TileType.Default)) )
             {
                 
                 BuildingObject buildingObject;
