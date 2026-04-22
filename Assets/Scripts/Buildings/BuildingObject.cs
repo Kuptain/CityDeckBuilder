@@ -64,7 +64,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         else
         {
-            openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), Constructionfinished);
+            openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), ConstructionFinished);
         }
         isConstructing = true;
         constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
@@ -159,7 +159,6 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             {
                 openEffect = null;
             }
-
             CardManager.instance.DiscardCard(card, true);
         }
 
@@ -188,11 +187,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         return openEffect.CostsStillOpen;
     }
-    void Constructionfinished()
-    {
-        isConstructing = false;
-        OnBuildEffect();
-    }
+
     void BuildingUnlocked()
     {
         BuildingManager.Instance.UnlockBuilding(data);
@@ -200,10 +195,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         Destroy(gameObject);
     }
 
-    public void FinishConstruction()
+    public void ConstructionFinished()
     {
         isConstructing = false;
         OnBuildEffect();
+    }
+    public void ForceConstructionFinished()
+    {
+        isConstructing = false;
+        OnBuildEffect();
+        openEffect = null;
     }
     public void AddCardToStock(Card card)
     {
