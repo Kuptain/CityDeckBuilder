@@ -90,6 +90,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         rank += 1;
         OnBuildEffect();
+        isConstructing = false;
     }
 
     void OnBuildEffect()

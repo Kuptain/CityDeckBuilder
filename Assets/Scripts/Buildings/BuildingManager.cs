@@ -115,7 +115,7 @@ public class BuildingManager : Manager
             {
                 if (raycastHit.isGround)
                 {
-                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false, false);
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitTransform.position), selectedBuilding, false, false);
                 }
                 else
                 {
@@ -182,6 +182,8 @@ public class BuildingManager : Manager
                 }
                 else
                 {
+                    previewBuilding.transform.position = GridManager.Instance.GridToWorldPosition(gridPosition);
+
                     HUD.Instance.ExitUI();
                     buildingObject = previewBuilding.GetComponent<BuildingObject>();
                 }
