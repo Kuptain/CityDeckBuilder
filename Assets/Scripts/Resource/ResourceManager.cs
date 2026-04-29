@@ -42,6 +42,7 @@ public class ResourceManager : Manager
     private void Start()
     {
         //TurnManager.OnEndTurn.AddListener(LooseAllRessources);
+        SetFood(food);
         CalculateHousing(0);
         OnHousingChange.AddListener(CalculateHousing);
     }
@@ -59,6 +60,7 @@ public class ResourceManager : Manager
             HUD.Instance.text_HousingCount.text = housing.ToString();
             //add feedback here to show how much the housing increased
         }
+        TurnManager.Instance.CheckLosingCondition(false);
     }
 
     public void ChangeFood(int amount)

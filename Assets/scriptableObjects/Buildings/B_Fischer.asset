@@ -31,8 +31,8 @@ MonoBehaviour:
       amount: 1
     effects:
     - type: 1
-      HasCoolDown: 0
-      cooldownDuration: 0
+      HasCoolDown: 1
+      cooldownDuration: 2
       EffectCost:
       - resource: 5
         amount: 1

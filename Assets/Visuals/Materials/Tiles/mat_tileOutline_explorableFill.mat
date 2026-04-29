@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_tileOutline_playableFill
+  m_Name: mat_tileOutline_explorableFill
   m_Shader: {fileID: 4800000, guid: abba5bec794249d49a74074df94b1ce5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -122,7 +122,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 0.3803922, g: 0.8466205, b: 1, a: 0.19607843}
-    - _Color: {r: 0.38039216, g: 0.84705883, b: 1, a: 0.11764706}
+    - _Color: {r: 0, g: 1, b: 0.44939637, a: 0.15686275}
     - _EmissionColor: {r: 0.0625, g: 0.052301057, b: 0.0067806616, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

@@ -2386,7 +2386,7 @@ GameObject:
   - component: {fileID: 4989844955662272704}
   - component: {fileID: 8430744547068527016}
   m_Layer: 0
-  m_Name: Background Description
+  m_Name: Background Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4753,6 +4753,9 @@ MonoBehaviour:
   recipeButtonPrefab: {fileID: 2533482266973051634, guid: af742c8a99b58434b8880acf9d0c24c0, type: 3}
   UpgradeButton: {fileID: 7916077579891541968}
   CancleButton: {fileID: 3846137796817295172}
+  SettingsRectTransform: {fileID: 700329432003315596}
+  BuildingIcon: {fileID: 2571723430888412142}
+  RecipeIcon: {fileID: 1031591825184737165}
   padding: 30
   paddingResouceIcons: 0
   pivotTopLeft: {x: 30, y: -30}
@@ -5697,7 +5700,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7199627004064070722}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

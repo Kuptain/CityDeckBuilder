@@ -232,7 +232,7 @@ public class TileVisualsManager : MonoBehaviour
                     Instantiate(cameraController, GridManager.Instance.GridToWorldPosition(gridPosition), Quaternion.identity);
 
                     BuildingObject _centreBuilding = BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), BuildingManager.Instance.centreBuilding, true, false);
-                    _centreBuilding.FinishConstruction();
+                    _centreBuilding.ForceConstructionFinished();
                     IconAnimationManager.OnCentrebuilding.Invoke(_centreBuilding);
                 }
                 else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)

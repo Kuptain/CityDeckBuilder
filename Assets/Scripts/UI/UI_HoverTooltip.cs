@@ -25,6 +25,9 @@ public class UI_HoverTooltip : UIBase
     [SerializeField] private GameObject recipeButtonPrefab;
     [SerializeField] private GameObject UpgradeButton;
     [SerializeField] private GameObject CancleButton;
+    [SerializeField] private RectTransform SettingsRectTransform;
+    [SerializeField] private GameObject BuildingIcon;
+    [SerializeField] private GameObject RecipeIcon;
     [SerializeField] private float padding = 150f;
     [SerializeField] private float paddingResouceIcons = 50f;
     [SerializeField] private Vector2 pivotTopLeft;
@@ -93,8 +96,23 @@ public class UI_HoverTooltip : UIBase
         Vector3 screenPos = Camera.main.WorldToScreenPoint(building.transform.position);
         ShowTooltip(building.data.buildingName, building.data.buildingDescription, building.data.GetBaseCost(), screenPos, UI_HoverTooltip.Pivot.TopLeft, building.GetInstanceID(), true);
         selectedBuilding = building;
-        UpgradeButton.SetActive(building.HasUpgrade());
-        CancleButton.SetActive(building.HasOpenEffect(out effect));
+
+        if (!building.isLocked)
+        {
+            CancleButton.SetActive(building.HasOpenEffect(out effect));
+            UpgradeButton.SetActive(building.HasUpgrade() && !building.HasOpenEffect(out effect));
+
+        }
+        else
+        {
+            CancleButton.SetActive(false);
+            UpgradeButton.SetActive(false);
+        }
+
+        BuildingIcon.SetActive(CancleButton.activeSelf || UpgradeButton.activeSelf);
+        RecipeIcon.SetActive(RecipeIcon.transform.childCount >= 3);
+        buildingSettings.SetActive(BuildingIcon.activeSelf || RecipeIcon.activeSelf);
+
         List<CraftRecipe> recipes;
 
 

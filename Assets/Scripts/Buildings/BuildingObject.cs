@@ -14,6 +14,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] public bool isConstructing;
     [Header("construction")]
     [ReadOnly] public EffectCostVisualizer constructionUI;
+    [ReadOnly] public bool isLocked;
     [Header("ability")]
     [ReadOnly] [SerializeField] OpenEffect openEffect;
     [ReadOnly] [SerializeField] bool hasCD;
@@ -46,23 +47,24 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         EnablePreviewMaterials();
     }
-    public void BuildingSetup(BuildingData _data, Tile _tile, bool isLocked)
+    public void BuildingSetup(BuildingData _data, Tile _tile, bool _isLocked)
     {
         //references
         data = _data;
         hasCD = TryGetCooldOwnDuration(out cooldownDuration);
         cooldown = cooldownDuration;
         tile = _tile;
+        isLocked = _isLocked;
         if (isLocked)
         {
             var unlockCost = new List<ResourceCost>();
-            var resource = new ResourceCost(ResourceType.person, 4);
+            var resource = BuildingManager.Instance.blueprintCost;
             unlockCost.Add(resource);
             openEffect = new OpenEffect(OpenEffect.Type.construction, unlockCost, BuildingUnlocked);
         }
         else
         {
-            openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), Constructionfinished);
+            openEffect = new OpenEffect(OpenEffect.Type.construction, _data.GetBaseCost(), ConstructionFinished);
         }
         isConstructing = true;
         constructionUI = Instantiate(BuildingManager.Instance.buildingConstructionUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<EffectCostVisualizer>();
@@ -88,6 +90,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         rank += 1;
         OnBuildEffect();
+        isConstructing = false;
     }
 
     void OnBuildEffect()
@@ -157,7 +160,6 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             {
                 openEffect = null;
             }
-
             CardManager.instance.DiscardCard(card, true);
         }
 
@@ -186,11 +188,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         return openEffect.CostsStillOpen;
     }
-    void Constructionfinished()
-    {
-        isConstructing = false;
-        OnBuildEffect();
-    }
+
     void BuildingUnlocked()
     {
         BuildingManager.Instance.UnlockBuilding(data);
@@ -198,10 +196,16 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         Destroy(gameObject);
     }
 
-    public void FinishConstruction()
+    public void ConstructionFinished()
     {
         isConstructing = false;
         OnBuildEffect();
+    }
+    public void ForceConstructionFinished()
+    {
+        isConstructing = false;
+        OnBuildEffect();
+        openEffect = null;
     }
     public void AddCardToStock(RessourceCard card)
     {

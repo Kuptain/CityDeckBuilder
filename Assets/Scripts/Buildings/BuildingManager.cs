@@ -12,6 +12,7 @@ public class BuildingManager : Manager
     [SerializeField] GameObject buildingButtonPrefab;
     public BuildingData centreBuilding;
     public BuildingData blueprintBuilding;
+    public ResourceCost blueprintCost;
     [SerializeField] bool unlockAllBuildings; // DEBUG
     [SerializeField] List<BuildingData> unlockedBuildings;
     public List<BuildingData> lockedBuildings;
@@ -114,7 +115,7 @@ public class BuildingManager : Manager
             {
                 if (raycastHit.isGround)
                 {
-                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition), selectedBuilding, false, false);
+                    SpawnBuilding(GridManager.Instance.WorldToGridPosition(raycastHit.hitTransform.position), selectedBuilding, false, false);
                 }
                 else
                 {
@@ -165,7 +166,8 @@ public class BuildingManager : Manager
 
         if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
         {
-            if (tile.currentBuilding == null && (ignoreRestrains || (!ignoreRestrains && tile.isExplored)))
+            if (tile.currentBuilding == null && 
+                ( ignoreRestrains || (!ignoreRestrains && tile.isExplored && tile.tileType == TileType.Default)) )
             {
                 
                 BuildingObject buildingObject;
@@ -180,6 +182,8 @@ public class BuildingManager : Manager
                 }
                 else
                 {
+                    previewBuilding.transform.position = GridManager.Instance.GridToWorldPosition(gridPosition);
+
                     HUD.Instance.ExitUI();
                     buildingObject = previewBuilding.GetComponent<BuildingObject>();
                 }

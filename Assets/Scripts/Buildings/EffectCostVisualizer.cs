@@ -44,13 +44,16 @@ public class EffectCostVisualizer : MonoBehaviour
 
             progress = (sumOfCosts - sumOfOpenCosts) / sumOfCosts;
 
-            if ((int)sumOfCosts - (int)sumOfOpenCosts > 0 || sumOfCosts == 0)
+            if( !building.isLocked )
             {
-                building.EnableOriginMaterials();
-            }
-            else
-            {
-                ChangePreview(progress);
+                if ((int)sumOfCosts - (int)sumOfOpenCosts > 0 || sumOfCosts == 0)
+                {
+                    building.EnableOriginMaterials();
+                }
+                else
+                {
+                    ChangePreview(progress);
+                }
             }
         }
         ChangeUI(effect.CostsStillOpen);
