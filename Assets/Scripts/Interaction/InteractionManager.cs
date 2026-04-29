@@ -6,10 +6,10 @@ using UnityEngine.UIElements;
 
 public class InteractionManager : Manager
 {
-    public Card activeCard;
-    public static UnityEvent<Card> OnPickUpCard = new UnityEvent<Card>();
-    public static UnityEvent<Card> OnHoldCard = new UnityEvent<Card>();
-    public static UnityEvent<Card> OnReleaseCard = new UnityEvent<Card>();
+    public RessourceCard activeCard;
+    public static UnityEvent<RessourceCard> OnPickUpCard = new UnityEvent<RessourceCard>();
+    public static UnityEvent<RessourceCard> OnHoldCard = new UnityEvent<RessourceCard>();
+    public static UnityEvent<RessourceCard> OnReleaseCard = new UnityEvent<RessourceCard>();
     BuildingObject currentHoverBuilding;
     Tile currentHoverTile;
     bool isHoldingCard;
@@ -28,7 +28,7 @@ public class InteractionManager : Manager
         HoverTile();
     }
 
-    public void PickUpCard(Card card)
+    public void PickUpCard(RessourceCard card)
     {
         isHoldingCard = true;
         activeCard = card;
@@ -105,7 +105,7 @@ public class InteractionManager : Manager
         }
     }
 
-    public void ReleaseCard(Card card)
+    public void ReleaseCard(RessourceCard card)
     {
         isHoldingCard = false;
         BuildingObject building;
@@ -124,7 +124,7 @@ public class InteractionManager : Manager
         }
 
     }
-    bool ExploreTile(Card card)
+    bool ExploreTile(RessourceCard card)
     {
         var raycastHit = GridManager.Instance.GroundRaycast();
         Vector2Int gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);

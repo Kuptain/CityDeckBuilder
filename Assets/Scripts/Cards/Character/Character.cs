@@ -41,6 +41,33 @@ public class Character
         }
     }
 
+    public bool HasKnowledge(List<KnowledgeType> needed)
+    {
+        bool found;
+        KnowledgeType[] copy = new KnowledgeType[knowledge.Length];
+        knowledge.CopyTo(copy,0);
+
+        for(int i = 0; i < needed.Count; i++)
+        {
+            found = false;
+            for(int j = 0; j < copy.Length; j++)
+            {
+                if (needed[i] == copy[j])
+                {
+                    found = true;
+                    copy[j] = KnowledgeType.empty;
+                    break;
+                }
+            }
+            if(!found)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public void ChangeKnowledge(KnowledgeType type, int index)
     {
         knowledge[index] = type;

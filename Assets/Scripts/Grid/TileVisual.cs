@@ -34,7 +34,7 @@ public class TileVisual : MonoBehaviour
         UpdateTileTypeVisual();
         DisableHighlight(null);
     }
-    public void EnableHighlight(Card card)
+    public void EnableHighlight(RessourceCard card)
     {
         if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
         {
@@ -64,7 +64,7 @@ public class TileVisual : MonoBehaviour
         }
     }
 
-    public void DisableHighlight(Card card)
+    public void DisableHighlight(RessourceCard card)
     {
         outlinePlayable.SetActive(false);
         outlineEffect.SetActive(false);

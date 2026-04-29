@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 public class CardVisuals : MonoBehaviour
 {
-    public  Card card;
+    public  RessourceCard card;
     [Header("Card")]
     [SerializeField] Image BGImage;
     [SerializeField] Image IconImage;
@@ -191,7 +191,7 @@ public class CardVisuals : MonoBehaviour
         Destroy(cardRect.gameObject);
     }
 
-    public void Setup(Card _card, CardStates _newState)
+    public void Setup(RessourceCard _card, CardStates _newState)
     {
         if (_card != null)
         {
@@ -212,7 +212,7 @@ public class CardVisuals : MonoBehaviour
         CardManager.OnCardDecayed.AddListener(RefreshVisuals);
     }
 
-    void RefreshVisuals(Card _card)
+    void RefreshVisuals(RessourceCard _card)
     {
         if (card == _card)
         {
@@ -316,7 +316,7 @@ public class CardVisuals : MonoBehaviour
         
     }
 
-    void DiscardCheck(Card _card, bool wasPlayed)
+    void DiscardCheck(RessourceCard _card, bool wasPlayed)
     {
         if(_card == card && !wasPlayed)
         {

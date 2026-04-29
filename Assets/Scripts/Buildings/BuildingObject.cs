@@ -19,7 +19,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] bool hasCD;
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
-    [ReadOnly] public List<Card> stockedCards;
+    [ReadOnly] public List<RessourceCard> stockedCards;
     [ReadOnly] public HousingValue housingValue;
 
     MeshRenderer[] outlineRenderers;
@@ -111,7 +111,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             effect.Invoke(this, null);
         }
     }
-    public void PlayCardOnThis(Card card)
+    public void PlayCardOnThis(RessourceCard card)
     {
         if (openEffect != null && openEffect.CostsStillOpen.Count > 0)
         {
@@ -122,7 +122,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             OnCardEffect(card);
         }
     }
-    private void OnCardEffect(Card card)
+    private void OnCardEffect(RessourceCard card)
     {
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out effect))
@@ -147,7 +147,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     }
 
 
-    void PayForOpenEffect(Card card)
+    void PayForOpenEffect(RessourceCard card)
     {
         if (openEffect.Contains(card.GetCurrentResources()))
         {
@@ -203,7 +203,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         isConstructing = false;
         OnBuildEffect();
     }
-    public void AddCardToStock(Card card)
+    public void AddCardToStock(RessourceCard card)
     {
         stockedCards.Add(card);
     }

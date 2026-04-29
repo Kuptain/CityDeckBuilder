@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Image data-source="project://database/Assets/scriptableObjects/Buildings/B_Feld.asset?fileID=11400000&amp;guid=e425c6c61c1a9d94a9bc115242c05af5&amp;type=2#B_Feld" data-source-path="test" style="height: 385px; width: 349px;">
+    <Style src="project://database/Assets/Visuals/UI/UpgradeWindow.uss?fileID=7433441132597879392&amp;guid=b0d0f625f8cc7294a990997bfa6ca4e1&amp;type=3#UpgradeWindow"/>
+    <ui:Image data-source="project://database/Assets/scriptableObjects/Buildings/B_Feld.asset?fileID=11400000&amp;guid=e425c6c61c1a9d94a9bc115242c05af5&amp;type=2#B_Feld" data-source-path="test" style="height: 385px; width: 349px; aspect-ratio: 1; align-self: center;">
         <Bindings>
             <ui:DataBinding property="style.backgroundImage" data-source-path="test" binding-mode="ToTarget" source-to-ui-converters="ResourceConverter" data-source="project://database/Assets/scriptableObjects/Buildings/B_Feld.asset?fileID=11400000&amp;guid=e425c6c61c1a9d94a9bc115242c05af5&amp;type=2#B_Feld"/>
         </Bindings>

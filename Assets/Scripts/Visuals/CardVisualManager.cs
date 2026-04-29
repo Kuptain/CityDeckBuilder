@@ -66,14 +66,14 @@ public class CardVisualManager : MonoBehaviour
             }
         }
     }
-    void Draw(Card card, int handPosition = 0)
+    void Draw(RessourceCard card, int handPosition = 0)
     {
         CardVisuals slot = AddVisualCard(handPosition);
         slot.Setup(card, cardState);
         slots.Add(slot);
     }
 
-    void Discard(Card card, bool wasPlayed)
+    void Discard(RessourceCard card, bool wasPlayed)
     {
         foreach (CardVisuals slot in slots)
         {

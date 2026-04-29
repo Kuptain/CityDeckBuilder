@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Card
+public class RessourceCard
 {
     public Card_Data data;
     BuildingObject originBuilding;
@@ -10,12 +10,12 @@ public class Card
     public int rank;
     public bool temporary;
 
-    public Card(Card_Data _data)
+    public RessourceCard(Card_Data _data)
     {
         data = _data;
     }
 
-    public Card(Card copy)
+    public RessourceCard(RessourceCard copy)
     {
         data = copy.data;
         originBuilding = copy.originBuilding;

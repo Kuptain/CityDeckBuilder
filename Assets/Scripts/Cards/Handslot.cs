@@ -4,7 +4,7 @@ using UnityEngine;
 public class Handslot
 {
     public bool empty = true;
-    public Card currentCard;
+    public RessourceCard currentCard;
 
     public Handslot()
     {
@@ -19,7 +19,7 @@ public class Handslot
         empty = true;
     }
 
-    public void DrawCard(Card card,int index)
+    public void DrawCard(RessourceCard card,int index)
     {
         currentCard = card;
         empty = false;
