@@ -6,10 +6,11 @@ public class Character
 {
     public string name;
     public string surname;
+    public string FullName { get { return name + " " + surname; } }
     public Characterlibrary.Colorit colorit;
     public KnowledgeType[] knowledge;
     public HealthState healthState;
-
+    public CharacterEffect effect;
     public Character(string _name, string _surname, Characterlibrary.Colorit _colorit,int _knowledgeSlots)
     {
         name = _name;

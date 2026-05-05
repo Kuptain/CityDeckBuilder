@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="resourceTest" src="project://database/Assets/Visuals/UI%20Toolkit/resourceTest.uxml?fileID=9197481963319205126&amp;guid=247575a5cf33adb4a97d1d226b856b2d&amp;type=3#resourceTest"/>
+    <ui:Image source="project://database/Assets/Visuals/Images/img_cardBrown.png?fileID=2800000&amp;guid=31a97c0983cbb3a448413f860098c1cf&amp;type=3#img_cardBrown" tint-color="rgb(255, 255, 255)" name="Card" data-source-type="CharacterCard, Assembly-CSharp" style="height: 409px; width: 267px;">
+        <ui:Image source="project://database/Assets/Visuals/Images/img_cardWhite.png?fileID=2800000&amp;guid=a8a7fc33ca7e77245a4924a425682ad3&amp;type=3#img_cardWhite" tint-color="rgb(50, 36, 17)" uv="0,0,1,1" name="bakcground" scale-mode="ScaleToFit" style="height: 409px; width: 265px; margin-left: 0%; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; padding-top: 4%; padding-right: 4%; padding-bottom: 4%; padding-left: 4%; max-width: none; max-height: none; align-self: center; align-content: center;">
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; flex-wrap: wrap; flex-shrink: 0.5;">
+                <ui:Label text="Name" data-source="" name="Name" data-source-path="" style="align-self: center; color: rgb(224, 224, 224); -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); font-size: 28px; margin-top: 14px;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="target.name" data-source-type="CharacterCard, Assembly-CSharp" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="Surname" data-source="project://database/Assets/scriptableObjects/Cards/Person.asset?fileID=11400000&amp;guid=04532bebf3554294b97e1f97777fc59f&amp;type=2#Person" name="Name" data-source-path="" style="align-self: center; color: rgb(224, 224, 224); -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); font-size: 28px; margin-top: 14px;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="target.surname" data-source-type="CharacterCard, Assembly-CSharp" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:Instance template="resourceTest" style="align-self: center; height: 178px; width: 239px; padding-top: 0; margin-top: 0; background-color: rgb(72, 72, 72); -unity-background-image-tint-color: rgb(0, 0, 0);"/>
+            <ui:Label text="Add 1 Wood" name="Description" selectable="false" focusable="false" style="color: rgb(193, 190, 186); font-size: 20px; -unity-text-align: middle-center; height: 127px; -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;);">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="target.effect.description" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:Image>
+    </ui:Image>
+</ui:UXML>
