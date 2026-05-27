@@ -149,7 +149,7 @@ public class TileVisualsManager : MonoBehaviour
         int width = GridManager.Instance.width;
         int height = GridManager.Instance.height;
 
-        int DEFAULT_RANGE = 3;
+        int DEFAULT_RANGE = 1;
 
         Vector2Int centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
 
@@ -163,6 +163,7 @@ public class TileVisualsManager : MonoBehaviour
 
             if (GridManager.Instance.IsTileInRange(new Vector2Int(x, y), centre, DEFAULT_RANGE))
             {
+                tile.SetSafeState(true);
                 tile.SetExploredState(true);
             }
             else

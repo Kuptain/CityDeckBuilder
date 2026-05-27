@@ -8,6 +8,7 @@ public class TurnManager : MonoBehaviour
     public static UnityEvent OnEndTurn = new UnityEvent();
     public static UnityEvent OnStartCheckingLosingCondition = new UnityEvent();
     public static UnityEvent OnPopulationIncreased = new UnityEvent();
+    public static UnityEvent OnEndOfSeason = new UnityEvent();
 
     [SerializeField] int startingTurnCount;
     [SerializeField] int populactionIncreaseModifier;
@@ -114,6 +115,7 @@ public class TurnManager : MonoBehaviour
         UpdateTurnCount(startingTurnCount);
         CheckLosingCondition(true);
         AddPopulation(populactionIncreaseModifier);
+        OnEndOfSeason.Invoke();
     }
     public void CheckLosingCondition(bool isEndOfSeason)
     {

@@ -12,6 +12,7 @@ public struct Tile
     [ReadOnly] public bool isExplored;
     [ReadOnly] public bool isExplorable;
     [ReadOnly] public bool isVisible;
+    [ReadOnly] public bool isSafe;
 
     [ReadOnly] public byte rotationIndex;
     [ReadOnly] public byte offsetColorID;
@@ -43,7 +44,7 @@ public struct Tile
 
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
-            visual.SetExploredVisual(state, true);
+            visual.SetExploredVisual(state, true,isSafe);
             if (checkDirectionalOutlines)
             {
                 visual.CheckDirectionalOutlines();
@@ -66,12 +67,18 @@ public struct Tile
         if (TileVisualsManager.Instance.tileVisualMap.TryGetValue(gridPosition, out TileVisual visual))
         {
             //visual.gameObject.SetActive(state);
-            visual.SetExploredVisual(isExplored, state);
+            visual.SetExploredVisual(isExplored, state, isSafe);
         }
 
         // Apply this tile back to the gridArray
         int index = GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y);
         GridManager.Instance.gridArray[index] = this;
+    }
+
+    public void SetSafeState(bool state)
+    {
+        isSafe = state;
+        GridManager.Instance.ApplyTileChanges(this);
     }
     public void Init(Vector2Int _gridPosition, byte _offsetColorID, bool _isOffset = false,
         TileType _tileType = TileType.Default, bool _isValid = true, byte _rotationIndex = 0)

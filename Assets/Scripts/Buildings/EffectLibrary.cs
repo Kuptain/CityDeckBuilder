@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "EffectLibrary", menuName = "Scriptable Objects/EffectLibrary")]
 public class EffectLibrary : ScriptableObject
-{ 
+{
     public void AddListenerSpawnNPC(BuildingObject building, RessourceCard card, BuildingEffect origin)
     {
         Vector3 spawnPosition = GridManager.Instance.GridToWorldPosition(building.GetTile().gridPosition);
@@ -29,7 +29,7 @@ public class EffectLibrary : ScriptableObject
 
     public void createTemporaryCard(BuildingObject building, RessourceCard card, BuildingEffect origin)
     {
-        for(int i = 0; i < origin.temporaryCards.Count; i++)
+        for (int i = 0; i < origin.temporaryCards.Count; i++)
         {
             CardManager.instance.GetTemporaryCard(origin.temporaryCards[i]);
         }
@@ -40,7 +40,7 @@ public class EffectLibrary : ScriptableObject
     public static void AddHousing(BuildingObject building, RessourceCard card, BuildingEffect origin)
     {
         int housing = building.data.GetRankData(building.GetRank()).housingIncrease;
-        if(building.housingValue == null)
+        if (building.housingValue == null)
         {
             building.housingValue = new HousingValue(building);
             ResourceManager.instance.housingValues.Add(building.housingValue);
@@ -52,11 +52,11 @@ public class EffectLibrary : ScriptableObject
 
     public void discoverTiles(BuildingObject building, RessourceCard card, BuildingEffect origin)
     {
-        discoverneighbours(building, 1);
+        discoverneighbours(building, 2);
     }
     public void discoverMoreTiles(BuildingObject building, RessourceCard card, BuildingEffect origin)
     {
-        discoverneighbours(building, 2);
+        discoverneighbours(building, 3);
     }
 
     private static void discoverneighbours(BuildingObject building, int range)
@@ -64,7 +64,12 @@ public class EffectLibrary : ScriptableObject
         List<Tile> neighbours = GridManager.Instance.GetTilesInRange(building.GetTile().gridPosition, range);
         for (int i = 0; i < neighbours.Count; i++)
         {
-            neighbours[i].SetExploredState(true, true,true);
+            neighbours[i].SetSafeState(true);
+        }
+        neighbours = GridManager.Instance.GetTilesInRange(building.GetTile().gridPosition, range);
+        for (int i = 0; i < neighbours.Count; i++)
+        {
+            neighbours[i].SetExploredState(true, true, true);
         }
     }
 

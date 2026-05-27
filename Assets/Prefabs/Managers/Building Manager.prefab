@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e425c6c61c1a9d94a9bc115242c05af5, type: 2}
   - {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}
   - {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
+  - {fileID: 11400000, guid: 6bdb355d08fd2184abb5b0051cefc93f, type: 2}
   lockedBuildings:
   - {fileID: 11400000, guid: e67e8106dc30eec438962f2506862f49, type: 2}
   - {fileID: 11400000, guid: 972dc9c2ee518fe4d94b4bcaf04b73aa, type: 2}
@@ -67,7 +68,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46c62f02e497df442a616f6d7e3ef86b, type: 2}
   - {fileID: 11400000, guid: da2c287c00c7b2749aacdffa0f5d63d3, type: 2}
   - {fileID: 11400000, guid: 7af5c81d447ccac47a10851d3e265808, type: 2}
-  - {fileID: 11400000, guid: 6bdb355d08fd2184abb5b0051cefc93f, type: 2}
   outlineHover: {fileID: 2100000, guid: 8499a49bbee51944aab986d4373c937b, type: 2}
   outlineDragCard: {fileID: 2100000, guid: 2b96707992a985044928597f3ce69ac7, type: 2}
   outlineClickable: {fileID: 2100000, guid: 616053169b2346d4e89ce4dd92e7ec04, type: 2}

@@ -107,7 +107,7 @@ public class CardVisualManager : MonoBehaviour
     }
     CardVisuals AddVisualCard(int position)
     {
-        Debug.Log("CardVisualManager: AddVisualCard position: " + position);
+        //Debug.Log("CardVisualManager: AddVisualCard position: " + position);
         cardPlaceholder.gameObject.SetActive(false);
         cardPlaceholder.transform.SetParent(null);
 

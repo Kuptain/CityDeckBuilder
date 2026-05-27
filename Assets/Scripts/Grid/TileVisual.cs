@@ -24,6 +24,7 @@ public class TileVisual : MonoBehaviour
     public GameObject outlineExplorable;
     public GameObject outlineEffect;
     public GameObject directionOutlines_parent;
+    public GameObject notSafeHighlight;
 
     [SerializeField] private List<TileDirectionOutline> directionOutlines;
     [SerializeField] private Color _unexploredColor;
@@ -71,10 +72,11 @@ public class TileVisual : MonoBehaviour
         outlineExplorable.SetActive(false);
     }
 
-    public void SetExploredVisual(bool isExplored, bool isVisible)
+    public void SetExploredVisual(bool isExplored, bool isVisible, bool isSafe)
     {
         fogOfWar_dense.SetActive(!isVisible);
         fogOfWar_visible.SetActive(!isExplored);
+        notSafeHighlight.SetActive(!isSafe);
         if (buildingObject != null)
         {
             buildingObject.SetActive(isVisible);
@@ -93,6 +95,7 @@ public class TileVisual : MonoBehaviour
             }
         }
     }
+
     public void CheckDirectionalOutlines()
     {
         // Gets all directions and stores them in a list
