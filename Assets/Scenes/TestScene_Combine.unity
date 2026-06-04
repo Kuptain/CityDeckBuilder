@@ -1212,7 +1212,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterManager
   debugMode: 0
   library: {fileID: 11400000, guid: 62e5978f0f33771449915f1c6a453096, type: 2}
-  characters: []
 --- !u!1 &1271438350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,29 +1658,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: deck.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: CharacterCardPrefab
       value: 
       objectReference: {fileID: 391734988}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: deck.Array.data[0].name
-      value: Denis
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: deck.Array.data[1].name
-      value: blubb
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: deck.Array.data[2].name
-      value: ifga
-      objectReference: {fileID: 0}
-    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: deck.Array.data[3].name
-      value: Ronny
-      objectReference: {fileID: 0}
     - target: {fileID: 9088492645230061255, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_Name
       value: CardManager
