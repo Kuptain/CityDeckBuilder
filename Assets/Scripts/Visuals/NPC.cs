@@ -15,12 +15,28 @@ public class NPC : MonoBehaviour
     private float wanderTimer;
     private float currentWanderInterval;
 
+    public List<GameObject> bodyVariants;
+    GameObject body;
+
 
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
         currentWanderInterval = 0;
+
+        foreach (GameObject variant in bodyVariants)
+        {
+            variant.SetActive(false);
+        }
+
+        if (bodyVariants.Count > 0)
+        {
+            int randomIndex = Random.Range(0, bodyVariants.Count);
+            bodyVariants[randomIndex].SetActive(true);
+            body = bodyVariants[randomIndex];
+        }
+        body.transform.parent = null;
+
     }
     void Update()
     {
@@ -33,6 +49,8 @@ public class NPC : MonoBehaviour
             currentWanderInterval = Random.Range(wanderInterval.x, wanderInterval.y);
             wanderTimer = 0;
         }
+
+        body.transform.position = transform.position;
     }
     Vector3 GetRandomNavmeshPosition(Vector3 origin, float distance)
     {

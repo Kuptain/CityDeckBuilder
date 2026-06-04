@@ -25,6 +25,7 @@ public class TileVisual : MonoBehaviour
     public GameObject outlineEffect;
     public GameObject directionOutlines_parent;
     public GameObject notSafeHighlight;
+    private bool isExplored;
 
     [SerializeField] private List<TileDirectionOutline> directionOutlines;
     [SerializeField] private Color _unexploredColor;
@@ -76,10 +77,12 @@ public class TileVisual : MonoBehaviour
         outlineExplorable.SetActive(false);
     }
 
-    public void SetExploredVisual(bool isExplored, bool isVisible, bool isSafe)
+    public void SetExploredVisual(bool newIsExplored, bool isVisible, bool isSafe)
     {
+        isExplored = newIsExplored;
+
         fogOfWar_dense.SetActive(!isVisible);
-        fogOfWar_visible.SetActive(!isExplored);
+        fogOfWar_visible.SetActive(!newIsExplored);
         notSafeHighlight.SetActive(!isSafe);
         if (buildingObject != null)
         {
@@ -157,10 +160,29 @@ public class TileVisual : MonoBehaviour
 
         foreach (var visualType in tileVisualTypes)
         {
-            foreach (var visualVariant in visualType.visualVariants) // Disable all variants first
+            foreach (var visualVariant in visualType.visualVariants)
             {
+                SpriteRenderer[] renderers = visualVariant.GetComponentsInChildren<SpriteRenderer>(true);
+                
+                foreach (SpriteRenderer renderer in renderers)
+                {
+                    Color color = renderer.color;
+
+                    if (isExplored)
+                    {
+                        color.a = 1f;
+                    }
+                    else
+                    {
+                        color.a = 0.4f;
+                    }
+               
+                    renderer.color = color;
+                }
+
                 visualVariant.SetActive(false);
             }
+
             if (tile.tileType == visualType.type)
             {
                 currentTileVisualType = visualType;

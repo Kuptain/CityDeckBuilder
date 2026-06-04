@@ -1,6 +1,7 @@
 using UnityEngine;
 using static Tile;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class TileVisualType
@@ -149,7 +150,7 @@ public class TileVisualsManager : MonoBehaviour
         int width = GridManager.Instance.width;
         int height = GridManager.Instance.height;
 
-        int DEFAULT_RANGE = 1;
+        int DEFAULT_RANGE = 3;
 
         Vector2Int centre = new Vector2Int((width - 1) / 2, (height - 1) / 2);
 
@@ -235,6 +236,16 @@ public class TileVisualsManager : MonoBehaviour
                     BuildingObject _centreBuilding = BuildingManager.Instance.SpawnBuilding(new Vector2Int(x, y), BuildingManager.Instance.centreBuilding, true, false);
                     _centreBuilding.ForceConstructionFinished();
                     IconAnimationManager.OnCentrebuilding.Invoke(_centreBuilding);
+
+                    Vector3 spawnPosition = _centreBuilding.transform.position;     
+                    for (int i = 0; i < 5; i++)
+                    {
+                        TurnManager.Instance.SpawnNPC(spawnPosition);
+                    }
+                }
+                else if(GridManager.Instance.IsTileInRange(tile.gridPosition, new Vector2Int(centre.x, centre.y), 1))
+                {
+                    tileType = TileType.Default;
                 }
                 else if (x == 0 || x == width - 1 || gridPosition.y == 0 || y == height - 1)
                 {
