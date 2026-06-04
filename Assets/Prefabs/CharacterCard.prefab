@@ -50,13 +50,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCard
   target:
-    name: 
-    surname: 
+    name: Philip
+    surname: Hildebrandt
     colorit:
       baseColor: {r: 0, g: 0, b: 0, a: 0}
       secondColor: {r: 0, g: 0, b: 0, a: 0}
       highlightColor: {r: 0, g: 0, b: 0, a: 0}
-    knowledge: 
+    knowledge: 020000000300000001000000
     healthState: 0
     effect: {fileID: 0}
   uiDocument: {fileID: 4831591002220883204}
@@ -78,8 +78,8 @@ MonoBehaviour:
   m_SortingOrder: 0
   m_Position: 0
   m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
+  m_WorldSpaceWidth: 281
+  m_WorldSpaceHeight: 411.3
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}

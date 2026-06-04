@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Image style="aspect-ratio: 1; align-self: center;">
+        <Bindings>
+            <ui:DataBinding property="style.backgroundImage" source-to-ui-converters="KnowledgeConverter" data-source-path="target.knowledge[0]" binding-mode="ToTarget"/>
+        </Bindings>
+    </ui:Image>
+</ui:UXML>

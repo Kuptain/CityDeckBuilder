@@ -5,9 +5,13 @@ using UnityEngine;
 public class ResourceDatabase : ScriptableObject
 {
     public List<ResourceEntry> resources = new List<ResourceEntry>();
+    public List<KnowledgeEntry> knowledge = new List<KnowledgeEntry>();
 
     private Dictionary<ResourceType, Sprite> _iconLookup;
+    private Dictionary<KnowledgeType, Sprite> _knowledgeLookup;
 
+    public KnowledgeType test;
+    public Character target;
     private void OnEnable()
     {
         BuildDictionary();
@@ -16,11 +20,17 @@ public class ResourceDatabase : ScriptableObject
     void BuildDictionary()
     {
         _iconLookup = new Dictionary<ResourceType, Sprite>();
+        _knowledgeLookup = new Dictionary<KnowledgeType, Sprite>();
 
         foreach (var entry in resources)
         {
             if (!_iconLookup.ContainsKey(entry.type))
                 _iconLookup.Add(entry.type, entry.icon);
+        }
+        foreach (var entry in knowledge)
+        {
+            if (!_knowledgeLookup.ContainsKey(entry.type))
+                _knowledgeLookup.Add(entry.type, entry.icon);
         }
     }
 
@@ -30,6 +40,15 @@ public class ResourceDatabase : ScriptableObject
             BuildDictionary();
 
         return _iconLookup.TryGetValue(type, out var icon) ? icon : null;
+    }
+
+    public Sprite GetKnowledgeIcon(KnowledgeType type)
+    {
+        if(_knowledgeLookup == null)
+        {
+            BuildDictionary();
+        }
+        return _knowledgeLookup.TryGetValue(type, out var icon) ? icon : null;
     }
 }
 public enum ResourceType
@@ -56,6 +75,13 @@ public enum ResourceType
 public class ResourceEntry
 {
     public ResourceType type;
+    public Sprite icon;
+}
+
+[System.Serializable]
+public class KnowledgeEntry
+{
+    public KnowledgeType type;
     public Sprite icon;
 }
 

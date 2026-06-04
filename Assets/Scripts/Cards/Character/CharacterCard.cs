@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterCard : MonoBehaviour
+public class CharacterCard : MonoBehaviour, ICard
 {
     public Character target;
     [SerializeField] UIDocument uiDocument;
@@ -25,6 +25,17 @@ public class CharacterCard : MonoBehaviour
     {
         SetupCard(new Character("Philip", "Hildebrandt", new Characterlibrary.Colorit(), 3));
     }
+
+    public void Discard()
+    {
+        Destroy(gameObject);
+    }
+
+    CardType ICard.GetType()
+    {
+        return CardType.Character;
+    }
+
 
     #endregion
 }
