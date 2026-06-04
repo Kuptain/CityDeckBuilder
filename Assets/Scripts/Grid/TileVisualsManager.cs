@@ -101,7 +101,7 @@ public class TileVisualsManager : MonoBehaviour
             tileVisualMap[tile.gridPosition] = gridTileVisual;
 
             gridTileVisual.directionOutlines_parent.transform.parent = tileParent.transform;
-            spawnedTile.transform.rotation = hexRotation;
+            //spawnedTile.transform.rotation = hexRotation;
             spawnedTile.name = $"Tile {tile.gridPosition.x} {tile.gridPosition.y}";
             spawnedTile.transform.parent = gridVisualsNavMesh;
 
