@@ -203,6 +203,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &391734988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5442216391453061085, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+  m_PrefabInstance: {fileID: 607813581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &475181433
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,11 +405,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
   debugMode: 0
-  activeCard:
-    data: {fileID: 0}
-    roundsInHand: 0
-    rank: 0
-    temporary: 0
 --- !u!1 &563337536
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +453,103 @@ MonoBehaviour:
   DeckTarget: {fileID: 210355681}
   CentreBuilding: {fileID: 0}
   icons: []
+--- !u!1001 &607813581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 206.498
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 294.9973
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1831
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 393
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326052805609427043, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442216391453061085, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+      propertyPath: m_Name
+      value: CharacterCard
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
 --- !u!1001 &652075843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1561,6 +1658,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: deck.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: CharacterCardPrefab
+      value: 
+      objectReference: {fileID: 391734988}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: deck.Array.data[0].name
+      value: Denis
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: deck.Array.data[1].name
+      value: blubb
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: deck.Array.data[2].name
+      value: ifga
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: deck.Array.data[3].name
+      value: Ronny
+      objectReference: {fileID: 0}
     - target: {fileID: 9088492645230061255, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_Name
       value: CardManager
@@ -1673,3 +1794,4 @@ SceneRoots:
   - {fileID: 953302873}
   - {fileID: 2133303040}
   - {fileID: 380515281}
+  - {fileID: 607813581}

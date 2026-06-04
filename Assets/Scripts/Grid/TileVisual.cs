@@ -36,36 +36,40 @@ public class TileVisual : MonoBehaviour
         UpdateTileTypeVisual();
         DisableHighlight(null);
     }
-    public void EnableHighlight(RessourceCard card)
+    public void EnableHighlight(ICard card)
     {
         if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
         {
-            if (!tile.isExplored && tile.isVisible && tile.isExplorable && CardManager.instance.HasCardResource(card, ResourceType.person))
+            if (!tile.isExplored && tile.isVisible && tile.isExplorable )
             {
                 outlineExplorable.SetActive(true);
                 return;
             }
-
-            if (tile.currentBuilding != null && tile.isExplored)
+            if (card.GetType() == CardType.Resource)
             {
-                var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
-                if (card.CheckMatchingResources(buildingResourceCosts))
+                ResourceCard ressource = (ResourceCard)card;
+                if (tile.currentBuilding != null && tile.isExplored)
                 {
-                    outlinePlayable.SetActive(true);
-                    return;
-                }
+                    var buildingResourceCosts = tile.currentBuilding.GetCostsStillOpen();
+                    if (ressource.CheckMatchingResources(buildingResourceCosts))
+                    {
+                        outlinePlayable.SetActive(true);
+                        return;
+                    }
 
-                if (!tile.currentBuilding.isConstructing && tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect)
-                 && card.data.TryToPayFor(effect.EffectCost) && !tile.currentBuilding.IsOnCooldown())
-                {
-                    outlineEffect.SetActive(true);
-                    return;
+                    if (!tile.currentBuilding.isConstructing && tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect)
+                     && ressource.data.TryToPayFor(effect.EffectCost) && !tile.currentBuilding.IsOnCooldown())
+                    {
+                        outlineEffect.SetActive(true);
+                        return;
+                    }
                 }
             }
+            
         }
     }
 
-    public void DisableHighlight(RessourceCard card)
+    public void DisableHighlight(ICard card)
     {
         outlinePlayable.SetActive(false);
         outlineEffect.SetActive(false);

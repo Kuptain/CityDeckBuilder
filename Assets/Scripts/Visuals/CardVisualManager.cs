@@ -53,27 +53,27 @@ public class CardVisualManager : MonoBehaviour
     {
         if (cardState == CardVisuals.CardStates.Overview)
         {
-            foreach (var card in CardManager.instance.productionDeck)
+            foreach (var card in CardManager.instance.discardPile)
             {
-                Draw(card);
+                //Draw(card);
             }
         }
         if (cardState == CardVisuals.CardStates.Deck)
         {
             foreach (var card in CardManager.instance.deck)
             {
-                Draw(card);
+                //Draw(card);
             }
         }
     }
-    void Draw(RessourceCard card, int handPosition = 0)
+    void Draw(ResourceCard card, int handPosition = 0)
     {
         CardVisuals slot = AddVisualCard(handPosition);
         slot.Setup(card, cardState);
         slots.Add(slot);
     }
 
-    void Discard(RessourceCard card, bool wasPlayed)
+    void Discard(ResourceCard card, bool wasPlayed)
     {
         foreach (CardVisuals slot in slots)
         {

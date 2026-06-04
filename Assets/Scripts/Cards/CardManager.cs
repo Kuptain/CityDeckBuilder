@@ -20,27 +20,27 @@ public class CardManager : Manager
     #endregion
 
     #region events
-    public static UnityEvent<RessourceCard,int> OnDraw = new UnityEvent<RessourceCard,int>();
-    public static UnityEvent<RessourceCard, bool> OnDiscard = new UnityEvent<RessourceCard, bool>(); // bool = was this card played (true) or just discarded (false)
-    public static UnityEvent OnProductiionToDeck = new UnityEvent();
-    public static UnityEvent<RessourceCard> OnCardDecayed = new UnityEvent<RessourceCard>();
+    public static UnityEvent<ResourceCard, int> OnDraw = new UnityEvent<ResourceCard, int>();
+    public static UnityEvent<ResourceCard, bool> OnDiscard = new UnityEvent<ResourceCard, bool>(); // bool = was this card played (true) or just discarded (false)
+    public static UnityEvent OnShuffleDiscard = new UnityEvent();
+    public static UnityEvent<ResourceCard> OnCardDecayed = new UnityEvent<ResourceCard>();
     #endregion
 
     [Header("variables")]
     public int handSize;
     public float cardSpeed = 5;
     public Card_Data population;
+    public GameObject CharacterCardPrefab;
 
     [Header("Cards")]
-    public List<RessourceCard> deck = new List<RessourceCard>(10);
-    public List<Handslot> hand;
-    public List<RessourceCard> temporaryHand;
-    public List<RessourceCard> productionDeck;
+    public List<Character> deck = new List<Character>(10);
+    public List<CharacterCard> hand;
+    public List<ResourceCard> temporaryHand;
+    public List<Character> discardPile;
     private void Start()
     {
         TurnManager.OnEndTurn.AddListener(EndTurn);
         TurnManager.OnStartTurn.AddListener(StartTurn);
-        TurnManager.OnPopulationIncreased.AddListener(AddPopulationCardToProduction);
     }
     private void OnDestroy()
     {
@@ -50,25 +50,26 @@ public class CardManager : Manager
     private void Update()
     {
         UpdateHUD(); // Probably move somewhere else, only when the values are actually changed
-        
+
     }
     private void UpdateHUD()
     {
         HUD.Instance.text_Deck.text = deck.Count.ToString();
-        HUD.Instance.text_Production.text = productionDeck.Count.ToString();
+        HUD.Instance.text_Production.text = discardPile.Count.ToString();
     }
+    [ContextMenu("start of Turn")]
     public void StartTurn()
     {
         SendLog("Start Of Turn");
 
-        for(int i = 0; i < handSize; i++)
+        for (int i = 0; i < handSize; i++)
         {
             if (i >= hand.Count)
             {
-                hand.Add(new Handslot());
+               hand.Add(null);
             }
 
-            if(hand[i].empty)
+            if (hand[i] == null)
             {
                 DrawCard(i);
             }
@@ -76,19 +77,22 @@ public class CardManager : Manager
 
         //DrawCards(HandSize - hand.Count); // Refill back to hand size
     }
+
+
+
     public void EndTurn()
     {
         SendLog("End Of Turn");
         //DiscardHand();
-        for(int i = 0; i < temporaryHand.Count; i++)
+        for (int i = 0; i < temporaryHand.Count; i++)
         {
             temporaryHand[i].EndOfTurnInHand();
         }
     }
 
-    public bool HasCardResource(RessourceCard card, ResourceType type)
+    public bool HasCardResource(ResourceCard card, ResourceType type)
     {
-        foreach(var resource in card.data.ressources)
+        foreach (var resource in card.data.ressources)
         {
             if (resource.resource == type)
             {
@@ -99,34 +103,25 @@ public class CardManager : Manager
         return false;
     }
 
-    public void AddCardsToDeck(List<Card_Data> cards_Data)
+    public void AddCardsToDeck(List<Character> cards)
     {
-        for (int i = 0; i < cards_Data.Count; i++)
-        {
-            deck.Add(new RessourceCard(cards_Data[i]));
-        }
+        deck.AddRange(cards);
     }
 
     public void AddCardsToHand(List<Card_Data> cards_Data)
     {
         SendError("addCardsToHand is not implemented yet");
     }
-    public void AddCardsToProduction(List<Card_Data> cards_Data)
+
+    public void AddCardsToDiscard(List<Character> cards)
     {
-        for (int i = 0; i < cards_Data.Count; i++)
-        {
-            productionDeck.Add(new RessourceCard(cards_Data[i]));
-        }
+        discardPile.AddRange(cards);
     }
 
-    public void AddPopulationCardToProduction()
-    {
-        productionDeck.Add(new RessourceCard(population));
-    }
 
     public void ShuffleDeck()
     {
-        List<RessourceCard> newDeck = new List<RessourceCard >();
+        List<Character> newDeck = new List<Character>();
         while (deck.Count > 0)
         {
             int RandomIndex = Random.Range(0, deck.Count);
@@ -137,77 +132,67 @@ public class CardManager : Manager
     }
     void DrawCard(int handPosition, int deckIndex = 0)
     {
+
+        if (deck.Count <= 0)
+        {
+            ShuffleDiscardIntoDeck();
+        }
         if (deck.Count > 0)
         {
             deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
-            hand[handPosition].DrawCard(deck[deckIndex],handPosition);
+            hand[handPosition] = CreateCharacterCard(deck[deckIndex]);
             deck.RemoveAt(deckIndex);
         }
         else
         {
-            ProductionToDeck();
-            if (deck.Count > 0)
-            {
-                deckIndex = Mathf.Clamp(deckIndex, 0, deck.Count - 1);
-                hand[handPosition].DrawCard(deck[deckIndex],handPosition);
-                deck.RemoveAt(deckIndex);
-            }
-            else
-            {
-                //add reaction to nno cards beeing drawn
-                Debug.Log("No cards in the Deck to Draw");
-            }
+            //add reaction to no cards beeing drawn
+            SendError("No cards in the Deck to Draw");
         }
+
     }
-    public void DiscardCard(int index = 0, bool wasPlayed = false)
+    CharacterCard CreateCharacterCard(Character character)
+    {
+        CharacterCard card = Instantiate(CharacterCardPrefab).GetComponent<CharacterCard>();
+        card.SetupCard(character);
+        return card;
+    }
+    public void DiscardCard(int index = 0)
     {
         if (index < hand.Count && index >= 0)
         {
-            hand[index].Discard(wasPlayed);
+            discardPile.Add(hand[index].target);
+            hand[index].Discard();
         }
     }
-    public void DiscardCard(RessourceCard card, bool wasPlayed = false)
+    public void DiscardCard(ICard card, bool wasPlayed = false)
     {
-        for( int i = 0; i< hand.Count; i++)
+        if (card.GetType() == CardType.Character)
         {
-            if(hand[i].currentCard == card)
-            {
-                SendLog("discard " + card.data.cardName);
-                hand[i].Discard(wasPlayed);
-                TurnManager.OnEndTurn.Invoke();
-                return;
-            }
+            CharacterCard character = (CharacterCard)card;
+            SendLog("discard " + character.target.FullName);
+            hand.Remove((CharacterCard) card);
+            character.Discard();
+            TurnManager.OnEndTurn.Invoke();
         }
-        for (int i = 0; i < temporaryHand.Count; i++)
-        {
-            if (temporaryHand[i] == card)
-            {
-                SendLog("discard " + card.data.cardName);
-                CardManager.OnDiscard.Invoke(temporaryHand[i], wasPlayed);
-                //TurnManager.OnEndTurn.Invoke();
-                return;
-            }
-        }
-
 
     }
-    public void ProductionToDeck()
+    public void ShuffleDiscardIntoDeck()
     {
-        for(int i = 0; i < productionDeck.Count; i++)
+        for (int i = 0; i < discardPile.Count; i++)
         {
-            deck.Add(new RessourceCard(productionDeck[i]));
+            deck.Add(discardPile[i]);
         }
         ShuffleDeck();
         //discardedCards.Clear();
-        OnProductiionToDeck.Invoke();
+        OnShuffleDiscard.Invoke();
     }
 
     public void GetTemporaryCard(Card_Data data)
     {
-        RessourceCard newCard = new RessourceCard(data);
+        ResourceCard newCard = new ResourceCard(data);
         newCard.temporary = true;
         temporaryHand.Add(newCard);
-        OnDraw.Invoke(newCard,handSize+temporaryHand.Count-1);
+        OnDraw.Invoke(newCard, handSize + temporaryHand.Count - 1);
     }
     #region test functions
     [ContextMenu("shuffle Deck")]
@@ -219,13 +204,18 @@ public class CardManager : Manager
     [ContextMenu("resshuffle Discard")]
     void Test_Reshuffle()
     {
-        ProductionToDeck();
+        ShuffleDiscardIntoDeck();
     }
 
     [ContextMenu("discard Card")]
     void Discard()
     {
-        DiscardCard(0, false);
+        DiscardCard(0);
+    }
+    [ContextMenu("Get Deck")]
+    void GetDeck()
+    {
+        deck = CharacterManager.characters;
     }
     #endregion
 }

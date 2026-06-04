@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="KnowledgeTemplate" src="project://database/Assets/Visuals/UI%20Toolkit/templates/KnowledgeTemplate.uxml?fileID=9197481963319205126&amp;guid=2b3e639f7324caf43873a3afadca84ec&amp;type=3#KnowledgeTemplate"/>
+    <Style src="project://database/Assets/Visuals/UI%20Toolkit/UpgradeWindow.uss?fileID=7433441132597879392&amp;guid=b0d0f625f8cc7294a990997bfa6ca4e1&amp;type=3"/>
+    <ui:Instance template="KnowledgeTemplate" name="KnowledgeTemplate"/>
+</ui:UXML>

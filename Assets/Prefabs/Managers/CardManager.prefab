@@ -48,7 +48,53 @@ MonoBehaviour:
   handSize: 3
   cardSpeed: 25
   population: {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-  deck: []
+  CharacterCardPrefab: {fileID: 0}
+  deck:
+  - name: George
+    surname: Marx
+    colorit:
+      baseColor: {r: 0, g: 0.2735849, b: 0.020978345, a: 1}
+      secondColor: {r: 0.0028479954, g: 0.6037736, b: 0.045771234, a: 1}
+      highlightColor: {r: 0.6132076, g: 0.020247431, b: 0.45226124, a: 1}
+    knowledge: 000000000000000000000000
+    healthState: 0
+    effect: {fileID: 0}
+  - name: Ester
+    surname: East
+    colorit:
+      baseColor: {r: 0.6226415, g: 0, b: 0, a: 1}
+      secondColor: {r: 0.8490566, g: 0, b: 0, a: 1}
+      highlightColor: {r: 0, g: 0.8509804, b: 0.8509804, a: 1}
+    knowledge: 000000000000000000000000
+    healthState: 0
+    effect: {fileID: 0}
+  - name: Will
+    surname: Everly
+    colorit:
+      baseColor: {r: 0.6226415, g: 0, b: 0, a: 1}
+      secondColor: {r: 0.8490566, g: 0, b: 0, a: 1}
+      highlightColor: {r: 0, g: 0.8509804, b: 0.8509804, a: 1}
+    knowledge: 000000000000000000000000
+    healthState: 0
+    effect: {fileID: 0}
+  - name: Ester
+    surname: Unsted
+    colorit:
+      baseColor: {r: 0.6226415, g: 0.6089669, b: 0, a: 1}
+      secondColor: {r: 0.8490566, g: 0.8290065, b: 0.052064814, a: 1}
+      highlightColor: {r: 0.04118896, g: 0, b: 0.7830189, a: 1}
+    knowledge: 000000000000000000000000
+    healthState: 0
+    effect: {fileID: 0}
+  - name: Will
+    surname: Fichter
+    colorit:
+      baseColor: {r: 0.6226415, g: 0, b: 0, a: 1}
+      secondColor: {r: 0.8490566, g: 0, b: 0, a: 1}
+      highlightColor: {r: 0, g: 0.8509804, b: 0.8509804, a: 1}
+    knowledge: 000000000000000000000000
+    healthState: 0
+    effect: {fileID: 0}
   hand: []
   temporaryHand: []
-  productionDeck: []
+  discardPile: []
