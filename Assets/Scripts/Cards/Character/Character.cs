@@ -17,6 +17,10 @@ public class Character
         surname = _surname;
         colorit = _colorit;
         knowledge = new KnowledgeType[_knowledgeSlots];
+        for(int i = 0; i < knowledge.Length; i++)
+        {
+            knowledge[i] = KnowledgeType.empty;
+        }
     }
     public bool HasFreeKnowledgeSlot()
     {

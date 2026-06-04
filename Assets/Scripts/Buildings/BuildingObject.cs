@@ -20,7 +20,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     [ReadOnly] [SerializeField] bool hasCD;
     [ReadOnly] [SerializeField] int cooldown;
     [ReadOnly] [SerializeField] int cooldownDuration;
-    [ReadOnly] public List<RessourceCard> stockedCards;
+    [ReadOnly] public List<ResourceCard> stockedCards;
     [ReadOnly] public HousingValue housingValue;
 
     MeshRenderer[] outlineRenderers;
@@ -114,26 +114,34 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             effect.Invoke(this, null);
         }
     }
-    public void PlayCardOnThis(RessourceCard card)
+    public void PlayCardOnThis(ICard card)
     {
-        if (openEffect != null && openEffect.CostsStillOpen.Count > 0)
+        if (card.GetType() == CardType.Resource)
         {
-            PayForOpenEffect(card);
+            if (openEffect != null && openEffect.CostsStillOpen.Count > 0)
+            {
+                PayForOpenEffect((ResourceCard)card);
+            }
+            else
+            {
+                OnCardEffect((ResourceCard)card);
+            }
         }
         else
         {
-            OnCardEffect(card);
+            //respond to character beeing played on this
         }
     }
-    private void OnCardEffect(RessourceCard card)
+    private void OnCardEffect(ResourceCard card)
     {
+        
         BuildingEffect effect;
         if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out effect))
         {
             if ( !IsOnCooldown() && card.data.TryToPayFor(effect.EffectCost))
             {
                 effect.Invoke(this, card);
-                CardManager.instance.DiscardCard(card, true);
+                //CardManager.instance.DiscardCard(card, true);
                 cooldown = 0;
                 //TurnManager.OnEndTurn.Invoke();
 
@@ -147,11 +155,13 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         {
             CardManager.instance.SendLog("Building had no effect on Card played");
         }
+        
     }
 
 
-    void PayForOpenEffect(RessourceCard card)
+    void PayForOpenEffect(ResourceCard card)
     {
+        
         if (openEffect.Contains(card.GetCurrentResources()))
         {
             openEffect.PayCosts(card.GetCurrentResources());
@@ -160,9 +170,9 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             {
                 openEffect = null;
             }
-            CardManager.instance.DiscardCard(card, true);
+            //CardManager.instance.DiscardCard(card, true);
         }
-
+        
     }
 
     public void CancleOpenEffect()
@@ -207,7 +217,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         OnBuildEffect();
         openEffect = null;
     }
-    public void AddCardToStock(RessourceCard card)
+    public void AddCardToStock(ResourceCard card)
     {
         stockedCards.Add(card);
     }

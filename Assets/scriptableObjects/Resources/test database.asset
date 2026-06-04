@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd84e9f6b863ce45a9d6f426cd42411, type: 3}
-  m_Name: ResourceDatabase
+  m_Name: test database
   m_EditorClassIdentifier: Assembly-CSharp::ResourceDatabase
   resources:
   - type: 1
@@ -52,14 +52,4 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: fd0f861998d31404da28a81c9847aa95, type: 3}
   - type: 3
     icon: {fileID: 21300000, guid: 83b1fed87e862c44ea14f81778c5f38a, type: 3}
-  test: 3
-  target:
-    name: Philip
-    surname: Hildebrandt
-    colorit:
-      baseColor: {r: 0, g: 0, b: 0, a: 0}
-      secondColor: {r: 0, g: 0, b: 0, a: 0}
-      highlightColor: {r: 0, g: 0, b: 0, a: 0}
-    knowledge: 000000000100000002000000
-    healthState: 0
-    effect: {fileID: 0}
+  test: 0

@@ -6,10 +6,10 @@ using UnityEngine.UIElements;
 
 public class InteractionManager : Manager
 {
-    public RessourceCard activeCard;
-    public static UnityEvent<RessourceCard> OnPickUpCard = new UnityEvent<RessourceCard>();
-    public static UnityEvent<RessourceCard> OnHoldCard = new UnityEvent<RessourceCard>();
-    public static UnityEvent<RessourceCard> OnReleaseCard = new UnityEvent<RessourceCard>();
+    public ICard activeCard;
+    public static UnityEvent<ICard> OnPickUpCard = new UnityEvent<ICard>();
+    public static UnityEvent<ICard> OnHoldCard = new UnityEvent<ICard>();
+    public static UnityEvent<ICard> OnReleaseCard = new UnityEvent<ICard>();
     BuildingObject currentHoverBuilding;
     Tile currentHoverTile;
     bool isHoldingCard;
@@ -28,7 +28,7 @@ public class InteractionManager : Manager
         HoverTile();
     }
 
-    public void PickUpCard(RessourceCard card)
+    public void PickUpCard(ICard card)
     {
         isHoldingCard = true;
         activeCard = card;
@@ -105,7 +105,7 @@ public class InteractionManager : Manager
         }
     }
 
-    public void ReleaseCard(RessourceCard card)
+    public void ReleaseCard(ICard card)
     {
         isHoldingCard = false;
         BuildingObject building;
@@ -124,7 +124,7 @@ public class InteractionManager : Manager
         }
 
     }
-    bool ExploreTile(RessourceCard card)
+    bool ExploreTile(ICard card)
     {
         var raycastHit = GridManager.Instance.GroundRaycast();
         Vector2Int gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
@@ -133,7 +133,7 @@ public class InteractionManager : Manager
         {
             if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
             {
-                if (!tile.isExplored && tile.isVisible && tile.isExplorable && CardManager.instance.HasCardResource(card, ResourceType.person))
+                if (!tile.isExplored && tile.isVisible && tile.isExplorable)
                 {
                     tile.SetExploredState(true, true, true);
                     CardManager.instance.DiscardCard(activeCard, true);

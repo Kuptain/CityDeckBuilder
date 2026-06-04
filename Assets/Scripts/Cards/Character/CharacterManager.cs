@@ -23,7 +23,7 @@ public class CharacterManager : Manager
     #endregion
 
     public Characterlibrary library;
-    [SerializeField] List<Character> characters = new List<Character>();
+    public static List<Character> characters = new List<Character>();
 
     
     public void CreateStartingCharacters(int count)

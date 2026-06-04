@@ -1,4 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="CardTemplate" src="project://database/Assets/UI%20Toolkit/CardTemplate.uxml?fileID=9197481963319205126&amp;guid=3bcb7be5ff80ea34fa3e6f50ea2586ce&amp;type=3#CardTemplate"/>
-    <ui:Instance template="CardTemplate" name="CardTemplate"/>
-</ui:UXML>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class RessourceCard
+public class ResourceCard : ICard
 {
     public Card_Data data;
     BuildingObject originBuilding;
@@ -10,12 +10,12 @@ public class RessourceCard
     public int rank;
     public bool temporary;
 
-    public RessourceCard(Card_Data _data)
+    public ResourceCard(Card_Data _data)
     {
         data = _data;
     }
 
-    public RessourceCard(RessourceCard copy)
+    public ResourceCard(ResourceCard copy)
     {
         data = copy.data;
         originBuilding = copy.originBuilding;
@@ -115,5 +115,10 @@ public class RessourceCard
             data = data.decayTarget;
             CardManager.OnCardDecayed.Invoke(this);
         }
+    }
+
+    CardType ICard.GetType()
+    {
+        return CardType.Resource;
     }
 }
