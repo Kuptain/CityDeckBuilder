@@ -15368,23 +15368,23 @@ MonoBehaviour:
   gridPosition: {x: 0, y: 0}
   tileVisualTypes:
   - type: 0
-    color: {r: 0.6901961, g: 0.8862745, b: 0.5294118, a: 1}
+    color: {r: 0.80392164, g: 0.8745099, b: 0.42352945, a: 1}
     weight: 0
     visualVariants:
     - {fileID: 3413276699154380082}
   - type: 3
-    color: {r: 0.3764706, g: 0.827451, b: 0.5803922, a: 1}
+    color: {r: 0.5686275, g: 0.8588236, b: 0.41176474, a: 1}
     weight: 20
     visualVariants:
     - {fileID: 8455161117921246165}
   - type: 4
-    color: {r: 0.60784316, g: 0.67058825, b: 0.56078434, a: 1}
+    color: {r: 0.60784316, g: 0.67058825, b: 0.69803923, a: 1}
     weight: 4
     visualVariants:
     - {fileID: 3554932854004008689}
     - {fileID: 1511428535298386414}
   - type: 5
-    color: {r: 0.3254902, g: 0.78431374, b: 0.8509804, a: 1}
+    color: {r: 0.3019608, g: 0.60784316, b: 0.90196085, a: 1}
     weight: 8
     visualVariants:
     - {fileID: 2985190702383684111}
