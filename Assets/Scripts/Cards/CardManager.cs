@@ -30,7 +30,9 @@ public class CardManager : Manager
     public int handSize;
     public float cardSpeed = 5;
     public Card_Data population;
+    [Header("references")]
     public GameObject CharacterCardPrefab;
+    public GameObject HandParent;
 
     [Header("Cards")]
     public List<Character> deck = new List<Character>(10);
@@ -152,7 +154,7 @@ public class CardManager : Manager
     }
     CharacterCard CreateCharacterCard(Character character)
     {
-        CharacterCard card = Instantiate(CharacterCardPrefab).GetComponent<CharacterCard>();
+        CharacterCard card = Instantiate(CharacterCardPrefab,HandParent.transform).GetComponent<CharacterCard>();
         card.SetupCard(character);
         return card;
     }
