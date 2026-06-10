@@ -93,6 +93,7 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             populationCount += 1;
+            Debug.Log("Invoke NPC Spawn");
             OnPopulationIncreased.Invoke();
         }
 
