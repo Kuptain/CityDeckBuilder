@@ -11,17 +11,20 @@ public class NPC : MonoBehaviour
     [Header("Wandering")]
     [HideInInspector] public Vector3 originPosition;
     public float wanderRadius = 10f;
+    public float velocityThreshhold;
     public Vector2 wanderInterval;
     private float wanderTimer;
     private float currentWanderInterval;
+   
 
     public List<GameObject> bodyVariants;
     GameObject body;
+    Animator animator;
+    SpriteRenderer render;
 
 
     public void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         currentWanderInterval = 0;
 
         foreach (GameObject variant in bodyVariants)
@@ -37,6 +40,10 @@ public class NPC : MonoBehaviour
         }
         body.transform.parent = null;
 
+        agent = GetComponent<NavMeshAgent>();
+        animator = body.GetComponentInChildren<Animator>();
+        render = body.GetComponentInChildren<SpriteRenderer>();
+
     }
     void Update()
     {
@@ -48,6 +55,23 @@ public class NPC : MonoBehaviour
 
             currentWanderInterval = Random.Range(wanderInterval.x, wanderInterval.y);
             wanderTimer = 0;
+        }
+
+        if(agent.velocity.x > velocityThreshhold || agent.velocity.x < -velocityThreshhold || agent.velocity.z > velocityThreshhold || agent.velocity.z < -velocityThreshhold)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        if (agent.velocity.x > velocityThreshhold)
+        {
+            body.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (agent.velocity.x < -velocityThreshhold)
+        {
+            body.transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
         body.transform.position = transform.position;

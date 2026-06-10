@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &976741648744785093
 Transform:
   m_ObjectHideFlags: 0
@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &485964447764347854
 Transform:
   m_ObjectHideFlags: 0
@@ -230,9 +230,9 @@ MonoBehaviour:
   ID: 0
   originPosition: {x: 0, y: 0, z: 0}
   wanderRadius: 10
+  velocityThreshhold: 0.2
   wanderInterval: {x: 4, y: 12}
   bodyVariants:
-  - {fileID: 478193065445700589}
   - {fileID: 3301012330830302017}
 --- !u!1 &8899568045687740622
 GameObject:
@@ -244,8 +244,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2637167831970004349}
   - component: {fileID: 5382286755276794937}
+  - component: {fileID: 767688917133674241}
   m_Layer: 0
-  m_Name: img_npc01
+  m_Name: img_npc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +261,7 @@ Transform:
   m_GameObject: {fileID: 8899568045687740622}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0.8500004}
+  m_LocalPosition: {x: -0.059, y: 1.6, z: 0.8500004}
   m_LocalScale: {x: 12, y: 12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -315,7 +316,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6573c55a8a2100a499eab3db9051589c, type: 3}
+  m_Sprite: {fileID: -1834212248, guid: ca286a71f4b33714eae5a3ee48f05427, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -325,6 +326,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &767688917133674241
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8899568045687740622}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9feceefccd58cde46938851869cacd1c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1092380940013790959
 PrefabInstance:
   m_ObjectHideFlags: 0
