@@ -11,7 +11,7 @@ public class NPC : MonoBehaviour
     [Header("Wandering")]
     [HideInInspector] public Vector3 originPosition;
     public float wanderRadius = 10f;
-    public float velocityThreshhold;
+    public float velocityThreshold;
     public Vector2 wanderInterval;
     private float wanderTimer;
     private float currentWanderInterval;
@@ -57,19 +57,34 @@ public class NPC : MonoBehaviour
             wanderTimer = 0;
         }
 
-        if(agent.velocity.x > velocityThreshhold || agent.velocity.x < -velocityThreshhold || agent.velocity.z > velocityThreshhold || agent.velocity.z < -velocityThreshhold)
+        float animSpeedMultiplier = 0.75f;
+
+        // Ignore vertical movement and get horizontal speed
+        Vector3 horizontalVelocity = new Vector3(agent.velocity.x, 0f, agent.velocity.z);
+        float speed = horizontalVelocity.magnitude;
+
+        if (speed > velocityThreshold)
         {
             animator.SetBool("isWalking", true);
+
+            float animSpeed = speed * animSpeedMultiplier;
+
+            // Optional: prevent extreme animation speeds
+            animSpeed = Mathf.Clamp(animSpeed, 0.6f, 2.0f);
+
+            animator.speed = animSpeed;
         }
         else
         {
             animator.SetBool("isWalking", false);
+            animator.speed = 1f; // Reset to normal speed when idle
         }
-        if (agent.velocity.x > velocityThreshhold)
+
+        if (agent.velocity.x > velocityThreshold)
         {
             body.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        else if (agent.velocity.x < -velocityThreshhold)
+        else if (agent.velocity.x < - velocityThreshold)
         {
             body.transform.localScale = new Vector3(-1f, 1f, 1f);
         }
