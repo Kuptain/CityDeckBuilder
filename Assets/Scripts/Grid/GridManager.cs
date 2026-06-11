@@ -190,6 +190,18 @@ public class GridManager : MonoBehaviour
         return result;
     }
 
+    public int GetDistance(Vector2Int tileA, Vector2Int tileB)
+    {
+        Vector3Int cubeA = OffsetToCube(tileA.x, tileA.y);
+        Vector3Int cubeB = OffsetToCube(tileB.x, tileB.y);
+
+        return (
+            Mathf.Abs(cubeA.x - cubeB.x) +
+            Mathf.Abs(cubeA.y - cubeB.y) +
+            Mathf.Abs(cubeA.z - cubeB.z)
+        ) / 2;
+    }
+
     public Tile ReturnDirectionalTile(Vector2Int origin, TileDirection direction, int distance) // Chat GPT helped
     {
         if (!IsValidGridPosition(origin)) return gridNullTile;

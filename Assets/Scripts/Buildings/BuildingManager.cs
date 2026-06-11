@@ -174,7 +174,8 @@ public class BuildingManager : Manager
 
                 if (previewBuilding == null)
                 {
-                    Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
+                    //Vector3 worldPos = gridManager.GridToWorldPosition(gridPosition);
+                    Vector3 worldPos = TileVisualsManager.Instance.GetVisualTilelData(gridPosition).transform.position;
                     previewBuilding = Instantiate(buildingToSpawn.prefab, worldPos, Quaternion.identity,lockedBuildingParent.transform);
 
                     buildingObject = previewBuilding.GetComponent<BuildingObject>();
