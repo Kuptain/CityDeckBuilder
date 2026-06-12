@@ -20,8 +20,8 @@ public class CardManager : Manager
     #endregion
 
     #region events
-    public static UnityEvent<ResourceCard, int> OnDraw = new UnityEvent<ResourceCard, int>();
-    public static UnityEvent<ResourceCard, bool> OnDiscard = new UnityEvent<ResourceCard, bool>(); // bool = was this card played (true) or just discarded (false)
+    public static UnityEvent<ResourceCard, int> OnDrawRessource = new UnityEvent<ResourceCard, int>();
+    public static UnityEvent<ICard, bool> OnDiscard = new UnityEvent<ICard, bool>(); // bool = was this card played (true) or just discarded (false)
     public static UnityEvent OnShuffleDiscard = new UnityEvent();
     public static UnityEvent<ResourceCard> OnCardDecayed = new UnityEvent<ResourceCard>();
     #endregion
@@ -163,7 +163,7 @@ public class CardManager : Manager
         if (index < hand.Count && index >= 0)
         {
             discardPile.Add(hand[index].target);
-            hand[index].Discard();
+            hand[index].Discard(false);
         }
     }
     public void DiscardCard(ICard card, bool wasPlayed = false)
@@ -172,8 +172,9 @@ public class CardManager : Manager
         {
             CharacterCard character = (CharacterCard)card;
             SendLog("discard " + character.target.FullName);
-            hand.Remove((CharacterCard) card);
-            character.Discard();
+            hand.Remove(character);
+            discardPile.Add(character.target);
+            character.Discard(wasPlayed);
             TurnManager.OnEndTurn.Invoke();
         }
 
@@ -194,7 +195,7 @@ public class CardManager : Manager
         ResourceCard newCard = new ResourceCard(data);
         newCard.temporary = true;
         temporaryHand.Add(newCard);
-        OnDraw.Invoke(newCard, handSize + temporaryHand.Count - 1);
+        OnDrawRessource.Invoke(newCard, handSize + temporaryHand.Count - 1);
     }
     #region test functions
     [ContextMenu("shuffle Deck")]

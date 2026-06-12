@@ -18,7 +18,7 @@ public class CardVisualManager : MonoBehaviour
     {
         if (cardState == CardVisuals.CardStates.Hand)
         {
-            CardManager.OnDraw.AddListener(Draw);
+            CardManager.OnDrawRessource.AddListener(Draw);
             CardManager.OnDiscard.AddListener(Discard);
         }
         else if (cardState == CardVisuals.CardStates.Overview)
@@ -73,7 +73,7 @@ public class CardVisualManager : MonoBehaviour
         slots.Add(slot);
     }
 
-    void Discard(ResourceCard card, bool wasPlayed)
+    void Discard(ICard card, bool wasPlayed)
     {
         foreach (CardVisuals slot in slots)
         {
