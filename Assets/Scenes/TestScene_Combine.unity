@@ -1426,10 +1426,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 910976994}
     m_Modifications:
-    - target: {fileID: 3259602714153877645, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}
-      propertyPath: m_Actions
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: bebc655bfe63e5241885c83c9f33f230, type: 3}
     - target: {fileID: 5658536982609723793, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}
       propertyPath: m_Name
       value: Camera Controller
