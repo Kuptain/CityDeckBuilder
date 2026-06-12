@@ -100,6 +100,7 @@ public class TileVisual : MonoBehaviour
             {
                 visualVariant.SetActive(false);
             }
+            //currentTileVisualType.visualVariants[0].SetActive(true);
         }
     }
 
@@ -153,6 +154,7 @@ public class TileVisual : MonoBehaviour
     {
         _renderer.material.SetColor("_BaseColor", color);
     }
+    private Dictionary<SpriteRenderer, float> originalAlphas = new();
     public void UpdateTileTypeVisual()
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
@@ -163,18 +165,24 @@ public class TileVisual : MonoBehaviour
             foreach (var visualVariant in visualType.visualVariants)
             {
                 SpriteRenderer[] renderers = visualVariant.GetComponentsInChildren<SpriteRenderer>(true);
-                
+
+
                 foreach (SpriteRenderer renderer in renderers)
                 {
+                    if (!originalAlphas.ContainsKey(renderer))
+                    {
+                        originalAlphas[renderer] = renderer.color.a;
+                    }
+
                     Color color = renderer.color;
 
                     if (isExplored)
                     {
-                        color.a = 1f;
+                        color.a = originalAlphas[renderer] * 1f;
                     }
                     else
                     {
-                        color.a = 0.4f;
+                        color.a = originalAlphas[renderer] * 0.4f;
                     }
                
                     renderer.color = color;
@@ -188,6 +196,7 @@ public class TileVisual : MonoBehaviour
                 currentTileVisualType = visualType;
                 randomInt = Random.Range(0, visualType.visualVariants.Count);
                 visualType.visualVariants[randomInt].SetActive(true);
+                _renderer.transform.position = transform.position + new Vector3(0, visualType.tileOffsetY, 0);
                 SetOffsetColor(visualType.color);
             }
         }

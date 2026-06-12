@@ -230,7 +230,7 @@ MonoBehaviour:
   ID: 0
   originPosition: {x: 0, y: 0, z: 0}
   wanderRadius: 10
-  velocityThreshhold: 0.2
+  velocityThreshold: 0.25
   wanderInterval: {x: 4, y: 12}
   bodyVariants:
   - {fileID: 3301012330830302017}

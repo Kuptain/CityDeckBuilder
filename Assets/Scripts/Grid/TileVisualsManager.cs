@@ -10,6 +10,7 @@ public class TileVisualType
     public Color color;
     [Tooltip("How frequent should this type spawn")]
     public int weight;
+    public float tileOffsetY;
     public List<GameObject> visualVariants;
 }
 public class TileVisualsManager : MonoBehaviour
@@ -92,8 +93,10 @@ public class TileVisualsManager : MonoBehaviour
             var tile = GridManager.Instance.gridArray[i];
             if (!tile.isValid) continue;
             Quaternion hexRotation = Quaternion.Euler(new Vector3(0, tile.rotationIndex * 60f, 0));
-            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition), Quaternion.identity,tileParent.transform);
- 
+
+            Vector3 offsetY = GetOffsetY(tile);
+            GameObject spawnedTile = Instantiate(_tilePrefab, GridManager.Instance.GridToWorldPosition(tile.gridPosition) + offsetY, Quaternion.identity,tileParent.transform);
+            
             TileVisual gridTileVisual = spawnedTile.GetComponent<TileVisual>();
 
             InteractionManager.OnPickUpCard.AddListener(gridTileVisual.EnableHighlight);
@@ -119,6 +122,17 @@ public class TileVisualsManager : MonoBehaviour
             SetInitialBlueprintSpawns();
             SetInitialTileVisibleState();
         }
+    }
+    private Vector3 GetOffsetY(Tile tile)
+    {
+        float distance = GridManager.Instance.GetDistance(tile.gridPosition, centre);
+        if (distance < 0.5f)
+        {
+            distance = 1f;
+        }
+
+        Vector3 newY = new Vector3(0, (distance - 1f) * 0.5f, 0);
+        return newY;
     }
     private void SetInitialBlueprintSpawns()
     {
