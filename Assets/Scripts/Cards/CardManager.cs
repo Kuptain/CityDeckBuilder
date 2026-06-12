@@ -33,7 +33,7 @@ public class CardManager : Manager
     [Header("references")]
     public GameObject CharacterCardPrefab;
     public GameObject HandParent;
-
+    public RectTransform DeckUiButton;
     [Header("Cards")]
     public List<Character> deck = new List<Character>(10);
     public List<CharacterCard> hand;
@@ -68,7 +68,7 @@ public class CardManager : Manager
         {
             if (i >= hand.Count)
             {
-               hand.Add(null);
+                hand.Add(null);
             }
 
             if (hand[i] == null)
@@ -154,7 +154,11 @@ public class CardManager : Manager
     }
     CharacterCard CreateCharacterCard(Character character)
     {
-        CharacterCard card = Instantiate(CharacterCardPrefab,HandParent.transform).GetComponent<CharacterCard>();
+        Vector3 pos = DeckUiButton.position;
+        pos.z += 34;
+        pos = Camera.main.ScreenToWorldPoint(pos);
+        Quaternion rotation = Quaternion.Euler(45, 0, 0);
+        CharacterCard card = Instantiate(CharacterCardPrefab, pos, rotation, HandParent.transform).GetComponent<CharacterCard>();
         card.SetupCard(character);
         return card;
     }

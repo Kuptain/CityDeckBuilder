@@ -1,5 +1,101 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4541825808744551796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5784036908221756080}
+  - component: {fileID: 4881013203972766355}
+  - component: {fileID: 1063888278876948570}
+  - component: {fileID: 1877264256423644437}
+  m_Layer: 5
+  m_Name: CharacterCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5784036908221756080
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541825808744551796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3625295278134470470}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 206.498, y: 294.9973}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4881013203972766355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541825808744551796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0bb7778d65bee48841b8ab11b669c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCard
+  target:
+    name: Philip
+    surname: Hildebrandt
+    colorit:
+      baseColor: {r: 0, g: 0, b: 0, a: 0}
+      secondColor: {r: 0, g: 0, b: 0, a: 0}
+      highlightColor: {r: 0, g: 0, b: 0, a: 0}
+    knowledge: 020000000300000001000000
+    healthState: 0
+    effect: {fileID: 0}
+  uiDocument: {fileID: 1063888278876948570}
+--- !u!114 &1063888278876948570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541825808744551796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: ec0185ea9111251448b822bba3d6a82b, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 0ce64648433c9814381f4d20de2944a1, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 281
+  m_WorldSpaceHeight: 411.3
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!114 &1877264256423644437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4541825808744551796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7274daa41a6198e4a91f34a71173a2e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &5658536982609723793
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3625295278134470470}
+  - component: {fileID: 7699582700765642547}
   m_Layer: 0
   m_Name: Handparent
   m_TagString: Untagged
@@ -153,9 +250,25 @@ Transform:
   m_LocalPosition: {x: 0, y: -4.06, z: 34.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5784036908221756080}
   m_Father: {fileID: 5244781079698790495}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
+--- !u!114 &7699582700765642547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8146149524443239234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf9ba1629804a847913f883de40aa77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandPositionManager
+  width: 5
+  angleTotal: 0
+  lerpSpeed: 10
 --- !u!1 &8993730844369973519
 GameObject:
   m_ObjectHideFlags: 0
