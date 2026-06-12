@@ -22,7 +22,6 @@ public class HandPositionManager : MonoBehaviour
         }
     }
 
-
     Vector3 GetTargetPosition(int index, int count)
     {
         Vector3 target = new Vector3(transform.position.x + CalculateRelativPosition(index, count), transform.position.y, transform.position.z);

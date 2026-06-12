@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class CharacterCard : MonoBehaviour, ICard
 {
     public Character target;
     [SerializeField] UIDocument uiDocument;
+   
+   
 
-    
+
     public void SetupCard(Character character)
     {
         Selectable select = new Selectable(onPointerDown, onPointerUp, onPointerCancle);
@@ -16,20 +19,10 @@ public class CharacterCard : MonoBehaviour, ICard
         uiDocument.rootVisualElement.AddManipulator(select);
     }
 
-    public void CreateVisuals()
+    
+    public void Discard(bool wasPlayed)
     {
-
-    }
-
-    #region debug
-    [ContextMenu("test Setup")]
-    public void testSetup()
-    {
-        SetupCard(new Character("Philip", "Hildebrandt", new Characterlibrary.Colorit(), 3));
-    }
-
-    public void Discard()
-    {
+        CardManager.OnDiscard.Invoke(this, wasPlayed);
         Destroy(gameObject);
     }
 
@@ -40,22 +33,30 @@ public class CharacterCard : MonoBehaviour, ICard
 
     void onPointerDown(PointerDownEvent e)
     {
-        Debug.Log("Character selected :" + target.FullName);
+       
         InteractionManager.OnPickUpCard.Invoke(this);
+        SelectionArrow.OnActivate.Invoke(Camera.main.WorldToScreenPoint(transform.position));
     }
 
     void onPointerUp(PointerUpEvent e)
     {
-        Debug.Log("Character deselected :" + target.FullName);
         InteractionManager.OnHoldCard.Invoke(this);
+        SelectionArrow.onDeactivate.Invoke();
     }
 
     void onPointerCancle(PointerUpEvent e)
     {
-        Debug.Log("Character used:" + target.FullName);
-
         InteractionManager.OnReleaseCard.Invoke(this);
+        SelectionArrow.onDeactivate.Invoke();
     }
 
+    #region debug
+    [ContextMenu("test Setup")]
+    public void testSetup()
+    {
+        SetupCard(new Character("Philip", "Hildebrandt", new Characterlibrary.Colorit(), 3));
+    }
+
+  
     #endregion
 }

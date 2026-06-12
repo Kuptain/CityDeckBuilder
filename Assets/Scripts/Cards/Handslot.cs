@@ -19,13 +19,7 @@ public class Handslot
         empty = true;
     }
 
-    public void DrawCard(ResourceCard card,int index)
-    {
-        currentCard = card;
-        empty = false;
-        CardManager.OnDraw.Invoke(card,index);
-    }
-
+  
     public void OnEndOfTurn()
     {
         if (currentCard != null)

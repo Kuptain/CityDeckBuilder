@@ -35,7 +35,7 @@ public class Inputmanager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        mousePosition = Mouse.current.position.value;
+        mousePosition = Mouse.current.position.ReadValue();
     }
 
     public void SubscibeInputs()

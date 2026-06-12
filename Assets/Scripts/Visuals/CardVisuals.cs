@@ -316,7 +316,7 @@ public class CardVisuals : MonoBehaviour
         
     }
 
-    void DiscardCheck(ResourceCard _card, bool wasPlayed)
+    void DiscardCheck(ICard _card, bool wasPlayed)
     {
         if(_card == card && !wasPlayed)
         {
