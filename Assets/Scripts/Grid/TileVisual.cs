@@ -81,8 +81,8 @@ public class TileVisual : MonoBehaviour
     {
         isExplored = newIsExplored;
 
-        //fogOfWar_dense.SetActive(!isVisible);
-        //fogOfWar_visible.SetActive(!newIsExplored);
+        fogOfWar_dense.SetActive(!isVisible);
+        fogOfWar_visible.SetActive(!newIsExplored);
         notSafeHighlight.SetActive(!isSafe);
         if (buildingObject != null)
         {
