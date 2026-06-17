@@ -41,11 +41,6 @@ public class TileVisual : MonoBehaviour
     {
         if (GridManager.Instance.TryGetTile(gridPosition, out Tile tile))
         {
-            if (!tile.isExplored && tile.isVisible && tile.isExplorable )
-            {
-                outlineExplorable.SetActive(true);
-                return;
-            }
             if (card.GetType() == CardType.Resource)
             {
                 ResourceCard ressource = (ResourceCard)card;
@@ -58,7 +53,7 @@ public class TileVisual : MonoBehaviour
                         return;
                     }
 
-                    if (!tile.currentBuilding.isConstructing && tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out BuildingEffect effect)
+                    if (!tile.currentBuilding.isConstructing && tile.currentBuilding.TryToGetBuildingEffect(BuildingEffect.triggerType.onCharacter, out BuildingEffect effect)
                      && ressource.data.TryToPayFor(effect.EffectCost) && !tile.currentBuilding.IsOnCooldown())
                     {
                         outlineEffect.SetActive(true);
@@ -66,7 +61,15 @@ public class TileVisual : MonoBehaviour
                     }
                 }
             }
-            
+            if (card.GetType() == CardType.Resource)
+            {
+                if (!tile.isExplored && tile.isVisible && tile.isExplorable)
+                {
+                    outlineExplorable.SetActive(true);
+                    return;
+                }
+            }
+
         }
     }
 
@@ -109,7 +112,7 @@ public class TileVisual : MonoBehaviour
         // Gets all directions and stores them in a list
         List<GridManager.TileDirection> tileDirections = new List<GridManager.TileDirection>((GridManager.TileDirection[])System.Enum.GetValues(typeof(GridManager.TileDirection)));
         Tile tileNeighbor;
-        if(GridManager.Instance.TryGetTile(gridPosition, out Tile myTile))
+        if (GridManager.Instance.TryGetTile(gridPosition, out Tile myTile))
         {
             if (!myTile.isValid) return;
 
@@ -142,7 +145,7 @@ public class TileVisual : MonoBehaviour
     }
     void ToggleDirectionOutline(GridManager.TileDirection direction, bool state)
     {
-        foreach(var d in directionOutlines)
+        foreach (var d in directionOutlines)
         {
             if (d.direction == direction)
             {
@@ -184,7 +187,7 @@ public class TileVisual : MonoBehaviour
                     {
                         color.a = originalAlphas[renderer] * 0.4f;
                     }
-               
+
                     renderer.color = color;
                 }
 
@@ -197,7 +200,7 @@ public class TileVisual : MonoBehaviour
                 randomInt = Random.Range(0, visualType.visualVariants.Count);
                 visualType.visualVariants[randomInt].SetActive(true);
                 _renderer.transform.position = transform.position + new Vector3(0, visualType.tileOffsetY, 0);
-                if(tile.tileType == Tile.TileType.Lake)
+                if (tile.tileType == Tile.TileType.Lake)
                 {
                     _renderer.enabled = false;
                 }

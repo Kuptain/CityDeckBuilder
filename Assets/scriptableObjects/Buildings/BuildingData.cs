@@ -55,17 +55,19 @@ public class BuildingEffect
     public triggerType type;
     public bool HasCoolDown;
     public int cooldownDuration;
+    public List<KnowledgeType> knowledgeCost = new List<KnowledgeType>();
     public List<ResourceCost> EffectCost = new List<ResourceCost>();
     public List<ResourceCard_Data> temporaryCards;
-    public UnityEvent<BuildingObject, ResourceCard, BuildingEffect> OnTrigger = new UnityEvent<BuildingObject, ResourceCard,BuildingEffect>();
+    public UnityEvent<BuildingObject, ICard, BuildingEffect> OnTrigger = new UnityEvent<BuildingObject, ICard,BuildingEffect>();
     public enum triggerType
     {
         onBuild = 0,
-        onCard = 1,
+        onCharacter = 1,
+        onRessource = 2,
         onEndOfTurn = 2
     }
 
-    public void Invoke(BuildingObject bO, ResourceCard card)
+    public void Invoke(BuildingObject bO, ICard card)
     {
         OnTrigger.Invoke(bO, card, this);
     }
