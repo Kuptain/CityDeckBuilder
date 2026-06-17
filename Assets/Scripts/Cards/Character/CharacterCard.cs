@@ -7,9 +7,6 @@ public class CharacterCard : MonoBehaviour, ICard
 {
     public Character target;
     [SerializeField] UIDocument uiDocument;
-   
-   
-
 
     public void SetupCard(Character character)
     {
@@ -18,7 +15,6 @@ public class CharacterCard : MonoBehaviour, ICard
         uiDocument.rootVisualElement.Q<VisualElement>("Card").dataSource = this;
         uiDocument.rootVisualElement.AddManipulator(select);
     }
-
     
     public void Discard(bool wasPlayed)
     {

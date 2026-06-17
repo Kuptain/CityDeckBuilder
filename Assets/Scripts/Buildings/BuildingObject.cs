@@ -259,7 +259,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
     {
         for (int i = 0; i < currentActiveRecipe.cardsToCreate.Count; i++)
         {
-            CardManager.instance.GetTemporaryCard(currentActiveRecipe.cardsToCreate[i]);
+            CardManager.instance.CreateRessourceCard(currentActiveRecipe.cardsToCreate[i]);
         }
     }
 
@@ -294,7 +294,7 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         return false;
     }
-    public List<Card_Data> GetCurrentCards()
+    public List<ResourceCard_Data> GetCurrentCards()
     {
         return data.GetRankData(rank).cardsToAdd;
     }

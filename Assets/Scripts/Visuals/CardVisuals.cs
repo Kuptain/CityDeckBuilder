@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+/*
 public class CardVisuals : MonoBehaviour
 {
     public  ResourceCard card;
@@ -331,3 +331,4 @@ public class CardHover
     public Vector2 scale;
     public Vector2 position;
 }
+*/

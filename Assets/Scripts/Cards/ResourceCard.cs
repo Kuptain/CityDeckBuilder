@@ -1,32 +1,45 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
-public class ResourceCard : ICard
+public class ResourceCard : MonoBehaviour, ICard
 {
-    public Card_Data data;
+    public ResourceCard_Data data;
     BuildingObject originBuilding;
     public int roundsInHand;
-    public int rank;
-    public bool temporary;
 
-    public ResourceCard(Card_Data _data)
+    [SerializeField] UIDocument uiDocument;
+    public void SetupCard(ResourceCard_Data _data)
     {
+        Selectable select = new Selectable(onPointerDown, onPointerUp, onPointerCancle);
         data = _data;
+        uiDocument.rootVisualElement.Q<VisualElement>("Card").dataSource = this;
+        uiDocument.rootVisualElement.AddManipulator(select);
+    }
+   
+   
+
+    void onPointerDown(PointerDownEvent e)
+    {
+
+        InteractionManager.OnPickUpCard.Invoke(this);
+        SelectionArrow.OnActivate.Invoke(Camera.main.WorldToScreenPoint(transform.position));
     }
 
-    public ResourceCard(ResourceCard copy)
+    void onPointerUp(PointerUpEvent e)
     {
-        data = copy.data;
-        originBuilding = copy.originBuilding;
-        rank = copy.rank;
-        roundsInHand = copy.roundsInHand;
+        InteractionManager.OnHoldCard.Invoke(this);
+        SelectionArrow.onDeactivate.Invoke();
     }
 
-    public void Upgrade()
+    void onPointerCancle(PointerUpEvent e)
     {
-        rank += 1;
+        InteractionManager.OnReleaseCard.Invoke(this);
+        SelectionArrow.onDeactivate.Invoke();
     }
+
+
 
     public List<ResourceCost> GetCurrentResources()
     {

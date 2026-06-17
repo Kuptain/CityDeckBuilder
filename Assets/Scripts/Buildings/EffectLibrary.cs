@@ -24,7 +24,7 @@ public class EffectLibrary : ScriptableObject
     {
         for (int i = 0; i < origin.temporaryCards.Count; i++)
         {
-            CardManager.instance.GetTemporaryCard(origin.temporaryCards[i]);
+            CardManager.instance.CreateRessourceCard(origin.temporaryCards[i]);
         }
     }
 

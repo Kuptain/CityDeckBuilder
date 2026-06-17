@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ResourceSlotUI : MonoBehaviour
 {
-    public Card_Data type;
+    public ResourceCard_Data type;
     public TMP_Text text;
     public Image iconImage;
     public Image greyImage;
