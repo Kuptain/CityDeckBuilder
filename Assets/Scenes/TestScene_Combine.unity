@@ -1540,6 +1540,34 @@ PrefabInstance:
       propertyPath: lockedBuildingParent
       value: 
       objectReference: {fileID: 1666413703}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: unlockedBuildings.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: 'unlockedBuildings.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 40253a7aefc38bc4ebd723880fe7596f, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: 'unlockedBuildings.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 06f3afb53f99d1349b6e298fd3beaa86, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: 'unlockedBuildings.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7af5c81d447ccac47a10851d3e265808, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: 'unlockedBuildings.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6bdb355d08fd2184abb5b0051cefc93f, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: 'unlockedBuildings.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d92364cde81313744bfa08a98d71636d, type: 2}
+    - target: {fileID: 4509821536145325167, guid: bd82523bce7d6da43a12dd3b25f3541b, type: 3}
+      propertyPath: 'unlockedBuildings.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e425c6c61c1a9d94a9bc115242c05af5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
