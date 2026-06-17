@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 [System.Serializable]
 public class Handslot
 {
@@ -28,3 +28,4 @@ public class Handslot
         }
     }
 }
+*/

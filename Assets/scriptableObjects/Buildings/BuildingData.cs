@@ -44,7 +44,7 @@ public class RankData
 {
     public int housingIncrease;
     public bool usesCrafting;
-    public List<Card_Data> cardsToAdd;
+    public List<ResourceCard_Data> cardsToAdd;
     public List<ResourceCost> resourceCosts;
     public List<BuildingEffect> effects = new List<BuildingEffect>();
     public List<CraftRecipe> craftingRecipes = new List<CraftRecipe>();
@@ -56,7 +56,7 @@ public class BuildingEffect
     public bool HasCoolDown;
     public int cooldownDuration;
     public List<ResourceCost> EffectCost = new List<ResourceCost>();
-    public List<Card_Data> temporaryCards;
+    public List<ResourceCard_Data> temporaryCards;
     public UnityEvent<BuildingObject, ResourceCard, BuildingEffect> OnTrigger = new UnityEvent<BuildingObject, ResourceCard,BuildingEffect>();
     public enum triggerType
     {
@@ -76,7 +76,7 @@ public class BuildingEffect
 public class CraftRecipe
 {
     public List<ResourceCost> costs;
-    public List<Card_Data> cardsToCreate;
+    public List<ResourceCard_Data> cardsToCreate;
 }
 
 

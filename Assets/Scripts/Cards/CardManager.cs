@@ -29,11 +29,13 @@ public class CardManager : Manager
     [Header("variables")]
     public int handSize;
     public float cardSpeed = 5;
-    public Card_Data population;
+    public ResourceCard_Data population;
     [Header("references")]
-    public GameObject CharacterCardPrefab;
-    public GameObject HandParent;
-    public RectTransform DeckUiButton;
+    public GameObject characterCardPrefab;
+    public GameObject ressourceCardPrefab;
+    public GameObject handParent;
+    public GameObject ressourceHandParent;
+    public RectTransform deckUiButton;
     [Header("Cards")]
     public List<Character> deck = new List<Character>(10);
     public List<CharacterCard> hand;
@@ -110,7 +112,7 @@ public class CardManager : Manager
         deck.AddRange(cards);
     }
 
-    public void AddCardsToHand(List<Card_Data> cards_Data)
+    public void AddCardsToHand(List<ResourceCard_Data> cards_Data)
     {
         SendError("addCardsToHand is not implemented yet");
     }
@@ -154,11 +156,11 @@ public class CardManager : Manager
     }
     CharacterCard CreateCharacterCard(Character character)
     {
-        Vector3 pos = DeckUiButton.position;
+        Vector3 pos = deckUiButton.position;
         pos.z += 34;
         pos = Camera.main.ScreenToWorldPoint(pos);
         Quaternion rotation = Quaternion.Euler(45, 0, 0);
-        CharacterCard card = Instantiate(CharacterCardPrefab, pos, rotation, HandParent.transform).GetComponent<CharacterCard>();
+        CharacterCard card = Instantiate(characterCardPrefab, pos, rotation, handParent.transform).GetComponent<CharacterCard>();
         card.SetupCard(character);
         return card;
     }
@@ -194,12 +196,16 @@ public class CardManager : Manager
         OnShuffleDiscard.Invoke();
     }
 
-    public void GetTemporaryCard(Card_Data data)
+    public void CreateRessourceCard(ResourceCard_Data data)
     {
-        ResourceCard newCard = new ResourceCard(data);
-        newCard.temporary = true;
+        Vector3 pos = deckUiButton.position;
+        pos.z += 34;
+        pos = Camera.main.ScreenToWorldPoint(pos);
+        Quaternion rotation = Quaternion.Euler(45, 0, 0);
+        ResourceCard newCard = Instantiate(ressourceCardPrefab, pos, rotation, ressourceHandParent.transform).GetComponent<ResourceCard>();
         temporaryHand.Add(newCard);
         OnDrawRessource.Invoke(newCard, handSize + temporaryHand.Count - 1);
+        newCard.SetupCard(data);
     }
     #region test functions
     [ContextMenu("shuffle Deck")]

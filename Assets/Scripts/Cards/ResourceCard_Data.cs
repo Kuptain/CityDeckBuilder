@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
-public class Card_Data : ScriptableObject
+public class ResourceCard_Data : ScriptableObject
 {
     public Sprite sprite;
     public string cardName;
@@ -10,11 +10,11 @@ public class Card_Data : ScriptableObject
     public List<ResourceCost> ressources;
     [Header("decay")]
     public int decay;
-    public Card_Data decayTarget;
+    public ResourceCard_Data decayTarget;
     [Header("food")]
     public int FoodAmount;
 
-    public Card_Data(Card_Data card)
+    public ResourceCard_Data(ResourceCard_Data card)
     {
         sprite = card.sprite;
         ressources = new List<ResourceCost>(card.ressources);

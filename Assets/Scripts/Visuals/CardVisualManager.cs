@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+/*
 public class CardVisualManager : MonoBehaviour
 {
     public Transform container;
@@ -121,3 +121,4 @@ public class CardVisualManager : MonoBehaviour
         mouseOverHand = active;
     }
 }
+*/
