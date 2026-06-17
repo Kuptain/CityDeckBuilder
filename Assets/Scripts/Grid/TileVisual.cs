@@ -197,6 +197,14 @@ public class TileVisual : MonoBehaviour
                 randomInt = Random.Range(0, visualType.visualVariants.Count);
                 visualType.visualVariants[randomInt].SetActive(true);
                 _renderer.transform.position = transform.position + new Vector3(0, visualType.tileOffsetY, 0);
+                if(tile.tileType == Tile.TileType.Lake)
+                {
+                    _renderer.enabled = false;
+                }
+                else
+                {
+                    _renderer.enabled = true;
+                }
                 SetOffsetColor(visualType.color);
             }
         }

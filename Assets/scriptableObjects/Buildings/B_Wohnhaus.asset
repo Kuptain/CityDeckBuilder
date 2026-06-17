@@ -19,15 +19,16 @@ MonoBehaviour:
   uiIcon: {fileID: 21300000, guid: f06a19e2b6240264996607a82c02ee78, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
+  isLocked: 0
   ranks:
   - housingIncrease: 1
     usesCrafting: 0
     cardsToAdd: []
     resourceCosts:
     - resource: 6
-      amount: 1
+      amount: 0
     - resource: 10
-      amount: 1
+      amount: 0
     effects:
     - type: 0
       HasCoolDown: 0
