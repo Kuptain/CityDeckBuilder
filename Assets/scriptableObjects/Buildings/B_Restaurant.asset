@@ -16,18 +16,19 @@ MonoBehaviour:
   buildingDescription: combines food to better one
   test: 0
   prefab: {fileID: 5122269274258173990, guid: 71fb8e5e4a85f004fbe3ec0321e713f0, type: 3}
-  uiIcon: {fileID: 21300000, guid: 5d6314ecaffc8564fb7183d2a00f4799, type: 3}
+  uiIcon: {fileID: 21300000, guid: 6e723a0a2ae38484e9f9ddaf405d8845, type: 3}
   uiButton: {fileID: 0}
   requiredTerrain: 0
+  isLocked: 0
   ranks:
   - housingIncrease: 0
     usesCrafting: 1
     cardsToAdd: []
     resourceCosts:
     - resource: 14
-      amount: 2
+      amount: 0
     - resource: 5
-      amount: 1
+      amount: 0
     effects: []
     craftingRecipes:
     - costs:
