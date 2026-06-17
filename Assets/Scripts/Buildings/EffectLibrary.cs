@@ -4,23 +4,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EffectLibrary", menuName = "Scriptable Objects/EffectLibrary")]
 public class EffectLibrary : ScriptableObject
 {
-    public void AddListenerSpawnNPC(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void AddListenerSpawnNPC(BuildingObject building, ICard card, BuildingEffect origin)
     {
         Vector3 spawnPosition = GridManager.Instance.GridToWorldPosition(building.GetTile().gridPosition);
         TurnManager.OnPopulationIncreased.AddListener(() => TurnManager.Instance.SpawnNPC(spawnPosition));
     }
    
-    public void Test(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void Test(BuildingObject building, ICard card, BuildingEffect origin)
     {
         Debug.Log("test");
     }
 
-    public void StockRessource(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void StockRessource(BuildingObject building, ICard card, BuildingEffect origin)
     {
-        building.AddCardToStock(card);
+        building.AddCardToStock((ResourceCard) card);
     }
 
-    public void createTemporaryCard(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void createTemporaryCard(BuildingObject building, ICard card, BuildingEffect origin)
     {
         for (int i = 0; i < origin.temporaryCards.Count; i++)
         {
@@ -30,7 +30,7 @@ public class EffectLibrary : ScriptableObject
 
 
 
-    public static void AddHousing(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public static void AddHousing(BuildingObject building, ICard card, BuildingEffect origin)
     {
         int housing = building.data.GetRankData(building.GetRank()).housingIncrease;
         if (building.housingValue == null)
@@ -43,11 +43,11 @@ public class EffectLibrary : ScriptableObject
         ResourceManager.OnHousingChange.Invoke(housingChange);
     }
 
-    public void discoverTiles(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void discoverTiles(BuildingObject building, ICard card, BuildingEffect origin)
     {
         discoverneighbours(building, 2);
     }
-    public void discoverMoreTiles(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void discoverMoreTiles(BuildingObject building, ICard card, BuildingEffect origin)
     {
         discoverneighbours(building, 3);
     }
@@ -67,8 +67,10 @@ public class EffectLibrary : ScriptableObject
     }
 
 
-    public void AddFood(BuildingObject building, ResourceCard card, BuildingEffect origin)
+    public void AddFood(BuildingObject building, ICard card, BuildingEffect origin)
     {
-        ResourceManager.instance.ChangeFood(card.GetCurrentFood());
+        //Implement new food system
+        ResourceCard r_card = (ResourceCard)card;
+        ResourceManager.instance.ChangeFood(r_card.GetCurrentFood());
     }
 }

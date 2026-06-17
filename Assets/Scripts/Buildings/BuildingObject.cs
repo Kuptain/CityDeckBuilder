@@ -124,19 +124,23 @@ public class BuildingObject : MonoBehaviour, Iinteractable
             }
             else
             {
-                OnCardEffect((ResourceCard)card);
+                OnResourceEffect((ResourceCard)card);
             }
         }
         else
         {
+            OnCharacterEffect((CharacterCard)card);
+
+
+
             //respond to character beeing played on this
         }
     }
-    private void OnCardEffect(ResourceCard card)
+    private void OnResourceEffect(ResourceCard card)
     {
         
         BuildingEffect effect;
-        if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCard, out effect))
+        if (TryToGetBuildingEffect(BuildingEffect.triggerType.onRessource, out effect))
         {
             if ( !IsOnCooldown() && card.data.TryToPayFor(effect.EffectCost))
             {
@@ -153,11 +157,35 @@ public class BuildingObject : MonoBehaviour, Iinteractable
         }
         else
         {
-            CardManager.instance.SendLog("Building had no effect on Card played");
+            CardManager.instance.SendLog("Building had no effect on ressource played");
         }
         
     }
+    private void OnCharacterEffect(CharacterCard card)
+    {
 
+        BuildingEffect effect;
+        if (TryToGetBuildingEffect(BuildingEffect.triggerType.onCharacter, out effect))
+        {
+            if (!IsOnCooldown() && card.ContainsKnowledge(effect.knowledgeCost))
+            {
+                effect.Invoke(this, card);
+                //CardManager.instance.DiscardCard(card, true);
+                cooldown = 0;
+                //TurnManager.OnEndTurn.Invoke();
+
+            }
+            else
+            {
+                CardManager.instance.SendLog("Character had not the right Knowledge or the effect is still on CD");
+            }
+        }
+        else
+        {
+            CardManager.instance.SendLog("Building had no effect on Character played");
+        }
+
+    }
 
     void PayForOpenEffect(ResourceCard card)
     {

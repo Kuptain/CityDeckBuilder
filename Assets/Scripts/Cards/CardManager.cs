@@ -94,19 +94,6 @@ public class CardManager : Manager
         }
     }
 
-    public bool HasCardResource(ResourceCard card, ResourceType type)
-    {
-        foreach (var resource in card.data.ressources)
-        {
-            if (resource.resource == type)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public void AddCardsToDeck(List<Character> cards)
     {
         deck.AddRange(cards);
