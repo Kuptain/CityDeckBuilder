@@ -5,10 +5,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "Terrain", menuName = "Scriptable Objects/Terrain")]
 public class Terrain : ScriptableObject
 {
-    public Tile.TileType type;
-
     public TerrainEffect effect;
 
+    public TileVisualType visualType = new TileVisualType();
+    public int weight;
 }
 
 public class TerrainEffect
@@ -24,4 +24,12 @@ public class TerrainEffect
     {
         OnTrigger.Invoke(card, this);
     }
+}
+[System.Serializable]
+public class TileVisualType
+{
+    public Color color;
+    [Tooltip("How frequent should this type spawn")]
+    public float tileOffsetY;
+    public List<GameObject> visualVariants;
 }

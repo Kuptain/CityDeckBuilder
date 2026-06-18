@@ -14,9 +14,10 @@ public class TileVisual : MonoBehaviour
 {
     [HideInInspector] public GameObject buildingObject;
     [HideInInspector] public TileVisualType currentTileVisualType;
+    [HideInInspector] public GameObject terrainObject;
     [ReadOnly] public Vector2Int gridPosition;
+    public Terrain terrain;
 
-    public List<TileVisualType> tileVisualTypes;
     public GameObject fogOfWar_dense;
     public GameObject fogOfWar_visible;
     public GameObject outlineHover;
@@ -34,7 +35,7 @@ public class TileVisual : MonoBehaviour
     public void Init(Vector2Int _gridPosition)
     {
         gridPosition = _gridPosition;
-        UpdateTileTypeVisual();
+        //UpdateTileTypeVisual();
         DisableHighlight(null);
     }
     public void EnableHighlight(ICard card)
@@ -99,11 +100,6 @@ public class TileVisual : MonoBehaviour
         else
         {
             SetOffsetColor(_unexploredColor);
-            foreach (var visualVariant in currentTileVisualType.visualVariants) // Disable all variants
-            {
-                visualVariant.SetActive(false);
-            }
-            //currentTileVisualType.visualVariants[0].SetActive(true);
         }
     }
 
@@ -162,55 +158,53 @@ public class TileVisual : MonoBehaviour
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
         int randomInt = 0;
-
-        foreach (var visualType in tileVisualTypes)
+        if(terrain!=null)
+        currentTileVisualType = terrain.visualType;
+      
+        if (currentTileVisualType.visualVariants.Count > 0)
         {
-            foreach (var visualVariant in visualType.visualVariants)
+            if(terrainObject!=null)
+            Destroy(terrainObject);
+
+            randomInt = Random.Range(0, currentTileVisualType.visualVariants.Count);
+            terrainObject=Instantiate(currentTileVisualType.visualVariants[randomInt],transform);
+        }
+        if (terrainObject != null)
+        {
+            SpriteRenderer[] renderers = terrainObject.GetComponentsInChildren<SpriteRenderer>(true);
+
+
+            foreach (SpriteRenderer renderer in renderers)
             {
-                SpriteRenderer[] renderers = visualVariant.GetComponentsInChildren<SpriteRenderer>(true);
-
-
-                foreach (SpriteRenderer renderer in renderers)
+                if (!originalAlphas.ContainsKey(renderer))
                 {
-                    if (!originalAlphas.ContainsKey(renderer))
-                    {
-                        originalAlphas[renderer] = renderer.color.a;
-                    }
-
-                    Color color = renderer.color;
-
-                    if (isExplored)
-                    {
-                        color.a = originalAlphas[renderer] * 1f;
-                    }
-                    else
-                    {
-                        color.a = originalAlphas[renderer] * 0.4f;
-                    }
-
-                    renderer.color = color;
+                    originalAlphas[renderer] = renderer.color.a;
                 }
 
-                visualVariant.SetActive(false);
-            }
+                Color color = renderer.color;
 
-            if (tile.tileType == visualType.type)
-            {
-                currentTileVisualType = visualType;
-                randomInt = Random.Range(0, visualType.visualVariants.Count);
-                visualType.visualVariants[randomInt].SetActive(true);
-                _renderer.transform.position = transform.position + new Vector3(0, visualType.tileOffsetY, 0);
-                if (tile.tileType == Tile.TileType.Lake)
+                if (isExplored)
                 {
-                    _renderer.enabled = false;
+                    color.a = originalAlphas[renderer] * 1f;
                 }
                 else
                 {
-                    _renderer.enabled = true;
+                    color.a = originalAlphas[renderer] * 0.4f;
                 }
-                SetOffsetColor(visualType.color);
+
+                renderer.color = color;
             }
         }
+        _renderer.transform.position = transform.position + new Vector3(0, currentTileVisualType.tileOffsetY, 0);
+        if (tile.tileType == Tile.TileType.Lake)
+        {
+            _renderer.enabled = false;
+        }
+        else
+        {
+            _renderer.enabled = true;
+        }
+        SetOffsetColor(currentTileVisualType.color);
     }
     private void SetOffsetColor(Color color)
     {
