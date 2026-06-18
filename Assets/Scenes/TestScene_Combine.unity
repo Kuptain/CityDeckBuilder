@@ -1168,6 +1168,54 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8146149524443239234, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}
   m_PrefabInstance: {fileID: 1776464121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1453255716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453255717}
+  - component: {fileID: 1453255718}
+  m_Layer: 0
+  m_Name: ResourceHandParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453255717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453255716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.06, z: 34.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1936436347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453255718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453255716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf9ba1629804a847913f883de40aa77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandPositionManager
+  type: 1
+  width: 5
+  angleTotal: 0
+  lerpSpeed: 10
 --- !u!1 &1666413703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1512,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5244781079698790495, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1453255717}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4541825808744551796, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}
       insertIndex: -1
@@ -1671,13 +1722,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: HandParent
+      propertyPath: handParent
       value: 
       objectReference: {fileID: 1388246314}
     - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
-      propertyPath: DeckUiButton
+      propertyPath: deckUiButton
       value: 
       objectReference: {fileID: 210355681}
+    - target: {fileID: 7278313219199358774, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
+      propertyPath: ressourceHandParent
+      value: 
+      objectReference: {fileID: 1453255716}
     - target: {fileID: 9088492645230061255, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
       propertyPath: m_Name
       value: CardManager
@@ -1691,6 +1746,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1531632260760342668, guid: e3edddf65090cdd408d1c4fec9953d95, type: 3}
   m_PrefabInstance: {fileID: 1917305738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1936436347 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5244781079698790495, guid: bbbf5b9cd933e794f829da00ddf711d5, type: 3}
+  m_PrefabInstance: {fileID: 1776464121}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2133303039
 GameObject:
