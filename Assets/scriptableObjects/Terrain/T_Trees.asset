@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5703fec6e31c45e41b5e5ff0fece3c9a, type: 3}
+  m_Name: T_Trees
+  m_EditorClassIdentifier: Assembly-CSharp::Terrain
+  visualType:
+    color: {r: 0.59607846, g: 0.7411765, b: 0.3254902, a: 1}
+    tileOffsetY: 0
+    visualVariants:
+    - {fileID: 205752707097125412, guid: 7b233261844207744ae65ee3951834ea, type: 3}
+    - {fileID: 349798575716743366, guid: 4fe35603cb0d1b246b876b271fa7080d, type: 3}
+    - {fileID: 3937725860095107749, guid: 645874c6fcaf0a34a8aec6ba4f296cd8, type: 3}
+  weight: 0

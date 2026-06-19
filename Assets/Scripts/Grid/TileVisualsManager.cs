@@ -4,15 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class TileVisualType
-{
-    public TileType type;
-    public Color color;
-    [Tooltip("How frequent should this type spawn")]
-    public int weight;
-    public float tileOffsetY;
-    public List<GameObject> visualVariants;
-}
+
 public class TileVisualsManager : MonoBehaviour
 {
     public Dictionary<Vector2Int, TileVisual> tileVisualMap = new Dictionary<Vector2Int, TileVisual>();
@@ -75,6 +67,7 @@ public class TileVisualsManager : MonoBehaviour
             if (GridManager.Instance.TryGetTile(x, y, out Tile tile))
             {
                 tile.tileType = _tileType;
+                tile.terrain = TerrainManager.instance.GetTerrain(_tileType);
                 int index = GridManager.Instance.GetIndex(x, y);
                 GridManager.Instance.gridArray[index] = tile;
 
@@ -205,27 +198,7 @@ public class TileVisualsManager : MonoBehaviour
             }
         }
     }
-    private TileVisualType GetRandomVariant(List<TileVisualType> variants) // ChatGPT
-    {
-        float totalWeight = 0f;
-
-        foreach (var v in variants)
-            totalWeight += v.weight;
-
-        float randomPoint = Random.Range(0f, totalWeight);
-
-        float current = 0f;
-
-        foreach (var v in variants)
-        {
-            current += v.weight;
-
-            if (randomPoint <= current)
-                return v;
-        }
-
-        return null; // fallback (shouldn't happen)
-    }
+   
     private void SetInitialGridTileType()
     {
         TileType tileType = TileType.Default;
@@ -267,9 +240,9 @@ public class TileVisualsManager : MonoBehaviour
                 }
                 else
                 {
-                    tileType = GetRandomVariant(visual.tileVisualTypes).type;
+                    tileType = (TileType) Random.Range(3,6);
                 }
-
+                visual.terrain = TerrainManager.instance.GetTerrain(tileType);
                 HandleOnUpdateTileVisual(gridPosition, tileType);
             }
             else

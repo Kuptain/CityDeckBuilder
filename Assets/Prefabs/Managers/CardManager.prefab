@@ -48,8 +48,11 @@ MonoBehaviour:
   handSize: 3
   cardSpeed: 25
   population: {fileID: 11400000, guid: 04532bebf3554294b97e1f97777fc59f, type: 2}
-  CharacterCardPrefab: {fileID: 5442216391453061085, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
-  HandParent: {fileID: 0}
+  characterCardPrefab: {fileID: 5442216391453061085, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+  ressourceCardPrefab: {fileID: 5442216391453061085, guid: 50716823893f0ca4bb681fc01b509fbc, type: 3}
+  handParent: {fileID: 0}
+  ressourceHandParent: {fileID: 0}
+  deckUiButton: {fileID: 0}
   deck:
   - name: George
     surname: Marx

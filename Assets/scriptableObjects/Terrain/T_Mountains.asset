@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5703fec6e31c45e41b5e5ff0fece3c9a, type: 3}
+  m_Name: T_Mountains
+  m_EditorClassIdentifier: Assembly-CSharp::Terrain
+  visualType:
+    color: {r: 0.6392157, g: 0.59607846, b: 0.5254902, a: 1}
+    tileOffsetY: 0.2
+    visualVariants:
+    - {fileID: 5501863455962943961, guid: ebafb2c545e2f974e9088be4318bcca2, type: 3}
+    - {fileID: 24388082332622373, guid: 902888c2be3433f47bd2e5ca58e2df5f, type: 3}
+  weight: 0
