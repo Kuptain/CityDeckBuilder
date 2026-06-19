@@ -13,7 +13,7 @@ public class BuildingData : ScriptableObject
     public GameObject prefab;
     public Sprite uiIcon;
     public GameObject uiButton;
-    public Tile.TileType requiredTerrain;
+    public List<TerrainData> requiredTerrains = new List<TerrainData>();
     public bool isLocked;
     [SerializeField] List<RankData> ranks = new List<RankData>() { new RankData() };
 

@@ -16,7 +16,7 @@ public class TileVisual : MonoBehaviour
     [HideInInspector] public TileVisualType currentTileVisualType;
     [HideInInspector] public GameObject terrainObject;
     [ReadOnly] public Vector2Int gridPosition;
-    public Terrain terrain;
+    public TerrainData terrain;
 
     public GameObject fogOfWar_dense;
     public GameObject fogOfWar_visible;
@@ -158,16 +158,16 @@ public class TileVisual : MonoBehaviour
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
         int randomInt = 0;
-        if(terrain!=null)
-        currentTileVisualType = terrain.visualType;
-      
+        if (terrain != null)
+            currentTileVisualType = terrain.visualType;
+
         if (currentTileVisualType.visualVariants.Count > 0)
         {
-            if(terrainObject!=null)
-            Destroy(terrainObject);
+            if (terrainObject != null)
+                Destroy(terrainObject);
 
             randomInt = Random.Range(0, currentTileVisualType.visualVariants.Count);
-            terrainObject=Instantiate(currentTileVisualType.visualVariants[randomInt],transform);
+            terrainObject = Instantiate(currentTileVisualType.visualVariants[randomInt], transform);
         }
         if (terrainObject != null)
         {
@@ -204,7 +204,7 @@ public class TileVisual : MonoBehaviour
         {
             _renderer.enabled = true;
         }
-        SetOffsetColor(currentTileVisualType.color);
+        SetOffsetColor(TerrainManager.GetColor(tile.tileType));
     }
     private void SetOffsetColor(Color color)
     {

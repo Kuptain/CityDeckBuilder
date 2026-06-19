@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TerrainManager : MonoBehaviour
 {
-    public static TerrainManager instance;
+
     public bool createLookUpOnAwake;
     public List<Terrainlibrary> terrainLibraries;
 
@@ -11,22 +11,21 @@ public class TerrainManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            if (createLookUpOnAwake) CreateLookup();
-        }
-        else
-        {
-            Destroy(this);
-        }
+
+        if (createLookUpOnAwake) CreateLookup();
+
     }
 
 
 
-    public Terrain GetTerrain(Tile.TileType type)
+    public static TerrainData GetTerrain(Tile.TileType type)
     {
         return terrainLookUp[type].GetTerrain();
+    }
+
+    public static Color GetColor(Tile.TileType type)
+    {
+        return terrainLookUp[type].color;
     }
 
     [ContextMenu("create look up")]

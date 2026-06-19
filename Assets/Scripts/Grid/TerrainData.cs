@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "Terrain", menuName = "Scriptable Objects/Terrain")]
-public class Terrain : ScriptableObject
+public class TerrainData : ScriptableObject
 {
     public TerrainEffect effect;
 
@@ -28,7 +28,6 @@ public class TerrainEffect
 [System.Serializable]
 public class TileVisualType
 {
-    public Color color;
     [Tooltip("How frequent should this type spawn")]
     public float tileOffsetY;
     public List<GameObject> visualVariants;

@@ -4,7 +4,7 @@ public struct Tile
 {
     public enum TileType { Default, Centre, Edge, Forest, Mountain, Lake }
 
-    public Terrain terrain;
+    public TerrainData terrain;
     [ReadOnly] public TileType tileType;
     [ReadOnly] public Vector2Int gridPosition;
     [ReadOnly] public bool isOffset;
