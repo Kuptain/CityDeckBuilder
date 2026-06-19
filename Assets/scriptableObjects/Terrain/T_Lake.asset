@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: T_Lake
   m_EditorClassIdentifier: Assembly-CSharp::Terrain
   visualType:
-    color: {r: 0.32156864, g: 0.5764706, b: 0.8235295, a: 1}
     tileOffsetY: 0
     visualVariants:
     - {fileID: 2041165817287925331, guid: b62322dbee800cc4ca66258aad957f15, type: 3}
-  weight: 0
+  weight: 1

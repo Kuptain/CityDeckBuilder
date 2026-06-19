@@ -8,7 +8,7 @@ public class TerrainData : ScriptableObject
     public TerrainEffect effect;
 
     public TileVisualType visualType = new TileVisualType();
-    public int weight;
+    [Range(0, 100)] public int weight = 1;
 }
 
 public class TerrainEffect

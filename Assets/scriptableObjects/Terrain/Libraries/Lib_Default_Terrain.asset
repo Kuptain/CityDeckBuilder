@@ -16,3 +16,4 @@ MonoBehaviour:
   type: 0
   terrains:
   - {fileID: 11400000, guid: 839e599a0a95fbd42bd9de3bfef93c31, type: 2}
+  weight: 0
