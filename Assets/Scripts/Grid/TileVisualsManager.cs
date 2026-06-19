@@ -240,7 +240,7 @@ public class TileVisualsManager : MonoBehaviour
                 }
                 else
                 {
-                    tileType = (TileType) Random.Range(3,6);
+                    tileType = TerrainManager.GetTileType();
                 }
                 visual.terrain = TerrainManager.GetTerrain(tileType);
                 HandleOnUpdateTileVisual(gridPosition, tileType);

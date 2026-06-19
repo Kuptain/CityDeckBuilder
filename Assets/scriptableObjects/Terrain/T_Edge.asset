@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: T_Edge
   m_EditorClassIdentifier: Assembly-CSharp::Terrain
   visualType:
-    color: {r: 0.909804, g: 0.909804, b: 0.90196085, a: 1}
     tileOffsetY: 0
     visualVariants: []
-  weight: 0
+  weight: 1

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: T_Bushes
   m_EditorClassIdentifier: Assembly-CSharp::Terrain
   visualType:
-    color: {r: 0.5686275, g: 0.8588236, b: 0.41176474, a: 1}
     tileOffsetY: 0
     visualVariants:
     - {fileID: 4061411298412577071, guid: e2a49fa93f7315f40998bed49be298f7, type: 3}
-  weight: 0
+  weight: 1
