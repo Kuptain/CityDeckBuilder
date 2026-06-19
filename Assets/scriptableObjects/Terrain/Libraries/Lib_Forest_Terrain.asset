@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57077ee8ff8d90b4bb5d69d2f48d5d69, type: 3}
   m_Name: Lib_Forest_Terrain
   m_EditorClassIdentifier: Assembly-CSharp::Terrainlibrary
-  color: {r: 0, g: 0.3207547, b: 0.004383177, a: 1}
+  color: {r: 0.11764707, g: 0.7372549, b: 0.4431373, a: 1}
   type: 3
   terrains:
   - {fileID: 11400000, guid: 149a6254ae704074cb286d0bfcc9744b, type: 2}

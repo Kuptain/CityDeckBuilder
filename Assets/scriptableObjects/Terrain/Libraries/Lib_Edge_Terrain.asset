@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57077ee8ff8d90b4bb5d69d2f48d5d69, type: 3}
   m_Name: Lib_Edge_Terrain
   m_EditorClassIdentifier: Assembly-CSharp::Terrainlibrary
-  color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
+  color: {r: 0.29803923, g: 0.24313727, b: 0.14117648, a: 1}
   type: 2
   terrains:
   - {fileID: 11400000, guid: 6be590d19307a3d45bc625dae1c7e495, type: 2}

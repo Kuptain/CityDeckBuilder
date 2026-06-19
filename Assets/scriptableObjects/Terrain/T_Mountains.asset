@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_Mountains
   m_EditorClassIdentifier: Assembly-CSharp::Terrain
   visualType:
-    color: {r: 0.6392157, g: 0.59607846, b: 0.5254902, a: 1}
+    color: {r: 0.7803922, g: 0.86274517, b: 0.81568635, a: 1}
     tileOffsetY: 0.2
     visualVariants:
     - {fileID: 5501863455962943961, guid: ebafb2c545e2f974e9088be4318bcca2, type: 3}
