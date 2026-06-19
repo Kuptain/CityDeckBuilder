@@ -67,7 +67,7 @@ public class TileVisualsManager : MonoBehaviour
             if (GridManager.Instance.TryGetTile(x, y, out Tile tile))
             {
                 tile.tileType = _tileType;
-                tile.terrain = TerrainManager.instance.GetTerrain(_tileType);
+                tile.terrain = TerrainManager.GetTerrain(_tileType);
                 int index = GridManager.Instance.GetIndex(x, y);
                 GridManager.Instance.gridArray[index] = tile;
 
@@ -242,7 +242,7 @@ public class TileVisualsManager : MonoBehaviour
                 {
                     tileType = (TileType) Random.Range(3,6);
                 }
-                visual.terrain = TerrainManager.instance.GetTerrain(tileType);
+                visual.terrain = TerrainManager.GetTerrain(tileType);
                 HandleOnUpdateTileVisual(gridPosition, tileType);
             }
             else
