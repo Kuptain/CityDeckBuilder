@@ -8,6 +8,7 @@ public class ResourceCard : MonoBehaviour, ICard
     public ResourceCard_Data data;
     BuildingObject originBuilding;
     public int roundsInHand;
+    public int frameCounter;
 
     [SerializeField] UIDocument uiDocument;
     public void SetupCard(ResourceCard_Data _data)

@@ -100,4 +100,38 @@ public struct Tile
     {
         TileVisualsManager.Instance.GetVisualTilelData(gridPosition).outlineHover.SetActive(false);
     }
+
+    public void PlayCardOnThis(ICard card)
+    {
+        if (!isVisible) return;
+
+        if (!isExplored )
+        {
+            if (isExplorable)
+            {
+                SetExploredState(true, true, true);
+                CardManager.instance.DiscardCard(card, true);
+                Debug.Log("card was played for explore effect");
+                return;
+            }
+        }
+        else
+        {
+            TerrainEffect effect = terrain.GetEffect(card);
+            if (effect != null && effect.TryToInvoke(card))
+            {
+                CardManager.instance.DiscardCard(card, true);
+                Debug.Log("card was played for terrain effect");
+                return;
+            }
+        }
+
+        if (isExplored && currentBuilding !=null)
+        {
+            currentBuilding.PlayCardOnThis(card);
+            CardManager.instance.DiscardCard(card, true);
+            Debug.Log("card was played for building effect");
+            return;
+        }
+    }
 }

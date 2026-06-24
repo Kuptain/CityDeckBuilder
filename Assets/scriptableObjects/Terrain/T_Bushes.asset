@@ -12,8 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5703fec6e31c45e41b5e5ff0fece3c9a, type: 3}
   m_Name: T_Bushes
   m_EditorClassIdentifier: Assembly-CSharp::Terrain
+  weight: 1
   visualType:
     tileOffsetY: 0
     visualVariants:
     - {fileID: 4061411298412577071, guid: e2a49fa93f7315f40998bed49be298f7, type: 3}
-  weight: 1
+  effects:
+  - HasCoolDown: 0
+    cooldownDuration: 0
+    knowledgeCost: 
+    temporaryCards:
+    - {fileID: 11400000, guid: 52c14cb702e228348b0f4113748cb878, type: 2}
+    OnTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
+          m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
+          m_MethodName: createTemporaryCard
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

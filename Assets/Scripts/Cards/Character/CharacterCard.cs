@@ -56,6 +56,10 @@ public class CharacterCard : MonoBehaviour, ICard
 
     public bool ContainsKnowledge(List<KnowledgeType> requirements)
     {
+        if(requirements.Count == 0)
+        {
+            return true;
+        }
         KnowledgeType[] knowledgeCopy = new KnowledgeType[target.knowledge.Length];
         target.knowledge.CopyTo(knowledgeCopy, 0);
 

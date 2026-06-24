@@ -57,18 +57,8 @@ public enum ResourceType
     wood = 1,
     stone = 2,
     gold = 3,
-    sheep = 4,
-    person = 5,
-    clay = 6,
-    grain = 8,
-    straw = 10,
-    flour = 11,
-    bread = 12, 
-    meat = 13,
-    brick = 14,
-    coal = 15,
-    sandwich = 16,
-    Fish = 17
+    berry = 4,
+
 
 }
 [System.Serializable]
