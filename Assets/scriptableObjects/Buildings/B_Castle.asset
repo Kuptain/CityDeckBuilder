@@ -18,17 +18,19 @@ MonoBehaviour:
   prefab: {fileID: 5122269274258173990, guid: 881fe7ad708fd0d46baedd706a6cad23, type: 3}
   uiIcon: {fileID: 0}
   uiButton: {fileID: 0}
-  requiredTerrain: 0
+  requiredTerrains: []
+  isLocked: 0
   ranks:
   - housingIncrease: 0
     usesCrafting: 0
     cardsToAdd:
-    - {fileID: 11400000, guid: 42d46a82f5ee6794fbba81720a7dc180, type: 2}
+    - {fileID: 0}
     resourceCosts: []
     effects:
-    - type: 0
+    - type: 1
       HasCoolDown: 0
       cooldownDuration: 0
+      knowledgeCost: 
       EffectCost: []
       temporaryCards: []
       OnTrigger:
@@ -36,37 +38,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
             m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: AddCards
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - type: 1
-      HasCoolDown: 0
-      cooldownDuration: 0
-      EffectCost:
-      - resource: 8
-        amount: 1
-      - resource: 12
-        amount: 1
-      - resource: 13
-        amount: 1
-      - resource: 13
-        amount: 1
-      - resource: 17
-        amount: 1
-      temporaryCards: []
-      OnTrigger:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 11400000, guid: c15278a08aa06bb49915b40c3cb273bf, type: 2}
-            m_TargetAssemblyTypeName: EffectLibrary, Assembly-CSharp
-            m_MethodName: AddFood
+            m_MethodName: Test
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}

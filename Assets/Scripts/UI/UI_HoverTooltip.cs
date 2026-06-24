@@ -213,6 +213,7 @@ public class UI_HoverTooltip : UIBase
 
         // Set resource icons
         //List<bool> hasResourcesList = ResourceManager.instance.HasResourcesAsList(RoomManager.Instance.localPlayer.playerID, _currentResourceTypes);
+        /*
         for (int i = 0; i < _currentResourceCosts.Count; i++)
         {
             ResourceSlotUI slot = _iconSlots[i];
@@ -222,6 +223,7 @@ public class UI_HoverTooltip : UIBase
             //slot.SetGreyActive(!hasResourcesList[i]);
         }
 
+        */
         LayoutRebuilder.ForceRebuildLayoutImmediate(backgroundRectTransform);
     }
 

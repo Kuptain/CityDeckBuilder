@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5feeecc50abc4e4ab62d72fb59f987b, type: 3}
-  m_Name: Gold
-  m_EditorClassIdentifier: Assembly-CSharp::Card
-  selected: 0
-  sprite: {fileID: 21300000, guid: 383756eeffa5fb44795110fd4ff46882, type: 3}
-  cardName: 
-  cardDescription: Provides 1 Gold.
+  m_Name: Berry
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceCard_Data
+  sprite: {fileID: 21300000, guid: ea016301832488043b18c50a8bbda24b, type: 3}
+  cardName: Sampinit
+  cardDescription: a few berries
   ressources:
-  - resource: 3
+  - resource: 4
     amount: 1
+  decay: 0
+  decayTarget: {fileID: 0}
+  FoodAmount: 1

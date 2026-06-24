@@ -36,8 +36,15 @@ public class HandPositionManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             ResourceCard card = CardManager.instance.temporaryHand[i];
-            Vector3 target = GetTargetPosition(i, count);
-            card.transform.position = Vector3.Lerp(card.transform.position, target, lerpSpeed * Time.deltaTime);
+            if (card.frameCounter < 2)
+            {
+                card.frameCounter += 1;
+            }
+            else
+            {
+                Vector3 target = GetTargetPosition(i, count);
+                card.transform.position = Vector3.Lerp(card.transform.position, target, lerpSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -49,6 +56,10 @@ public class HandPositionManager : MonoBehaviour
 
     float CalculateRelativPosition(int index, int count)
     {
+        if(count <= 1)
+        {
+            return 0;
+        }
         float x = width / (count - 1);
         return x * index - (width / 2);
     }

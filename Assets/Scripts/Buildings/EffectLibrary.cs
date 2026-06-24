@@ -28,7 +28,13 @@ public class EffectLibrary : ScriptableObject
         }
     }
 
-
+    public void createTemporaryCard(CharacterCard card, TerrainEffect origin)
+    {
+        for (int i = 0; i < origin.temporaryCards.Count; i++)
+        {
+            CardManager.instance.CreateRessourceCard(origin.temporaryCards[i]);
+        }
+    }
 
     public static void AddHousing(BuildingObject building, ICard card, BuildingEffect origin)
     {

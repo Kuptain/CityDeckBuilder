@@ -109,23 +109,6 @@ public class InteractionManager : Manager
     {
         isHoldingCard = false;
         BuildingObject building;
-        if (ExploreTile(card))
-        {
-            // Explore Feedback
-            return;
-        }
-
-        else if (SearchForBuilding(out building, true))
-        {
-            if (GridManager.Instance.TryGetTile(building.GetTile().gridPosition, out Tile newTile) && newTile.isExplored)
-            {
-                building.PlayCardOnThis(activeCard);
-            }
-        }
-
-    }
-    bool ExploreTile(ICard card)
-    {
         var raycastHit = GridManager.Instance.GroundRaycast();
         Vector2Int gridPosition = GridManager.Instance.WorldToGridPosition(raycastHit.hitPosition);
 
@@ -133,17 +116,12 @@ public class InteractionManager : Manager
         {
             if (GridManager.Instance.TryGetTile(gridPosition.x, gridPosition.y, out Tile tile))
             {
-                if (!tile.isExplored && tile.isVisible && tile.isExplorable)
-                {
-                    tile.SetExploredState(true, true, true);
-                    CardManager.instance.DiscardCard(activeCard, true);
-
-                    return true;
-                }
+                tile.PlayCardOnThis(card);
             }
         }
-        return false;
+
     }
+   
     bool SearchForTile(out Tile tile, bool sentdebugMessage = false)
     {
         var raycastHit = GridManager.Instance.GroundRaycast();
