@@ -16,9 +16,9 @@ MonoBehaviour:
   buildingDescription: discover tiles in range
   test: 0
   prefab: {fileID: 5122269274258173990, guid: 3afa97580c2722445b7b4b155d83f585, type: 3}
-  uiIcon: {fileID: 21300000, guid: 1b8aa1f3605a01d4da95a89a20e5bd85, type: 3}
+  uiIcon: {fileID: 21300000, guid: 66cc9e8a6a13b5f43b07f593b2fe34af, type: 3}
   uiButton: {fileID: 0}
-  requiredTerrain: 0
+  requiredTerrains: []
   isLocked: 0
   ranks:
   - housingIncrease: 0
@@ -26,11 +26,12 @@ MonoBehaviour:
     cardsToAdd: []
     resourceCosts:
     - resource: 1
-      amount: 1
+      amount: 0
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
+      knowledgeCost: 
       EffectCost: []
       temporaryCards: []
       OnTrigger:
@@ -57,6 +58,7 @@ MonoBehaviour:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
+      knowledgeCost: 
       EffectCost: []
       temporaryCards: []
       OnTrigger:
