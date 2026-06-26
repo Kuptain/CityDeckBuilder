@@ -16,7 +16,7 @@ public class TileVisual : MonoBehaviour
     [HideInInspector] public TileVisualType currentTileVisualType;
     [HideInInspector] public GameObject terrainObject;
     [ReadOnly] public Vector2Int gridPosition;
-    public TerrainData terrain;
+    int terrainVisualTypeIndex = -1;
 
     public GameObject fogOfWar_dense;
     public GameObject fogOfWar_visible;
@@ -157,17 +157,22 @@ public class TileVisual : MonoBehaviour
     public void UpdateTileTypeVisual()
     {
         Tile tile = GridManager.Instance.gridArray[GridManager.Instance.GetIndex(gridPosition.x, gridPosition.y)];
-        int randomInt = 0;
-        if (terrain != null)
-            currentTileVisualType = terrain.visualType;
+        if (tile.terrain != null)
+            currentTileVisualType = tile.terrain.visualType;
 
         if (currentTileVisualType.visualVariants.Count > 0)
         {
-            if (terrainObject != null)
-                Destroy(terrainObject);
-
-            randomInt = Random.Range(0, currentTileVisualType.visualVariants.Count);
-            terrainObject = Instantiate(currentTileVisualType.visualVariants[randomInt], transform);
+            if (terrainVisualTypeIndex == -1 || terrainVisualTypeIndex>=currentTileVisualType.visualVariants.Count)
+            {
+                terrainVisualTypeIndex = Random.Range(0, currentTileVisualType.visualVariants.Count);
+                terrainObject = Instantiate(currentTileVisualType.visualVariants[terrainVisualTypeIndex], transform);
+            }
+            else 
+            {
+                if (terrainObject != null)
+                    Destroy(terrainObject);
+                terrainObject = Instantiate(currentTileVisualType.visualVariants[terrainVisualTypeIndex], transform);
+            }
         }
         if (terrainObject != null)
         {
@@ -187,7 +192,7 @@ public class TileVisual : MonoBehaviour
                 {
                     color.a = originalAlphas[renderer] * 1f;
                 }
-                else if(tile.isExplorable)
+                else if (tile.isExplorable)
                 {
                     color.a = originalAlphas[renderer] * 0.4f;
                 }

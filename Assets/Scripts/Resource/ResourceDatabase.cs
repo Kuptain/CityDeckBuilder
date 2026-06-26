@@ -58,6 +58,8 @@ public enum ResourceType
     stone = 2,
     gold = 3,
     berry = 4,
+    banana = 5,
+    beans = 6
 
 
 }

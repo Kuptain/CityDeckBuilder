@@ -22,7 +22,7 @@ MonoBehaviour:
     cooldownDuration: 0
     knowledgeCost: 
     temporaryCards:
-    - {fileID: 11400000, guid: 52c14cb702e228348b0f4113748cb878, type: 2}
+    - {fileID: 11400000, guid: 607caaeb5737db14289eab153d9cf4c9, type: 2}
     OnTrigger:
       m_PersistentCalls:
         m_Calls:
