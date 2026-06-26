@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3321096870355770956}
   - component: {fileID: 4565165587655805357}
+  - component: {fileID: 7546798243814212818}
+  - component: {fileID: 8833087219687147507}
   m_Layer: 0
   m_Name: treeGroup (1)
   m_TagString: Untagged
@@ -81,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 342c5bdbb16559947b1a40925f692cd3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2fd630fba8d7f748bedc61ac981ecc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,6 +93,41 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &7546798243814212818
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105674448179860596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b631268e6e270c740baf98b76056101c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8833087219687147507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105674448179860596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9fc1e98dd0c4b49bff655b0b24d38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  animationName: Mung Bean
 --- !u!1 &4061411298412577071
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +172,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6345136999268248047}
   - component: {fileID: 7568758196889633513}
+  - component: {fileID: 1805570783598793200}
+  - component: {fileID: 7869685979489505487}
   m_Layer: 0
   m_Name: treeGroup
   m_TagString: Untagged
@@ -206,7 +245,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 342c5bdbb16559947b1a40925f692cd3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2fd630fba8d7f748bedc61ac981ecc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,6 +255,41 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &1805570783598793200
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7165380452227617946}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b631268e6e270c740baf98b76056101c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7869685979489505487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7165380452227617946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9fc1e98dd0c4b49bff655b0b24d38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  animationName: Mung Bean
 --- !u!1 &8026471830422894832
 GameObject:
   m_ObjectHideFlags: 0
