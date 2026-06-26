@@ -187,9 +187,13 @@ public class TileVisual : MonoBehaviour
                 {
                     color.a = originalAlphas[renderer] * 1f;
                 }
-                else
+                else if(tile.isExplorable)
                 {
                     color.a = originalAlphas[renderer] * 0.4f;
+                }
+                else
+                {
+                    color.a = originalAlphas[renderer] * 0.12f;
                 }
 
                 renderer.color = color;

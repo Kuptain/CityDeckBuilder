@@ -38,6 +38,6 @@ MonoBehaviour:
       baseColor: {r: 0, g: 0, b: 0, a: 0}
       secondColor: {r: 0, g: 0, b: 0, a: 0}
       highlightColor: {r: 0, g: 0, b: 0, a: 0}
-    knowledge: 000000000100000002000000
+    knowledge: 030000000200000003000000
     healthState: 0
     effect: {fileID: 0}
