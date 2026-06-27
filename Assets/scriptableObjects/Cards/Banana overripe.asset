@@ -15,9 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 83b75fec02465924b9f703ad56f27b2f, type: 3}
   cardName: Banana
   cardDescription: a bunsh of ripe bananas
-  ressources:
-  - resource: 5
-    amount: 1
+  ressources: []
   decay: 0
   decayTarget: {fileID: 0}
   FoodAmount: 0
