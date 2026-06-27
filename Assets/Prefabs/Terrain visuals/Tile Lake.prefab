@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5292219495790363563}
   - component: {fileID: 2145297578621974371}
   - component: {fileID: 21228152683054712}
+  - component: {fileID: 5402523091413940861}
   m_Layer: 0
   m_Name: water top
   m_TagString: Untagged
@@ -114,6 +115,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5402523091413940861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763643658757673987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9fc1e98dd0c4b49bff655b0b24d38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationStarter
+  animationName: Lake
 --- !u!1 &2041165817287925331
 GameObject:
   m_ObjectHideFlags: 0
