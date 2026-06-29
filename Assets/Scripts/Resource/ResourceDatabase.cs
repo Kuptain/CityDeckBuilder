@@ -59,7 +59,8 @@ public enum ResourceType
     gold = 3,
     berry = 4,
     banana = 5,
-    beans = 6
+    beans = 6,
+    nippa = 7
 
 
 }

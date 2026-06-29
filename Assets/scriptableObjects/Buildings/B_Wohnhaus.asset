@@ -18,21 +18,20 @@ MonoBehaviour:
   prefab: {fileID: 5122269274258173990, guid: baac02ee94c5b4c4a82f9a9216c66d7f, type: 3}
   uiIcon: {fileID: 21300000, guid: 1cc69b45d898e294d8e3a125fa2506eb, type: 3}
   uiButton: {fileID: 0}
-  requiredTerrain: 0
+  requiredTerrains: []
   isLocked: 0
   ranks:
   - housingIncrease: 1
     usesCrafting: 0
     cardsToAdd: []
     resourceCosts:
-    - resource: 6
-      amount: 0
-    - resource: 10
-      amount: 0
+    - resource: 1
+      amount: 1
     effects:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
+      knowledgeCost: 
       EffectCost: []
       temporaryCards: []
       OnTrigger:
@@ -63,6 +62,7 @@ MonoBehaviour:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
+      knowledgeCost: 
       EffectCost: []
       temporaryCards: []
       OnTrigger:
@@ -91,6 +91,7 @@ MonoBehaviour:
     - type: 0
       HasCoolDown: 0
       cooldownDuration: 0
+      knowledgeCost: 
       EffectCost: []
       temporaryCards: []
       OnTrigger:
